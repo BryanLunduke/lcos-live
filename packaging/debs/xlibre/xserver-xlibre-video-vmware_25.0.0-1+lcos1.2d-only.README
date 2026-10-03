@@ -1,0 +1,1 @@
+Rollback copy of the 2D-only rebuild (BUILD_VMWGFX never set). Replaced by 25.0.0-2+lcos1 with vmwgfx/KMS.

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="image/openraster">
+    <comment>OpenRaster image</comment>
+    <glob pattern="*.ora"/>
+    <glob pattern="*.ORA"/>
+    <alias type="image/x-openraster"/>
+  </mime-type>
+</mime-info>

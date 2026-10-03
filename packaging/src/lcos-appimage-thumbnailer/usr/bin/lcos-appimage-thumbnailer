@@ -1,0 +1,115 @@
+#!/usr/bin/python3
+"""LCOS AppImage thumbnailer — extract .DirIcon for tumbler (Thunar/xfdesktop).
+
+Usage (freedesktop thumbnailer): lcos-appimage-thumbnailer INPUT OUTPUT SIZE
+Security: never executes the AppImage; uses ELF parse + unsquashfs extract-only.
+"""
+from __future__ import annotations
+
+import os
+import subprocess
+import sys
+import tempfile
+
+def die(msg: str = "", code: int = 1) -> None:
+    if msg:
+        print(msg, file=sys.stderr)
+    sys.exit(code)
+
+def squashfs_offset(path: str) -> int:
+    """Type-2 AppImage: SquashFS payload starts after the ELF section headers."""
+    from elftools.elf.elffile import ELFFile
+
+    with open(path, "rb") as f:
+        elf = ELFFile(f)
+        return int(elf["e_shoff"] + (elf["e_shentsize"] * elf["e_shnum"]))
+
+def squashfs_ll(path: str, offset: int, inner: str) -> str:
+    return subprocess.check_output(
+        ["unsquashfs", "-o", str(offset), "-ll", path, inner],
+        stderr=subprocess.DEVNULL,
+    ).decode("utf-8", errors="replace")
+
+def resolve_diricon(path: str, offset: int) -> str:
+    icon = ".DirIcon"
+    for _ in range(16):
+        try:
+            out = squashfs_ll(path, offset, icon)
+        except subprocess.CalledProcessError:
+            die(f"missing {icon}")
+        if " -> " not in out:
+            return icon
+        target = out.strip().split(" -> ", 1)[1].strip()
+        if target.startswith("./"):
+            target = target[2:]
+        elif target.startswith("/"):
+            target = target.lstrip("/")
+        icon = target
+    die("symlink loop resolving .DirIcon")
+
+def save_png(src: str, dest: str, size: int) -> None:
+    import gi
+
+    gi.require_version("GdkPixbuf", "2.0")
+    from gi.repository import GdkPixbuf
+
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(src, size, size)
+    # Write final PNG directly to tumbler output path (no mv-after-edit).
+    pixbuf.savev(dest, "png", [], [])
+
+def main(argv: list[str]) -> int:
+    if len(argv) != 4:
+        die(f"usage: {argv[0]} INPUT OUTPUT SIZE")
+    inp, outp, size_s = argv[1], argv[2], argv[3]
+    try:
+        size = int(size_s)
+    except ValueError:
+        die("SIZE must be an integer")
+    if size < 16:
+        size = 16
+    if not os.path.isfile(inp):
+        die("input missing")
+
+    try:
+        offset = squashfs_offset(inp)
+    except Exception as e:
+        die(f"not a Type-2 AppImage ELF: {e}")
+
+    icon_path = resolve_diricon(inp, offset)
+
+    with tempfile.TemporaryDirectory(prefix="lcos-appimage-thumb-") as tmp:
+        outdir = os.path.join(tmp, "out")
+        try:
+            subprocess.run(
+                [
+                    "unsquashfs",
+                    "-o",
+                    str(offset),
+                    "-d",
+                    outdir,
+                    inp,
+                    icon_path,
+                ],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        except subprocess.CalledProcessError:
+            die("unsquashfs extract failed")
+        extracted = os.path.join(outdir, icon_path)
+        if not os.path.isfile(extracted):
+            # unsquashfs may flatten path
+            base = os.path.basename(icon_path)
+            candidate = os.path.join(outdir, base)
+            if os.path.isfile(candidate):
+                extracted = candidate
+            else:
+                die("extracted icon missing")
+        try:
+            save_png(extracted, outp, size)
+        except Exception as e:
+            die(f"png save failed: {e}")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

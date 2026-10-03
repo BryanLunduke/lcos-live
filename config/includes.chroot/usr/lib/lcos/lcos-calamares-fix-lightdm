@@ -1,0 +1,54 @@
+#!/bin/sh
+# Run inside the Calamares target (shellprocess, before umount).
+# Live drop-in 50-lcos.conf has autologin-user=lcos — must not survive install.
+# Prefer rewrite to Calamares username (keep autologin); also move LightDM to S20.
+# GitHub #89.
+set -e
+
+USER_NAME=$1
+if [ -z "$USER_NAME" ]; then
+	echo "lcos-calamares-fix-lightdm: missing username argument" >&2
+	exit 1
+fi
+if ! getent passwd "$USER_NAME" >/dev/null 2>&1; then
+	echo "lcos-calamares-fix-lightdm: user '$USER_NAME' not in target passwd" >&2
+	exit 1
+fi
+
+CONFDIR=/etc/lightdm/lightdm.conf.d
+CONF=$CONFDIR/50-lcos.conf
+mkdir -p "$CONFDIR"
+
+# Rewrite live drop-in to installed user (prefer keep autologin for real user).
+# Also pin session/greeter so removing live bits does not lose XFCE defaults.
+printf '%s\n' \
+	'[Seat:*]' \
+	"autologin-user=${USER_NAME}" \
+	'autologin-user-timeout=0' \
+	'user-session=xfce' \
+	'greeter-session=lightdm-gtk-greeter' \
+	> "$CONF"
+
+if ! grep -q "^autologin-user=${USER_NAME}$" "$CONF"; then
+	echo "lcos-calamares-fix-lightdm: failed to write autologin-user=${USER_NAME}" >&2
+	cat "$CONF" >&2 || true
+	exit 1
+fi
+if grep -q '^autologin-user=lcos$' "$CONF"; then
+	echo "lcos-calamares-fix-lightdm: still have autologin-user=lcos" >&2
+	exit 1
+fi
+
+# Harden boot order: lightdm after dbus/elogind/seatd (S02 → S20)
+for rc in 2 3 4 5; do
+	d=/etc/rc${rc}.d
+	[ -d "$d" ] || continue
+	for old in S01lightdm S02lightdm S03lightdm S04lightdm S05lightdm; do
+		if [ -e "$d/$old" ]; then
+			mv "$d/$old" "$d/S20lightdm"
+		fi
+	done
+done
+
+echo "lcos-calamares-fix-lightdm: autologin-user=${USER_NAME}; LightDM rc → S20 where needed"
+exit 0

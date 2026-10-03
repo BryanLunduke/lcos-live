@@ -1,0 +1,43 @@
+#!/bin/sh
+set -e
+# Set LCOS as the default Plymouth theme so live-build's later initramfs
+# rebuild includes it. Prefer plymouth-set-default-theme; fall back to
+# writing plymouthd.conf + default.plymouth symlink on Devuan/sysvinit.
+THEME=lcos
+THEME_DIR="/usr/share/plymouth/themes/${THEME}"
+THEME_FILE="${THEME_DIR}/${THEME}.plymouth"
+
+if [ ! -f "$THEME_FILE" ]; then
+	echo "lcos plymouth: missing ${THEME_FILE}" >&2
+	exit 1
+fi
+
+mkdir -p /etc/plymouth
+
+if command -v plymouth-set-default-theme >/dev/null 2>&1; then
+	plymouth-set-default-theme "$THEME" || true
+fi
+
+# Ensure Theme= is set even if plymouth-set-default-theme was a no-op / missing
+if [ -f /etc/plymouth/plymouthd.conf ]; then
+	if grep -q '^\[Daemon\]' /etc/plymouth/plymouthd.conf; then
+		:
+	else
+		printf '[Daemon]\n' >> /etc/plymouth/plymouthd.conf
+	fi
+	if grep -q '^Theme=' /etc/plymouth/plymouthd.conf; then
+		sed -i "s|^Theme=.*|Theme=${THEME}|" /etc/plymouth/plymouthd.conf
+	else
+		sed -i "/^\[Daemon\]/a Theme=${THEME}" /etc/plymouth/plymouthd.conf
+	fi
+else
+	printf '[Daemon]\nTheme=%s\nShowDelay=0\n' "$THEME" > /etc/plymouth/plymouthd.conf
+fi
+
+# Symlink used by some plymouth / update-initramfs paths
+ln -sfn "${THEME_FILE}" /usr/share/plymouth/themes/default.plymouth
+
+# Prefer theme pick-up on later live-build initramfs step; update now if tool exists
+if command -v update-initramfs >/dev/null 2>&1; then
+	update-initramfs -u || true
+fi

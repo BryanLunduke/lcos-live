@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+# Drop unused elementary-xfce variants; keep base elementary-xfce.
+rm -rf /usr/share/icons/elementary-xfce-hidpi \
+	/usr/share/icons/elementary-xfce-dark \
+	/usr/share/icons/elementary-xfce-dark*
+
+if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+	if [ -d /usr/share/icons/elementary-xfce ]; then
+		gtk-update-icon-cache -f /usr/share/icons/elementary-xfce || true
+	fi
+fi

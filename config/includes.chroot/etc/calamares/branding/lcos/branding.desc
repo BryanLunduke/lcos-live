@@ -1,0 +1,41 @@
+---
+componentName: lcos
+welcomeStyleCalamares: false
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 900px,560px
+sidebar: widget
+navigation: widget
+images:
+    productLogo: "/usr/share/pixmaps/lcos-logo.png"
+    productIcon: "/usr/share/pixmaps/lcos-logo.png"
+    productWelcome: "lcos-05-ideals.png"
+# Exec/progress slideshow: YAML image sequence (Calamares slideshowAPI -1).
+# C++ SlideshowPictures uses setPixmap with no setScaledContents — ship
+# pre-sized 680x360 PNGs that *fill* the pane (cover-crop, no letterbox/sidebands).
+# Welcome ideals: 1280x800 for welcomeq.
+slideshow:
+    - lcos-05-slide-01.png
+    - lcos-05-slide-02.png
+    - lcos-05-slide-03.png
+    - lcos-05-slide-04.png
+    - lcos-05-slide-05.png
+    - lcos-05-slide-06.png
+style:
+    sidebarBackground: "#0a1628"
+    sidebarText: "#f5f5f5"
+    sidebarTextSelect: "#39ff14"
+    sidebarTextHighlight: "#0a1628"
+strings:
+    productName: "Lunduke Computer Operating System"
+    shortProductName: "LCOS"
+    version: "0.8"
+    shortVersion: "0.8"
+    versionedName: "Lunduke Computer Operating System"
+    shortVersionedName: "LCOS"
+    bootloaderEntryName: "LCOS"
+    productUrl: "https://lunduke.com/"
+    supportUrl: "https://lunduke.com/"
+    knownIssuesUrl: "https://lunduke.com/"
+    releaseNotesUrl: "https://lunduke.com/"
+    donateUrl: "https://lunduke.com/"

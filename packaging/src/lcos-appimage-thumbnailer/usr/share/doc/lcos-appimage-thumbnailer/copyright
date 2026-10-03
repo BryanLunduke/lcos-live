@@ -1,0 +1,11 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: lcos-appimage-thumbnailer
+Source: LCOS 0.8 overlay (https://lunduke.com)
+
+Files: *
+Copyright: 2026 Lunduke / LCOS
+License: LCOS-overlay
+ LCOS overlay packaging. Thumbnailer extracts AppImage .DirIcon for
+ tumbler only — no menu or desktop-file integration.
+ Inspired by the extraction approach in linuxmint/xapp-thumbnailers
+ (GPL-3.0) but implemented without the XApp stack.

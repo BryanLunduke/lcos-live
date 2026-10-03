@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+for f in \
+	binary/isolinux/menu.cfg \
+	binary/isolinux/isolinux.cfg \
+	binary/syslinux/menu.cfg \
+	binary/syslinux/syslinux.cfg
+do
+	if [ -f "${f}" ]; then
+		sed -i 's/menu title .*/menu title LCOS/' "${f}" || true
+		sed -i 's/DEVUAN/LCOS/g; s/Devuan/LCOS/g' "${f}" || true
+	fi
+done
+if [ -f binary/boot/grub/live-theme/theme.txt ]; then
+	# Keep seal visible: do not paint "LCOS" over the upper-center logo.
+	sed -i 's/^title-text:.*/title-text: ""/' binary/boot/grub/live-theme/theme.txt || true
+fi
+for f in binary/boot/grub/*.cfg; do
+	if [ -f "${f}" ]; then
+		sed -i 's/DEVUAN/LCOS/g; s/Devuan/LCOS/g' "${f}" || true
+	fi
+done

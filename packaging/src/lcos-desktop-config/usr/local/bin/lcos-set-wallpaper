@@ -1,0 +1,177 @@
+#!/bin/sh
+# Seed LCOS stock wallpaper on first login / late VirtualBox monitors.
+# Never overwrite a user-chosen wallpaper. Must never fail the graphical session.
+# LCOS #84: old versions forced stock for LINGER seconds on every login.
+WALL=/usr/share/backgrounds/lcos/lcos-desktop-stock.jpg
+SKEL=/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+# Tight cap: only to catch monitors that appear after xfdesktop starts.
+LINGER=15
+MARKER_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/lcos"
+MARKER="${MARKER_DIR}/wallpaper-seeded"
+
+exit0() { exit 0; }
+trap exit0 EXIT INT TERM HUP
+
+command -v xfconf-query >/dev/null 2>&1 || exit 0
+
+[ -n "${DISPLAY}" ] || DISPLAY=:0
+export DISPLAY
+
+adopt_dbus() {
+	if [ -n "${DBUS_SESSION_BUS_ADDRESS}" ]; then
+		return 0
+	fi
+	_pid=$(pgrep -n -x xfdesktop 2>/dev/null) || return 1
+	[ -n "$_pid" ] && [ -r "/proc/${_pid}/environ" ] || return 1
+	_addr=$(tr '\0' '\n' < "/proc/${_pid}/environ" | sed -n 's/^DBUS_SESSION_BUS_ADDRESS=//p' | head -n 1)
+	if [ -n "$_addr" ]; then
+		DBUS_SESSION_BUS_ADDRESS=$_addr
+		export DBUS_SESSION_BUS_ADDRESS
+		return 0
+	fi
+	return 1
+}
+
+# First-boot only: copy skel when the user file is missing/empty.
+# Never overwrite an existing xfce4-desktop.xml (user may have chosen another wall).
+seed_user_xml() {
+	for home in "${HOME}" /home/lcos; do
+		[ -n "$home" ] && [ -d "$home" ] || continue
+		dest="$home/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
+		if [ ! -s "$dest" ]; then
+			[ -f "$SKEL" ] || continue
+			mkdir -p "$(dirname "$dest")"
+			cp -f "$SKEL" "$dest"
+			chown --reference="$home" "$dest" 2>/dev/null || true
+		fi
+	done
+}
+
+is_unset_or_stock() {
+	# Empty, missing, or still the LCOS stock path → OK to stamp stock.
+	_v=$1
+	[ -z "$_v" ] && return 0
+	[ "$_v" = "$WALL" ] && return 0
+	return 1
+}
+
+set_prop() {
+	_p=$1
+	_t=$2
+	_v=$3
+	if xfconf-query -c xfce4-desktop -p "$_p" >/dev/null 2>&1; then
+		xfconf-query -c xfce4-desktop -p "$_p" -s "$_v" >/dev/null 2>&1 || true
+	else
+		xfconf-query -c xfce4-desktop -n -t "$_t" -p "$_p" -s "$_v" >/dev/null 2>&1 || true
+	fi
+}
+
+set_color1() {
+	_p=$1
+	xfconf-query -c xfce4-desktop -p "$_p" \
+		-n -t uint -t uint -t uint -t uint \
+		-s 3341 -s 6939 -s 12336 -s 65535 >/dev/null 2>&1 || \
+	xfconf-query -c xfce4-desktop -p "$_p" \
+		-t uint -t uint -t uint -t uint \
+		-s 3341 -s 6939 -s 12336 -s 65535 >/dev/null 2>&1 || true
+}
+
+stamp_backdrop() {
+	# Stamp one backdrop base (monitor/workspace) with stock + centered style.
+	_base=$1
+	[ -n "$_base" ] || return 0
+	set_prop "$_base/last-image" string "$WALL"
+	set_prop "$_base/image-path" string "$WALL"
+	set_prop "$_base/image-style" int 1
+	set_prop "$_base/image-show" bool true
+	set_prop "$_base/color-style" int 0
+	set_color1 "$_base/color1"
+}
+
+# Apply stock only where image is unset/empty/still stock. Never touch custom paths.
+apply_wallpaper_safe() {
+	adopt_dbus || true
+	props=$(xfconf-query -c xfce4-desktop -l 2>/dev/null) || props=""
+
+	printf '%s\n' "$props" | while IFS= read -r prop; do
+		[ -n "$prop" ] || continue
+		case "$prop" in
+		/backdrop/screen*/last-image|/backdrop/screen*/workspace*/last-image)
+			val=$(xfconf-query -c xfce4-desktop -p "$prop" 2>/dev/null) || val=""
+			if is_unset_or_stock "$val"; then
+				base=$(printf '%s' "$prop" | sed 's|/last-image$||')
+				stamp_backdrop "$base"
+			fi
+			;;
+		/backdrop/screen*/image-path|/backdrop/screen*/workspace*/image-path)
+			val=$(xfconf-query -c xfce4-desktop -p "$prop" 2>/dev/null) || val=""
+			if is_unset_or_stock "$val"; then
+				set_prop "$prop" string "$WALL"
+			fi
+			;;
+		esac
+	done
+
+	# Late VirtualBox monitors: create stock on bases that have no last-image yet.
+	props=$(xfconf-query -c xfce4-desktop -l 2>/dev/null) || props=""
+	bases=$(printf '%s\n' "$props" | sed -n 's|^\(/backdrop/screen[0-9][0-9]*/[^/][^/]*\).*|\1|p' | sort -u)
+	printf '%s\n' "$bases" | while IFS= read -r base; do
+		[ -n "$base" ] || continue
+		if ! xfconf-query -c xfce4-desktop -p "$base/last-image" >/dev/null 2>&1; then
+			stamp_backdrop "$base"
+			stamp_backdrop "$base/workspace0"
+			continue
+		fi
+		val=$(xfconf-query -c xfce4-desktop -p "$base/last-image" 2>/dev/null) || val=""
+		if is_unset_or_stock "$val"; then
+			stamp_backdrop "$base"
+		fi
+		# workspace children that exist with unset/stock
+		for ws in workspace0 workspace1; do
+			if xfconf-query -c xfce4-desktop -p "$base/$ws/last-image" >/dev/null 2>&1; then
+				wval=$(xfconf-query -c xfce4-desktop -p "$base/$ws/last-image" 2>/dev/null) || wval=""
+				if is_unset_or_stock "$wval"; then
+					stamp_backdrop "$base/$ws"
+				fi
+			fi
+		done
+	done
+
+	if command -v xfdesktop >/dev/null 2>&1; then
+		xfdesktop --reload >/dev/null 2>&1 || true
+	fi
+}
+
+write_marker() {
+	[ -n "${HOME}" ] || return 0
+	mkdir -p "$MARKER_DIR" 2>/dev/null || true
+	printf 'seeded\n' > "$MARKER" 2>/dev/null || true
+}
+
+# Wait briefly for xfdesktop + session bus (do not hang the session forever).
+i=0
+while [ "$i" -lt 60 ]; do
+	if pgrep -x xfdesktop >/dev/null 2>&1; then
+		adopt_dbus && break
+	fi
+	i=$((i + 1))
+	sleep 1
+done
+adopt_dbus || true
+seed_user_xml
+
+if [ -f "$MARKER" ]; then
+	LINGER=8
+fi
+
+elapsed=0
+while [ "$elapsed" -lt "$LINGER" ]; do
+	apply_wallpaper_safe
+	sleep 2
+	elapsed=$((elapsed + 2))
+done
+
+seed_user_xml
+apply_wallpaper_safe
+write_marker
+exit 0

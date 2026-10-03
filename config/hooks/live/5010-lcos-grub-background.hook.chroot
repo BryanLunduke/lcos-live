@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+f=/etc/default/grub
+[ -f "$f" ] || touch "$f"
+set_kv() {
+	key="$1"
+	val="$2"
+	if grep -q "^${key}=" "$f"; then
+		sed -i "s|^${key}=.*|${key}=${val}|" "$f"
+	else
+		printf "%s=%s\n" "$key" "$val" >> "$f"
+	fi
+}
+set_kv GRUB_BACKGROUND "\"/usr/share/grub/lcos-splash-1024x768.png\""
+set_kv GRUB_GFXMODE "\"1024x768\""
+set_kv GRUB_GFXPAYLOAD_LINUX keep

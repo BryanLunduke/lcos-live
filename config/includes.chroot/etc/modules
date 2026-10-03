@@ -1,0 +1,5 @@
+# /etc/modules: kernel modules to load at boot time.
+#
+# MacBook 4,1 trackpad. CONFIG_MOUSE_APPLETOUCH=m is already in LLK;
+# load at boot via initscripts kmod. Not forced into the initramfs.
+appletouch

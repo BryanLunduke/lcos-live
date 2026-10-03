@@ -1,0 +1,50 @@
+#!/bin/sh
+
+. /lib/live/config.sh
+
+# Live-only Install LCOS desktop icon. Must NOT live in /etc/skel
+# (skel is copied onto HD installs by useradd / Calamares users).
+
+Cmdline ()
+{
+	for _PARAMETER in ${LIVE_CONFIG_CMDLINE}
+	do
+		case "${_PARAMETER}" in
+			live-config.username=*|username=*)
+				LIVE_USERNAME="${_PARAMETER#*username=}"
+				;;
+		esac
+	done
+}
+
+Init ()
+{
+	if component_was_executed "lcos-installer-desktop"
+	then
+		exit 0
+	fi
+
+	echo -n " lcos-installer-desktop"
+}
+
+Config ()
+{
+	LIVE_USERNAME="${LIVE_USERNAME:-lcos}"
+	src="/usr/share/applications/lcos-installer.desktop"
+	home="/home/${LIVE_USERNAME}"
+
+	if getent passwd "${LIVE_USERNAME}" >/dev/null 2>&1 && \
+	   [ -d "${home}" ] && [ -f "${src}" ]
+	then
+		mkdir -p "${home}/Desktop"
+		cp -f "${src}" "${home}/Desktop/lcos-installer.desktop"
+		chmod 0755 "${home}/Desktop/lcos-installer.desktop"
+		chown "${LIVE_USERNAME}:${LIVE_USERNAME}" "${home}/Desktop" "${home}/Desktop/lcos-installer.desktop"
+	fi
+
+	touch /var/lib/live/config/lcos-installer-desktop
+}
+
+Cmdline
+Init
+Config

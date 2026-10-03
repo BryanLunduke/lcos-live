@@ -1,0 +1,162 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Micropolis
+Upstream-Contact: Don Hopkins <dhopkins@DonHopKins.com>
+Source: http://www.donhopkins.com/home/micropolis
+
+Files: *
+Copyright: 1989-2007, Electronic Arts Inc.
+           2007, Don Hopkins <dhopkins@DonHopKins.com>
+License: GPL-3+
+Comment:
+ According to the README file, the copyright notice applies to the original
+ source code of Micropolis (in src/sim/) as well as to the X11 Tk port of
+ Micropolis (in res/*.tcl), and to all of the non-text files in this source
+ code release, including:
+ .
+ cities/*                          All loadable city images
+ images/*                          All graphical images
+ activity/activity-micropolis.svg  Icon for Micropolis in Sugar
+ res/hexa.*                        Map Graphics
+ res/snro.*                        Scenarios
+ res/sounds/*                      Sounds played by the game
+ res/stri.*                        Text strings displayed by the game
+ .
+ According to manual/README, the same copyright and license applies to:
+ .
+ manual/*                          documentation for Micropolis
+
+Files: res/dejavu-lgc/*
+Copyright: 2003, Bitstream Inc
+License: Bitstream-Vera-Fonts-Copyright
+
+Files: debian/*
+Copyright: 2008, Kenshi Muto <kmuto@debian.org>
+           2008, Clint Adams <schizo@debian.org>
+           2008, Miriam Ruiz <little_miry@yahoo.es>
+           2009, Bruno "Fuddl" Kleinert <fuddl@debian.org>
+           2009, 2010 Christoph Egger <debian@christoph-egger.org>
+           2013-2021, Markus Koschany <apo@debian.org>
+License: GPL-3+
+
+Files: src/tcl/*
+       src/tk/*
+Copyright: 1987-1992 Regents of the University of California
+License: TCL-TK-License
+ Permission to use, copy, modify, and distribute this software and its
+ documentation for any purpose and without fee is hereby granted, provided that
+ the above copyright notice appear in all copies. The University of California
+ makes no representations about the suitability of this software for any
+ purpose. It is provided "as is" without express or implied warranty.
+
+Files: src/tclx/*
+Copyright: 1992, Karl Lehenbauer and Mark Diekhans
+License: TCLX-License
+ Permission to use, copy, modify, and distribute this software and its
+ documentation for any purpose and without fee is hereby granted, provided that
+ the above copyright notice appear in all copies.  Karl Lehenbauer and Mark
+ Diekhans make no representations about the suitability of this software for
+ any purpose. It is provided "as is" without express or implied warranty.
+
+License: GPL-3+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ .
+ ADDITIONAL TERMS per GNU GPL Section 7
+ .
+ No trademark or publicity rights are granted.  This license does NOT
+ give you any right, title or interest in the trademark SimCity or any
+ other Electronic Arts trademark.  You may not distribute any
+ modification of this program using the trademark SimCity or claim any
+ affliation or association with Electronic Arts Inc. or its employees.
+ .
+ Any propagation or conveyance of this program must include this
+ copyright notice and these terms.
+ .
+ If you convey this program (or any modifications of it) and assume
+ contractual liability for the program to recipients of it, you agree
+ to indemnify Electronic Arts for any liability that those contractual
+ assumptions impose on Electronic Arts.
+ .
+ You may not misrepresent the origins of this program; modified
+ versions of the program must be marked as such and not identified as
+ the original program.
+ .
+ This disclaimer supplements the one included in the General Public
+ License.  TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, THIS
+ PROGRAM IS PROVIDED TO YOU "AS IS," WITH ALL FAULTS, WITHOUT WARRANTY
+ OF ANY KIND, AND YOUR USE IS AT YOUR SOLE RISK.  THE ENTIRE RISK OF
+ SATISFACTORY QUALITY AND PERFORMANCE RESIDES WITH YOU.  ELECTRONIC ARTS
+ DISCLAIMS ANY AND ALL EXPRESS, IMPLIED OR STATUTORY WARRANTIES,
+ INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, SATISFACTORY QUALITY,
+ FITNESS FOR A PARTICULAR PURPOSE, NONINFRINGEMENT OF THIRD PARTY
+ RIGHTS, AND WARRANTIES (IF ANY) ARISING FROM A COURSE OF DEALING,
+ USAGE, OR TRADE PRACTICE.  ELECTRONIC ARTS DOES NOT WARRANT AGAINST
+ INTERFERENCE WITH YOUR ENJOYMENT OF THE PROGRAM; THAT THE PROGRAM WILL
+ MEET YOUR REQUIREMENTS; THAT OPERATION OF THE PROGRAM WILL BE
+ UNINTERRUPTED OR ERROR-FREE, OR THAT THE PROGRAM WILL BE COMPATIBLE
+ WITH THIRD PARTY SOFTWARE OR THAT ANY ERRORS IN THE PROGRAM WILL BE
+ CORRECTED.  NO ORAL OR WRITTEN ADVICE PROVIDED BY ELECTRONIC ARTS OR
+ ANY AUTHORIZED REPRESENTATIVE SHALL CREATE A WARRANTY.  SOME
+ JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF OR LIMITATIONS ON IMPLIED
+ WARRANTIES OR THE LIMITATIONS ON THE APPLICABLE STATUTORY RIGHTS OF A
+ CONSUMER, SO SOME OR ALL OF THE ABOVE EXCLUSIONS AND LIMITATIONS MAY
+ NOT APPLY TO YOU.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License 3 can be found in `/usr/share/common-licenses/GPL-3'.
+
+License: Bitstream-Vera-Fonts-Copyright
+ Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved. Bitstream Vera is
+ a trademark of Bitstream, Inc.
+ .
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of the fonts accompanying this license ("Fonts") and associated
+ documentation files (the "Font Software"), to reproduce and distribute the
+ Font Software, including without limitation the rights to use, copy, merge,
+ publish, distribute, and/or sell copies of the Font Software, and to permit
+ persons to whom the Font Software is furnished to do so, subject to the
+ following conditions:
+ .
+ The above copyright and trademark notices and this permission notice shall
+ be included in all copies of one or more of the Font Software typefaces.
+ .
+ The Font Software may be modified, altered, or added to, and in particular
+ the designs of glyphs or characters in the Fonts may be modified and
+ additional glyphs or characters may be added to the Fonts, only if the fonts
+ are renamed to names not containing either the words "Bitstream" or the word
+ "Vera".
+ .
+ This License becomes null and void to the extent applicable to Fonts or Font
+ Software that has been modified and is distributed under the "Bitstream
+ Vera" names.
+ .
+ The Font Software may be sold as part of a larger software package but no
+ copy of one or more of the Font Software typefaces may be sold by itself.
+ .
+ THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT,
+ TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL BITSTREAM OR THE GNOME
+ FOUNDATION BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING
+ ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE
+ FONT SOFTWARE.
+ .
+ Except as contained in this notice, the names of Gnome, the Gnome
+ Foundation, and Bitstream Inc., shall not be used in advertising or
+ otherwise to promote the sale, use or other dealings in this Font Software
+ without prior written authorization from the Gnome Foundation or Bitstream
+ Inc., respectively. For further information, contact: fonts at gnome dot
+ org.

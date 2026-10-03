@@ -1,0 +1,32 @@
+# Init + live stack. NEVER live-config-systemd.
+sysvinit-core
+live-boot
+live-config
+live-config-sysvinit
+ca-certificates
+devuan-keyring
+
+# Satisfy cron-daemon-common without systemd
+opensysusers
+
+# live-config 0030-user-setup no-ops without this (Recommends only)
+user-setup
+
+# AppImages: FUSE 3 device/helper + FUSE 2 library (libfuse.so.2)
+fuse3
+libfuse2t64
+
+# Non-root ping: iputils-ping (Excalibur) needs linux-sysctl-defaults for
+# net.ipv4.ping_group_range; LB_APT_RECOMMENDS=false drops its Recommends.
+linux-sysctl-defaults
+
+# Common installer script deps (forum report: xz/unzip/lsb_release missing)
+xz-utils
+unzip
+lsb-release
+
+# Networking: live-config Recommends iproute2; LB_APT_RECOMMENDS=false drops it
+iproute2
+
+# Bash tab completion (bash Recommends; dropped without Recommends)
+bash-completion

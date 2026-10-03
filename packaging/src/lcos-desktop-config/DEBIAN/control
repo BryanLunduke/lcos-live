@@ -1,0 +1,20 @@
+Package: lcos-desktop-config
+Version: 0.7-8
+Section: x11
+Priority: optional
+Architecture: all
+Installed-Size: 368
+Maintainer: LCOS <lcos@lunduke.com>
+Homepage: https://lunduke.com
+Depends: lcos-branding (>= 0.7), lcos-theme-clearlooks (>= 0.7)
+Replaces: libgarcon-common, xfce4-panel, xfce4-helpers, xfce4-settings
+Recommends: elementary-xfce-icon-theme, gtk2-engines
+Description: LCOS XFCE defaults (xdg, skel, wallpaper, menus)
+ System and skel XFCE look: xfconf XML, panel default.xml, helpers.rc,
+ applications menu, wallpaper first-login seed (no overwrite), Hidden stock
+ helper .desktop overrides, Science directory hide, and Cool Retro Term
+ as the XFCE terminal helper. Games uses the lunduke-city package
+ .desktop for Lunduke City; this package only hides stock Micropolis
+ if needed (usr/local/share/applications/micropolis.desktop).
+ .
+ Live-only installer bits are not included.

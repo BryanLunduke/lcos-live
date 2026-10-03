@@ -1,0 +1,43 @@
+Package: *
+Pin: release n=excalibur
+Pin-Priority: 700
+
+Package: *
+Pin: release n=excalibur-updates
+Pin-Priority: 700
+
+Package: *
+Pin: release n=excalibur-security
+Pin-Priority: 700
+
+Package: systemd-sysv
+Pin: release *
+Pin-Priority: -1
+
+Package: libpam-systemd
+Pin: release *
+Pin-Priority: -1
+
+Package: live-config-systemd
+Pin: release *
+Pin-Priority: -1
+
+Package: systemd-boot-installer
+Pin: release *
+Pin-Priority: -1
+
+Package: xorg
+Pin: release *
+Pin-Priority: -1
+
+Package: xserver-xorg
+Pin: release *
+Pin-Priority: -1
+
+Package: xserver-xorg-core
+Pin: release *
+Pin-Priority: -1
+
+Package: calamares-settings-debian
+Pin: release *
+Pin-Priority: -1

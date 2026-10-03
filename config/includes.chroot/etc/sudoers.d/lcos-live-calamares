@@ -1,0 +1,2 @@
+# Live-only. Removed on install by Calamares shellprocess.
+lcos ALL=(root) NOPASSWD: /usr/bin/calamares

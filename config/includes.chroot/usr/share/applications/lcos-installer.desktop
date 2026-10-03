@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Install LCOS
+Comment=Install Lunduke Computer Operating System
+Exec=sudo -H calamares
+Icon=/usr/share/pixmaps/lcos-logo.png
+Terminal=false
+Categories=System;Settings;

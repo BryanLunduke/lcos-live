@@ -1,0 +1,6 @@
+// Bake-time: branding postinst may write plymouthd.conf before plymouth configures.
+// Keeps existing conf (force-confold) so live-build does not hang on conffile prompt.
+Dpkg::Options {
+   "--force-confdef";
+   "--force-confold";
+};

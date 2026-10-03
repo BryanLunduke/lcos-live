@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+if dpkg-query -W -f='${Status}\n' systemd systemd-sysv live-config-systemd 2>/dev/null | grep -q 'install ok installed'; then
+	apt-get -y --purge remove systemd systemd-sysv live-config-systemd || true
+fi
+dpkg --purge live-config-systemd 2>/dev/null || true

@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+# Editor: no Xfburn. xfce4-goodies is no longer seeded; purge if pulled anyway.
+if dpkg-query -W -f='${Status}' xfburn 2>/dev/null | grep -q installed; then
+	apt-get -y --purge remove xfburn || true
+fi

@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+# Fail the bake if Lunduke City (packages.chroot) did not land.
+if [ ! -x /usr/bin/lunduke-city ]; then
+	echo "ERROR: /usr/bin/lunduke-city missing; lunduke-city deb did not land" >&2
+	exit 1
+fi
+if [ ! -f /usr/share/lunduke-city/micropolis-assets/images/micropolisEngine/tiles.png ]; then
+	echo "ERROR: Lunduke City tiles.png missing; assets did not land under /usr/share/lunduke-city/" >&2
+	exit 1
+fi
+if [ ! -f /usr/share/doc/lunduke-city/NOTICE ]; then
+	echo "ERROR: /usr/share/doc/lunduke-city/NOTICE missing; GPL+EA NOTICE did not ship" >&2
+	exit 1
+fi

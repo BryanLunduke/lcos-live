@@ -1,0 +1,12 @@
+Package: lcos-updates
+Version: 0.7-1
+Section: admin
+Priority: optional
+Architecture: amd64
+Installed-Size: 372
+Maintainer: LCOS <lcos@lunduke.com>
+Homepage: https://lunduke.com
+Depends: libatkmm-1.6-1v5 (>= 2.28.4), libc6 (>= 2.34), libgcc-s1 (>= 3.0), libglib2.0-0t64 (>= 2.12.0), libglibmm-2.4-1t64 (>= 2.66.8), libgtk-3-0t64 (>= 3.0.0), libgtkmm-3.0-1t64 (>= 3.24.10), libsigc++-2.0-0v5 (>= 2.2.0), libstdc++6 (>= 12), polkitd, pkexec, apt, desktop-file-utils
+Description: Check for updates from Devuan and LCOS
+ A small GTK3 tool that checks for and installs apt upgrades
+ (not dist-upgrade) via a polkit helper. No daemon, no tray.

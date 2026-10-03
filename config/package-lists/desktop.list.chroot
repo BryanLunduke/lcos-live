@@ -1,0 +1,82 @@
+# Devuan default desktop is XFCE. LightDM is the Devuan XFCE DM (not gdm).
+xfce4
+# xfce4-goodies Depends: xfburn — list the rest explicitly so Xfburn stays out
+ristretto
+thunar-archive-plugin
+thunar-media-tags-plugin
+xfce4-battery-plugin
+xfce4-clipman-plugin
+xfce4-cpufreq-plugin
+xfce4-cpugraph-plugin
+xfce4-diskperf-plugin
+xfce4-fsguard-plugin
+xfce4-genmon-plugin
+xfce4-mailwatch-plugin
+xfce4-netload-plugin
+xfce4-notes-plugin
+xfce4-notifyd
+xfce4-places-plugin
+xfce4-screenshooter
+xfce4-sensors-plugin
+xfce4-smartbookmark-plugin
+xfce4-systemload-plugin
+xfce4-taskmanager
+xfce4-terminal
+xfce4-timer-plugin
+xfce4-verve-plugin
+xfce4-wavelan-plugin
+xfce4-weather-plugin
+xfce4-whiskermenu-plugin
+xfce4-xkb-plugin
+adwaita-icon-theme
+adwaita-icon-theme-legacy
+# SVG loader for Lunduke Paint toolbox icons (and other symbolic SVGs)
+librsvg2-common
+elementary-xfce-icon-theme
+# Bob: GTK=Clearlooks-Phenix, xfwm4=Clearlooks (confirmed 2026-08-20)
+gtk2-engines
+# /usr/bin/gio for Bob's live .desktop trust script
+libglib2.0-bin
+thunar
+xfce4-notes
+lightdm
+lightdm-gtk-greeter
+dbus-x11
+elogind
+libpam-elogind
+seatd
+
+# AppImage (and general) thumbnails for Thunar + xfdesktop
+tumbler
+python3-pyelftools
+python3-gi
+gir1.2-gdkpixbuf-2.0
+
+# Sound: PulseAudio + XFCE volume applet (fixes "no sound until packages installed")
+pulseaudio
+pulseaudio-utils
+pavucontrol
+xfce4-pulseaudio-plugin
+alsa-utils
+
+# Power: XFCE power manager + panel plugin (battery/brightness/sleep via elogind)
+xfce4-power-manager
+xfce4-power-manager-plugins
+upower
+
+# Plymouth boot splash (custom LCOS script theme in includes.chroot).
+# apt-recommends is false — list companions explicitly. Do NOT add plymouth-themes
+# (stock themes unused). script.so ships in plymouth. Depends: systemd|elogind
+# (elogind already listed above). Avoids pulling systemd-sysv.
+plymouth
+libplymouth5
+
+# Removable media in Thunar (preferred: gvfs + udisks2 + thunar-volman;
+# no gvfs-backends — avoids Samba/MTP/GOA-heavy dep pile). Editor 2026-09-19.
+gvfs
+udisks2
+thunar-volman
+
+# Standard user folders (Desktop/Documents/Downloads/…) for Thunar.
+# Thunar Recommends this; recipe installs no Recommends. Editor 2026-09-19.
+xdg-user-dirs

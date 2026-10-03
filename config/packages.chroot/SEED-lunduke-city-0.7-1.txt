@@ -1,0 +1,4 @@
+lunduke-city 0.7-1 seeded 2026-09-27 CT (LCOS track bump; Ted greenlight for 07-07).
+Deb: lunduke-city_0.7-1_amd64.deb
+SHA256: 72a00c1e7dac00b0b692d02e441ad043911275195ef6b88d516918d79eaacaf8
+Replaces 0.3-1.

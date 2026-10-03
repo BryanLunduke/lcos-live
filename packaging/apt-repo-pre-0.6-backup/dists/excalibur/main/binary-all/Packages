@@ -1,0 +1,245 @@
+Package: lcos-appimage-thumbnailer
+Version: 0.5-1
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 40
+Depends: python3, python3-gi, python3-pyelftools, gir1.2-gdkpixbuf-2.0, squashfs-tools, tumbler
+Filename: pool/main/l/lcos-appimage-thumbnailer/lcos-appimage-thumbnailer_0.5-1_all.deb
+Size: 2988
+MD5sum: a811426bb0877705d83caa717dc0280d
+SHA1: e23cee2f2cf6bcef4932a22bded938999132cb49
+SHA256: af3f5c69db53310dba0da73173716a7dc4ead7daf65a8ea1ef6e806d10fc1b40
+Section: utils
+Priority: optional
+Homepage: https://lunduke.com
+Description: AppImage icon thumbnails for Thunar and XFCE desktop
+ Freedesktop thumbnailer that extracts .DirIcon from Type-2 (SquashFS)
+ AppImages for tumbler. Shows per-AppImage icons in Thunar and on the
+ XFCE desktop. Does not add AppImages to application menus.
+
+Package: lcos-archive-keyring
+Version: 0.5-1
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 56
+Filename: pool/main/l/lcos-archive-keyring/lcos-archive-keyring_0.5-1_all.deb
+Size: 6792
+MD5sum: 5cc36d8641bffc3f2abbfbee3e3a1632
+SHA1: 8ae8f7dfb2910396e490243c0e5acdf4ab8313f0
+SHA256: 82e1e3320e690385d0ddf13367e819baafe453d7685c41e9334007fb8860d50e
+Section: misc
+Priority: optional
+Homepage: https://lunduke.com
+Description: LCOS archive signing keyring and overlay apt source
+ Public keyring for the LCOS overlay at https://lcos.lunduke.com/apt
+ plus /etc/apt/sources.list.d/lcos-overlay.list (signed-by this key).
+ .
+ Fingerprint: 5A01 D4BD CDD1 E153 1D45  6A75 60D6 E7F6 CBD6 D572
+ UID: LCOS Archive Signing Key <lcos@lunduke.com>
+ .
+ Unsigned package; editor signs the archive later. Do not replace this key.
+
+Package: lcos-base
+Version: 0.5-2
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 72
+Depends: lcos-archive-keyring (>= 0.5), lcos-branding (>= 0.5)
+Replaces: base-files
+Filename: pool/main/l/lcos-base/lcos-base_0.5-2_all.deb
+Size: 2364
+MD5sum: 41515c859975f1beff6fd487babc63ca
+SHA1: 8d4f31998cddccfc002a60c17c5b3b1482fcd285
+SHA256: 3c58f9b73cae72bf662ff74049249b21c3b8bbf05219e854aadbe1b6778028fd
+Section: admin
+Priority: optional
+Homepage: https://lunduke.com
+Description: LCOS 0.5 identity, GRUB splash drop-in, overlay membership
+ os-release / issue for LCOS 0.5 (excalibur), lcos-write-os-release,
+ and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
+ GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash).
+ .
+ Depends on the overlay keyring and branding artwork.
+ Postinst re-applies identity on configure so apt upgrades overwrite
+ stale 0.4 conffile text kept by noninteractive Updates.
+
+Package: lcos-branding
+Version: 0.5-1
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 15952
+Conflicts: lcos-branding (<< 0.5)
+Replaces: lcos-branding (<< 0.5)
+Provides: lcos-branding
+Filename: pool/main/l/lcos-branding/lcos-branding_0.5-1_all.deb
+Size: 8470616
+MD5sum: 57e027e9c1c88320f3d3671bd84a6063
+SHA1: dab881021795573d52102230023e271a0401cd5b
+SHA256: 68393328b2409dd7a6963a227abdb4fc3a55c342547340f6ffe9b7035371cde5
+Section: x11
+Priority: optional
+Homepage: https://lunduke.com
+Description: LCOS 0.5 artwork (wallpapers, splash, logos, Plymouth)
+ LCOS 0.5 artwork: stock wallpaper (jpg/png), synthwave nebula-grid, 4K wood
+ backdrop, GRUB splash (default / 1024x768 / 4K), logos, and the LCOS
+ Plymouth boot theme (frames + Shutdown-1.png) plus LightDM plymouth-quit
+ greeter helper. postinst sets Theme=lcos when plymouth is present.
+ Replaces old lcos-branding 1.0-2 / 0.2.0 (bw-720 + lcos32 only).
+
+Package: lcos-desktop
+Version: 0.5-2
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 24
+Depends: lcos-base (>= 0.5), lcos-desktop-config (>= 0.5), lcos-theme-clearlooks (>= 0.5), plymouth, libplymouth5, pulseaudio, pulseaudio-utils, pavucontrol, xfce4-pulseaudio-plugin, alsa-utils, xfce4-power-manager, xfce4-power-manager-plugins, upower, lcos-appimage-thumbnailer (>= 0.5), tumbler
+Recommends: xfce4, lightdm, lightdm-gtk-greeter, elementary-xfce-icon-theme, gtk2-engines, lcos-zork, micropolis, lunduke-paint
+Filename: pool/main/l/lcos-desktop/lcos-desktop_0.5-2_all.deb
+Size: 1532
+MD5sum: 93286f3d2562f21e73360dfc9e74c5df
+SHA1: 18975078d65ba63c3dddb834f51d8155fdaa77fc
+SHA256: ef79781f73880b40f685d5ee29470f9ba5d4d486c67e52886f54616e700bc35e
+Section: metapackages
+Priority: optional
+Homepage: https://lunduke.com
+Description: LCOS 0.5 XFCE desktop edition metapackage
+ Pulls LCOS identity, XFCE look, and Clearlooks. Depends on
+ Plymouth, PulseAudio/ALSA stack, XFCE power manager, and AppImage
+ thumbnailer/tumbler so upgrades get boot splash and media bits. Recommends
+ the XFCE/LightDM stack plus Zork, Micropolis, and Lunduke Paint. Does not
+ depend on Calamares or live-config installer bits.
+
+Package: lcos-desktop-config
+Version: 0.5-2
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 348
+Depends: lcos-branding (>= 0.5), lcos-theme-clearlooks (>= 0.5)
+Recommends: elementary-xfce-icon-theme, gtk2-engines
+Replaces: libgarcon-common, xfce4-panel, xfce4-helpers, xfce4-settings
+Filename: pool/main/l/lcos-desktop-config/lcos-desktop-config_0.5-2_all.deb
+Size: 22256
+MD5sum: bb0bfbe414c367d70cbc1667556d0815
+SHA1: c5da6e8661250b3d5523f70f9c71aefff3d110e0
+SHA256: 9b8f1b3d93eac7225cb63095a7b0c9fceb404850b902fd9158d7076774efec04
+Section: x11
+Priority: optional
+Homepage: https://lunduke.com
+Description: LCOS XFCE defaults (xdg, skel, wallpaper, menus)
+ System and skel XFCE look: xfconf XML, panel default.xml, helpers.rc,
+ applications menu, wallpaper autostart + linger script, Bob Micropolis
+ launcher, Hidden stock helper .desktop overrides, Science directory hide,
+ and Cool Retro Term as the XFCE terminal helper.
+ .
+ Live-only installer bits are not included.
+
+Package: lcos-theme-clearlooks
+Version: 0.5-1
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 1236
+Recommends: gtk2-engines
+Filename: pool/main/l/lcos-theme-clearlooks/lcos-theme-clearlooks_0.5-1_all.deb
+Size: 85660
+MD5sum: ae839e268fdf0bf595ea1e3d46d4d881
+SHA1: d848cb7231700364f07ae462dde72f951af070df
+SHA256: 73c943e723f4847616d38dd982a64d14c9f06be78259a378031b039e955ad047
+Section: x11
+Priority: optional
+Homepage: https://lunduke.com
+Description: Clearlooks and Clearlooks-Phenix themes for LCOS
+ Vendored Clearlooks (xfwm4) and Clearlooks-Phenix (GTK2/3 + xfwm4)
+ theme trees used by the LCOS XFCE desktop.
+
+Package: lcos-zork
+Version: 0.5-1
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 320
+Depends: frotz, cool-retro-term
+Filename: pool/main/l/lcos-zork/lcos-zork_0.5-1_all.deb
+Size: 156312
+MD5sum: e5d580215cf09e5e56215bb970eefd5c
+SHA1: 33a903fa2f94f88d7d4918ce944ed743b760b06e
+SHA256: b6934cf9d368ac725a72caae6d14e218ba30253e476d6c603ef20135672cdf39
+Section: games
+Priority: optional
+Homepage: https://lunduke.com
+Description: Zork I–III for LCOS (frotz + Cool Retro Term)
+ Story files zork{1,2,3}.z3 plus desktop launchers that open each game
+ in cool-retro-term running frotz.
+
+Package: micropolis-data
+Source: micropolis-activity
+Version: 0.0.20071228-10
+Architecture: all
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Installed-Size: 9096
+Depends: fonts-dejavu-core
+Suggests: micropolis
+Filename: pool/main/m/micropolis-data/micropolis-data_0.0.20071228-10_all.deb
+Size: 2465808
+MD5sum: cf7817acb821b22088f24c1d011823b5
+SHA1: a186d7acf20a7db2bb97a77ee34f92c900919180
+SHA256: 8d30b1cd0eb340f42ae71ea596a28bbdd57111afa1f381755d8c445a5e8e7b5c
+Section: games
+Priority: optional
+Homepage: http://www.donhopkins.com/home/micropolis/
+Description: real-time city management simulator - data
+ This game simulates building and managing a whole city. The goal of the
+ game is to build and design a city. The player can mark land as being
+ zoned as commercial, industrial, or residential, add buildings, change
+ the tax rate, build a power grid, build transportation systems and many
+ other actions, in order to enhance the city.
+ .
+ This package installs the data, like graphics and sounds, for the game.
+
+Package: xlibre-x11-common
+Source: xlibre
+Version: 1:25.1.9-1+lcos1
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 41
+Depends: lsb-base
+Conflicts: x11-common
+Provides: x11-common (= 1:25.1.9-1+lcos1)
+Filename: pool/main/x/xlibre-x11-common/xlibre-x11-common_25.1.9-1+lcos1_all.deb
+Size: 18392
+MD5sum: 394f872888b998005b34242a6fd83642
+SHA1: 2e43f09205faf959c8dedb11cfbb92cc6e1b1d14
+SHA256: 2f977684848deb6861d1d85cbbcc53a5d0c993f950f428ac45e6420355c15156
+Section: x11
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://github.com/X11Libre
+Description: X Window System (X.Org) infrastructure
+ x11-common contains the filesystem infrastructure required for further
+ installation of the X Window System in any configuration; it does not
+ provide a full installation of clients, servers, libraries, and utilities
+ required to run the X Window System.
+ .
+ Session scripts reused from the previous XLibre x11-common package; not ABI
+ dependent. Rebuilt for LCOS 0.3.
+
+Package: xserver-xlibre-common
+Source: xlibre-server
+Version: 2:25.1.9-1+lcos1
+Architecture: all
+Maintainer: LCOS <lcos@lunduke.com>
+Installed-Size: 34
+Depends: xlibre-x11-common, xkb-data, x11-xkb-utils
+Recommends: xfonts-base, xauth
+Conflicts: xserver-common
+Replaces: xserver-xorg-core (<< 2:1.5.2)
+Provides: xserver-common (= 2:25.1.9-1+lcos1)
+Filename: pool/main/x/xserver-xlibre-common/xserver-xlibre-common_25.1.9-1+lcos1_all.deb
+Size: 16488
+MD5sum: 6c3dd5ad5c6c451b3ab599e3fe768543
+SHA1: 2f3c68e51cde0deed4b9ef3b654f5265132a51a5
+SHA256: 476bb5fcc91db89958811388c7c0992fb0b49b8110b19b4eecad14e5b5f2ad0a
+Section: x11
+Priority: optional
+Multi-Arch: foreign
+Homepage: https://github.com/X11Libre
+Description: common files used by various X servers
+ This package provides files necessary for all XLibre based X servers.
+

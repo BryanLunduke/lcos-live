@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Solitaire
+Comment=Play many different solitaire games
+Exec=/usr/games/sol
+Icon=gnome-aisleriot
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Game;CardGame;
+StartupNotify=true

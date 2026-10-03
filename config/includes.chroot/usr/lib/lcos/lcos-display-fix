@@ -1,0 +1,49 @@
+#!/bin/sh
+# LightDM greeter/session setup (GitHub #89 / #75).
+# Quit Plymouth, then seed .Xauthority from the LightDM server cookie so
+# empty-cookie races are less likely to black-screen the greeter/session.
+# Safe on live (user lcos) and installed systems (Calamares username).
+
+[ -x /bin/plymouth ] && /bin/plymouth quit 2>/dev/null || true
+
+SRV=/var/run/lightdm/root/:0
+[ -r "$SRV" ] || exit 0
+
+USER_NAME=
+if [ -f /etc/lightdm/lightdm.conf.d/50-lcos.conf ]; then
+	USER_NAME=$(sed -n 's/^autologin-user=//p' /etc/lightdm/lightdm.conf.d/50-lcos.conf | head -n1 | tr -d ' \t\r')
+fi
+if [ -z "$USER_NAME" ] || ! getent passwd "$USER_NAME" >/dev/null 2>&1; then
+	USER_NAME=$(getent passwd | awk -F: '$3 >= 1000 && $3 < 65534 { print $1; exit }')
+fi
+
+if [ -n "$USER_NAME" ]; then
+	HOME_DIR=$(getent passwd "$USER_NAME" | cut -d: -f6)
+	if [ -n "$HOME_DIR" ] && [ -d "$HOME_DIR" ]; then
+		cp -f "$SRV" "$HOME_DIR/.Xauthority" 2>/dev/null \
+			&& chown "$USER_NAME:$USER_NAME" "$HOME_DIR/.Xauthority" 2>/dev/null \
+			|| true
+	fi
+fi
+
+if getent passwd lightdm >/dev/null 2>&1; then
+	mkdir -p /var/lib/lightdm
+	cp -f "$SRV" /var/lib/lightdm/.Xauthority 2>/dev/null \
+		&& chown lightdm:lightdm /var/lib/lightdm/.Xauthority 2>/dev/null \
+		|| true
+fi
+
+if command -v xhost >/dev/null 2>&1; then
+	n=0
+	while [ "$n" -lt 50 ]; do
+		if DISPLAY=:0 XAUTHORITY="$SRV" xhost +SI:localuser:lightdm +SI:localuser:root >/dev/null 2>&1; then
+			if [ -n "$USER_NAME" ]; then
+				DISPLAY=:0 XAUTHORITY="$SRV" xhost "+SI:localuser:${USER_NAME}" >/dev/null 2>&1 || true
+			fi
+			break
+		fi
+		sleep 0.2
+		n=$((n + 1))
+	done
+fi
+exit 0

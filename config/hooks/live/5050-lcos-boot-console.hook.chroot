@@ -1,0 +1,118 @@
+#!/bin/sh
+set -e
+# LCOS boot-console soft fixes (plymouth start non-fatal; saned single IPv4
+# listener + RUN gate; inetd sane-port off). Soften only — do not disable
+# network scanning or switch plymouth to full quit (that is #75 greeter path).
+
+echo "lcos-boot-console: soft-fix plymouth start (quit --retain-splash non-fatal)"
+if [ -f /etc/init.d/plymouth ]; then
+	# Idempotent: only replace the bare start-path quit line if still fatal.
+	# Use '#' delimiter — replacement contains '||' and '/'.
+	if grep -Eq '/usr/bin/plymouth quit --retain-splash[[:space:]]*$' /etc/init.d/plymouth \
+		&& ! grep -Fq 'plymouth quit --retain-splash 2>/dev/null || true' /etc/init.d/plymouth; then
+		sed -i 's#/usr/bin/plymouth quit --retain-splash$#/usr/bin/plymouth quit --retain-splash 2>/dev/null || true#' \
+			/etc/init.d/plymouth
+		echo "lcos-boot-console: patched /etc/init.d/plymouth start quit"
+	elif grep -Fq 'plymouth quit --retain-splash 2>/dev/null || true' /etc/init.d/plymouth; then
+		echo "lcos-boot-console: plymouth already softened"
+	else
+		echo "lcos-boot-console: WARNING no plymouth quit --retain-splash line to patch" >&2
+	fi
+else
+	echo "lcos-boot-console: no /etc/init.d/plymouth (skip)"
+fi
+
+echo "lcos-boot-console: write /etc/default/saned (RUN=yes, standalone)"
+mkdir -p /etc/default
+cat > /etc/default/saned <<'SANED'
+# LCOS: one standalone network saned (not inetd).
+RUN=yes
+RUN_AS_USER=saned
+SANED
+
+echo "lcos-boot-console: patch /etc/init.d/saned (RUN gate + IPv4-only -b 0.0.0.0)"
+if [ -f /etc/init.d/saned ]; then
+	# Insert RUN check after sourcing /etc/default/saned if missing.
+	if ! grep -Fq '[ "$RUN" = "yes" ] || exit 0' /etc/init.d/saned; then
+		if grep -q 'if \[ -f /etc/default/saned \]' /etc/init.d/saned; then
+			awk '
+				BEGIN { done=0 }
+				{
+					print
+					if (!done && /^fi$/ && prev_sourced) {
+						print ""
+						print "[ \"$RUN\" = \"yes\" ] || exit 0"
+						done=1
+					}
+					if ($0 ~ /\. \"\/etc\/default\/saned\"/ || $0 ~ /\. \/etc\/default\/saned/)
+						prev_sourced=1
+					else if ($0 ~ /^[[:space:]]*$/ || $0 ~ /^#/)
+						;
+					else if ($0 !~ /^fi$/)
+						prev_sourced=0
+				}
+			' /etc/init.d/saned > /etc/init.d/saned.lcos-tmp
+			mv /etc/init.d/saned.lcos-tmp /etc/init.d/saned
+			chmod 0755 /etc/init.d/saned
+			echo "lcos-boot-console: inserted RUN=yes gate in saned init"
+		else
+			echo "lcos-boot-console: WARNING could not find defaults include in saned init" >&2
+		fi
+	else
+		echo "lcos-boot-console: saned RUN gate already present"
+	fi
+
+	# Force IPv4-only single bind (avoids dual-stack EADDRINUSE noise).
+	if grep -Fq 'DAEMON_OPTS="-a $RUN_AS_USER -b 0.0.0.0"' /etc/init.d/saned; then
+		echo "lcos-boot-console: saned DAEMON_OPTS already IPv4-only"
+	elif grep -q '^DAEMON_OPTS=' /etc/init.d/saned; then
+		sed -i 's#^DAEMON_OPTS=.*#DAEMON_OPTS="-a $RUN_AS_USER -b 0.0.0.0"#' /etc/init.d/saned
+		echo "lcos-boot-console: set saned DAEMON_OPTS IPv4-only (-b 0.0.0.0)"
+	else
+		sed -i '/^set -e$/i DAEMON_OPTS="-a $RUN_AS_USER -b 0.0.0.0"' /etc/init.d/saned
+		echo "lcos-boot-console: inserted saned DAEMON_OPTS IPv4-only"
+	fi
+else
+	echo "lcos-boot-console: no /etc/init.d/saned (skip)"
+fi
+
+echo "lcos-boot-console: disable inetd sane-port (standalone only)"
+if command -v update-inetd >/dev/null 2>&1; then
+	update-inetd --disable sane-port || true
+	echo "lcos-boot-console: update-inetd --disable sane-port (errors ignored)"
+else
+	echo "lcos-boot-console: update-inetd not present (skip)"
+fi
+
+# --- Boot polish (0.8): quieter sysv + hold Plymouth until greeter ---
+# Do NOT disable CUPS, NetworkManager, or saned — only reduce console noise.
+
+echo "lcos-boot-console: quieter rcS (VERBOSE=no)"
+mkdir -p /etc/default
+if [ -f /etc/default/rcS ]; then
+	if grep -q '^VERBOSE=' /etc/default/rcS; then
+		sed -i 's/^VERBOSE=.*/VERBOSE=no/' /etc/default/rcS
+	else
+		printf '\n# LCOS: quieter sysv boot\nVERBOSE=no\n' >> /etc/default/rcS
+	fi
+else
+	printf '# LCOS: quieter sysv boot\nVERBOSE=no\nFSCKFIX=no\n' > /etc/default/rcS
+fi
+
+if [ -f /etc/default/rc ]; then
+	if grep -q '^VERBOSE=' /etc/default/rc; then
+		sed -i 's/^VERBOSE=.*/VERBOSE=no/' /etc/default/rc
+	else
+		printf '\nVERBOSE=no\n' >> /etc/default/rc
+	fi
+fi
+
+# Plymouth stays up through early userspace; greeter-setup (lcos-display-fix)
+# quits when X/LightDM is ready — covers black gap better than early rc quit.
+echo "lcos-boot-console: ensure plymouth ShowDelay for hold-until-greeter path"
+if [ -f /etc/plymouth/plymouthd.conf ]; then
+	grep -q '^ShowDelay=' /etc/plymouth/plymouthd.conf \
+		|| printf 'ShowDelay=0\n' >> /etc/plymouth/plymouthd.conf
+fi
+
+echo "lcos-boot-console: done"

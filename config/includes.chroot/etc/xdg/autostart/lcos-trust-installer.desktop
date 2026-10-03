@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Trust LCOS Installer
+Comment=Mark the Install LCOS desktop launcher as trusted
+Exec=/usr/local/bin/lcos-trust-installer
+Terminal=false
+NoDisplay=true
+OnlyShowIn=XFCE;

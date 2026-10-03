@@ -1,0 +1,30 @@
+#!/bin/sh
+set -e
+# Runs after binary_includes. Relabel every on-ISO boot menu + .disk/info to LCOS.
+# Do not touch kernel cmdline hostname=LCOS.
+
+if grep -q '@LINUX_LIVE@' binary/boot/grub/grub.cfg 2>/dev/null; then
+	echo "ERROR: @LINUX_LIVE@ still in binary/boot/grub/grub.cfg (includes.binary overwrote the processed GRUB menu)" >&2
+	exit 1
+fi
+
+find binary -type f \( -name '*.cfg' -o -name 'theme.txt' -o -name 'info' \) 2>/dev/null | while read -r f
+do
+	sed -i \
+		-e 's/Debian GNU\/Linux/LCOS/g' \
+		-e 's/Devuan GNU+Linux/LCOS/g' \
+		-e 's/Devuan GNU\/Linux/LCOS/g' \
+		-e 's/DEVUAN/LCOS/g' \
+		-e 's/Devuan/LCOS/g' \
+		-e 's/Debian Live/LCOS/g' \
+		-e 's/Live system/LCOS live/g' \
+		"$f" || true
+done
+
+if [ -f binary/.disk/info ]; then
+	sed -i \
+		-e 's/Debian GNU\/Linux/LCOS/g' \
+		-e 's/Devuan GNU\/Linux/LCOS/g' \
+		-e 's/Devuan/LCOS/g' \
+		binary/.disk/info
+fi

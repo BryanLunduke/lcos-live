@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Maelstrom
+GenericName=Ambrosia Maelstrom
+Comment=Play an Asteroids like game
+Icon=maelstrom
+Exec=/usr/games/maelstrom -windowed
+Terminal=false
+Categories=Game;ArcadeGame;

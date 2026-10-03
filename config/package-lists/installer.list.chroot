@@ -1,0 +1,20 @@
+calamares
+rsync
+os-prober
+dosfstools
+e2fsprogs
+squashfs-tools
+pkexec
+polkitd
+grub-common
+grub2-common
+grub-pc-bin
+grub-pc
+grub-efi-amd64-bin
+
+# 32-bit EFI for early Intel Macs (MacBook2,1); GitHub #90
+grub-efi-ia32-bin
+
+# LUKS encryption support (GitHub #80)
+cryptsetup
+cryptsetup-initramfs

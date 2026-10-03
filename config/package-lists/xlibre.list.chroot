@@ -1,0 +1,6 @@
+# XLibre — not xorg, not a Wayland compositor as the session
+xlibre
+xserver-xlibre
+xserver-xlibre-input-all
+xserver-xlibre-video-all
+xserver-xlibre-input-libinput

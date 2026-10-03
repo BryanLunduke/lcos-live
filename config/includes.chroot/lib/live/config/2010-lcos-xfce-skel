@@ -1,0 +1,55 @@
+#!/bin/sh
+
+. /lib/live/config.sh
+
+## Copy skel XFCE backdrop/settings onto the live user after user-setup.
+## Must run after 0030-user-setup so /home/lcos exists.
+
+Cmdline ()
+{
+	for _PARAMETER in ${LIVE_CONFIG_CMDLINE}
+	do
+		case "${_PARAMETER}" in
+			live-config.username=*|username=*)
+				LIVE_USERNAME="${_PARAMETER#*username=}"
+				;;
+		esac
+	done
+}
+
+Init ()
+{
+	if component_was_executed "lcos-xfce-skel"
+	then
+		exit 0
+	fi
+	echo -n " lcos-xfce-skel"
+}
+
+Config ()
+{
+	LIVE_USERNAME="${LIVE_USERNAME:-lcos}"
+	home="/home/${LIVE_USERNAME}"
+	skel="/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml"
+	dest="${home}/.config/xfce4/xfconf/xfce-perchannel-xml"
+
+	if getent passwd "${LIVE_USERNAME}" >/dev/null 2>&1 && \
+	   [ -d "${home}" ] && [ -d "${skel}" ]
+	then
+		mkdir -p "${dest}"
+		# Force the skel backdrop XML even if user-setup left an empty one.
+		if [ -f "${skel}/xfce4-desktop.xml" ]; then
+			cp -f "${skel}/xfce4-desktop.xml" "${dest}/xfce4-desktop.xml"
+		fi
+		if [ -f "${skel}/xsettings.xml" ]; then
+			cp -f "${skel}/xsettings.xml" "${dest}/xsettings.xml"
+		fi
+		chown -R "${LIVE_USERNAME}:${LIVE_USERNAME}" "${home}/.config/xfce4" || true
+	fi
+
+	touch /var/lib/live/config/lcos-xfce-skel
+}
+
+Cmdline
+Init
+Config

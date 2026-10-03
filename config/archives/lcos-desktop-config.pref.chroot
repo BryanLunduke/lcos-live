@@ -1,0 +1,3 @@
+Package: lcos-desktop-config
+Pin: release o=LCOS
+Pin-Priority: -1

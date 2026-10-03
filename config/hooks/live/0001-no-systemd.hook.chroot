@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+if dpkg-query -W -f='${Status}' systemd-sysv 2>/dev/null | grep -q installed; then
+	apt-get -y --purge remove systemd-sysv || true
+fi
+if dpkg-query -W -f='${Status}' live-config-systemd 2>/dev/null | grep -q installed; then
+	apt-get -y --purge remove live-config-systemd || true
+fi
+if ! dpkg-query -W -f='${Status}' sysvinit-core 2>/dev/null | grep -q installed; then
+	apt-get -y install sysvinit-core
+fi
+if [ -x /usr/sbin/lightdm ]; then
+	echo /usr/sbin/lightdm > /etc/X11/default-display-manager
+fi
+if [ -f /usr/share/images/desktop-base/lcos-desktop-stock.jpg ] && command -v update-alternatives >/dev/null; then
+	update-alternatives --install \
+		/usr/share/images/desktop-base/desktop-background \
+		desktop-background \
+		/usr/share/images/desktop-base/lcos-desktop-stock.jpg 90 || true
+fi

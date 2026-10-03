@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+# Excalibur apt games. Fail the bake if the binaries Bob will Exec are missing.
+if [ ! -x /usr/games/sol ]; then
+	echo "ERROR: /usr/games/sol missing; aisleriot did not land" >&2
+	exit 1
+fi
+if [ ! -x /usr/games/maelstrom ] && [ ! -x /usr/games/Maelstrom ]; then
+	echo "ERROR: /usr/games/maelstrom missing; maelstrom did not land" >&2
+	exit 1
+fi

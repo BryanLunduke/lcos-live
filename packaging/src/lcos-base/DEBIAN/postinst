@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+  /usr/local/sbin/lcos-write-os-release || true
+fi

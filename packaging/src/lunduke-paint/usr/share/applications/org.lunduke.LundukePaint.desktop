@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Lunduke Paint
+GenericName=Paint Program
+Comment=Layered bitmap paint program for Linux X11
+Exec=lunduke-paint %F
+Icon=org.lunduke.LundukePaint
+Terminal=false
+Categories=GTK;Graphics;2DGraphics;RasterGraphics;
+StartupNotify=true
+StartupWMClass=lunduke-paint
+MimeType=image/openraster;image/png;image/jpeg;image/bmp;image/gif;
+Keywords=paint;draw;raster;

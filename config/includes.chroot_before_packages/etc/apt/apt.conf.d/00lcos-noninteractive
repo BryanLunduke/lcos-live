@@ -1,0 +1,2 @@
+APT::Get::Assume-Yes "true";
+DPkg::options { "--force-confdef"; "--force-confold"; };

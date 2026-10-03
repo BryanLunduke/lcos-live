@@ -1,0 +1,3 @@
+Seeded 2026-09-28 CT: lunduke-city_0.7-4_amd64.deb
+SHA256: a0e1d2f503d1d8a162fe0fbd7077a8a065e938359f98aa67dddfcc8b4948b874
+Replaces 0.7-1 for bake lcos-live-07-08.

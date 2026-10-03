@@ -1,0 +1,12 @@
+#!/bin/sh
+# Mark the live-user Install LCOS desktop launcher as trusted for XFCE.
+# Must never fail the graphical session.
+f="${HOME}/Desktop/lcos-installer.desktop"
+[ -n "${HOME}" ] || exit 0
+[ -e "$f" ] || exit 0
+chmod +x "$f" 2>/dev/null || true
+if command -v gio >/dev/null 2>&1; then
+	gio set -t string "$f" metadata::xfce-exe-checksum "$(sha256sum "$f" | awk '{print $1}')" 2>/dev/null || true
+	gio set -t boolean "$f" metadata::trusted true 2>/dev/null || true
+fi
+exit 0

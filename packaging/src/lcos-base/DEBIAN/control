@@ -1,0 +1,19 @@
+Package: lcos-base
+Version: 0.7-2
+Section: admin
+Priority: optional
+Architecture: all
+Installed-Size: 76
+Maintainer: LCOS <lcos@lunduke.com>
+Homepage: https://lunduke.com
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.7)
+Replaces: base-files
+Description: LCOS 0.8 identity, GRUB splash drop-in, overlay membership
+ os-release / issue for LCOS 0.8 (excalibur), lcos-write-os-release,
+ and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
+ GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
+ loglevel=2).
+ .
+ Depends on the overlay keyring and branding artwork.
+ Postinst re-applies identity on configure so apt upgrades overwrite
+ stale 0.4 conffile text kept by noninteractive Updates.

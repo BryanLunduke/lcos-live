@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=X-XFCE-Helper
+Name=Lunduke Edit
+Icon=org.lunduke.LundukeEdit
+StartupNotify=true
+X-XFCE-Category=TextEditor
+X-XFCE-Binaries=lunduke-edit;
+X-XFCE-Commands=%B;
+X-XFCE-CommandsWithParameter=%B %s;
+

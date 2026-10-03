@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=LCOS
+Description=LCOS animated boot splash (Starting your computer...)
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/lcos
+ScriptFile=/usr/share/plymouth/themes/lcos/lcos.script

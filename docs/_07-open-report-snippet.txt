@@ -1,0 +1,16 @@
+FREE_DISK=72G
+RECIPE=/workspace/lcos-live-07
+PKG_SOURCES=/workspace/lcos-live-07/packaging/src
+PHIL_PAINT=/workspace/lunduke-paint/packaging/debs/lunduke-paint_0.7-1_amd64.deb
+PHIL_UPDATES=/workspace/lcos-updates/packaging/debs/lcos-updates_0.7-1_amd64.deb
+--- SHA256 packages.chroot 0.7 ---
+140be73819a083a5436aa8ec16731d84275dc0313671e331e0a06f7d2cf1b2af  /workspace/lcos-live-07/config/packages.chroot/lcos-desktop-config_0.7-1_all.deb
+2a271e9e4a53c4ba224ede696e752388efeef30d6aa0045b4627f119fdcd5b4f  /workspace/lcos-live-07/config/packages.chroot/lcos-zork_0.7-1_all.deb
+3db646fed38ad207b917c6d41ded57f1dd76e9fa373d80c8516118a433bd4b58  /workspace/lcos-live-07/config/packages.chroot/lcos-archive-keyring_0.7-1_all.deb
+45a82817d24f8485eac59702720bef97e817b5f3f3ca475a519b68c2ac3c4854  /workspace/lcos-live-07/config/packages.chroot/lcos-base_0.7-1_all.deb
+502be0bb4a7dc9cce58c9469d2ab17d927b416f009ab70e7a4125dc17c14d809  /workspace/lcos-live-07/config/packages.chroot/lcos-desktop_0.7-1_all.deb
+585ea557feae1829fcb611e42a328c5b534b3674bf9b1e567444ff3974f2568b  /workspace/lcos-live-07/config/packages.chroot/lcos-theme-clearlooks_0.7-1_all.deb
+925cb43ef7d44a7ba773737ffd5b945dabfcecf20a1de42b2113991b6b4f1f2c  /workspace/lcos-live-07/config/packages.chroot/lcos-branding_0.7-1_all.deb
+ad354560ed788e8b66f48a3a6b040e5dfc0991e23ba8425e9ea2620b5bcd9b13  /workspace/lcos-live-07/config/packages.chroot/lcos-appimage-thumbnailer_0.7-1_all.deb
+bdf61b8e73255abf7cebae82140955a54970e421a81a1d8a3e1b0687086048f3  /workspace/lcos-live-07/config/packages.chroot/lcos-updates_0.7-1_amd64.deb
+f5b445fefc37e41e6655ffda0764aa4c8c064d27f734ab5aa04cf68a9cebfae6  /workspace/lcos-live-07/config/packages.chroot/lunduke-paint_0.7-1_amd64.deb

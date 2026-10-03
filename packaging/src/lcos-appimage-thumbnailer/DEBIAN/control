@@ -1,0 +1,13 @@
+Package: lcos-appimage-thumbnailer
+Version: 0.7-1
+Section: utils
+Priority: optional
+Architecture: all
+Installed-Size: 44
+Maintainer: LCOS <lcos@lunduke.com>
+Homepage: https://lunduke.com
+Depends: python3, python3-gi, python3-pyelftools, gir1.2-gdkpixbuf-2.0, squashfs-tools, tumbler
+Description: AppImage icon thumbnails for Thunar and XFCE desktop
+ Freedesktop thumbnailer that extracts .DirIcon from Type-2 (SquashFS)
+ AppImages for tumbler. Shows per-AppImage icons in Thunar and on the
+ XFCE desktop. Does not add AppImages to application menus.

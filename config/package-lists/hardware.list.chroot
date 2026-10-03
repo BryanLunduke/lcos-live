@@ -1,0 +1,47 @@
+# Hardware peripherals for LCOS 0.8 (editor via Ted 2026-09-25).
+# Recipe installs no Recommends — list hard-needed companions explicitly.
+# Do NOT add hplip or proprietary NVIDIA.
+
+# Bluetooth
+bluez
+blueman
+# blueman Depends (would resolve anyway; listed for clarity)
+bluez-obexd
+# BT audio with existing PulseAudio (blueman Recommends)
+pulseaudio-module-bluetooth
+
+# Printing — CUPS + Gutenprint (no hplip)
+cups
+cups-client
+cups-filters
+printer-driver-gutenprint
+# Network printer discovery (cups Recommends; needed for a usable stack)
+avahi-daemon
+
+# Scanning
+sane-utils
+simple-scan
+
+# Video4Linux
+v4l-utils
+
+# Vulkan (Mesa ICDs only)
+mesa-vulkan-drivers
+
+# Thunderbolt / USB4 userspace (editor via Ted 2026-10-02)
+bolt
+
+# ALSA Use Case Manager configs (better laptop/codec profiles; alsa-utils already in desktop)
+alsa-ucm-conf
+
+# VM guest agents (SPICE/QEMU display+clipboard; VMware tools)
+spice-vdagent
+open-vm-tools
+
+# Broadcom b43 / b43legacy Wi-Fi firmware (MacBook-era SSB/BCMA).
+# Devuan Excalibur contrib (already in LB_ARCHIVE_AREAS). Not precut blobs:
+# postinst wget's the proprietary extract during chroot package install
+# (b43: github.com/minios-linux/b43-firmware; legacy: downloads.openwrt.org).
+# b43-fwcutter is a Depends (1:019-14). Do NOT add broadcom-sta / wl.
+firmware-b43-installer
+firmware-b43legacy-installer

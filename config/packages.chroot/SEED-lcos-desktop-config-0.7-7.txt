@@ -1,0 +1,3 @@
+Seeded 2026-09-28 CT: lcos-desktop-config_0.7-7_all.deb
+SHA256: 8f3a9eb6bf039105e8c3b2c2885ce8a1969cbf587cb936343bd702ee64943c4d
+Wallpaper #84 fix. For bake lcos-live-07-08.

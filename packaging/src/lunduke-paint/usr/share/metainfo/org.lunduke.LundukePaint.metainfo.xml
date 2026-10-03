@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.lunduke.LundukePaint</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Lunduke Paint</name>
+  <summary>Layered bitmap paint program for Linux X11</summary>
+  <description>
+    <p>
+      Lunduke Paint is a traditional GTK 3 paint program for Linux X11.
+      Look and feel: classic MS Paint plus KolourPaint, with user layers
+      and a visible history list.
+    </p>
+    <p>
+      It uses a window-manager title bar, a menu bar, and toolbars. The
+      native project format is OpenRaster (.ora). Load PNG, JPEG, BMP, and
+      GIF. Flat export to PNG, JPEG, and BMP is supported.
+    </p>
+  </description>
+  <url type="homepage">https://lunduke.com</url>
+  <launchable type="desktop-id">org.lunduke.LundukePaint.desktop</launchable>
+  <provides>
+    <binary>lunduke-paint</binary>
+  </provides>
+  <mimetypes>
+    <mimetype>image/openraster</mimetype>
+    <mimetype>image/png</mimetype>
+    <mimetype>image/jpeg</mimetype>
+    <mimetype>image/bmp</mimetype>
+    <mimetype>image/gif</mimetype>
+  </mimetypes>
+  <developer_name>The Lunduke Journal</developer_name>
+  <content_rating type="oars-1.1"/>
+  <categories>
+    <category>Graphics</category>
+    <category>2DGraphics</category>
+    <category>RasterGraphics</category>
+  </categories>
+  <releases>
+    <release version="0.7" date="2026-09-23">
+      <description>
+        <p>Lunduke Paint 0.7 for LCOS 0.7. Identity bump for the 0.7 track (Phil build).</p>
+      </description>
+    </release>
+    <release version="0.6" date="2026-09-15">
+      <description>
+        <p>Lunduke Paint 0.6 for LCOS 0.6. Identity bump; keeps 0.5-12 UI/icon fixes (WM title-bar icon, themed toolbox symbolics, new app icon PNGs, MacPaint chrome).</p>
+      </description>
+    </release>
+    <release version="0.5" date="2026-09-11">
+      <description>
+        <p>Lunduke Paint 0.5 for LCOS 0.5. 0.5-12: set_default_icon_name / set_icon_name for WM title-bar icon. 0.5-11: toolbox symbolic icons currentColor + theme_fg at load (no washed grey). 0.5-10: new app icon (hicolor PNGs 16–512; drop scalable SVG). 0.5-9: stroke/brush/spray pickers match toolbox theme_bg; no left status-bar chatter. 0.5-8: drop black border box around left-rail line-width / brush / spray pickers. 0.5-7: pattern strip without FG/BG wells (Colors panel only). 0.5-6: Colors panel shade-columns + Custom "+"; drop duplicate Colors label. 0.5-5: separator under left tool grid; Layers thumbnail beside visibility/lock. 0.5-4: two-row patterns, left-rail brush/stroke options (no under-canvas tool strip), Layers grow + icon Delete/Rename/Add + DnD reorder. 0.5-2: R-F03 selection-move checker fix.</p>
+      </description>
+    </release>
+    <release version="0.4" date="2026-09-06">
+      <description>
+        <p>Lunduke Paint 0.4-3: dock recenter, Save dialog sizing/extension sync, About tagline, wand/freeform icon sizing, selection-move checker fix, Color Eraser removed.</p>
+      </description>
+    </release>
+    <release version="0.3" date="2026-09-03">
+      <description>
+        <p>Lunduke Paint 0.3: Foreground/Background well labels, equal-width tool columns. Howdy intro sources retained but not shown on launch by default.</p>
+      </description>
+    </release>
+    <release version="0.2" date="2026-09-02">
+      <description>
+        <p>Lunduke Paint 0.2 for LCOS: Open from the OS, crash recovery, Copy Merged, system fonts, magic wand, and GIF load.</p>
+      </description>
+    </release>
+  </releases>
+</component>

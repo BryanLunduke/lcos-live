@@ -1,0 +1,14 @@
+// Live session only: user lcos may run Calamares via pkexec with no password.
+// Root stays locked. This file is deleted on the installed system
+// by the Calamares shellprocess module (do not grant this on the target).
+polkit.addRule(function(action, subject) {
+    if (subject.user !== "lcos")
+        return;
+    if (action.id && action.id.indexOf("calamares") !== -1)
+        return polkit.Result.YES;
+    if (action.id === "org.freedesktop.policykit.exec") {
+        var program = action.lookup("program");
+        if (program === "/usr/bin/calamares" || program === "/usr/sbin/calamares")
+            return polkit.Result.YES;
+    }
+});

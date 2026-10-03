@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+# grub-install lives in grub2-common. Exit 127 was "command not found".
+if [ ! -x /usr/sbin/grub-install ]; then
+	echo "ERROR: /usr/sbin/grub-install missing; grub2-common did not land" >&2
+	exit 1
+fi
+# i386-pc platform files: grub-pc-bin (and grub-pc). Exit 1 can also be
+# missing modules, but BIOS/GPT still needs a bios_grub partition.
+if [ ! -d /usr/lib/grub/i386-pc ]; then
+	echo "ERROR: /usr/lib/grub/i386-pc missing; grub-pc / grub-pc-bin did not land" >&2
+	exit 1
+fi

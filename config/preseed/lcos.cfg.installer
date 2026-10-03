@@ -1,0 +1,4 @@
+# LCOS debian-installer preseed
+d-i debian-installer/locale string en_US.UTF-8
+d-i anna/choose_modules string choose-init
+choose-init choose-init/select_init select sysvinit

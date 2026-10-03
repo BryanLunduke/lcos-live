@@ -1,0 +1,8 @@
+# live-build output and caches (never commit)
+chroot/
+cache/
+.build/
+binary/
+binary.hybrid.iso
+*.iso
+*.img

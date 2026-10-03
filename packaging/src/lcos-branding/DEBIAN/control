@@ -1,0 +1,17 @@
+Package: lcos-branding
+Version: 0.7-1
+Section: x11
+Priority: optional
+Architecture: all
+Installed-Size: 15956
+Maintainer: LCOS <lcos@lunduke.com>
+Homepage: https://lunduke.com
+Provides: lcos-branding
+Replaces: lcos-branding (<< 0.7)
+Conflicts: lcos-branding (<< 0.7)
+Description: LCOS 0.8 artwork (wallpapers, splash, logos, Plymouth)
+ LCOS 0.8 artwork: stock wallpaper (jpg/png), synthwave nebula-grid, 4K wood
+ backdrop, GRUB splash (default / 1024x768 / 4K), logos, and the LCOS
+ Plymouth boot theme (frames + Shutdown-1.png) plus LightDM plymouth-quit
+ greeter helper. postinst sets Theme=lcos when plymouth is present.
+ Replaces old lcos-branding 1.0-2 / 0.2.0 (bw-720 + lcos32 only).

@@ -1,0 +1,58 @@
+LCOS 0.8 recipe tree
+Branched from frozen 0.7: /workspace/lcos-live-07
+Last official/test 0.7 ISO: lcos-live-07-08.iso
+Path: /workspace/lcos-iso/lcos-live-07-08.iso
+Bytes: 1409286144
+SHA256: c27376f042e3b3153899636b3ffc0eaa9cf44dbe31c8cf56393e78d0a0816cde
+Tag: lcos-live-07-08
+Official 0.6 ISO: lcos-live-06-03.iso
+SHA256: 2f9823dded0f2769dcfef2ca0cb9141c92b8037d91167a821f45d4c1635459d5
+Official 0.5 ISO: lcos-live-05-05.iso
+SHA256: bdfaa75d81c744262757860e63ef5091079de2815c61932dccb3957442f5750c
+Branched: 2026-09-28 (America/Chicago)
+Do not edit /workspace/lcos-live-07 (0.7 frozen) unless Ted says hotfix.
+Do not edit /workspace/lcos-live-06 (0.6 frozen) unless Ted says hotfix.
+Do not edit /workspace/lcos-live-05 (0.5 frozen) unless Ted says hotfix.
+Do not edit /workspace/lcos-live-04 (0.4 frozen) unless Ted says hotfix.
+Identity/overlay track: 0.8
+Base freeze: 0.7 / lcos-live-07-08
+Next bake filename: lcos-live-08-04.iso
+Default kernel: Lunduke Linux Kernel (LLK) 7.2.6-lcos11 (--linux-packages none + packages.chroot).
+SEED NOTE: Overlay/app debs in config/packages.chroot/ remain on the **0.7 track** until Phil supplies 0.8 debs. Do not invent 0.8 debs. Package filenames stay 0.7-*; bake-time identity (os-release/issue/Calamares/auto image-name) is **0.8**.
+Apt: do NOT publish from this open. 0.7 apt remains live (lcosrepo1 master 53439b7).
+
+Seeded 2026-09-28: lunduke-city/edit/paint/about 0.8-1 (replaced 0.7 counterparts). WAITING_ON_PHIL cleared for these four.
+
+Recipe patches 2026-10-01: #89 LightDM shellprocess; chrony; bootia32 gate; boot polish.
+LLK 7.2.6-lcos9 SEEDING DONE.
+
+Baked 2026-10-01 CT: lcos-live-08-01.iso
+SHA256: f8eb05cee72d10b6252ac5a256a49b26846c223a4891de566fe0f3ffe0aefa83
+Bytes: 1420492800
+Tag: https://github.com/BryanLunduke/lcos-testing/releases/tag/lcos-live-08-01
+LLK: 7.2.6-lcos9. No apt publish.
+
+Baked 2026-10-01 CT: lcos-live-08-02.iso
+Path: /workspace/lcos-iso/lcos-live-08-02.iso
+Bytes: 1420492800
+SHA256: f95de3a8c8ca95c842d75f82740aebf88771ef830460bec26598984feca31a8e
+Tag: https://github.com/BryanLunduke/lcos-testing/releases/tag/lcos-live-08-02
+Download: https://github.com/BryanLunduke/lcos-testing/releases/download/lcos-live-08-02/lcos-live-08-02.iso
+LLK: 7.2.6-lcos10 (VMMOUSE). No apt publish.
+Also added: linux-sysctl-defaults, xz-utils, unzip, lsb-release, iproute2, bash-completion.
+Recipe fix during bake: binary_grub_cfg menu entries now use KERNEL_LIVE/INITRD_LIVE (unversioned /live/vmlinuz) instead of DEFAULT_KERNEL (*amd64 glob). Next bake: lcos-live-08-03.
+
+Seeded 2026-10-02 CT: LLK 7.2.6-lcos11 into packages.chroot (replaced lcos10). No bake / no apt publish.
+lcos11: 12 HW gaps (USB4/Type-C, VMXNET3/VMCI, Hyper-V, UAS, laptop WMI, Apple/Lenovo/MS HID, virtio balloon/mmio/fs, TPM, BRCMSMAC, MWIFIEX). No Forced Rust.
+Also in hardware.list: bolt, alsa-ucm-conf, spice-vdagent, open-vm-tools (recipe seeds; keepers remain in base.list).
+
+Baked 2026-10-02 CT: lcos-live-08-03.iso
+Path: /workspace/lcos-iso/lcos-live-08-03.iso
+Bytes: 1426063360
+SHA256: 86c88d6872883b32e6269f3718a984c0c625641f3cd401e39a51b70cd5d809c2
+Tag: https://github.com/BryanLunduke/lcos-testing/releases/tag/lcos-live-08-03
+Download: https://github.com/BryanLunduke/lcos-testing/releases/download/lcos-live-08-03/lcos-live-08-03.iso
+LLK: 7.2.6-lcos11. desktop-config 0.7-8; About 0.8-3; Edit/Paint/City 0.8-1.
+Hardware seeds: bolt, alsa-ucm-conf, spice-vdagent, open-vm-tools.
+GRUB #86 verified: /live/vmlinuz + /live/initrd.img. No apt publish.
+Next bake: lcos-live-08-04.

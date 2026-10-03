@@ -1,0 +1,20 @@
+Package: lcos-archive-keyring
+Version: 0.7-1
+Section: misc
+Priority: optional
+Architecture: all
+Installed-Size: 60
+Maintainer: LCOS <lcos@lunduke.com>
+Homepage: https://lunduke.com
+Description: LCOS archive signing keyring and overlay apt source
+ Public keyring for the LCOS overlay at https://lcos.lunduke.com/apt
+ plus /etc/apt/sources.list.d/lcos-overlay.list (signed-by this key).
+ .
+ Fingerprint: 5A01 D4BD CDD1 E153 1D45  6A75 60D6 E7F6 CBD6 D572
+ UID: LCOS Archive Signing Key <lcos@lunduke.com>
+ .
+ lcos-overlay.list is not a conffile (same lesson as os-release): point
+ releases must refresh the distro overlay source without dpkg prompts.
+ Local edits may be overwritten on upgrade; add extras in another .list.
+ .
+ Unsigned package; editor signs the archive later. Do not replace this key.

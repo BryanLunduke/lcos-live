@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+# Prefer plymouth-set-default-theme when available; else write config + symlink.
+if [ -x /usr/sbin/plymouth-set-default-theme ]; then
+  plymouth-set-default-theme lcos >/dev/null 2>&1 || true
+elif [ -d /usr/share/plymouth/themes/lcos ]; then
+  mkdir -p /etc/plymouth
+  if [ -f /etc/plymouth/plymouthd.conf ]; then
+    if grep -q '^Theme=' /etc/plymouth/plymouthd.conf 2>/dev/null; then
+      sed -i 's/^Theme=.*/Theme=lcos/' /etc/plymouth/plymouthd.conf || true
+    else
+      printf '\n[Daemon]\nTheme=lcos\n' >> /etc/plymouth/plymouthd.conf || true
+    fi
+  else
+    printf '[Daemon]\nTheme=lcos\n' > /etc/plymouth/plymouthd.conf || true
+  fi
+  mkdir -p /etc/alternatives 2>/dev/null || true
+  if [ -d /usr/share/plymouth/themes ]; then
+    ln -sfn /usr/share/plymouth/themes/lcos/lcos.plymouth \
+      /usr/share/plymouth/themes/default.plymouth 2>/dev/null || true
+  fi
+fi
+exit 0

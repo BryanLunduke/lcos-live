@@ -1,0 +1,104 @@
+# LCOS plymouth theme.
+# Boot: cycle three 1920x1080 frames (Starting your computer. / .. / ...)
+# Shutdown: static Shutdown-1.png
+# Scale to fit (letterbox) and center on a black background.
+
+Window.SetBackgroundTopColor(0.0, 0.0, 0.0);
+Window.SetBackgroundBottomColor(0.0, 0.0, 0.0);
+
+screen_w = Window.GetWidth();
+screen_h = Window.GetHeight();
+
+fun scale_to_fit(img)
+{
+  iw = img.GetWidth();
+  ih = img.GetHeight();
+  scale_w = screen_w / iw;
+  scale_h = screen_h / ih;
+  scale = scale_w;
+  if (scale_h < scale_w)
+    scale = scale_h;
+  nw = Math.Int(iw * scale);
+  nh = Math.Int(ih * scale);
+  if (nw < 1)
+    nw = 1;
+  if (nh < 1)
+    nh = 1;
+  return img.Scale(nw, nh);
+}
+
+mode = Plymouth.GetMode();
+is_shutdown = 0;
+if (mode == "shutdown")
+  is_shutdown = 1;
+if (mode == "reboot")
+  is_shutdown = 1;
+
+if (is_shutdown)
+  {
+    shutdown_image = scale_to_fit(Image("Shutdown-1.png"));
+    sprite = Sprite(shutdown_image);
+    sprite.SetZ(1);
+    sprite.SetX(Window.GetX() + (screen_w - shutdown_image.GetWidth()) / 2);
+    sprite.SetY(Window.GetY() + (screen_h - shutdown_image.GetHeight()) / 2);
+
+    fun refresh_callback()
+    {
+    }
+
+    Plymouth.SetRefreshFunction(refresh_callback);
+  }
+else
+  {
+    # Boot (and any other mode): animated frames
+    raw[0] = Image("frame-1.png");
+    raw[1] = Image("frame-2.png");
+    raw[2] = Image("frame-3.png");
+
+    for (i = 0; i < 3; i++)
+      {
+        frame_image[i] = scale_to_fit(raw[i]);
+      }
+
+    sprite = Sprite(frame_image[0]);
+    sprite.SetZ(1);
+    sprite.SetX(Window.GetX() + (screen_w - frame_image[0].GetWidth()) / 2);
+    sprite.SetY(Window.GetY() + (screen_h - frame_image[0].GetHeight()) / 2);
+
+    # ~0.5s per frame (Plymouth refresh ~50ms)
+    ticks_per_frame = 10;
+    tick = 0;
+    frame_index = 0;
+    frame_count = 3;
+
+    fun refresh_callback()
+    {
+      tick += 1;
+      if (tick >= ticks_per_frame)
+        {
+          tick = 0;
+          frame_index += 1;
+          if (frame_index >= frame_count)
+            frame_index = 0;
+          sprite.SetImage(frame_image[frame_index]);
+          sprite.SetX(Window.GetX() + (screen_w - frame_image[frame_index].GetWidth()) / 2);
+          sprite.SetY(Window.GetY() + (screen_h - frame_image[frame_index].GetHeight()) / 2);
+        }
+    }
+
+    Plymouth.SetRefreshFunction(refresh_callback);
+  }
+
+fun display_normal_callback()
+{
+  sprite.SetOpacity(1);
+}
+
+Plymouth.SetDisplayNormalFunction(display_normal_callback);
+
+fun quit_callback()
+{
+  sprite.SetOpacity(0);
+}
+
+Plymouth.SetQuitFunction(quit_callback);

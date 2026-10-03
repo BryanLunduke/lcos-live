@@ -1,0 +1,3 @@
+#!/bin/sh
+# Compat wrapper — real work is in lcos-display-fix (GitHub #89 / #75).
+exec /usr/lib/lcos/lcos-display-fix "$@"

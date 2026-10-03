@@ -1,0 +1,48 @@
+#!/bin/sh
+set -e
+# Editor 2026-08-20: Calamares installer. --debian-installer none. Do not revert.
+MIRROR="http://deb.devuan.org/merged"
+HERE="$(cd "$(dirname "$0")/.." && pwd)"
+DSCRIPT="${HERE}/helpers/debootstrap-excalibur"
+lb config noauto \
+	--mode debian \
+	--system live \
+	--architectures amd64 \
+	--distribution excalibur \
+	--parent-distribution excalibur \
+	--archive-areas "main contrib non-free-firmware" \
+	--parent-archive-areas "main contrib non-free-firmware" \
+	--mirror-bootstrap "${MIRROR}" \
+	--mirror-chroot "${MIRROR}" \
+	--mirror-binary "${MIRROR}" \
+	--mirror-chroot-security "${MIRROR}" \
+	--mirror-binary-security "${MIRROR}" \
+	--parent-mirror-bootstrap "${MIRROR}" \
+	--parent-mirror-chroot "${MIRROR}" \
+	--parent-mirror-binary "${MIRROR}" \
+	--parent-mirror-chroot-security "${MIRROR}" \
+	--parent-mirror-binary-security "${MIRROR}" \
+	--initsystem sysvinit \
+	--initramfs live-boot \
+	--debian-installer none \
+	--keyring-packages "devuan-keyring" \
+	--debootstrap-script "${DSCRIPT}" \
+	--debootstrap-options "--keyring=/usr/share/keyrings/devuan-archive-keyring.gpg --include=sysvinit-core,devuan-keyring,ca-certificates --exclude=systemd-sysv --merged-usr" \
+	--apt-recommends false \
+	--apt-source-archives false \
+	--apt-indices false \
+	--backports false \
+	--security true \
+	--updates true \
+	--firmware-chroot true \
+	--firmware-binary true \
+	--win32-loader false \
+	--memtest none \
+	--binary-images iso-hybrid \
+	--iso-application "LCOS" \
+	--iso-publisher "The Lunduke Journal" \
+	--iso-volume "LCOS" \
+	--image-name "lcos-excalibur-live" \
+	--bootappend-live "boot=live components hostname=lcos username=lcos" \
+	--bootappend-live-failsafe "boot=live components hostname=lcos username=lcos memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal" \
+	"${@}"

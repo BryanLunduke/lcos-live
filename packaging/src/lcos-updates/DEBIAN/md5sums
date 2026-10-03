@@ -1,0 +1,8 @@
+932ffb63830ec799192ae31461403f48  usr/bin/lcos-updates
+2a457d433cb791d0a90d2ff592532b48  usr/libexec/lcos-updates-helper
+627b2e3735c9213b6912ae9be011a8ac  usr/share/applications/org.lunduke.LcosUpdates.desktop
+2061bc91a67f625bc69332f613070f30  usr/share/icons/hicolor/128x128/apps/org.lunduke.LcosUpdates.png
+d314fcf6cfe934b4fe16c1774818375b  usr/share/icons/hicolor/256x256/apps/org.lunduke.LcosUpdates.png
+2402b58d3852e8e5e2dad7fdb6b712d1  usr/share/icons/hicolor/32x32/apps/org.lunduke.LcosUpdates.png
+b3ac1a2519804daa858c3c98cd49b42f  usr/share/icons/hicolor/48x48/apps/org.lunduke.LcosUpdates.png
+7a3cde5bd99c3ea5990ad3d3fb5d014f  usr/share/polkit-1/actions/org.lunduke.lcos-updates.policy
