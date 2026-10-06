@@ -1,0 +1,21 @@
+SEED LCOS 0.9-1 2026-10-06 CT (Chloe, lcos-live-09-01)
+No 0.9-1 debs existed anywhere on the box; each app deb was built from its
+GitHub master HEAD with the repo's packaging/build-deb.sh (VERSION=0.9-1),
+in fresh clones under /tmp/appbuild. lcos-base / lcos-branding built with
+packaging/build-09-system-debs.sh from packaging/src.
+
+repo@commit -> deb  SHA256
+BryanLunduke/LundukeCity@cde60e9fbfa6f8e896bf1247c087754248f22d2a -> lunduke-city_0.9-1_amd64.deb 533fd30102155da1c2c8ff0d6e77f821a678e128dd01702f638a9176acac4dbd
+BryanLunduke/lunduke-edit@a7565763193416a8e2f2032bc49221e3a72e1196 -> lunduke-edit_0.9-1_amd64.deb fb8771ae31d46c5daf2c2209b0dcd949f285ac4deae058603b53cc099ba7e54c
+BryanLunduke/lunduke-paint@9c081cbde0937b13e0cb5807228bbd6ad41ce034 -> lunduke-paint_0.9-1_amd64.deb 5228826859f4288bf7610499f512781d7a9cecbff8968d71bcaa7de7d3c6870c
+  (master HEAD is one feature commit after the 0.9-1 bump a4a6dba, still 0.9-1)
+BryanLunduke/LCOS-AboutThisComputer@b6970c1dbbc03a92e5be800d8cd4662af1fd4175 -> lunduke-about_0.9-1_amd64.deb f9d993656415ce444da6c30344f3eac84801d909ab992ed9739c389a0d775457
+BryanLunduke/lcos-updates@6cc91c7349e1193a5d826f28e5a0ae822956aaf2 -> lcos-updates_0.9-1_amd64.deb 389d48125818044b8aa07ac9e33e62d40f30bb08bb6051fd95dc2447efd68ab0
+lcos-live packaging/src/lcos-base -> lcos-base_0.9-1_all.deb cf8a15c347f60ec0c821e2b013d579bb7000a8e7f71082d68e987e32ac234d0c
+lcos-live packaging/src/lcos-branding -> lcos-branding_0.9-1_all.deb c777ccdeb84924c2dac05e9cca8d0be1c7cddcab4d53df350faad8923d63815c
+
+Replaced: lunduke-city 0.8-2, lunduke-edit 0.8-2, lunduke-paint 0.8-2,
+lunduke-about 0.8-5, lcos-updates 0.7-2, lcos-base 0.7-2, lcos-branding 0.7-1.
+Unchanged: lcos-desktop-config 0.7-8 (no XFCE config change), lcos-desktop 0.7-1,
+LLK 7.2.6-lcos12, XLibre 25.1.9 set (amdgpu DDX 25.1.2 stays installed as
+fallback; AMD now uses modesetting via lcos-base snippet).

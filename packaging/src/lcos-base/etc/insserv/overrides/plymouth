@@ -1,0 +1,15 @@
+### BEGIN INIT INFO
+# Provides:          plymouth
+# Required-Start:    udev $remote_fs $all
+# Required-Stop:     $remote_fs
+# Should-Start:      $x-display-manager
+# Should-Stop:       $x-display-manager
+# Default-Start:
+# Default-Stop:      0 6
+# Short-Description: Start plymouth on shutdown (LCOS: boot quit is LightDM's)
+# Description:       LCOS 0.9 override (lcos-base): no runlevel 2-5 start link,
+#                    so /etc/init.d/plymouth no longer runs
+#                    "plymouth quit --retain-splash" at the end of boot while
+#                    LightDM is starting X. LightDM is the single Plymouth
+#                    quitter. The 0/6 stop links (shutdown splash) are kept.
+### END INIT INFO

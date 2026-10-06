@@ -1,4 +1,9 @@
-# LCOS live-build recipe (0.8)
+# LCOS live-build recipe (0.9)
+
+> **0.9 track (2026-10-06):** this repo's `master` is the 0.9 recipe (working tree
+> `/workspace/lcos-live-09/`). Official 0.8 is frozen on branch **`lcos-0.8`**
+> (hotfixes only). Next bake: **`lcos-live-09-01.iso`**. See `docs/09-TRACK-OPENED.md`.
+> The 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,
 XFCE, Calamares, and a thin signed LCOS apt overlay. No systemd. No Refracta.

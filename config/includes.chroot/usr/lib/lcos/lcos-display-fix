@@ -1,10 +1,16 @@
 #!/bin/sh
 # LightDM greeter/session setup (GitHub #89 / #75).
-# Quit Plymouth, then seed .Xauthority from the LightDM server cookie so
-# empty-cookie races are less likely to black-screen the greeter/session.
+# Seed .Xauthority from the LightDM server cookie so empty-cookie races
+# are less likely to black-screen the greeter/session.
 # Safe on live (user lcos) and installed systems (Calamares username).
-
-[ -x /bin/plymouth ] && /bin/plymouth quit 2>/dev/null || true
+#
+# LCOS 0.9: this script NO LONGER quits Plymouth. LightDM itself is the
+# single Plymouth quitter: it runs `plymouth deactivate` as X takes the VT
+# and `plymouth quit --retain-splash` once X is ready (or a plain quit if
+# X fails / Plymouth is on a VT below minimum-vt). Extra quits from here
+# and from /etc/init.d/plymouth raced X for DRM master (black screen with
+# cursor on later boots). /etc/init.d/plymouth start is disabled by
+# /etc/insserv/overrides/plymouth (lcos-base 0.9-1).
 
 SRV=/var/run/lightdm/root/:0
 [ -r "$SRV" ] || exit 0

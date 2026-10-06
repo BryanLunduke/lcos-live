@@ -2,4 +2,20 @@
 set -e
 if [ "$1" = configure ]; then
   /usr/local/sbin/lcos-write-os-release || true
+
+  # LCOS 0.9: apply /etc/insserv/overrides/{plymouth,lightdm}.
+  # plymouth: drop the runlevel 2-5 start link (its start action only ran
+  #   "plymouth quit --retain-splash" while LightDM was starting X); keep
+  #   the 0/6 stop links for the shutdown splash.
+  # lightdm: re-sequence so it starts after elogind and seatd.
+  if command -v update-rc.d >/dev/null 2>&1; then
+    if [ -x /etc/init.d/plymouth ] && [ -f /etc/insserv/overrides/plymouth ]; then
+      update-rc.d -f plymouth remove >/dev/null 2>&1 || true
+      update-rc.d plymouth defaults >/dev/null 2>&1 || true
+    fi
+    if [ -x /etc/init.d/lightdm ] && [ -f /etc/insserv/overrides/lightdm ]; then
+      update-rc.d lightdm defaults >/dev/null 2>&1 || true
+    fi
+  fi
 fi
+exit 0

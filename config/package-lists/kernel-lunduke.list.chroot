@@ -1,7 +1,8 @@
-# Lunduke Linux Kernel — default ISO kernel for 0.8.
-# Seeded 7.2.6-lcos11 (Ted build 2026-10-02 CT; replaces lcos10).
-# lcos11: lcos10 + 12 HW gaps (USB4/Type-C, VMXNET3/VMCI, Hyper-V, UAS,
-# laptop WMI, Apple/Lenovo/MS HID, virtio balloon/mmio/fs, TPM, BRCMSMAC, MWIFIEX).
+# Lunduke Linux Kernel — default ISO kernel for 0.9.
+# Seeded 7.2.6-lcos12 (carried from 0.8 / lcos-live-08-04; Ted build).
+# (Earlier comment said lcos11; the seeded debs have been lcos12 since
+# 2026-10-03 — see config/packages.chroot/SEED-llk-7.2.6-lcos12.txt.)
+# lcos13/14/15 are configs only (no built debs) — do not seed until built.
 # No Forced Rust. No ISO bake / no apt publish until asked.
 linux-image-7.2.6-lunduke
 linux-headers-7.2.6-lunduke

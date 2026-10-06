@@ -1,3 +1,18 @@
+LCOS 0.9 recipe tree (git: BryanLunduke/lcos-live master)
+Opened 2026-10-06 (America/Chicago) from official 0.8 (/workspace/lcos-live-08, frozen).
+0.8 freeze point: branch lcos-0.8 (b2f8abe + d59b293 = image-name lcos-live-08-04 as baked).
+0.8 hotfixes go on branch lcos-0.8; master is 0.9.
+Do not edit /workspace/lcos-live-08 (0.8 frozen) unless Ted says hotfix.
+Identity/overlay track: 0.9
+Next bake filename: lcos-live-09-01.iso
+Default kernel: LLK 7.2.6-lcos12 (carried; lcos13/14/15 are configs only).
+Apps seeded 0.9-1 (built from GitHub masters 2026-10-06): lunduke-city, lunduke-edit,
+  lunduke-paint, lunduke-about, lcos-updates. See config/packages.chroot/SEED-0.9-1.txt.
+System debs 0.9-1: lcos-base (identity 0.9, amdgpu->modesetting, insserv overrides),
+  lcos-branding (lcos-display-fix without plymouth quit). See docs/09-TRACK-OPENED.md.
+Apt: do NOT publish from this open.
+
+===== 0.8 history below =====
 LCOS 0.8 recipe tree
 Branched from frozen 0.7: /workspace/lcos-live-07
 Last official/test 0.7 ISO: lcos-live-07-08.iso

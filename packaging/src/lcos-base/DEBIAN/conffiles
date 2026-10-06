@@ -1,1 +1,3 @@
 /etc/default/grub.d/lcos.cfg
+/etc/insserv/overrides/lightdm
+/etc/insserv/overrides/plymouth

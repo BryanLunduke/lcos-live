@@ -1,18 +1,25 @@
 Package: lcos-base
-Version: 0.7-2
+Version: 0.9-1
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 76
+Installed-Size: 108
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.7)
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1)
 Replaces: base-files
-Description: LCOS 0.8 identity, GRUB splash drop-in, overlay membership
- os-release / issue for LCOS 0.8 (excalibur), lcos-write-os-release,
+Description: LCOS 0.9 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 0.9 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
+ .
+ 0.9: Xorg OutputClass snippets in /usr/share/X11/xorg.conf.d that put
+ GPUs bound to the amdgpu kernel driver on the modesetting DDX with glamor
+ (works around XLibre amdgpu 25.1.x DRI3 modifiers breaking GL windows on
+ Vega and newer). insserv overrides so LightDM starts after elogind/seatd
+ and /etc/init.d/plymouth no longer quits Plymouth at boot (LightDM is the
+ single Plymouth quitter; the shutdown splash is kept).
  .
  Depends on the overlay keyring and branding artwork.
  Postinst re-applies identity on configure so apt upgrades overwrite

@@ -84,7 +84,7 @@ else
 	echo "lcos-boot-console: update-inetd not present (skip)"
 fi
 
-# --- Boot polish (0.8): quieter sysv + hold Plymouth until greeter ---
+# --- Boot polish (0.8, revised 0.9): quieter sysv + hold Plymouth until X ---
 # Do NOT disable CUPS, NetworkManager, or saned — only reduce console noise.
 
 echo "lcos-boot-console: quieter rcS (VERBOSE=no)"
@@ -107,8 +107,11 @@ if [ -f /etc/default/rc ]; then
 	fi
 fi
 
-# Plymouth stays up through early userspace; greeter-setup (lcos-display-fix)
-# quits when X/LightDM is ready — covers black gap better than early rc quit.
+# Plymouth stays up through early userspace. 0.9: LightDM is the ONLY thing
+# that quits Plymouth (deactivate as X takes the VT, quit --retain-splash when
+# X is ready). lcos-display-fix no longer quits (lcos-branding 0.9-1) and the
+# /etc/init.d/plymouth start link is dropped by /etc/insserv/overrides/plymouth
+# (lcos-base 0.9-1). The soft-fix sed above stays harmless (start never runs).
 echo "lcos-boot-console: ensure plymouth ShowDelay for hold-until-greeter path"
 if [ -f /etc/plymouth/plymouthd.conf ]; then
 	grep -q '^ShowDelay=' /etc/plymouth/plymouthd.conf \

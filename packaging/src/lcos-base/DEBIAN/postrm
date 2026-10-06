@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+# After purge the insserv overrides are gone: restore stock plymouth/lightdm
+# links and ordering from their own LSB headers.
+if [ "$1" = purge ] && command -v update-rc.d >/dev/null 2>&1; then
+  if [ -x /etc/init.d/plymouth ] && [ ! -f /etc/insserv/overrides/plymouth ]; then
+    update-rc.d -f plymouth remove >/dev/null 2>&1 || true
+    update-rc.d plymouth defaults >/dev/null 2>&1 || true
+  fi
+  if [ -x /etc/init.d/lightdm ] && [ ! -f /etc/insserv/overrides/lightdm ]; then
+    update-rc.d lightdm defaults >/dev/null 2>&1 || true
+  fi
+fi
+exit 0
