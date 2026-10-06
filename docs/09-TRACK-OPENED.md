@@ -59,3 +59,21 @@ Should-Start (insserv.conf has no `$x-display-manager` facility, so elogind's
 S01seatd, S02elogind, S03lightdm; no S plymouth link; K01plymouth in rc0/rc6.
 
 `quiet splash` stays on the normal boot cmdline.
+
+## Bake lcos-live-09-01 (2026-10-06 CT)
+- Bake tree `/tmp/lcos-live-09`. `local/live-build/scripts/build/` now carries
+  binary_grub_cfg, binary_linux-image, binary_grub-efi plus symlinks
+  `efi-image` / `grub-cpmodules` -> `/usr/lib/live/build/` (binary_grub-efi
+  copies them from its own dir; the first bake failed without them).
+- ISO `lcos-live-09-01.iso` 1427341312 bytes, SHA256
+  c966216903de884e0dc51bd66a7ec9451e1f89cae28216a20b24696b3cd4433c,
+  prerelease https://github.com/BryanLunduke/lcos-testing/releases/tag/lcos-live-09-01
+- Verified in squashfs: rc2.d S01seatd S02elogind S03lightdm, no S plymouth,
+  K01plymouth in rc0/rc6; `.depend.start` `lightdm: elogind seatd`;
+  05-/15- lcos amdgpu snippets in /usr/share/X11/xorg.conf.d.
+- OutputClass precedence proven in QEMU (-vga std, bochs-drm): a 05- file
+  saying fbdev beat a 10- file saying modesetting ("Matched fbdev as
+  autoconfigured driver 0", FBDEV(0) claimed the device). Same ordering puts
+  05-lcos-amdgpu-modesetting ahead of 10-amdgpu.conf on AMD.
+- LightDM log on every boot: "Plymouth is running on VT 1 ... not replacing
+  it" -> "Quitting Plymouth" (the only quit).
