@@ -4,7 +4,7 @@ Opened 2026-10-06 (America/Chicago) from official 0.8 (/workspace/lcos-live-08, 
 0.8 hotfixes go on branch lcos-0.8; master is 0.9.
 Do not edit /workspace/lcos-live-08 (0.8 frozen) unless Ted says hotfix.
 Identity/overlay track: 0.9
-Next bake filename: lcos-live-09-01.iso
+Next bake filename: lcos-live-09-02.iso (09-01 baked 2026-10-06 CT)
 Default kernel: LLK 7.2.6-lcos16 (seeded 2026-10-07 CT from kernel master 76140928;
   lcos12 debs moved to config/packages.chroot/superseded/). See SEED-llk-7.2.6-lcos16.txt.
 Apps seeded 0.9-3 (2026-10-07 CT, hostile-review fixes; GitHub master = tag v0.9-3):
