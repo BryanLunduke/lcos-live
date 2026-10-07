@@ -6,3 +6,6 @@ binary/
 binary.hybrid.iso
 *.iso
 *.img
+
+# superseded seed debs kept locally for rollback (never commit)
+config/packages.chroot/superseded/

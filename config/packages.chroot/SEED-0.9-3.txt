@@ -1,0 +1,30 @@
+SEED LCOS 0.9-3 apps 2026-10-07 CT (hostile-review fixes, 86 findings across 5 apps)
+Each app deb was built by Phil from its GitHub master with the repo's
+packaging/build-deb.sh (VERSION=0.9-3; build-deb.sh runs `meson test` before
+dpkg-deb). Each master tip carries the annotated tag v0.9-3. Verified on GitHub
+2026-10-07 before the 0.9 bake. Replaces the 0.9-1 app debs (SEED-0.9-1.txt).
+
+repo  tag  master SHA -> deb  SHA256
+BryanLunduke/LCOS-AboutThisComputer  v0.9-3  196152370b92f52a16fb1d43917a5699e3ea852a (PR #8)
+  -> lunduke-about_0.9-3_amd64.deb  55e64fb433b2a3dbe818d1ea6051f51f7fd8be85d6c1a8abafb3abadc44aaab7
+BryanLunduke/LundukeCity  v0.9-3  04292cedbde30dde0c772776984f639a6a50ef28 (PR #13)
+  -> lunduke-city_0.9-3_amd64.deb  5b04ba99538f39380720f8e4963361979c329872eda552e8856a54ff718947fa
+BryanLunduke/lunduke-edit  v0.9-3  edd6f3da517df0d15b26bf61135d5fc35d343789 (PR #7)
+  -> lunduke-edit_0.9-3_amd64.deb  63c5c4894312c7adf1d327586087752a63747e28bcaaab0430b2db91734e4524
+BryanLunduke/lunduke-paint  v0.9-3  6100e69dd628e4fbd1a36fe8501973106862f292 (PR #12)
+  -> lunduke-paint_0.9-3_amd64.deb  2d276c0efc060d544f59d6edd29d55d4d340735db623ef0980bc842e3dca9400
+BryanLunduke/lcos-updates  v0.9-3  2595584394d54f23f8e64298dcb5030233442b13 (PR #4)
+  -> lcos-updates_0.9-3_amd64.deb  09b60335ea829683c4383feafb6bcc366cf07adc4a5377462fd1218c8079bafe
+
+Rebuild check (2026-10-07 CT, fresh clones of v0.9-3 under /tmp):
+  lcos-updates: unpacked contents identical to the seeded deb (all files and DEBIAN/).
+  lunduke-about: identical except usr/bin/lunduke-about (+ md5sums); the only
+    string difference is the embedded meson SOURCE_DATADIR build path
+    (/workspace/lunduke-about/data vs the clone path). Same size.
+
+Paint 0.9-3 changes some advertised tool shortcut letters (D and X stay color
+commands; freeform outline K, rect filled J, ellipse filled Z, polygon filled Q,
+U cycles rounded-rect tools).
+Unchanged: lcos-base 0.9-1, lcos-branding 0.9-1, lcos-desktop-config 0.7-8,
+lcos-desktop 0.7-1, XLibre 25.1.9 set. Kernel: see SEED-llk-7.2.6-lcos16.txt.
+No ISO bake / no apt publish from this seed.
