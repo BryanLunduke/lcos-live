@@ -5,8 +5,8 @@ Opened 2026-10-06 (America/Chicago) from official 0.8 (/workspace/lcos-live-08, 
 Do not edit /workspace/lcos-live-08 (0.8 frozen) unless Ted says hotfix.
 Identity/overlay track: 0.9
 Next bake filename: lcos-live-09-04.iso (09-03 baked 2026-10-08 CT; apps 0.9-7, LLK lcos16)
-Default kernel: LLK 7.2.6-lcos16 (seeded 2026-10-07 CT from kernel master 76140928;
-  lcos12 debs moved to config/packages.chroot/superseded/). See SEED-llk-7.2.6-lcos16.txt.
+Default kernel: LLK 7.2.6-lcos17 (seeded 2026-10-08 CT from kernel master c4059c6e, PR #11;
+  lcos16 debs moved to config/packages.chroot/superseded/). See SEED-llk-7.2.6-lcos17.txt.
 Apps seeded 0.9-3 (2026-10-07 CT, hostile-review fixes; GitHub master = tag v0.9-3):
   lunduke-city, lunduke-edit, lunduke-paint, lunduke-about, lcos-updates.
   See config/packages.chroot/SEED-0.9-3.txt. (0.9-1 seed: SEED-0.9-1.txt.)
@@ -15,14 +15,15 @@ System debs 0.9-1: lcos-base (identity 0.9, amdgpu->modesetting, insserv overrid
 Apt: do NOT publish from this open.
 Seeded 2026-10-07 CT: LLK 7.2.6-lcos16 (linux-image/linux-headers/lunduke-linux-kernel) into
   packages.chroot, replacing lcos12. No ISO bake / no apt publish.
+Seeded 2026-10-08 CT: LLK 7.2.6-lcos17 (CONFIG_CIFS=m, 937 modules; PR #11 merge c4059c6e)
+  into packages.chroot, replacing lcos16 (moved to superseded/). No ISO bake / no apt publish.
 Seeded 2026-10-07 CT: app debs 0.9-3 (about, city, edit, paint, updates), replacing 0.9-1.
   No ISO bake / no apt publish.
 
 Package lists 2026-10-08 CT, for lcos-live-09-04 (editor-approved; no bake / no apt publish):
   #104: eject (desktop.list; util-linux 2.41.5-0+deb13u1devuan1).
-  #111: cifs-utils 2:7.4-1 + keyutils 1.6.3-6 (net.list). cifs.ko needs LLK 7.2.6-lcos17
-  (CONFIG_CIFS=m); lcos17 PR is open on lunduke-linux-kernel and is NOT seeded here
-  until the editor orders the merge. Until then the image keeps lcos16 (no cifs.ko).
+  #111: cifs-utils 2:7.4-1 + keyutils 1.6.3-6 (net.list). LLK 7.2.6-lcos17 seeded
+  (CONFIG_CIFS=m, PR #11 merge c4059c6e); cifs.ko is in the image recipe.
 
 ===== 0.8 history below =====
 LCOS 0.8 recipe tree

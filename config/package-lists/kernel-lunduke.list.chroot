@@ -1,10 +1,10 @@
 # Lunduke Linux Kernel — default ISO kernel for 0.9.
-# Seeded 7.2.6-lcos16 on 2026-10-07 CT (built from lunduke-linux-kernel master
-# 76140928, PR #7) — see config/packages.chroot/SEED-llk-7.2.6-lcos16.txt.
-# Replaced lcos12 (moved to config/packages.chroot/superseded/).
+# Seeded 7.2.6-lcos17 on 2026-10-08 CT (built from lunduke-linux-kernel master
+# c4059c6e, PR #11) — see config/packages.chroot/SEED-llk-7.2.6-lcos17.txt.
+# Replaced lcos16 (moved to config/packages.chroot/superseded/).
 # Package names are unversioned; the ABI stays 7.2.6-lunduke, so only the
-# seeded debs pin the lcos16 revision.
-# No Forced Rust. No ISO bake / no apt publish until asked.
+# seeded debs pin the lcos17 revision.
+# CONFIG_CIFS=m (937 modules). No Forced Rust. No ISO bake / no apt publish until asked.
 linux-image-7.2.6-lunduke
 linux-headers-7.2.6-lunduke
 lunduke-linux-kernel

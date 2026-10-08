@@ -1,0 +1,11 @@
+SEED LLK 7.2.6-lcos17 2026-10-08T12:59:56-05:00
+Built on the LCOS box from GitHub BryanLunduke/lunduke-linux-kernel master c4059c6e519c9e4a29545b1b9d37a8558a54a063
+(PR #11 squash-merge). Debs built from PR head c73152cc (identical tree to merge c4059c6e).
+CONFIG_CIFS=m (SMB1/CIFS_ALLOW_INSECURE_LEGACY left off). 937 modules (lcos16 had 933; +4 CIFS).
+configs/lunduke-7.2.6-lcos17.config, scripts/build-lunduke-kernel.sh + scripts/build-metapackage.sh.
+Upstream linux-7.2.6.tar.xz unchanged. uname -r: 7.2.6-lunduke  (build string #lcos17).
+No Forced Rust (CONFIG_RUST not enabled). Build logs: /workspace/lcos-kernel/logs/lcos17-*.
+Replaced LLK 7.2.6-lcos16 (moved to superseded/).
+d663a8af0f405901203214ed923ed7cb9ca4942fda0ea0bb6417c8a21b556292  /workspace/lcos-kernel/debs-lcos17/linux-image-7.2.6-lunduke_7.2.6-lcos17_amd64.deb
+99f6f1639bfb5d98554625a90ada40ca70d61c7e6d7b049947bd9e611568ca3a  /workspace/lcos-kernel/debs-lcos17/linux-headers-7.2.6-lunduke_7.2.6-lcos17_amd64.deb
+f76621c0cd41eab053ec85c10aacb1752e361d32154279716ed3dbcc86359870  /workspace/lcos-kernel/debs-lcos17/lunduke-linux-kernel_7.2.6-lcos17_all.deb
