@@ -1,0 +1,39 @@
+SEED LCOS 0.9-4 apps 2026-10-08 CT (round-3 user-facing review fixes, 70 findings across 5 apps)
+Each app deb was built by Phil from its GitHub master with the repo's
+packaging/build-deb.sh (VERSION=0.9-4; build-deb.sh runs `meson test` before
+dpkg-deb). Each master tip carries the annotated tag v0.9-4 and the round's PR
+is rebase-merged into master. Verified on GitHub 2026-10-08 CT.
+Replaces the 0.9-3 app debs (SEED-0.9-3.txt).
+
+repo  tag  master SHA -> deb  SHA256
+BryanLunduke/LCOS-AboutThisComputer  v0.9-4  9c43fd5a7ba4cd1b3caf9417e119c5ef0a53cd58 (PR #9)
+  -> lunduke-about_0.9-4_amd64.deb  e8558213fe137e0976e7f2f9cf7450d31c90c1979a44a14c296fa76d412061d9
+BryanLunduke/LundukeCity  v0.9-4  d79d1e8d28e2c58afa11060937a207cc779767b7 (PR #14)
+  -> lunduke-city_0.9-4_amd64.deb  db62d0636f81f451ff1ef0e5bfc7a1dfc3305b3732e52ab3e81a46dee42a2d8d
+BryanLunduke/lunduke-edit  v0.9-4  4be0d9a8e905fd2f93d46df8af5b7fe60b9a9a50 (PR #8)
+  -> lunduke-edit_0.9-4_amd64.deb  1a5c35cf526ece96fdb20daea96a185a833e136c2491fe38eae7ff334a282b1d
+BryanLunduke/lunduke-paint  v0.9-4  f174c2282c4fae8c88ca7172d73f7bc0e9c8074a (PR #14)
+  -> lunduke-paint_0.9-4_amd64.deb  d5e69d3dc122e441b1c937dbd62a59b0b80c33fe2915ba1c26b8f83e8c5d24c2
+BryanLunduke/lcos-updates  v0.9-4  c2740c673d905369be1b29336c2e8bd8751dd721 (PR #5)
+  -> lcos-updates_0.9-4_amd64.deb  f9f5462e6a0a3a3bdb026b4ea395a11aecede5bb82e8b6c028b5706a0b9c1e90
+
+Rebuild check (2026-10-08 CT, fresh clones of v0.9-4 under /tmp, build-deb.sh
+run inside Xvfb with xfwm4 as the window manager):
+  meson test: About 2/2, Edit 1/1, Paint 17/17 (widgets ran, not skipped),
+    Updates 6 OK + 2 expected-fail (dist-upgrade/full-upgrade refusals),
+    City 6/6. 0 failed, 0 skipped.
+  lcos-updates, lunduke-edit, lunduke-paint: unpacked contents identical to
+    the seeded debs (all files and DEBIAN/).
+  lunduke-about, lunduke-city: identical except the main binary (+ md5sums);
+    same size, the difference is the embedded meson source/asset path
+    (/workspace/... vs the clone path).
+
+Test-harness notes: About's about-ui test needs a window manager under Xvfb
+(focus checks fail under bare xvfb-run). Paint's widgets test exits 77 (skip)
+when no display is present. Build these with Xvfb + a WM.
+Updates 0.9-4 takes a logind shutdown/sleep inhibitor during installs; verify
+Shut Down / Suspend blocking on the next ISO bake (not testable in the build VM).
+
+Unchanged: lcos-base 0.9-1, lcos-branding 0.9-1, lcos-desktop-config 0.7-8,
+lcos-desktop 0.7-1, XLibre 25.1.9 set. Kernel: see SEED-llk-7.2.6-lcos16.txt.
+No ISO bake / no apt publish from this seed.
