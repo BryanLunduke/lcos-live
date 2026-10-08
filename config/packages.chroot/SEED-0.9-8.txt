@@ -1,0 +1,56 @@
+SEED LCOS 0.9-8 apps 2026-10-08 CT (About list/supporters polish, Paint rail width, Edit test hooks compiled out, City tornado determinism, Updates postrm purge)
+Each app deb was built by Phil from its GitHub master with the repo's
+packaging/build-deb.sh (VERSION=0.9-8; build-deb.sh runs `meson test` before
+dpkg-deb). Each master tip carries the annotated tag v0.9-8 and the round's PR
+is squash-merged into master (single-parent merge commit). Verified on GitHub
+2026-10-08 CT.
+Replaces the 0.9-7 app debs (SEED-0.9-7.txt).
+
+repo  tag  master SHA -> deb  SHA256
+BryanLunduke/LCOS-AboutThisComputer  v0.9-8  dc96e91576888d807bd62fc669b880d7b4159d40 (PR #14; includes held PR #13 supporters 88a53b48)
+  -> lunduke-about_0.9-8_amd64.deb  76b99abfe3afad5521cc8d2cb25af87eba9ef9647fd74862f25ab46aa9db4a44
+BryanLunduke/LundukeCity  v0.9-8  799841351e0669303d2c542cfca4a7dc665295f2 (PR #20; includes #19)
+  -> lunduke-city_0.9-8_amd64.deb  9f48e572c922eba70a0d60970129f1d4eee193e4a5ed28fcc9b73c3a2e35b67f
+BryanLunduke/lunduke-edit  v0.9-8  eb9847601381c64cddec64b00498ac518e16a63a (PR #13; includes #12)
+  -> lunduke-edit_0.9-8_amd64.deb  af8af6ab54f85ff154260fc10f1dc379394a2e249ddd9f67c4def026de8f14c3
+BryanLunduke/lunduke-paint  v0.9-8  8c7cd368a61a96ab8064df0ab025d8fd0bb2e7c1 (PR #18)
+  -> lunduke-paint_0.9-8_amd64.deb  10f5eee817362a69139507b76a0ec16cebf80e6eea9d47e744d41180a0b9ab0c
+BryanLunduke/lcos-updates  v0.9-8  3bd1f1f3d5da4acb686e484cd2a134141ac28ba5 (PR #10; includes #9)
+  -> lcos-updates_0.9-8_amd64.deb  b98156a03bda4a47293451d5745f0faa166737cbbe6e76d4d8f28cb36f5b082a
+
+Rebuild check (2026-10-08 CT, fresh clones of v0.9-8 under /tmp/rebuild-098, no window
+manager, all five with `env -u DISPLAY packaging/build-deb.sh` and no outer
+Xvfb; each build-deb.sh started its own xvfb-run):
+  meson test: About 2/2 (+ build-deb.sh's own headless about-ui: ok),
+    Edit 2/2 (production-binary + behavior), City 11/11,
+    Paint 20/20 (widgets ran), Updates 7 OK + 2 expected-fail
+    (dist-upgrade/full-upgrade refusals). 0 failed, 0 skipped.
+  All five: unpacked contents (all files and DEBIAN/) identical to the
+    seeded debs; modes/owners identical (deb SHA256 differs only by tar mtimes).
+  No shipped binary contains a /workspace string; xvfb/xauth are in no
+    Depends/Recommends; lunduke-edit has no LUNDUKE_EDIT_TEST strings;
+    lunduke-city has no hostile_review or test-hook strings;
+    lcos-updates has no LCOS_UPDATES_TEST_PKEXEC and no systemctl (Restart
+    uses `loginctl reboot`, elogind); executable postrm removes only
+    /var/lib/lcos-updates on purge.
+  About data/supporters.txt order: "Fuzzy", Steve Rockefeller, Steven P.,
+    Chris Hammond, Mike Beasley, Jack Beckman.
+
+Closed from SEED-0.9-7.txt open items:
+  - Edit test hooks compiled out of the production binary (PR #12 / 0.9-8).
+  - City tornado sprite-step / fountain tests made deterministic (PR #19 / 0.9-8).
+  - Updates postrm purge for /var/lib/lcos-updates (PR #9 / 0.9-8).
+
+Also in this seed (editor feedback, not from the 0.9-7 open list):
+  - About: LCOS System back inside the app list and always last; xfce4-panel
+    and xfdesktop hidden as session plumbing (PR #14).
+  - About: Steve Rockefeller 2nd, Jack Beckman last (PR #13, held then landed).
+  - Paint: tool rail restored to classic 82 px MacPaint width (PR #18).
+
+Open items:
+  - Dilbert: on the next ISO, check the Updates logind shutdown/sleep inhibitor
+    against real elogind, and the new Restart button (`loginctl reboot`).
+
+Unchanged: lcos-base 0.9-1, lcos-branding 0.9-1, lcos-desktop-config 0.7-8,
+lcos-desktop 0.7-1, XLibre 25.1.9 set. Kernel: see SEED-llk-7.2.6-lcos17.txt.
+No ISO bake / no apt publish from this seed.
