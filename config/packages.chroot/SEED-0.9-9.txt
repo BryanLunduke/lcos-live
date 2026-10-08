@@ -1,0 +1,56 @@
+SEED LCOS 0.9-9 apps 2026-10-08 CT (09-03 QA fixes: Edit large-file open, Paint well tooltips + typed Save As extension, City Graphs legend names)
+Each app deb was built by Phil from its GitHub master with the repo's
+packaging/build-deb.sh (VERSION=0.9-9; build-deb.sh runs `meson test` before
+dpkg-deb). Each master tip carries the annotated tag v0.9-9 and the round's PR
+is squash-merged into master (single-parent merge commit on the v0.9-8 tip).
+Verified on GitHub 2026-10-08 CT.
+Replaces the Edit, Paint and City 0.9-8 debs (SEED-0.9-8.txt). About and
+Updates stay at 0.9-8 (SEED-0.9-8.txt).
+
+repo  tag  master SHA -> deb  SHA256
+BryanLunduke/lunduke-edit  v0.9-9  3fe716f174f916910a4485e262ca165584e7c51c (PR #14; tag obj 8239da53)
+  -> lunduke-edit_0.9-9_amd64.deb  b2fdec8b2f6b30f7febf004b2855d311b1eeb574615d31ee09ba9ebbbc0be525
+BryanLunduke/lunduke-paint  v0.9-9  c6a372668a87688cb9b5cc8135afa7a14555157d (PR #19; tag obj e4f1d2c2)
+  -> lunduke-paint_0.9-9_amd64.deb  f6e34bf0aaa9a69780b2c73689998175262b50560cdfa6774aa8280e89c96115
+BryanLunduke/LundukeCity  v0.9-9  755da8e3b41f23930a66855352b00668fbc6bfe9 (PR #21; tag obj c87cceb0)
+  -> lunduke-city_0.9-9_amd64.deb  1a550fca117b6aec5507dd182113cbad08aa1eb5653f7a1ca7e6354fa81a5ec7
+
+Rebuild check (2026-10-08 CT, fresh clones of v0.9-9 under /tmp/rebuild-099, no
+window manager, one at a time with `env -u DISPLAY packaging/build-deb.sh` and
+no outer Xvfb; each build-deb.sh started its own xvfb-run):
+  meson test: Edit 2/2 (production-binary + behavior), Paint 22/22 (widgets
+    ran), City 12/12 (ui_graphs, ui_round3, ui_round4, ui_round6 ran under
+    Xvfb). 0 failed, 0 skipped.
+  All three: unpacked contents (all files and DEBIAN/) identical to the
+    seeded debs; modes/owners identical (deb SHA256 differs only by tar mtimes).
+  Top debian/changelog entry is 0.9-9 in all three.
+  No shipped binary contains a /workspace string; xvfb/xauth are in no
+    Depends/Recommends; lunduke-edit has no LUNDUKE_EDIT_TEST strings;
+    lunduke-city has no hostile_review or test-hook strings (its
+    LUNDUKE_CITY_SHOT_*/DEMO/SCREENSHOT/PREVIEW env reads are known and
+    accepted, unchanged from 0.9-8).
+
+Edit large-file open (09-03 QA R03), seeded binaries, 12,000,000-byte text
+file, Xvfb, `taskset -c 0`, time from launch to a viewable top-level window
+(xdotool --onlyvisible poll), 3 runs each:
+  0.9-9: mapped 0.686 / 0.693 / 0.719 s; file loaded (title -> big12.txt)
+    0.998 / 1.066 / 1.091 s. Same binary with no file: mapped ~0.66 s.
+  0.9-8: mapped 8.54 / 8.73 / 8.73 s (window appears only after the load).
+
+Open items:
+  - Edit: the meson throttled-open case falls back to taskset only when
+    cpulimit is missing (as on the build box); replace with an in-test
+    SIGSTOP/SIGCONT duty-cycle throttle that fails if it cannot throttle.
+  - Edit: drag-and-drop open is covered by emitting drag-data-received with
+    real text/uri-list data, not a full XDND session; Dilbert to hand-test
+    DnD open on the next ISO.
+  - Paint: "Flatten and keep .ora" still swaps the last extension.
+  - City: teal and green legend swatches look alike; legend population
+    differs from the header; env test hooks still in the binary.
+  - About: RAM Free label overlaps the bar.
+
+Unchanged: lunduke-about 0.9-8, lcos-updates 0.9-8, lcos-base 0.9-1,
+lcos-branding 0.9-1, lcos-desktop-config 0.7-8, lcos-desktop 0.7-1, XLibre
+25.1.9 set, eject/cifs-utils/keyutils package list. Kernel: LLK
+7.2.6-lcos17 (see SEED-llk-7.2.6-lcos17.txt), unchanged.
+No ISO bake / no apt publish from this seed.
