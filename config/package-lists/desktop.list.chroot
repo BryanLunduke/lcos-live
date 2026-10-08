@@ -77,6 +77,11 @@ gvfs
 udisks2
 thunar-volman
 
+# CD/DVD eject for Thunar/udisks/xfdesktop "Eject" (GitHub #104: VMware CD eject
+# failed, /usr/bin/eject missing). util-linux binary; Depends libmount1 only.
+# Editor 2026-10-08 CT, for lcos-live-09-04.
+eject
+
 # Standard user folders (Desktop/Documents/Downloads/…) for Thunar.
 # Thunar Recommends this; recipe installs no Recommends. Editor 2026-09-19.
 xdg-user-dirs

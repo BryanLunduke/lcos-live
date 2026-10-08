@@ -12,3 +12,11 @@ iputils-ping
 # Time sync (sysvinit; GitHub #90). Do NOT use systemd-timesyncd.
 # chrony ships /etc/init.d/chrony; postinst update-rc.d defaults; makestep 1 3.
 chrony
+
+# SMB2/SMB3 (Windows/Samba/NAS) share mounts: mount.cifs / mount.smb3 (GitHub #111).
+# Needs LLK CONFIG_CIFS=m (7.2.6-lcos17+; lcos16 has no cifs.ko). Editor 2026-10-08 CT,
+# for lcos-live-09-04. keyutils is cifs-utils' Recommends (request-key for
+# cifs.upcall/cifs.idmap/DNS resolver keys); recipe installs no Recommends.
+# No systemd deps (new: libtalloc2, libwbclient0). Do NOT add samba/ksmbd.
+cifs-utils
+keyutils
