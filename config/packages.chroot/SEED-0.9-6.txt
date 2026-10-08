@@ -1,0 +1,45 @@
+SEED LCOS 0.9-6 apps 2026-10-08 CT (round-5 user-facing review fixes, 31 findings across 5 apps)
+Each app deb was built by Phil from its GitHub master with the repo's
+packaging/build-deb.sh (VERSION=0.9-6; build-deb.sh runs `meson test` before
+dpkg-deb). Each master tip carries the annotated tag v0.9-6 and the round's PR
+is squash-merged into master. Verified on GitHub 2026-10-08 CT.
+Replaces the 0.9-5 app debs (SEED-0.9-5.txt).
+
+repo  tag  master SHA -> deb  SHA256
+BryanLunduke/LCOS-AboutThisComputer  v0.9-6  368ddb807f0bff8ca63329a5c51b44d51aac36df (PR #11)
+  -> lunduke-about_0.9-6_amd64.deb  ca484b0d301b664700f7a255737488d60aab051925ea5d0c12c032a5cd8efaf0
+BryanLunduke/LundukeCity  v0.9-6  36bcee39f2858e19d1dc9b93d79ff7d7fd499422 (PR #16)
+  -> lunduke-city_0.9-6_amd64.deb  3dd6482b88057953a5163f3faca5efe9c2edf0d7fb556d954bc12b00bbc41bcd
+BryanLunduke/lunduke-edit  v0.9-6  094af1129767c6fb77cdd600e2228ac7b2ab7b7d (PR #10)
+  -> lunduke-edit_0.9-6_amd64.deb  2c44cc4da44e2ea0375ebaba4734d949afeaaa8d79e21408c6112566715cf0af
+BryanLunduke/lunduke-paint  v0.9-6  37b45205fdd6c3e0bc555df5c81ebaafc6c9f706 (PR #16)
+  -> lunduke-paint_0.9-6_amd64.deb  a6504afece171df533b7a01dfc65df07cc4a01d581fc8c57ac9efbc3aa0279ce
+BryanLunduke/lcos-updates  v0.9-6  db0e0f98f22c568c0e8bb03f71ef6bb3cf120343 (PR #7)
+  -> lcos-updates_0.9-6_amd64.deb  cb14b3442c164cd8badcaa57e693e4688ee796bc56303a27c7b38a83bc203301
+
+Rebuild check (2026-10-08 CT, fresh clones of v0.9-6 under /tmp, no window
+manager, all five with `env -u DISPLAY packaging/build-deb.sh` and no outer
+Xvfb; each build-deb.sh started its own xvfb-run):
+  meson test: About 2/2 (+ build-deb.sh's own headless about-ui: ok),
+    Edit 1/1, City 9/9 (ui_round3 and ui_round4 ran under Xvfb),
+    Paint 19/19 (widgets ran), Updates 6 OK + 2 expected-fail
+    (dist-upgrade/full-upgrade refusals). 0 failed, 0 skipped.
+  All five: unpacked contents (all files and DEBIAN/) identical to the
+    seeded debs.
+  No shipped binary contains a /workspace string; xvfb/xauth are in no
+    Depends/Recommends; lunduke-city has no hostile_review strings;
+    lcos-updates has no LCOS_UPDATES_TEST_PKEXEC. polkit: allow_any and
+    allow_inactive no; check auth_admin_keep; upgrade (pkexec) auth_admin.
+
+Closed from SEED-0.9-5.txt: City's build-deb.sh now starts its own Xvfb.
+
+Open items:
+  - About's about-logic live-display scan needs a connect timeout (a wedged
+    stale Xvfb hung one About build).
+  - Updates takes a logind shutdown/sleep inhibitor during installs. Dilbert
+    needs to check Shut Down / Suspend blocking against real elogind on the
+    next ISO bake (not testable in the build VM).
+
+Unchanged: lcos-base 0.9-1, lcos-branding 0.9-1, lcos-desktop-config 0.7-8,
+lcos-desktop 0.7-1, XLibre 25.1.9 set. Kernel: see SEED-llk-7.2.6-lcos16.txt.
+No ISO bake / no apt publish from this seed.
