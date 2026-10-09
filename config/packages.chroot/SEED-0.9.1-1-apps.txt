@@ -1,0 +1,6 @@
+LCOS 0.9.1 app seeds (Phil, 2026-10-09), replacing Edit 0.9-11 and Paint/City/About/Updates 0.9-10.
+aff2dde5bdebd890780f883f7f73232706794eee219183a41f04258cf2ca2f9a  lunduke-about_0.9.1-1_amd64.deb
+31834d96d51086e2ce7d63812b0e220f8e6d3bc80321bd059ec2f641196eddf1  lcos-updates_0.9.1-1_amd64.deb
+17404aa21cf9d8d66ca6a8a4811c175eea1af5b7135c80e2ed18edbdbd7d82f5  lunduke-paint_0.9.1-1_amd64.deb
+c03a4bc41e5cbac23c32507b183c28bef9bc00446f0cb1d89c051329e26348ca  lunduke-edit_0.9.1-1_amd64.deb
+024f96bc7882a38940f84c1ae1a7e40c3cbd91cf41cc8f246c32e9bebfea53e3  lunduke-city_0.9.1-1_amd64.deb
