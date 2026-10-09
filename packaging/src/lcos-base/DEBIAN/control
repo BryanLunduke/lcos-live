@@ -1,15 +1,15 @@
 Package: lcos-base
-Version: 0.9-1
+Version: 0.9.1-1
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 108
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1)
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils
 Replaces: base-files
-Description: LCOS 0.9 identity, GRUB drop-in, X/boot-order system config
- os-release / issue for LCOS 0.9 (excalibur), lcos-write-os-release,
+Description: LCOS 0.9.1 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 0.9.1 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
@@ -22,5 +22,7 @@ Description: LCOS 0.9 identity, GRUB drop-in, X/boot-order system config
  single Plymouth quitter; the shutdown splash is kept).
  .
  Depends on the overlay keyring and branding artwork.
+ 0.9.1: also depends on eject (#104) and cifs-utils + keyutils (#111) so
+ upgraded 0.8 and 0.9 systems get them via apt upgrade.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

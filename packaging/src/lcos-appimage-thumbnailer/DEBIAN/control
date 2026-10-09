@@ -1,5 +1,5 @@
 Package: lcos-appimage-thumbnailer
-Version: 0.7-1
+Version: 0.9.1-1
 Section: utils
 Priority: optional
 Architecture: all

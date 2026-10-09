@@ -1,5 +1,5 @@
 Package: lcos-desktop
-Version: 0.7-1
+Version: 0.9.1-1
 Section: metapackages
 Priority: optional
 Architecture: all
@@ -8,7 +8,7 @@ Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-base (>= 0.7), lcos-desktop-config (>= 0.7), lcos-theme-clearlooks (>= 0.7), plymouth, libplymouth5, pulseaudio, pulseaudio-utils, pavucontrol, xfce4-pulseaudio-plugin, alsa-utils, xfce4-power-manager, xfce4-power-manager-plugins, upower, lcos-appimage-thumbnailer (>= 0.7), tumbler
 Recommends: xfce4, lightdm, lightdm-gtk-greeter, elementary-xfce-icon-theme, gtk2-engines, lcos-zork, micropolis, lunduke-paint
-Description: LCOS 0.8 XFCE desktop edition metapackage
+Description: LCOS XFCE desktop edition metapackage
  Pulls LCOS identity, XFCE look, and Clearlooks. Depends on
  Plymouth, PulseAudio/ALSA stack, XFCE power manager, and AppImage
  thumbnailer/tumbler so upgrades get boot splash and media bits. Recommends
