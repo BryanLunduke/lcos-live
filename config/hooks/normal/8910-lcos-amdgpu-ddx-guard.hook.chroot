@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+# LCOS 0.9.1 (#115/#118): the image must NOT carry an always-on copy of the
+# AMD modesetting snippets. lcos-base 0.9.1-2 ships them in /usr/share/lcos/xorg
+# and /etc/init.d/lcos-amdgpu-ddx installs them at boot only on all-Vega+
+# amdgpu machines. Remove any stray copy (e.g. a postinst run against the build
+# host) and check the boot script is enabled.
+for f in 05-lcos-amdgpu-modesetting.conf 15-lcos-amdgpu-hotplug.conf; do
+	if [ -e "/usr/share/X11/xorg.conf.d/$f" ] || [ -e "/etc/X11/xorg.conf.d/$f" ]; then
+		echo "lcos-amdgpu-ddx-guard: removing stray $f from the image"
+		rm -f "/usr/share/X11/xorg.conf.d/$f" "/etc/X11/xorg.conf.d/$f"
+	fi
+done
+rm -f /run/lcos-amdgpu-ddx
+for f in /usr/share/lcos/xorg/05-lcos-amdgpu-modesetting.conf /usr/share/lcos/xorg/15-lcos-amdgpu-hotplug.conf /usr/share/lcos/xorg/amdgpu-pre-vega.ids /usr/lib/lcos/lcos-amdgpu-ddx /etc/init.d/lcos-amdgpu-ddx; do
+	[ -e "$f" ] || { echo "lcos-amdgpu-ddx-guard: MISSING $f (lcos-base >= 0.9.1-2 not installed?)" >&2; exit 1; }
+done
+if ! ls /etc/rcS.d/S*lcos-amdgpu-ddx >/dev/null 2>&1; then
+	update-rc.d lcos-amdgpu-ddx defaults
+fi
+ls /etc/rcS.d/S*lcos-amdgpu-ddx

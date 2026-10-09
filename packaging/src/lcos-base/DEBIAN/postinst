@@ -17,5 +17,19 @@ if [ "$1" = configure ]; then
       update-rc.d lightdm defaults >/dev/null 2>&1 || true
     fi
   fi
+  # LCOS 0.9.1-2 (#115/#118): AMD Xorg DDX is chosen at boot by
+  # /etc/init.d/lcos-amdgpu-ddx (rcS, after udev). The 0.9-1 always-on
+  # /usr/share/X11/xorg.conf.d/{05,15}-lcos-amdgpu-*.conf are no longer
+  # shipped (dpkg removed them during this upgrade); the helper re-creates
+  # them only on all-Vega+ amdgpu systems. Run it now on a live system so the
+  # next X start is already right; skip in chroots (live-build, Calamares
+  # target), where /sys describes the build host, not the target.
+  if command -v update-rc.d >/dev/null 2>&1 && [ -x /etc/init.d/lcos-amdgpu-ddx ]; then
+    update-rc.d lcos-amdgpu-ddx defaults >/dev/null 2>&1 || true
+  fi
+  # ischroot: 0 = chroot, 1 = not a chroot, 2 = cannot tell (skip then too).
+  if [ -z "${DPKG_ROOT:-}" ] && [ -d /sys/bus/pci ] && { ischroot >/dev/null 2>&1; [ $? -eq 1 ]; }; then
+    LCOS_WAIT=0 /usr/lib/lcos/lcos-amdgpu-ddx >/dev/null 2>&1 || true
+  fi
 fi
 exit 0

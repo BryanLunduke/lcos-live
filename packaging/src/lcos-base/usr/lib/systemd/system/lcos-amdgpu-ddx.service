@@ -1,0 +1,13 @@
+# LCOS is sysvinit (Devuan); this unit only exists for systemd-based
+# derivatives. Same job as /etc/init.d/lcos-amdgpu-ddx (#115/#118).
+[Unit]
+Description=LCOS: pick the Xorg driver for AMD GPUs
+After=systemd-udev-trigger.service systemd-modules-load.service local-fs.target
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/lcos/lcos-amdgpu-ddx
+
+[Install]
+WantedBy=multi-user.target

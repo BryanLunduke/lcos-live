@@ -1,0 +1,41 @@
+#!/bin/sh
+# LCOS 0.9.1 (#115/#118): LIVE SESSION ONLY. live-config runs this only on
+# boot=live, and Calamares removes live-config from installed systems, so the
+# installed /etc/issue is never touched (it is copied from the squashfs, not
+# from this runtime overlay).
+#
+# If X fails, LightDM gives up and the user lands at the tty1 getty. Tell them
+# the live login (live-config's built-in password is "live"; the username comes
+# from username= on the kernel cmdline, LCOS uses lcos) and how to get safe
+# graphics.
+
+. /lib/live/config.sh
+
+Init ()
+{
+	if component_was_executed "lcos-live-login-hint"; then
+		exit 0
+	fi
+	echo -n " lcos-live-login-hint"
+}
+
+Config ()
+{
+	_USER=lcos
+	for _PARAMETER in ${LIVE_CONFIG_CMDLINE:-$(cat /proc/cmdline)}; do
+		case "${_PARAMETER}" in
+		live-config.username=*|username=*) _USER="${_PARAMETER#*username=}" ;;
+		esac
+	done
+	if [ -f /etc/issue ] && ! grep -q 'LCOS live session' /etc/issue; then
+		cat >> /etc/issue << EOF2
+LCOS live session: if the desktop did not start, log in as "${_USER}"
+with password "live", or reboot and choose "LCOS (safe graphics)".
+
+EOF2
+	fi
+	touch /var/lib/live/config/lcos-live-login-hint
+}
+
+Init
+Config

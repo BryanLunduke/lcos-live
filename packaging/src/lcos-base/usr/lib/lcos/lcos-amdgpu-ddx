@@ -1,0 +1,166 @@
+#!/bin/sh
+# lcos-amdgpu-ddx (lcos-base 0.9.1-2, LCOS #115 / #118)
+#
+# Picks the Xorg DDX for AMD GPUs at boot by installing or removing the two
+# LCOS modesetting snippets in /usr/share/X11/xorg.conf.d:
+#   05-lcos-amdgpu-modesetting.conf  (OutputClass amdgpu -> modesetting+glamor)
+#   15-lcos-amdgpu-hotplug.conf      (HotplugDriver modesetting)
+# Master copies (byte-identical to lcos-base 0.9-1) live in /usr/share/lcos/xorg,
+# which Xorg does not read. They must be copied into /usr/share/X11/xorg.conf.d
+# (not /etc/X11) because the first matching OutputClass Driver wins and the 05-
+# file has to sort before the stock 10-amdgpu.conf.
+#
+# auto rule: snippets are installed only when at least one PCI display device
+# (class 0x03xxxx) of vendor 0x1002 is bound to the amdgpu kernel driver AND
+# every such amdgpu device is Vega/GFX9 or newer, i.e. its device ID is NOT in
+# /usr/share/lcos/xorg/amdgpu-pre-vega.ids (frozen list generated from the
+# kernel's amdgpu_drv.c pciidlist: CHIP_TAHITI..CHIP_VEGAM). OutputClass
+# MatchDriver "amdgpu" applies to every amdgpu device at once, so if any amdgpu
+# device is pre-Vega (SI/CIK/VI/Polaris/VegaM) nothing is installed and X uses
+# the amdgpu DDX exactly as in LCOS 0.8. Intel/NVIDIA/virtio/radeon-kernel
+# devices never match the snippet and do not affect the decision.
+#
+# Override (cmdline wins over file):
+#   kernel cmdline  lcos.amdgpu=modesetting|amdgpu|auto
+#   /etc/lcos/amdgpu-ddx  first word: modesetting|amdgpu|auto
+# modesetting = always install the snippets; amdgpu = never install them.
+#
+# Test hooks (env): SYSFS_ROOT (default /sys), PROC_CMDLINE (default
+# /proc/cmdline), XORG_DIR, LCOS_ETC, DATA_DIR, STATE_FILE, LCOS_WAIT (seconds
+# to wait for a not-yet-bound AMD display device; default 5, 0 = no wait).
+# Never runs X. Always exits 0 so boot is never blocked.
+
+SYSFS_ROOT=${SYSFS_ROOT:-/sys}
+PROC_CMDLINE=${PROC_CMDLINE:-/proc/cmdline}
+XORG_DIR=${XORG_DIR:-/usr/share/X11/xorg.conf.d}
+LCOS_ETC=${LCOS_ETC:-/etc/lcos}
+DATA_DIR=${DATA_DIR:-/usr/share/lcos/xorg}
+STATE_FILE=${STATE_FILE:-/run/lcos-amdgpu-ddx}
+LCOS_WAIT=${LCOS_WAIT:-5}
+SNIPPETS="05-lcos-amdgpu-modesetting.conf 15-lcos-amdgpu-hotplug.conf"
+IDS="$DATA_DIR/amdgpu-pre-vega.ids"
+
+cmdline=
+[ -r "$PROC_CMDLINE" ] && cmdline=$(cat "$PROC_CMDLINE" 2>/dev/null)
+
+mode=auto
+src=default
+if [ -r "$LCOS_ETC/amdgpu-ddx" ]; then
+	m=$(sed -n 's/#.*//; s/^[[:space:]]*\([A-Za-z]*\).*/\1/p' "$LCOS_ETC/amdgpu-ddx" | sed -n '/./{p;q;}')
+	[ -n "$m" ] && { mode=$m; src="$LCOS_ETC/amdgpu-ddx"; }
+fi
+for w in $cmdline; do
+	case "$w" in
+	lcos.amdgpu=*) mode=${w#lcos.amdgpu=}; src=cmdline ;;
+	esac
+done
+case "$mode" in
+modesetting|amdgpu|auto) ;;
+*) echo "lcos-amdgpu-ddx: unknown mode '$mode' from $src, using auto" >&2; mode=auto; src=default ;;
+esac
+
+# Will amdgpu be allowed to bind at all? (only used to decide whether to wait)
+kms=yes
+for w in $cmdline; do
+	case "$w" in
+	nomodeset|amdgpu.modeset=0|modprobe.blacklist=*amdgpu*) kms=no ;;
+	esac
+done
+
+amd_devs() {
+	for d in "$SYSFS_ROOT"/bus/pci/devices/*; do
+		[ -r "$d/vendor" ] && [ -r "$d/class" ] || continue
+		[ "$(cat "$d/vendor")" = 0x1002 ] || continue
+		case "$(cat "$d/class")" in 0x03*) echo "$d" ;; esac
+	done
+}
+
+drv_of() {
+	if [ -e "$1/driver" ]; then
+		basename "$(readlink "$1/driver")"
+	fi
+}
+
+# amdgpu module finished loading? Its PCI probes run synchronously inside
+# module init, so once initstate is "live" an AMD device that is still
+# unbound will stay unbound (e.g. pre-GCN TeraScale: LLK has no radeon).
+amdgpu_live() {
+	[ -d "$SYSFS_ROOT/module/amdgpu" ] || return 1
+	[ -r "$SYSFS_ROOT/module/amdgpu/initstate" ] || return 0	# built-in
+	[ "$(cat "$SYSFS_ROOT/module/amdgpu/initstate")" = live ]
+}
+
+# Wait briefly only while an AMD display device has no driver AND amdgpu is
+# not loaded yet (udev coldplug still running modprobe). Normal boots: no delay.
+if [ "$mode" = auto ] && [ "$kms" = yes ] && [ "$LCOS_WAIT" -gt 0 ] 2>/dev/null; then
+	i=0
+	while [ "$i" -lt $((LCOS_WAIT * 4)) ]; do
+		unbound=0
+		for d in $(amd_devs); do
+			[ -z "$(drv_of "$d")" ] && unbound=1
+		done
+		[ "$unbound" = 0 ] && break
+		amdgpu_live && break
+		sleep 0.25
+		i=$((i + 1))
+	done
+fi
+
+n_amdgpu=0
+n_pre=0
+summary=
+for d in $(amd_devs); do
+	id=$(cat "$d/device")
+	id=${id#0x}
+	drv=$(drv_of "$d")
+	gen=-
+	if [ "$drv" = amdgpu ]; then
+		n_amdgpu=$((n_amdgpu + 1))
+		fam=$(awk -v id="$id" '$1 == id { print $2; exit }' "$IDS" 2>/dev/null)
+		if [ -n "$fam" ]; then
+			n_pre=$((n_pre + 1)); gen="pre-vega($fam)"
+		else
+			gen=vega+
+		fi
+	fi
+	bv=
+	[ -r "$d/boot_vga" ] && [ "$(cat "$d/boot_vga")" = 1 ] && bv=",boot_vga"
+	summary="$summary ${d##*/}=1002:$id/${drv:-none}/$gen$bv"
+done
+
+# Optional cross-check only (not used for the decision): KFD gfx_target_version.
+kfd=
+for p in "$SYSFS_ROOT"/class/kfd/kfd/topology/nodes/*/properties; do
+	[ -r "$p" ] || continue
+	v=$(awk '$1 == "gfx_target_version" { print $2 }' "$p")
+	[ -n "$v" ] && [ "$v" != 0 ] && kfd="$kfd $v"
+done
+
+case "$mode" in
+modesetting) want=yes ;;
+amdgpu) want=no ;;
+auto) if [ "$n_amdgpu" -gt 0 ] && [ "$n_pre" = 0 ]; then want=yes; else want=no; fi ;;
+esac
+
+rc=ok
+for f in $SNIPPETS; do
+	dst="$XORG_DIR/$f"
+	if [ "$want" = yes ]; then
+		if ! cmp -s "$DATA_DIR/$f" "$dst" 2>/dev/null; then
+			mkdir -p "$XORG_DIR" 2>/dev/null
+			cp "$DATA_DIR/$f" "$dst.lcos-tmp" 2>/dev/null && chmod 0644 "$dst.lcos-tmp" \
+				&& mv -f "$dst.lcos-tmp" "$dst" 2>/dev/null || { rm -f "$dst.lcos-tmp" 2>/dev/null; rc=write-failed; }
+		fi
+	else
+		if [ -e "$dst" ] || [ -L "$dst" ]; then
+			rm -f "$dst" 2>/dev/null || rc=write-failed
+		fi
+	fi
+done
+
+if [ "$want" = yes ]; then ddx="modesetting (LCOS snippets installed)"; else ddx="Xorg default (no LCOS snippet)"; fi
+msg="mode=$mode($src) amdgpu=$n_amdgpu pre_vega=$n_pre snippets=$want result=$rc devices:${summary:- none}${kfd:+ kfd_gfx:$kfd}"
+echo "lcos-amdgpu-ddx: $ddx; $msg"
+{ echo "$msg"; } > "$STATE_FILE" 2>/dev/null || true
+command -v logger >/dev/null 2>&1 && logger -t lcos-amdgpu-ddx "$msg" 2>/dev/null
+exit 0

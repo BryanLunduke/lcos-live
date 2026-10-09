@@ -1,14 +1,16 @@
 #!/bin/bash
 # Build the LCOS 0.9.1 system overlay debs (unsigned), all at 0.9.1-1:
-#   lcos-base             (identity 0.9.1; Depends eject, cifs-utils, keyutils;
-#                          amdgpu->modesetting snippets + insserv overrides kept)
+#   lcos-base 0.9.1-2     (identity 0.9.1; Depends eject, cifs-utils, keyutils;
+#                          AMD modesetting snippets chosen at boot by
+#                          lcos-amdgpu-ddx, #115/#118; insserv overrides kept)
 #   lcos-branding         (text/version only)
 #   lcos-desktop-config   (was 0.7-8; version/changelog/text only)
 #   lcos-appimage-thumbnailer, lcos-archive-keyring, lcos-desktop,
 #   lcos-theme-clearlooks, lcos-zork  (were 0.7-1; version/changelog/text only;
 #                          archive key unchanged)
 # Generalized from build-09-system-debs.sh (0.9-1 base/branding). Usage:
-#   packaging/build-091-system-debs.sh [--seed]
+#   packaging/build-091-system-debs.sh [--seed] [--only pkg[,pkg...]]
+# --only builds/seeds just those packages (others keep their seeded debs).
 # --seed copies the debs into config/packages.chroot, removes older versions
 # of the same packages there, and rewrites SHA256SUMS for every top-level deb.
 # Builds straight from packaging/src/<pkg> (does NOT regenerate src from
@@ -35,7 +37,7 @@ build() {
 	done
 	find "$root" -path "$root/DEBIAN" -prune -o -type d -exec chmod 0755 {} +
 	# executables we ship
-	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer; do
+	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/lib/lcos/lcos-amdgpu-ddx etc/init.d/lcos-amdgpu-ddx usr/bin/lcos-appimage-thumbnailer; do
 		[ -f "$root/$x" ] && chmod 0755 "$root/$x"
 	done
 	local out="$DEBDIR/${name}_${ver}_all.deb"
@@ -45,17 +47,28 @@ build() {
 }
 
 VER=0.9.1-1
+ver_of() { case "$1" in lcos-base) echo 0.9.1-2 ;; *) echo "$VER" ;; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
-for p in $PKGS; do build "$p" "$VER"; done
+SEED=
+while [ $# -gt 0 ]; do
+	case "$1" in
+	--seed) SEED=1 ;;
+	--only) shift; PKGS=$(echo "$1" | tr , ' ') ;;
+	*) echo "unknown arg $1" >&2; exit 2 ;;
+	esac
+	shift
+done
+for p in $PKGS; do build "$p" "$(ver_of "$p")"; done
 
-if [ "${1:-}" = "--seed" ]; then
+if [ -n "$SEED" ]; then
 	PC="$ROOT/config/packages.chroot"
 	for p in $PKGS; do
+		PV=$(ver_of "$p")
 		for old in "$PC/${p}"_*_all.deb; do
-			[ -e "$old" ] && [ "$(basename "$old")" != "${p}_${VER}_all.deb" ] && { echo "REMOVE $(basename "$old")"; rm -f "$old"; }
+			[ -e "$old" ] && [ "$(basename "$old")" != "${p}_${PV}_all.deb" ] && { echo "REMOVE $(basename "$old")"; rm -f "$old"; }
 		done
-		cp -f "$DEBDIR/${p}_${VER}_all.deb" "$PC/"
-		echo "SEEDED ${p}_${VER}_all.deb"
+		cp -f "$DEBDIR/${p}_${PV}_all.deb" "$PC/"
+		echo "SEEDED ${p}_${PV}_all.deb"
 	done
 	( cd "$PC" && sha256sum -- *.deb > SHA256SUMS && sha256sum -c --quiet SHA256SUMS && echo "SHA256SUMS: $(wc -l < SHA256SUMS) debs OK" )
 fi

@@ -1,3 +1,4 @@
 /etc/default/grub.d/lcos.cfg
 /etc/insserv/overrides/lightdm
 /etc/insserv/overrides/plymouth
+/etc/init.d/lcos-amdgpu-ddx

@@ -1,9 +1,9 @@
 Package: lcos-base
-Version: 0.9.1-1
+Version: 0.9.1-2
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 108
+Installed-Size: 144
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils
@@ -14,10 +14,17 @@ Description: LCOS 0.9.1 identity, GRUB drop-in, X/boot-order system config
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
  .
- 0.9: Xorg OutputClass snippets in /usr/share/X11/xorg.conf.d that put
- GPUs bound to the amdgpu kernel driver on the modesetting DDX with glamor
- (works around XLibre amdgpu 25.1.x DRI3 modifiers breaking GL windows on
- Vega and newer). insserv overrides so LightDM starts after elogind/seatd
+ AMD GPUs (0.9.1-2, #115/#118): /etc/init.d/lcos-amdgpu-ddx (rcS, after
+ udev) runs /usr/lib/lcos/lcos-amdgpu-ddx at every boot. It copies the 0.9
+ modesetting+glamor OutputClass snippets from /usr/share/lcos/xorg into
+ /usr/share/X11/xorg.conf.d only when every GPU bound to the amdgpu kernel
+ driver is Vega/GFX9 or newer (not in the frozen pre-Vega PCI ID list from
+ the kernel's amdgpu pciidlist), and removes them otherwise, so SI, CIK,
+ VI and Polaris parts get the amdgpu DDX again as in 0.8. Override with
+ lcos.amdgpu=modesetting|amdgpu on the kernel command line or in
+ /etc/lcos/amdgpu-ddx.
+ .
+ insserv overrides so LightDM starts after elogind/seatd
  and /etc/init.d/plymouth no longer quits Plymouth at boot (LightDM is the
  single Plymouth quitter; the shutdown splash is kept).
  .

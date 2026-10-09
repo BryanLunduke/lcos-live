@@ -37,6 +37,8 @@ Built with `packaging/build-091-system-debs.sh` from `packaging/src/<pkg>`
 - lcos-base 0.9.1-1: identity 0.9.1; `Depends: eject, cifs-utils, keyutils`
   so upgraded 0.8 and 0.9 systems pull them via apt upgrade (#104, #111).
   AMD modesetting xorg snippets and insserv overrides unchanged.
+- lcos-base 0.9.1-2 (#115/#118): AMD modesetting snippets now installed at
+  boot only on all-Vega+ amdgpu systems; see `docs/091-AMD-115-118.md`.
 - lcos-branding 0.9.1-1: version/description text only.
 - lcos-desktop-config 0.9.1-1 (was 0.7-8): version, changelog and stale text
   only; no XFCE changes (Bob owns look and feel).
