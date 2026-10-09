@@ -3,6 +3,10 @@ set -e
 # LOCKED 2026-08-20: Calamares. --debian-installer none.
 # Mirror pinned to FAU (not deb.devuan.org geo-RR) after download drops.
 MIRROR="http://ftp.fau.de/devuan/merged"
+# Build-time fetches use HTTPS to the same FAU mirror (plain HTTP to FAU is
+# blocked from the bake box since 2026-10-09; lcos-live-09-04 was built this way).
+# Image apt sources (--mirror-binary*) stay on the http pin above.
+BUILD_MIRROR="https://ftp.fau.de/devuan/merged"
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 DSCRIPT="${HERE}/helpers/debootstrap-excalibur"
 lb config noauto \
@@ -13,15 +17,15 @@ lb config noauto \
 	--parent-distribution excalibur \
 	--archive-areas "main contrib non-free-firmware" \
 	--parent-archive-areas "main contrib non-free-firmware" \
-	--mirror-bootstrap "${MIRROR}" \
-	--mirror-chroot "${MIRROR}" \
+	--mirror-bootstrap "${BUILD_MIRROR}" \
+	--mirror-chroot "${BUILD_MIRROR}" \
 	--mirror-binary "${MIRROR}" \
-	--mirror-chroot-security "${MIRROR}" \
+	--mirror-chroot-security "${BUILD_MIRROR}" \
 	--mirror-binary-security "${MIRROR}" \
-	--parent-mirror-bootstrap "${MIRROR}" \
-	--parent-mirror-chroot "${MIRROR}" \
+	--parent-mirror-bootstrap "${BUILD_MIRROR}" \
+	--parent-mirror-chroot "${BUILD_MIRROR}" \
 	--parent-mirror-binary "${MIRROR}" \
-	--parent-mirror-chroot-security "${MIRROR}" \
+	--parent-mirror-chroot-security "${BUILD_MIRROR}" \
 	--parent-mirror-binary-security "${MIRROR}" \
 	--initsystem sysvinit \
 	--initramfs live-boot \
