@@ -1,0 +1,82 @@
+SEED LCOS 0.9-10 apps 2026-10-09 CT (round 7 review fixes, all five apps;
+Edit ships as 0.9-11)
+Each app deb was built by Phil from its GitHub master with the repo's
+packaging/build-deb.sh (VERSION=0.9-10, Edit 0.9-11; build-deb.sh runs `meson test` before
+dpkg-deb). Each master tip carries the annotated tag v0.9-10 (Edit: v0.9-11) and every
+PR is squash-merged into master (single-parent commits; Paint/City on the
+v0.9-9 tip, About/Updates on the v0.9-8 tip, Edit PRs #16-#20 linear on v0.9-10).
+Verified on GitHub 2026-10-08 CT (Edit 0.9-11: 2026-10-09 CT).
+Edit 0.9-10 (c543a7da, deb 115e6885...) was verified but NOT seeded: its
+shipped binary still froze ~4 s on a 12 MB open. 0.9-11 replaces it.
+Replaces Edit/Paint/City 0.9-9 (SEED-0.9-9.txt) and About/Updates 0.9-8
+(SEED-0.9-8.txt).
+
+repo  tag  master SHA -> deb  SHA256
+BryanLunduke/lunduke-edit  v0.9-11  eff1e7a3c89ebf4f7122fafc186b860159e63120 (PRs #16-#20; tag obj cd6191bf)
+  -> lunduke-edit_0.9-11_amd64.deb  2d14d7df30bbe9501ff1f5045dd68ab856019849bdd60c3f19121baf1e0a1ee3
+BryanLunduke/lunduke-paint  v0.9-10  b5864ed98912e62954aa8df84edbba769697e8f2 (PR #20; tag obj 902f9047)
+  -> lunduke-paint_0.9-10_amd64.deb  babfa6f8bf92b01b4976cc8dcbc923abe3afcdd30b988020494811f05d224ff8
+BryanLunduke/LundukeCity  v0.9-10  60f052c067d8e56823f0c7d878ca45db4f0c075d (PR #22; tag obj 7029862c)
+  -> lunduke-city_0.9-10_amd64.deb  856448c9cb77b3ac4075b172d9341d0cc0105e161a277ec13cdfc46b2d89a229
+BryanLunduke/LCOS-AboutThisComputer  v0.9-10  9414959c2477c1ae69b2c5089eefba0a58820379 (PR #15; tag obj 6cf18f63)
+  -> lunduke-about_0.9-10_amd64.deb  d5ecd9e909a03d650427dbded5081c27d14657b95276974b1b71fe669786806d
+BryanLunduke/lcos-updates  v0.9-10  399b6adeb97020273672f915e7be6c388831da6e (PR #11; tag obj d8c7a496)
+  -> lcos-updates_0.9-10_amd64.deb  04bfba78e879f7f26836b0bc9f59875a9d12cf2ee221226ac09130a54c6aea7c
+
+Rebuild check (2026-10-08 CT, fresh clones of v0.9-10 under /tmp/rebuild-0910;
+Edit: 2026-10-09 CT, fresh clones of v0.9-11 under /tmp/rb-0911;
+one at a time with `env -u DISPLAY packaging/build-deb.sh`; each build-deb.sh
+started its own xvfb-run):
+  meson test: Edit 0.9-11 2/2 (production-binary + behavior). Note: the
+    first of two clean builds failed behavior case replace-history
+    cancel-30 ("cancel missed window max=98": the timed cancel landed after
+    98%); the second clean build passed 2/2. Timing-sensitive test, flaky. Paint 25/25,
+    City 16/16, About 3/3 (+ headless about-ui pass OK), Updates 7 OK +
+    2 expected fail. 0 failed, 0 skipped.
+  All five: unpacked contents (all files and DEBIAN/) identical to the
+    seeded debs; modes/owners identical (deb SHA256 differs only by tar mtimes).
+  Top debian/changelog entry is 0.9-10 (Edit 0.9-11).
+  No shipped binary contains a /workspace string; xvfb/xauth/cpulimit are in
+    no Depends/Recommends (cpulimit, xdotool are Edit Build-Depends only); lunduke-edit
+    has no LUNDUKE_EDIT_TEST strings; lunduke-paint has no LUNDUKE_PAINT
+    strings; lunduke-city's only LUNDUKE_CITY_ string is LUNDUKE_CITY_ASSETS.
+
+Open items:
+  - Updates: 14 test env vars remain in /usr/libexec/lcos-updates-helper
+    (LCOS_STUB_ARGVFILE/COUNTFILE/ENVFILE/PIDFILE/SCRIPT/STATEFILE,
+    LCOS_UPDATES_APT_GET/DPKG_STATUS/HARD_CAP_SEC/KEPT_BUDGET_SEC/LISTS_DIR/
+    REBOOT_FILE/STATE_DIR/TIMEOUT_SEC); ignored when euid is 0. Candidate:
+    split into a test-only helper.
+  - Paint: Colors hint line half-clipped at the default window size.
+  - About: test_row_focus_visible flaked once in build-deb's second xvfb
+    pass (Phil); passed on rebuild.
+  - City: LUNDUKE_CITY_ASSETS developer override still in the binary;
+    loading the raw Boston scenario as a .cty showed a 1900 date and funds
+    that did not change (unconfirmed).
+  - Edit, under cpulimit -l 25 (reported on 0.9-10, not rechecked on 0.9-11): Replace All shows no status for ~10 s during
+    its counting pass; window sluggish for a few seconds after an open; the
+    gutter stops at 200000 when the caret is on empty last line 200001.
+  - Edit 0.9-11: saving a 12 MB file blocks the UI ~0.6-0.8 s.
+  - Edit 0.9-11: Escape during an argv open cancels it and closes the
+    window/app (by design: no spare window on a failed open).
+  - Edit 0.9-11: behavior test replace-history cancel-30 is timing-flaky.
+
+Edit 0.9-11 shipped-binary check (2026-10-09 CT, Xvfb 1280x1024 + xfwm4,
+unthrottled, 12,000,024-byte file of ~52-char lines; responsiveness = GTK
+_NET_WM_PING round trip every ~30 ms):
+  open, default 640x420: mapped 0.16-0.72 s, loaded ~1.2 s, max ping 49 ms
+  open, tall 1100x960: mapped 0.16 s, loaded ~0.6 s, max ping 34 ms
+  open with resize to 1000x960 and back during load: loaded ~0.6 s,
+    max ping 45-52 ms
+  same with 11-char lines (1.09M lines): loaded ~0.9 s, max ping 46/70 ms
+  Escape at 0.35 s during the open: honored (open cancelled)
+  Replace All "line "->"row " (232k hits): ~2.1 s incl. progress, max ping
+    <150 ms; Escape at ~0.6 s (10%) leaves the bytes identical (cmp);
+    one Ctrl+Z after save marks the doc modified and restores the original
+    bytes; Ctrl+Shift+Z restores the replaced bytes.
+  (0.9-10 for comparison: ~4-4.5 s frozen at "Opening… 94%".)
+
+Unchanged: lcos-base 0.9-1, lcos-branding 0.9-1, lcos-desktop-config 0.7-8,
+lcos-desktop 0.7-1, XLibre 25.1.9 set, eject/cifs-utils/keyutils package list.
+Kernel: LLK 7.2.6-lcos17 (see SEED-llk-7.2.6-lcos17.txt), unchanged.
+No ISO bake / no apt publish from this seed.
