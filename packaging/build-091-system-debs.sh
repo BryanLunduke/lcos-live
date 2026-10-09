@@ -47,7 +47,7 @@ build() {
 }
 
 VER=0.9.1-1
-ver_of() { case "$1" in lcos-base) echo 0.9.1-2 ;; *) echo "$VER" ;; esac; }
+ver_of() { case "$1" in lcos-base) echo 0.9.1-3 ;; *) echo "$VER" ;; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
 SEED=
 while [ $# -gt 0 ]; do

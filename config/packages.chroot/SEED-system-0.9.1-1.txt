@@ -18,3 +18,7 @@ UPDATE 2026-10-09 CT: lcos-base 0.9.1-1 replaced by lcos-base 0.9.1-2 (#115/#118
 DDX chosen at boot by /etc/init.d/lcos-amdgpu-ddx; see docs/091-AMD-115-118.md). Built with
 packaging/build-091-system-debs.sh --seed --only lcos-base; the other seven debs above are
 unchanged 0.9.1-1 bytes. lcos-base 0.9.1-1 was c55b3519...9287.
+
+UPDATE 2026-10-09 CT: lcos-base 0.9.1-2 replaced by lcos-base 0.9.1-3 (eject/cifs-utils/keyutils
+moved to Recommends; see docs/091-lcos-base-0.9.1-3.md). The 091-01 ISO ships -2; the overlay ships -3.
+lcos-base 0.9.1-3: a06ab4d76b21740d48bfe154b73df34f41d95e240ff8882b16d404428ea2c628

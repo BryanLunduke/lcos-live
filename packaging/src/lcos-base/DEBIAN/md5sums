@@ -9,7 +9,7 @@ c688f75ef365f08ff26cbb7b9b9a3d60  usr/lib/lcos/lcos-amdgpu-ddx
 0ce53aa05e3f9f3a76983f0ecc02dd59  usr/lib/os-release
 0f356572fc01c8240fd2085d2f2d32e0  usr/lib/systemd/system/lcos-amdgpu-ddx.service
 d571a7ea36572ff452095f2eebe132b1  usr/local/sbin/lcos-write-os-release
-9f986ff2d428bf697e2cb5ac71be2355  usr/share/doc/lcos-base/changelog.gz
+6836510dc10b5100ff1c119d08cbe2f5  usr/share/doc/lcos-base/changelog.gz
 e7a01f3a12eda43b4e4129b9c6488fbe  usr/share/doc/lcos-base/copyright
 3ed5369a3635a5368a07eb2dcb614512  usr/share/lcos/xorg/05-lcos-amdgpu-modesetting.conf
 05615adddd0137d16a2911f4f2ea4c38  usr/share/lcos/xorg/15-lcos-amdgpu-hotplug.conf
