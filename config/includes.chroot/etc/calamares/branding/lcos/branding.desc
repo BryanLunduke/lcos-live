@@ -29,8 +29,8 @@ style:
 strings:
     productName: "Lunduke Computer Operating System"
     shortProductName: "LCOS"
-    version: "0.9"
-    shortVersion: "0.9"
+    version: "0.9.1"
+    shortVersion: "0.9.1"
     versionedName: "Lunduke Computer Operating System"
     shortVersionedName: "LCOS"
     bootloaderEntryName: "LCOS"

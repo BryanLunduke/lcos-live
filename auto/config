@@ -46,8 +46,8 @@ lb config noauto \
 	--binary-images iso-hybrid \
 	--iso-application "LCOS" \
 	--iso-publisher "The Lunduke Journal" \
-	--iso-volume "LCOS 0.9" \
-	--image-name "lcos-live-09-04" \
+	--iso-volume "LCOS 0.9.1" \
+	--image-name "lcos-live-091-01" \
 	--linux-packages "none" \
 	--bootappend-live "boot=live components hostname=LCOS username=lcos user-password=live quiet splash loglevel=2" \
 	--bootappend-live-failsafe "boot=live components hostname=LCOS username=lcos user-password=live memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal" \

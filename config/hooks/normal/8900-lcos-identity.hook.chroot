@@ -1,15 +1,15 @@
 #!/bin/sh
 set -e
 # Late write: debootstrap/live-build often replace os-release.
-# Identity is LCOS 0.9. Live hostname LCOS, live user lcos.
+# Identity is LCOS 0.9.1. Live hostname LCOS, live user lcos.
 printf "%s\n" "LCOS" > /etc/hostname
-printf "%s\n" "LCOS 0.9 \\n \\l" > /etc/issue
-printf "%s\n" "LCOS 0.9" > /etc/issue.net
+printf "%s\n" "LCOS 0.9.1 \\n \\l" > /etc/issue
+printf "%s\n" "LCOS 0.9.1" > /etc/issue.net
 cat > /etc/os-release <<'OS'
-PRETTY_NAME="LCOS 0.9"
+PRETTY_NAME="LCOS 0.9.1"
 NAME="LCOS"
-VERSION_ID="0.9"
-VERSION="0.9 (excalibur)"
+VERSION_ID="0.9.1"
+VERSION="0.9.1 (excalibur)"
 VERSION_CODENAME=excalibur
 ID=lcos
 ID_LIKE="devuan debian"
