@@ -1,47 +1,110 @@
 #!/bin/sh
 # Run inside the Calamares target (shellprocess, before umount).
-# Live drop-in 50-lcos.conf has autologin-user=lcos — must not survive install.
-# Prefer rewrite to Calamares username (keep autologin); also move LightDM to S20.
-# GitHub #89.
+# Live drop-in 50-lcos.conf has autologin-user=lcos and must not survive the
+# install (GitHub #89). Also moves LightDM to S20.
+#
+# GitHub #122: respect the installer's "Log in automatically" checkbox.
+# The choice is read from what Calamares itself wrote, not from our argument.
+# The Calamares displaymanager module (3.3.x, runs after users and before
+# shellprocess) rewrites every autologin-user= line in the target's
+# /etc/lightdm/lightdm.conf to
+#   autologin-user=<user>   when autologin was ticked
+#   #autologin-user=        when it was not (the stock file has #autologin-user=)
+# So autologin is ON only if lightdm.conf has an uncommented autologin-user=
+# naming a real target user who is not the live user lcos.
+#   ON : 50-lcos.conf pins autologin-user=<that user>, autologin-user-timeout=0
+#   OFF: no autologin-user / autologin-user-timeout left anywhere LightDM reads
+#        (/usr/share/lightdm/lightdm.conf.d, /etc/xdg/lightdm/lightdm.conf.d,
+#         /etc/lightdm/lightdm.conf.d, /etc/lightdm/lightdm.conf); the greeter
+#        asks for the password.
+# LCOS never adds autologin-session, so it is left alone. LightDM's PAM
+# lightdm-autologin has no group check and LCOS sets no autologin-group, so
+# group membership does not matter.
+# $1 (Calamares ${USER}) is only a cross-check and the fallback name for messages.
 set -e
 
-USER_NAME=$1
-if [ -z "$USER_NAME" ]; then
-	echo "lcos-calamares-fix-lightdm: missing username argument" >&2
-	exit 1
-fi
-if ! getent passwd "$USER_NAME" >/dev/null 2>&1; then
-	echo "lcos-calamares-fix-lightdm: user '$USER_NAME' not in target passwd" >&2
-	exit 1
+ARG_USER=$1
+ROOT=${LCOS_TARGET_ROOT:-}	# testing only; empty inside the Calamares chroot
+CONFDIR=$ROOT/etc/lightdm/lightdm.conf.d
+CONF=$CONFDIR/50-lcos.conf
+MAIN=$ROOT/etc/lightdm/lightdm.conf
+
+user_ok() {
+	[ -n "$1" ] && [ "$1" != lcos ] && [ "$1" != root ] || return 1
+	if [ -n "$ROOT" ]; then
+		grep -q "^$1:" "$ROOT/etc/passwd"
+	else
+		getent passwd "$1" >/dev/null 2>&1
+	fi
+}
+
+# Uncommented autologin-user=<name> in lightdm.conf (last one wins, as in LightDM).
+CAL_USER=
+if [ -f "$MAIN" ]; then
+	CAL_USER=$(sed -n 's/^[[:space:]]*autologin-user[[:space:]]*=[[:space:]]*\([^[:space:]#]*\).*/\1/p' "$MAIN" | tail -n1)
 fi
 
-CONFDIR=/etc/lightdm/lightdm.conf.d
-CONF=$CONFDIR/50-lcos.conf
+if user_ok "$CAL_USER"; then
+	AUTO=yes
+	AUTO_USER=$CAL_USER
+	if [ -n "$ARG_USER" ] && [ "$ARG_USER" != "$CAL_USER" ]; then
+		echo "lcos-calamares-fix-lightdm: note: argument '$ARG_USER' differs from Calamares autologin user '$CAL_USER'; using '$CAL_USER'" >&2
+	fi
+else
+	AUTO=no
+	AUTO_USER=
+	if [ -n "$CAL_USER" ]; then
+		echo "lcos-calamares-fix-lightdm: ignoring invalid autologin-user='$CAL_USER' in lightdm.conf; autologin OFF" >&2
+	fi
+fi
+
 mkdir -p "$CONFDIR"
 
-# Rewrite live drop-in to installed user (prefer keep autologin for real user).
-# Also pin session/greeter so removing live bits does not lose XFCE defaults.
-printf '%s\n' \
-	'[Seat:*]' \
-	"autologin-user=${USER_NAME}" \
-	'autologin-user-timeout=0' \
-	'user-session=xfce' \
-	'greeter-session=lightdm-gtk-greeter' \
-	> "$CONF"
-
-if ! grep -q "^autologin-user=${USER_NAME}$" "$CONF"; then
-	echo "lcos-calamares-fix-lightdm: failed to write autologin-user=${USER_NAME}" >&2
-	cat "$CONF" >&2 || true
-	exit 1
+# Rewrite the live drop-in. Pin session/greeter so removing live bits does not
+# lose the XFCE defaults (#89).
+if [ "$AUTO" = yes ]; then
+	printf '%s\n' \
+		'[Seat:*]' \
+		'# Installed system: autologin chosen in the installer (#122).' \
+		"autologin-user=${AUTO_USER}" \
+		'autologin-user-timeout=0' \
+		'user-session=xfce' \
+		'greeter-session=lightdm-gtk-greeter' \
+		> "$CONF"
+else
+	printf '%s\n' \
+		'[Seat:*]' \
+		'# Installed system: autologin NOT chosen in the installer (#122).' \
+		'user-session=xfce' \
+		'greeter-session=lightdm-gtk-greeter' \
+		> "$CONF"
+	# Strip any active autologin-user / autologin-user-timeout lines everywhere
+	# LightDM reads config (commented lines are left alone).
+	for f in "$ROOT"/usr/share/lightdm/lightdm.conf.d/*.conf \
+	         "$ROOT"/etc/xdg/lightdm/lightdm.conf.d/*.conf \
+	         "$CONFDIR"/*.conf "$MAIN"; do
+		[ -f "$f" ] || continue
+		if grep -Eq '^[[:space:]]*autologin-user(-timeout)?[[:space:]]*=' "$f"; then
+			sed -i -E '/^[[:space:]]*autologin-user(-timeout)?[[:space:]]*=/d' "$f"
+			echo "lcos-calamares-fix-lightdm: removed autologin lines from ${f#$ROOT}"
+		fi
+	done
 fi
-if grep -q '^autologin-user=lcos$' "$CONF"; then
+
+# Self-checks
+if grep -Eq '^[[:space:]]*autologin-user[[:space:]]*=[[:space:]]*lcos[[:space:]]*$' "$CONF" "$MAIN" 2>/dev/null; then
 	echo "lcos-calamares-fix-lightdm: still have autologin-user=lcos" >&2
 	exit 1
 fi
+if [ "$AUTO" = no ] && grep -Eqs '^[[:space:]]*autologin-user[[:space:]]*=' "$CONFDIR"/*.conf "$MAIN" \
+	"$ROOT"/usr/share/lightdm/lightdm.conf.d/*.conf "$ROOT"/etc/xdg/lightdm/lightdm.conf.d/*.conf; then
+	echo "lcos-calamares-fix-lightdm: autologin-user still present with autologin OFF" >&2
+	exit 1
+fi
 
-# Harden boot order: lightdm after dbus/elogind/seatd (S02 → S20)
+# Harden boot order: lightdm after dbus/elogind/seatd (S02 -> S20)
 for rc in 2 3 4 5; do
-	d=/etc/rc${rc}.d
+	d=$ROOT/etc/rc${rc}.d
 	[ -d "$d" ] || continue
 	for old in S01lightdm S02lightdm S03lightdm S04lightdm S05lightdm; do
 		if [ -e "$d/$old" ]; then
@@ -50,5 +113,9 @@ for rc in 2 3 4 5; do
 	done
 done
 
-echo "lcos-calamares-fix-lightdm: autologin-user=${USER_NAME}; LightDM rc → S20 where needed"
+if [ "$AUTO" = yes ]; then
+	echo "lcos-calamares-fix-lightdm: autologin ON for ${AUTO_USER}; LightDM rc -> S20 where needed"
+else
+	echo "lcos-calamares-fix-lightdm: autologin OFF (password at greeter); LightDM rc -> S20 where needed"
+fi
 exit 0
