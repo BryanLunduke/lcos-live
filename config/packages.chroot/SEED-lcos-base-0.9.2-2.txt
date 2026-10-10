@@ -1,3 +1,0 @@
-SEED lcos-base 0.9.2-2 2026-10-09 CT (build-092-system-debs.sh --only lcos-base --seed)
-Drops the AMD modesetting override (#115/#118); Xorg autoselects as in 0.8. Upgrades from 0.9-1/0.9.1-x tested with dpkg (conffile + snippets removed).
-843e509e0ddd9a2568c42b2786d489841f1edfb8b66488deee228bf73ebc114d  lcos-base_0.9.2-2_all.deb

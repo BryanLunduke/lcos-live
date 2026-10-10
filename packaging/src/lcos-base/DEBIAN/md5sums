@@ -6,5 +6,5 @@ e82c9b298fe94f27faf152d32b1ae179  etc/insserv/overrides/plymouth
 c4a5d3aad1ec3f840c1cf7254a5b603d  etc/os-release
 c4a5d3aad1ec3f840c1cf7254a5b603d  usr/lib/os-release
 d9b8a86a0ceaeeb61aa506367d74301f  usr/local/sbin/lcos-write-os-release
-19059fe67927a675b3cca1f2088d2432  usr/share/doc/lcos-base/changelog.gz
+01d780054cbddff4a363a2fa036a9562  usr/share/doc/lcos-base/changelog.gz
 2cacf695e73e70e61676d02c9a267307  usr/share/doc/lcos-base/copyright

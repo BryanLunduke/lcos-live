@@ -71,9 +71,15 @@ upower
 plymouth
 libplymouth5
 
-# Removable media in Thunar (preferred: gvfs + udisks2 + thunar-volman;
-# no gvfs-backends — avoids Samba/MTP/GOA-heavy dep pile). Editor 2026-09-19.
+# Removable media in Thunar (preferred: gvfs + udisks2 + thunar-volman).
+# Editor 2026-09-19 left out gvfs-backends; editor 2026-10-09 CT adds it for
+# LCOS 0.9.2 so Thunar can browse SMB (and FTP/SFTP/WebDAV) network shares
+# (user report: Thunar Preferences > Advanced warned GVFS network support was
+# missing). New deps (apt-simulated, no systemd): samba-libs, libsmbclient0,
+# libldb2, libtevent0t64, liblmdb0, libgoa-1.0-0b, libgdata22, libmsgraph-1-1,
+# libcdio*, libavahi-glib1, psmisc. Still no samba/ksmbd server.
 gvfs
+gvfs-backends
 udisks2
 thunar-volman
 
