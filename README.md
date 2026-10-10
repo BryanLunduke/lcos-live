@@ -1,13 +1,14 @@
-# LCOS live-build recipe (0.9.1)
+# LCOS live-build recipe (0.9.2)
 
-> **0.9.1 track (2026-10-09):** this repo's `master` is the 0.9.1 recipe (working
-> tree `/workspace/lcos-live-091/`), a testing and bug-fix-only release. Official
-> 0.9 (`lcos-live-09-04`) is frozen on branch **`lcos-0.9`** (hotfixes only;
-> tag `lcos-0.9-release` = the commit 09-04 was baked from). 0.8 stays frozen on
-> `lcos-0.8`. Next bake: **`lcos-live-091-01.iso`**. See `docs/091-TRACK-OPENED.md`.
-> App debs are still the 0.9 set until Phil seeds 0.9.1
-> (`config/packages.chroot/WAITING_ON_PHIL-0.9.1-apps.txt`).
-> The 0.9 and 0.8 notes below are kept for history.
+> **0.9.2 track (2026-10-09):** this repo's `master` is the 0.9.2 recipe (working
+> tree `/workspace/lcos-live-092/`). Official 0.9.1 (`lcos-live-091-01`, overlay
+> lcosrepo1 0886afb9) is frozen on branch **`lcos-0.9.1`** (= `218c2c0d`, hotfixes
+> only; tag `lcos-0.9.1-release` = `403714f2`, the commit 091-01 was baked from).
+> 0.9 stays frozen on `lcos-0.9`, 0.8 on `lcos-0.8`. Next bake:
+> **`lcos-live-092-01.iso`**. See `docs/092-TRACK-OPENED.md`.
+> App debs are still the 0.9.1-1 set until Phil seeds 0.9.2
+> (`config/packages.chroot/WAITING_ON_PHIL-0.9.2-apps.txt`).
+> The 0.9.1, 0.9 and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,
 XFCE, Calamares, and a thin signed LCOS apt overlay. No systemd. No Refracta.
