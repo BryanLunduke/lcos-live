@@ -30,3 +30,8 @@ iproute2
 
 # Bash tab completion (bash Recommends; dropped without Recommends)
 bash-completion
+
+# debconf Dialog frontend (GitHub #125: "unable to initialize frontend: Dialog"
+# on apt installs from a terminal). Editor 2026-10-10 CT, LCOS 0.9.2.
+# New: dialog + libdialog15 only, no systemd.
+dialog

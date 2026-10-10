@@ -33,3 +33,7 @@ Upgraders need **two Updates runs**. The helper binary that runs is the one alre
 | 0.8-04 | 27 upgraded incl. lcos-updates 0.9.2-2; lcos-base kept back | lcos-base 0.9.2-4 + 21 new (also eject, cifs-utils, keyutils), 0 removed |
 
 No systemd package in either plan. After run 1, lcos-base stays at the old version (and the 0.9.2 AMD override removal waits) until the next run. Release notes should say "run Updates twice".
+
+## 2026-10-10 update: lcos-base 0.9.2-5 adds dialog (#125)
+
+dialog added to base.list.chroot and to lcos-base Depends. Pull: dialog + libdialog15 1.3-20250116-1 (Devuan stable), no systemd. Two-run Updates simulation re-run: 0.9.1-01 run 1 = 15 upgraded incl. lcos-updates 0.9.2-2, lcos-base held; run 2 = lcos-base 0.9.2-5 + 18 new (incl. dialog, gvfs-backends), 0 removed, 0 held. 0.8-04 run 1 = 31 upgraded, lcos-base held; run 2 = lcos-base 0.9.2-5 + 23 new (incl. dialog, eject, cifs-utils, keyutils, gvfs-backends), 0 removed, 0 held. (Counts include a new Devuan ghostscript security update.)

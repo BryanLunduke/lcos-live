@@ -43,7 +43,7 @@ build() {
 }
 
 VER=0.9.2-1
-BASEVER=0.9.2-4
+BASEVER=0.9.2-5
 ver_of() { [ "$1" = lcos-base ] && echo "$BASEVER" || echo "$VER"; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
 SEED=
