@@ -1,0 +1,17 @@
+# LCOS 0.9.2 (#115/#118): take ONLY AMD firmware and Mesa from Devuan
+# excalibur-backports (pkgmaster.devuan.org/merged, checked 2026-10-09:
+# firmware-amd-graphics 20260810-1~bpo13+1, mesa 26.1.6-1~bpo13+1, built
+# against trixie's LLVM 19 and libdrm 2.4.124, so nothing else is pulled).
+# Everything else in backports is blocked (-1).
+
+Package: firmware-amd-graphics
+Pin: release n=excalibur-backports
+Pin-Priority: 990
+
+Package: libegl-mesa0 libgbm1 libgl1-mesa-dri libglx-mesa0 mesa-libgallium mesa-vulkan-drivers mesa-va-drivers mesa-vdpau-drivers mesa-opencl-icd mesa-drm-shim mesa-common-dev libgbm-dev libegl1-mesa-dev libgl1-mesa-dev libgles2-mesa-dev
+Pin: release n=excalibur-backports
+Pin-Priority: 990
+
+Package: *
+Pin: release n=excalibur-backports
+Pin-Priority: -1

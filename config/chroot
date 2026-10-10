@@ -30,8 +30,10 @@ LB_SECURITY="true"
 # Enable updates updates
 LB_UPDATES="true"
 
-# Disable backports (XLibre is overlay; 03-04 only pulled hyprpolkitagent)
-LB_BACKPORTS="false"
+# Backports enabled for 0.9.2 ONLY for AMD GPU support (#115/#118):
+# firmware-amd-graphics and Mesa. config/archives/lcos-amd-backports.pref.*
+# pins those to excalibur-backports and blocks everything else from it.
+LB_BACKPORTS="true"
 
 # Enable proposed updates
 LB_PROPOSED_UPDATES="false"
