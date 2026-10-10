@@ -1,0 +1,15 @@
+SEED LCOS 0.9.2-1 system debs 2026-10-09 CT (Chloe; built by packaging/build-092-system-debs.sh --seed)
+Unsigned; editor signs the archive. No ISO bake / no apt publish. Not tagged (0.9.2 unreleased). Version bump only.
+Replaces: lcos-base 0.9.1-3; lcos-branding, lcos-desktop-config, lcos-appimage-thumbnailer,
+  lcos-archive-keyring, lcos-desktop, lcos-theme-clearlooks, lcos-zork 0.9.1-1.
+lcos-base Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1); Recommends: eject, cifs-utils, keyutils
+Archive key unchanged: 5A01 D4BD CDD1 E153 1D45 6A75 60D6 E7F6 CBD6 D572.
+
+9d8183fd4d10b8ca06217dad785e63795d5271e02f25260f0ef79deb4d94f28d  lcos-base_0.9.2-1_all.deb
+dac561c96852067ec4400feecf8b8ba993479c4ed389777e5155eb226195039f  lcos-branding_0.9.2-1_all.deb
+a6fbe77c6dfbda8c0d896eeab60a213b6ab0b5cddcfeb3ae3ad5d96581ac59fa  lcos-desktop-config_0.9.2-1_all.deb
+aab1456f451605d0a8b5534f0ca2105ade4805bafe620c59cff101cf67fd18b5  lcos-appimage-thumbnailer_0.9.2-1_all.deb
+8274ae9d331c24f86588c588ceeac14a21fe158f63b7233ee0d9d5b38faa0281  lcos-archive-keyring_0.9.2-1_all.deb
+5c9e31060862e5f2180b9ca1a265d81b64982720d50b83304985bf38f84c2fd0  lcos-desktop_0.9.2-1_all.deb
+12a425263260d1450ab0f657c8aae66ebcaee012db72bff76dfdbc21e2721ca3  lcos-theme-clearlooks_0.9.2-1_all.deb
+9078ed553e8eeabf1547fa734f169eac549a084bc15f4d344c479cfa932993f7  lcos-zork_0.9.2-1_all.deb
