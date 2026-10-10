@@ -1,9 +1,9 @@
 Package: lcos-base
-Version: 0.9.2-1
+Version: 0.9.2-2
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 144
+Installed-Size: 92
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1)
@@ -15,15 +15,10 @@ Description: LCOS 0.9.2 identity, GRUB drop-in, X/boot-order system config
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
  .
- AMD GPUs (0.9.1-2, #115/#118): /etc/init.d/lcos-amdgpu-ddx (rcS, after
- udev) runs /usr/lib/lcos/lcos-amdgpu-ddx at every boot. It copies the 0.9
- modesetting+glamor OutputClass snippets from /usr/share/lcos/xorg into
- /usr/share/X11/xorg.conf.d only when every GPU bound to the amdgpu kernel
- driver is Vega/GFX9 or newer (not in the frozen pre-Vega PCI ID list from
- the kernel's amdgpu pciidlist), and removes them otherwise, so SI, CIK,
- VI and Polaris parts get the amdgpu DDX again as in 0.8. Override with
- lcos.amdgpu=modesetting|amdgpu on the kernel command line or in
- /etc/lcos/amdgpu-ddx.
+ AMD GPUs (0.9.2-2, #115/#118): no Xorg driver override. Xorg
+ autoselects the AMD driver as in 0.8. The 0.9/0.9.1 modesetting snippets,
+ /etc/init.d/lcos-amdgpu-ddx and /usr/lib/lcos/lcos-amdgpu-ddx are removed
+ on upgrade.
  .
  insserv overrides so LightDM starts after elogind/seatd
  and /etc/init.d/plymouth no longer quits Plymouth at boot (LightDM is the

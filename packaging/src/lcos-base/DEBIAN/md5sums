@@ -1,16 +1,10 @@
 b1d850ea41c017e51aa60d079a87c5d1  etc/default/grub.d/lcos.cfg
-94ff976915a48663adc7a64c329c03db  etc/init.d/lcos-amdgpu-ddx
 ddf0feb5732abf70947b83d4a49d1db9  etc/insserv/overrides/lightdm
 e82c9b298fe94f27faf152d32b1ae179  etc/insserv/overrides/plymouth
 40b99dae217a9a44d6f6a5e2d09d3e21  etc/issue
 6ac8a2ada2ca9143480c9be2b658279f  etc/issue.net
 c4a5d3aad1ec3f840c1cf7254a5b603d  etc/os-release
-c688f75ef365f08ff26cbb7b9b9a3d60  usr/lib/lcos/lcos-amdgpu-ddx
 c4a5d3aad1ec3f840c1cf7254a5b603d  usr/lib/os-release
-0f356572fc01c8240fd2085d2f2d32e0  usr/lib/systemd/system/lcos-amdgpu-ddx.service
 d9b8a86a0ceaeeb61aa506367d74301f  usr/local/sbin/lcos-write-os-release
-f2be768106a957decffd908783dcf22e  usr/share/doc/lcos-base/changelog.gz
+19059fe67927a675b3cca1f2088d2432  usr/share/doc/lcos-base/changelog.gz
 2cacf695e73e70e61676d02c9a267307  usr/share/doc/lcos-base/copyright
-3ed5369a3635a5368a07eb2dcb614512  usr/share/lcos/xorg/05-lcos-amdgpu-modesetting.conf
-05615adddd0137d16a2911f4f2ea4c38  usr/share/lcos/xorg/15-lcos-amdgpu-hotplug.conf
-fc6a6495fb745b1952400d70cae53dce  usr/share/lcos/xorg/amdgpu-pre-vega.ids

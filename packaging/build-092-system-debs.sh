@@ -1,7 +1,7 @@
 #!/bin/bash
 # Build the LCOS 0.9.2 system overlay debs (unsigned), all at 0.9.2-1 (version
 # bump only from 0.9.1): lcos-base (identity 0.9.2; Recommends eject,
-# cifs-utils, keyutils as 0.9.1-3; AMD DDX selection #115/#118 unchanged),
+# cifs-utils, keyutils as 0.9.1-3; 0.9.2-2 drops the AMD DDX override #115/#118),
 # lcos-branding, lcos-desktop-config, lcos-appimage-thumbnailer,
 # lcos-archive-keyring (key unchanged), lcos-desktop, lcos-theme-clearlooks,
 # lcos-zork.
@@ -33,7 +33,7 @@ build() {
 	done
 	find "$root" -path "$root/DEBIAN" -prune -o -type d -exec chmod 0755 {} +
 	# executables we ship
-	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/lib/lcos/lcos-amdgpu-ddx etc/init.d/lcos-amdgpu-ddx usr/bin/lcos-appimage-thumbnailer; do
+	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer; do
 		[ -f "$root/$x" ] && chmod 0755 "$root/$x"
 	done
 	local out="$DEBDIR/${name}_${ver}_all.deb"
@@ -43,7 +43,8 @@ build() {
 }
 
 VER=0.9.2-1
-ver_of() { echo "$VER"; }
+BASEVER=0.9.2-2
+ver_of() { [ "$1" = lcos-base ] && echo "$BASEVER" || echo "$VER"; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
 SEED=
 while [ $# -gt 0 ]; do

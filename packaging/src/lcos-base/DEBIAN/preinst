@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+# LCOS 0.9.2-2 (#115/#118): /etc/init.d/lcos-amdgpu-ddx (conffile in
+# 0.9.1-2 .. 0.9.2-1) is dropped; Xorg autoselects the AMD driver again.
+# Disable its rcS link while the script still exists, then let dpkg remove it.
+if [ "$1" = upgrade ] || [ "$1" = install ]; then
+  if [ -n "$2" ] && dpkg --compare-versions "$2" lt 0.9.2-2~; then
+    if command -v update-rc.d >/dev/null 2>&1; then
+      update-rc.d -f lcos-amdgpu-ddx remove >/dev/null 2>&1 || true
+    fi
+  fi
+fi
+dpkg-maintscript-helper rm_conffile /etc/init.d/lcos-amdgpu-ddx 0.9.2-2~ lcos-base -- "$@"
+exit 0

@@ -11,15 +11,12 @@ if [ "$1" = purge ] && command -v update-rc.d >/dev/null 2>&1; then
     update-rc.d lightdm defaults >/dev/null 2>&1 || true
   fi
 fi
-# LCOS 0.9.1-2: the AMD modesetting snippets in /usr/share/X11/xorg.conf.d are
-# created at boot by lcos-amdgpu-ddx and are not owned by dpkg; remove them
-# with the package so no stale always-on copy is left behind.
+# Leftovers of the 0.9.1 AMD DDX helper (dropped in 0.9.2-2), in case they
+# survived an upgrade.
 if [ "$1" = remove ] || [ "$1" = purge ]; then
-  rm -f /usr/share/X11/xorg.conf.d/05-lcos-amdgpu-modesetting.conf \
-        /usr/share/X11/xorg.conf.d/15-lcos-amdgpu-hotplug.conf \
-        /run/lcos-amdgpu-ddx
+  rm -f "${DPKG_ROOT:-}"/usr/share/X11/xorg.conf.d/05-lcos-amdgpu-modesetting.conf \
+        "${DPKG_ROOT:-}"/usr/share/X11/xorg.conf.d/15-lcos-amdgpu-hotplug.conf \
+        "${DPKG_ROOT:-}"/run/lcos-amdgpu-ddx
 fi
-if [ "$1" = purge ] && command -v update-rc.d >/dev/null 2>&1; then
-  update-rc.d lcos-amdgpu-ddx remove >/dev/null 2>&1 || true
-fi
+dpkg-maintscript-helper rm_conffile /etc/init.d/lcos-amdgpu-ddx 0.9.2-2~ lcos-base -- "$@"
 exit 0
