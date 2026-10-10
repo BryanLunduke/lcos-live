@@ -2,9 +2,11 @@
 # excalibur-backports (pkgmaster.devuan.org/merged, checked 2026-10-09:
 # firmware-amd-graphics 20260810-1~bpo13+1, mesa 26.1.6-1~bpo13+1, built
 # against trixie's LLVM 19 and libdrm 2.4.124, so nothing else is pulled).
+# firmware-linux, firmware-linux-nonfree and firmware-misc-nonfree come along
+# because firmware-linux-nonfree Depends on firmware-amd-graphics (= version).
 # Everything else in backports is blocked (-1).
 
-Package: firmware-amd-graphics
+Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree
 Pin: release n=excalibur-backports
 Pin-Priority: 990
 
