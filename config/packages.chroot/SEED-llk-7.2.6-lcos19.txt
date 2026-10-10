@@ -1,0 +1,11 @@
+SEED LLK 7.2.6-lcos19 2026-10-09T22:33:49-05:00
+GitHub BryanLunduke/lunduke-linux-kernel PR #13, squash-merged as b008279e2f9b2456bd98c28e80c1fbdac87ec6c1
+(tag 7.2.6-lcos19; tree identical to the built commit a94b94f). Editor ordered merge 2026-10-09 CT.
+Adds (LCOS #115/#118 AMD audit vs Ubuntu generic): DRM_RADEON=m, VGA_SWITCHEROO, DRM_AMD_DC_SI, DRM_AMDGPU_USERPTR, HSA_AMD,
+  FW_LOADER_COMPRESS(+XZ/ZSTD), X86_AMD_PLATFORM_DEVICE, I2C_PIIX4=m, PM_DEVFREQ, DP AUX chardev/CEC, LOAD_EDID_FIRMWARE, UDMABUF.
+  948 modules (lcos18 had 946). uname -r 7.2.6-lunduke (build string #lcos19).
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.6-lcos18 (moved to superseded/, gitignored).
+b4c4b0ec08e87cdd8ced6377884c3c7817c97ab07508096a89cbbdbbc49108fc  /workspace/lcos-kernel/debs-lcos19/linux-image-7.2.6-lunduke_7.2.6-lcos19_amd64.deb
+6b06ef9a3c553bc7eff0fae8248bca7b9d021054482d23634851367da64c816a  /workspace/lcos-kernel/debs-lcos19/linux-headers-7.2.6-lunduke_7.2.6-lcos19_amd64.deb
+6080ff2025b9c9c3976bcef8f1b89da0331ae1a8bc9cbfd1696c7cab7f419578  /workspace/lcos-kernel/debs-lcos19/lunduke-linux-kernel_7.2.6-lcos19_all.deb

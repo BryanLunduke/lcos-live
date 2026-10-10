@@ -1,0 +1,2 @@
+SEED lunduke-about 0.9.2-2 2026-10-09T22:33:49-05:00 (Phil; tag v0.9.2-2 at 4fab54ff). Replaces 0.9.2-1 (moved to superseded/).
+4e82c9ac197e43cb9c89be49d47adf45cad1a8c7a6bd7a3eebae970f0ef7f9c2  lunduke-about_0.9.2-2_amd64.deb
