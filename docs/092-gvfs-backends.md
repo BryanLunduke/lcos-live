@@ -20,3 +20,16 @@ No packaging-only approach can make the current Updates tool install a new packa
 
 - 0.9.1-01 DB (lcos-base 0.9.1-2): 11 upgraded, 0 new, 0 removed, 0 kept back; lcos-base -> 0.9.2-3.
 - 0.8-04 DB (lcos-base 0.7-2): 28 upgraded, 0 new, 0 removed, 0 kept back; lcos-base -> 0.9.2-3.
+
+## 2026-10-10 update: lcos-updates 0.9.2-2 + lcos-base 0.9.2-4 (Depends)
+
+Editor approved. lcos-updates 0.9.2-2 (v0.9.2-2, 61de7652, PR #14) also installs kept-back upgrades whose probe only adds packages and removes nothing. lcos-base 0.9.2-4 moves eject, cifs-utils, keyutils and gvfs-backends to Depends.
+
+Upgraders need **two Updates runs**. The helper binary that runs is the one already installed, so its new logic only applies on the next run:
+
+| DB | Run 1 (old helper 0.7-2 / 0.9.1-1) | Run 2 (new helper 0.9.2-2) |
+|---|---|---|
+| 0.9.1-01 | 11 upgraded incl. lcos-updates 0.9.2-2; lcos-base kept back | lcos-base 0.9.2-4 + 16 new (gvfs-backends + libs), 0 removed |
+| 0.8-04 | 27 upgraded incl. lcos-updates 0.9.2-2; lcos-base kept back | lcos-base 0.9.2-4 + 21 new (also eject, cifs-utils, keyutils), 0 removed |
+
+No systemd package in either plan. After run 1, lcos-base stays at the old version (and the 0.9.2 AMD override removal waits) until the next run. Release notes should say "run Updates twice".
