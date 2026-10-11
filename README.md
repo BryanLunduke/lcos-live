@@ -6,8 +6,8 @@
 > only; tag `lcos-0.9.2-release` = `b68d9fe6`; `/workspace/lcos-live-092` tracks it).
 > 0.9.1 stays frozen on `lcos-0.9.1`, 0.9 on `lcos-0.9`, 0.8 on `lcos-0.8`. Next bake:
 > **`lcos-live-093-01.iso`**. See `docs/093-TRACK-OPENED.md`.
-> App debs are still the 0.9.2 set until Phil seeds 0.9.3
-> (`config/packages.chroot/WAITING_ON_PHIL-0.9.3-apps.txt`).
+> App debs 0.9.3-1 are seeded
+> (`config/packages.chroot/SEED-0.9.3-1-apps.txt`).
 > The 0.9.2, 0.9.1, 0.9 and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,

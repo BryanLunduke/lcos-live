@@ -7,8 +7,7 @@ Do not edit /workspace/lcos-live-092 (0.9.2 frozen, tracks lcos-0.9.2) unless Te
 Identity/overlay track: 0.9.3
 Next bake filename: lcos-live-093-01.iso
 Default kernel: LLK 7.2.6-lcos19 (carried from 0.9.2; kernel tag 7.2.6-lcos19 = b008279e).
-Apps: still the 0.9.2 set (Edit/Paint/City 0.9.2-1, About/Updates 0.9.2-2) until Phil seeds
-  0.9.3 debs. See config/packages.chroot/WAITING_ON_PHIL-0.9.3-apps.txt.
+Apps: 0.9.3-1 (Edit, Paint, City, About, Updates) seeded 2026-10-11 CT; see SEED-0.9.3-1-apps.txt.
 System debs 0.9.3-1: see docs/093-TRACK-OPENED.md.
 Apt: do NOT publish from this open. Official 0.9.2 overlay is live (lcosrepo1 0bd3bfbc).
 

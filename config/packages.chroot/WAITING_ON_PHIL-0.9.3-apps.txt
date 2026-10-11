@@ -1,3 +1,5 @@
+RESOLVED 2026-10-11 CT: 0.9.3-1 apps seeded (SEED-0.9.3-1-apps.txt).
+
 WAITING ON PHIL — LCOS 0.9.3 app debs (opened 2026-10-11 CT)
 
 Until Phil seeds 0.9.3 app debs, this tree carries the app debs that shipped
