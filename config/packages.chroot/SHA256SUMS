@@ -7,12 +7,12 @@ a2389c0c151ab221d545d417daae8bc5a2fa8805e9684e9483e6d63f99fc1b3e  lcos-desktop-c
 c010723dd94538b88bddc0f169dc3d742749e09df8cf232c0c2027bf97755109  lcos-theme-clearlooks_0.9.3-1_all.deb
 7d5baf3446017e6c0edc9dfeb931fa171eb3f20bd7cb3c06c517912e2b355a82  lcos-updates_0.9.3-1_amd64.deb
 4c996ae2829ac52d9922054ea9ebece6031544959e852e0c3bf5ca8151eb5a7c  lcos-zork_0.9.3-1_all.deb
-6b06ef9a3c553bc7eff0fae8248bca7b9d021054482d23634851367da64c816a  linux-headers-7.2.6-lunduke_7.2.6-lcos19_amd64.deb
-b4c4b0ec08e87cdd8ced6377884c3c7817c97ab07508096a89cbbdbbc49108fc  linux-image-7.2.6-lunduke_7.2.6-lcos19_amd64.deb
+8495d17977644081db0ce74ce943ee0f24b82145e54e05747a8b023229d3e2fe  linux-headers-7.2.6-lunduke_7.2.6-lcos20_amd64.deb
+fa5dc26812f21e4b48481bbadb6886c1397ef2c1417e2d34fd55dc82ae266b1d  linux-image-7.2.6-lunduke_7.2.6-lcos20_amd64.deb
 dd8c81365bead10f7c229b816ada1a30aa35aaf20c08f47940e9ce888c521d42  lunduke-about_0.9.3-1_amd64.deb
 b419bdef5166b3528336f6cd6fd8755b13b72e1f2573263444f6075bef915f2a  lunduke-city_0.9.3-1_amd64.deb
 77896bae8512c8a21f594215c4090002ef63613b262bdec4639e6c7bef926a4c  lunduke-edit_0.9.3-1_amd64.deb
-6080ff2025b9c9c3976bcef8f1b89da0331ae1a8bc9cbfd1696c7cab7f419578  lunduke-linux-kernel_7.2.6-lcos19_all.deb
+d2dedd3725420cf5b7b6ddec8dc1aa9798e7501b7e6dfeeec5599ece6e9cecb3  lunduke-linux-kernel_7.2.6-lcos20_all.deb
 750b6f32468ff1c62690ce0d8bd6c46b720d9e3549a567a40ef93661a1e89fae  lunduke-paint_0.9.3-1_amd64.deb
 2f977684848deb6861d1d85cbbcc53a5d0c993f950f428ac45e6420355c15156  xlibre-x11-common_25.1.9-1+lcos1_all.deb
 e0d8ddda1cda7493aff3ef736176238b747469890cb9b8dd98929c6e420f274c  xlibre_25.1.9-1+lcos1_amd64.deb
