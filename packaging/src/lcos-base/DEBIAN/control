@@ -1,15 +1,15 @@
 Package: lcos-base
-Version: 0.9.2-5
+Version: 0.9.3-1
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 92
+Installed-Size: 104
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog
 Replaces: base-files
-Description: LCOS 0.9.2 identity, GRUB drop-in, X/boot-order system config
- os-release / issue for LCOS 0.9.2 (excalibur), lcos-write-os-release,
+Description: LCOS 0.9.3 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 0.9.3 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
@@ -31,5 +31,7 @@ Description: LCOS 0.9.2 identity, GRUB drop-in, X/boot-order system config
  browsing) are Depends again; 0.9.2-5 adds dialog (debconf frontend,
  #125). Updates 0.9.2-2+ installs kept-back
  upgrades that only add packages, so upgraders receive them.
+ 0.9.3-1: ships /etc/apt/preferences.d/lcos-amd-backports.pref (not a
+ conffile) with i386 Mesa pinned to excalibur-backports too (#129).
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
