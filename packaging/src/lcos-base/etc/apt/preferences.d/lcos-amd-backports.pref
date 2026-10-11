@@ -1,0 +1,26 @@
+# LCOS 0.9.2 (#115/#118): take ONLY AMD firmware and Mesa from Devuan
+# excalibur-backports (pkgmaster.devuan.org/merged, checked 2026-10-09:
+# firmware-amd-graphics 20260810-1~bpo13+1, mesa 26.1.6-1~bpo13+1, built
+# against trixie's LLVM 19 and libdrm 2.4.124, so nothing else is pulled).
+# firmware-linux, firmware-linux-nonfree and firmware-misc-nonfree come along
+# because firmware-linux-nonfree Depends on firmware-amd-graphics (= version).
+# Everything else in backports is blocked (-1).
+
+Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree
+Pin: release n=excalibur-backports
+Pin-Priority: 990
+
+Package: libegl-mesa0 libgbm1 libgl1-mesa-dri libglx-mesa0 mesa-libgallium mesa-vulkan-drivers mesa-va-drivers mesa-vdpau-drivers mesa-opencl-icd mesa-drm-shim mesa-common-dev libgbm-dev libegl1-mesa-dev libgl1-mesa-dev libgles2-mesa-dev
+Pin: release n=excalibur-backports
+Pin-Priority: 990
+
+# 0.9.3 (#129): apt applies a Package line without an architecture to the
+# native architecture only, so i386 Mesa stayed at -1 and Steam's 32-bit
+# Mesa could not match amd64 26.1.6 (Multi-Arch: same).
+Package: libegl-mesa0:i386 libgbm1:i386 libgl1-mesa-dri:i386 libglx-mesa0:i386 mesa-libgallium:i386 mesa-vulkan-drivers:i386 mesa-va-drivers:i386 mesa-vdpau-drivers:i386 mesa-opencl-icd:i386 mesa-drm-shim:i386 mesa-common-dev:i386 libgbm-dev:i386 libegl1-mesa-dev:i386 libgl1-mesa-dev:i386 libgles2-mesa-dev:i386
+Pin: release n=excalibur-backports
+Pin-Priority: 990
+
+Package: *
+Pin: release n=excalibur-backports
+Pin-Priority: -1
