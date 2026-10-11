@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- LCOS system default (lcos-desktop-config, /etc/xdg/lcos is ahead of
+     /etc/xdg in XDG_CONFIG_DIRS): no lock on suspend/hibernate, no DPMS or
+     blanking. power-button-action=3 is xfce4-power-manager's stock value. -->
+<channel name="xfce4-power-manager" version="1.0">
+  <property name="xfce4-power-manager" type="empty">
+    <property name="power-button-action" type="uint" value="3"/>
+    <property name="lock-screen-suspend-hibernate" type="bool" value="false"/>
+    <property name="dpms-enabled" type="bool" value="false"/>
+    <property name="blank-on-ac" type="int" value="0"/>
+    <property name="blank-on-battery" type="int" value="0"/>
+  </property>
+</channel>

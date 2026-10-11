@@ -1,0 +1,7 @@
+# LCOS (lcos-desktop-config): put /etc/xdg/lcos ahead of /etc/xdg so LCOS
+# xfconf system defaults (screensaver/lock/DPMS off) override stock package
+# defaults without replacing other packages' files. ~/.config still wins.
+case ":${XDG_CONFIG_DIRS:-}:" in
+*:/etc/xdg/lcos:*) ;;
+*) XDG_CONFIG_DIRS="/etc/xdg/lcos:${XDG_CONFIG_DIRS:-/etc/xdg}"; export XDG_CONFIG_DIRS ;;
+esac

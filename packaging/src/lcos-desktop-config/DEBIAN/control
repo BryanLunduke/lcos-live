@@ -1,9 +1,9 @@
 Package: lcos-desktop-config
-Version: 0.9.3-1
+Version: 0.9.3-2
 Section: x11
 Priority: optional
 Architecture: all
-Installed-Size: 368
+Installed-Size: 404
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-branding (>= 0.7), lcos-theme-clearlooks (>= 0.7)

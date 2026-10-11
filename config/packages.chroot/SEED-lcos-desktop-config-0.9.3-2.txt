@@ -1,0 +1,5 @@
+lcos-desktop-config 0.9.3-2 (replaces 0.9.3-1), built with
+packaging/build-093-system-debs.sh --seed --only lcos-desktop-config
+SHA256 2c8e4f2a668a8b0dffcf151cd2c7254f46b95469325378d5f0440b701b49000d
+Screensaver/lock/DPMS defaults OFF via /etc/xdg/lcos (+ Xsession.d/54lcos-xdg-config-dirs).
+Lintian tags identical to 0.9.3-1.

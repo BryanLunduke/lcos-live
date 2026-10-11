@@ -43,7 +43,8 @@ build() {
 
 VER=0.9.3-1
 BASEVER=0.9.3-2
-ver_of() { [ "$1" = lcos-base ] && echo "$BASEVER" || echo "$VER"; }
+DCVER=0.9.3-2
+ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
 SEED=
 while [ $# -gt 0 ]; do

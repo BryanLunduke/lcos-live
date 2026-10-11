@@ -1,10 +1,11 @@
 #!/bin/sh
-# LCOS 0.9.3: LIVE SESSION ONLY - no screensaver, no locking, no blanking.
-# live-config runs this only on boot=live (after 0030-user-setup created the
-# live user's home) and Calamares removes live-config from installed systems.
-# Everything is written into the live user's $HOME, which unpackfs does not
-# copy (it unpacks the squashfs, not the running overlay). /etc and /etc/skel
-# are untouched, so installed systems keep xfce4-screensaver and locking.
+# LCOS 0.9.3: LIVE SESSION ONLY - turn off X core screensaver/DPMS blanking.
+# Screensaver/lock/DPMS xfconf defaults (all off) ship system-wide in
+# lcos-desktop-config 0.9.3-2 (/etc/xdg); this only adds `xset s off -dpms`
+# for the live user. live-config runs this only on boot=live (after
+# 0030-user-setup created the home) and Calamares removes live-config from
+# installed systems. The autostart file lives in the live user's $HOME, which
+# unpackfs does not copy (it unpacks the squashfs, not the running overlay).
 
 . /lib/live/config.sh
 
@@ -29,46 +30,7 @@ Config ()
 		touch /var/lib/live/config/lcos-live-no-screensaver
 		return 0
 	fi
-	_X="${_HOME}/.config/xfce4/xfconf/xfce-perchannel-xml"
-	mkdir -p "${_X}" "${_HOME}/.config/autostart"
-
-	cat > "${_X}/xfce4-screensaver.xml" << 'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- LCOS live session only (2030-lcos-live-no-screensaver) -->
-<channel name="xfce4-screensaver" version="1.0">
-  <property name="saver" type="empty">
-    <property name="enabled" type="bool" value="false"/>
-    <property name="idle-activation" type="empty">
-      <property name="enabled" type="bool" value="false"/>
-    </property>
-  </property>
-  <property name="lock" type="empty">
-    <property name="enabled" type="bool" value="false"/>
-    <property name="sleep-activation" type="bool" value="false"/>
-  </property>
-</channel>
-EOF
-
-	cat > "${_X}/xfce4-power-manager.xml" << 'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- LCOS live session only (2030-lcos-live-no-screensaver) -->
-<channel name="xfce4-power-manager" version="1.0">
-  <property name="xfce4-power-manager" type="empty">
-    <property name="lock-screen-suspend-hibernate" type="bool" value="false"/>
-    <property name="dpms-enabled" type="bool" value="false"/>
-    <property name="blank-on-ac" type="int" value="0"/>
-    <property name="blank-on-battery" type="int" value="0"/>
-    <property name="dpms-on-ac-sleep" type="uint" value="0"/>
-    <property name="dpms-on-ac-off" type="uint" value="0"/>
-    <property name="dpms-on-battery-sleep" type="uint" value="0"/>
-    <property name="dpms-on-battery-off" type="uint" value="0"/>
-    <property name="lid-action-on-ac" type="uint" value="0"/>
-    <property name="lid-action-on-battery" type="uint" value="0"/>
-    <property name="inactivity-on-ac" type="uint" value="14"/>
-    <property name="inactivity-on-battery" type="uint" value="14"/>
-  </property>
-</channel>
-EOF
+	mkdir -p "${_HOME}/.config/autostart"
 
 	cat > "${_HOME}/.config/autostart/lcos-live-no-blank.desktop" << 'EOF'
 [Desktop Entry]
@@ -80,7 +42,7 @@ NoDisplay=true
 X-GNOME-Autostart-enabled=true
 EOF
 
-	chown -R "${_USER}:${_USER}" "${_HOME}/.config" || true
+	chown -R "${_USER}:${_USER}" "${_HOME}/.config/autostart" || true
 	touch /var/lib/live/config/lcos-live-no-screensaver
 }
 
