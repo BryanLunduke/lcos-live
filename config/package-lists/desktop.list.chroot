@@ -2,7 +2,10 @@
 xfce4
 # xfce4-goodies Depends: xfburn — list the rest explicitly so Xfburn stays out
 ristretto
+# #132 (0.9.3): archive manager. thunar-archive-plugin gives Thunar right-click
+# Extract/Create Archive and uses xarchiver as its backend.
 thunar-archive-plugin
+xarchiver
 thunar-media-tags-plugin
 xfce4-battery-plugin
 xfce4-clipman-plugin
@@ -63,6 +66,10 @@ alsa-utils
 xfce4-power-manager
 xfce4-power-manager-plugins
 upower
+# #109 (0.9.3): screen locker. xflock4 and xfce4-power-manager
+# (lock-screen-suspend-hibernate, default on) lock through it on lid close /
+# suspend. No light-locker (would compete for the lock). No systemd.
+xfce4-screensaver
 
 # Plymouth boot splash (custom LCOS script theme in includes.chroot).
 # apt-recommends is false — list companions explicitly. Do NOT add plymouth-themes
@@ -81,6 +88,8 @@ libplymouth5
 gvfs
 gvfs-backends
 udisks2
+# #131 (0.9.3): exFAT tools (mkfs/fsck.exfat); kernel exfat.ko from LLK lcos20.
+exfatprogs
 thunar-volman
 
 # CD/DVD eject for Thunar/udisks/xfdesktop "Eject" (GitHub #104: VMware CD eject

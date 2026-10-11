@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.3-1
+Version: 0.9.3-2
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 104
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs
 Replaces: base-files
 Description: LCOS 0.9.3 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.3 (excalibur), lcos-write-os-release,
@@ -33,5 +33,8 @@ Description: LCOS 0.9.3 identity, GRUB drop-in, X/boot-order system config
  upgrades that only add packages, so upgraders receive them.
  0.9.3-1: ships /etc/apt/preferences.d/lcos-amd-backports.pref (not a
  conffile) with i386 Mesa pinned to excalibur-backports too (#129).
+ 0.9.3-2: Depends xfce4-screensaver (screen lock on lid close/suspend,
+ #109), xarchiver + thunar-archive-plugin (archive manager, #132) and
+ exfatprogs (exFAT tools, #131) so upgraders get the 0.9.3 ISO additions.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
