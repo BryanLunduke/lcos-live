@@ -45,3 +45,10 @@ open-vm-tools
 # b43-fwcutter is a Depends (1:019-14). Do NOT add broadcom-sta / wl.
 firmware-b43-installer
 firmware-b43legacy-installer
+
+# Firmware metapackages (0.9.3). 0.9.1 shipped them; 0.9.2 (092-02) lost them
+# once firmware came from excalibur-backports. lcos-amd-backports.pref pins
+# both to the backports version (firmware-linux-nonfree Depends on
+# firmware-amd-graphics/firmware-misc-nonfree at the exact same version).
+firmware-linux
+firmware-linux-nonfree
