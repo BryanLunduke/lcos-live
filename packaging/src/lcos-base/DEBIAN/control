@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.3-2
+Version: 0.9.3-3
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 104
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk
 Replaces: base-files
 Description: LCOS 0.9.3 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.3 (excalibur), lcos-write-os-release,
@@ -36,5 +36,7 @@ Description: LCOS 0.9.3 identity, GRUB drop-in, X/boot-order system config
  0.9.3-2: Depends xfce4-screensaver (screen lock on lid close/suspend,
  #109), xarchiver + thunar-archive-plugin (archive manager, #132) and
  exfatprogs (exFAT tools, #131) so upgraders get the 0.9.3 ISO additions.
+ 0.9.3-3: Depends xdg-desktop-portal-gtk (pulls xdg-desktop-portal) so
+ Chromium/Brave file pickers work (#135).
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

@@ -92,6 +92,14 @@ udisks2
 exfatprogs
 thunar-volman
 
+# #135 (0.9.3): XDG desktop portal so Chromium/Brave file pickers open (Drive
+# upload, Gmail attach silently did nothing). Uses the GTK FileChooser.
+# Pulls xdg-desktop-portal, bubblewrap, gstreamer1.0-plugins-base/-good and
+# small codec libs (~15 MB installed, apt-simulated, no systemd). Selection
+# via /usr/share/xdg-desktop-portal/xfce-portals.conf (lcos-desktop-config).
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+
 # CD/DVD eject for Thunar/udisks/xfdesktop "Eject" (GitHub #104: VMware CD eject
 # failed, /usr/bin/eject missing). util-linux binary; Depends libmount1 only.
 # Editor 2026-10-08 CT, for lcos-live-09-04.

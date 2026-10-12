@@ -1,5 +1,6 @@
 #!/bin/bash
-# Build the LCOS 0.9.3 system overlay debs (unsigned), all eight at 0.9.3-1:
+# Build the LCOS 0.9.3 system overlay debs (unsigned), all eight at 0.9.3-1
+# (lcos-base 0.9.3-3: + xdg-desktop-portal-gtk, #135; lcos-desktop-config 0.9.3-2):
 # lcos-base (identity 0.9.3; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
 # incl. i386 Mesa, #129), lcos-branding, lcos-desktop-config,
@@ -42,7 +43,7 @@ build() {
 }
 
 VER=0.9.3-1
-BASEVER=0.9.3-2
+BASEVER=0.9.3-3
 DCVER=0.9.3-2
 ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
