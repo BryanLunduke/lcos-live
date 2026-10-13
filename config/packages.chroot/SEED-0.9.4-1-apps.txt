@@ -1,0 +1,7 @@
+LCOS 0.9.4 app seeds (Phil, 2026-10-13 CT; version + changelog only; tags v0.9.4-1 verified on GitHub), replacing Edit/Paint/City/About 0.9.3-1 and Updates 0.9.3-2.
+Tags: lunduke-edit d754c604, lunduke-paint 5aaf190a, LundukeCity 85293f66, LCOS-AboutThisComputer 0f685616, lcos-updates 0d0e489a.
+04a7495baa2dcbe075850c7d6c49828e71b94d0d6b4a7b2b0fc2108e9efa9db8  lunduke-edit_0.9.4-1_amd64.deb
+7ffcc7a0b78084c8e239140e064b56cfe369714d4d279784525fdd24a1d2c483  lunduke-paint_0.9.4-1_amd64.deb
+4e4b5bb2415060b14a05ec2b0d53030d9e1046b7a116220c84c8276f017262e6  lunduke-city_0.9.4-1_amd64.deb
+8bd762cc218b70ce71b1ebe824ac831f640f8acc70fd7dc4a19f67095454769b  lunduke-about_0.9.4-1_amd64.deb
+c09539738fd6163f3fca080cf734b8281b5761b5f76ac63d73bda815306b45e2  lcos-updates_0.9.4-1_amd64.deb
