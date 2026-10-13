@@ -1,0 +1,7 @@
+lunduke-about 0.9.4-2 (AtrusBatleth added as last supporter)
+file:   lunduke-about_0.9.4-2_amd64.deb
+sha256: 4408ec16ca0fe5f6683f93f856a0e23005f73d825735badee2d4c11fa134ac76
+repo:   BryanLunduke/LCOS-AboutThisComputer (PR #22)
+tag:    v0.9.4-2 (tag object 59b70742436eb1947ab316b7436418e81d0a3274)
+merge:  10e780729795603488b4e0f4d8c1478562fb2fdd
+replaces: lunduke-about_0.9.4-1_amd64.deb
