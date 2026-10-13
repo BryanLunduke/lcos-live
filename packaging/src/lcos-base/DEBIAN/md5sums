@@ -1,4 +1,4 @@
-a4689f7f1c1119b4ba96a20bc281cebf  etc/apt/preferences.d/lcos-amd-backports.pref
+5e6305b720b7eff19e1fe67754577a65  etc/apt/preferences.d/lcos-amd-backports.pref
 b1d850ea41c017e51aa60d079a87c5d1  etc/default/grub.d/lcos.cfg
 ddf0feb5732abf70947b83d4a49d1db9  etc/insserv/overrides/lightdm
 e82c9b298fe94f27faf152d32b1ae179  etc/insserv/overrides/plymouth
@@ -7,5 +7,5 @@ e82c9b298fe94f27faf152d32b1ae179  etc/insserv/overrides/plymouth
 ed457213826a67720fdc1cc1618b07b5  etc/os-release
 ed457213826a67720fdc1cc1618b07b5  usr/lib/os-release
 d55af6ca6f8f1102ea6e66c38584aeeb  usr/local/sbin/lcos-write-os-release
-9087a2825029e4a3ee5c51ad9a76eff5  usr/share/doc/lcos-base/changelog.gz
+dcae9176c9ae850d349aefce2998e07d  usr/share/doc/lcos-base/changelog.gz
 c0e05c4866809a72a18e607fbfbe8797  usr/share/doc/lcos-base/copyright

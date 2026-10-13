@@ -1,0 +1,4 @@
+SEED lcos-base 0.9.4-2 2026-10-13T14:52:17-05:00 (packaging/build-094-system-debs.sh --seed --only lcos-base)
+Replaces lcos-base 0.9.4-1. Only change: /etc/apt/preferences.d/lcos-amd-backports.pref adds
+firmware-realtek (excalibur-backports 20260810-1~bpo13+1, #138); identical to config/archives/lcos-amd-backports.pref.{chroot,binary}.
+acbf15a0a670bd64f5940c3d6db8077aa6da83effcc274afab1c2a33d9aee22f  lcos-base_0.9.4-2_all.deb

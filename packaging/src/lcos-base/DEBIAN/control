@@ -1,5 +1,5 @@
 Package: lcos-base
-Version: 0.9.4-1
+Version: 0.9.4-2
 Section: admin
 Priority: optional
 Architecture: all
@@ -38,5 +38,7 @@ Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  exfatprogs (exFAT tools, #131) so upgraders get the 0.9.3 ISO additions.
  0.9.3-3: Depends xdg-desktop-portal-gtk (pulls xdg-desktop-portal) so
  Chromium/Brave file pickers work (#135).
+ 0.9.4-2: the apt pin also takes firmware-realtek from excalibur-backports
+ (newest rtw89 firmware for LLK lcos22 Realtek USB Wi-Fi, #138).
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
