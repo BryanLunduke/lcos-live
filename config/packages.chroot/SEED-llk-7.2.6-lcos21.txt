@@ -1,0 +1,11 @@
+SEED LLK 7.2.6-lcos21 2026-10-13T11:39:54-05:00
+GitHub BryanLunduke/lunduke-linux-kernel PR #17, squash-merged as ee74301e2e22a4366daf455260dfc046b4a2042e
+(tag 7.2.6-lcos21; tree identical to the built commit b4470300). Editor ordered merge 2026-10-13 CT.
+Adds: CONFIG_VMD=m (Intel Volume Management Device; NVMe behind Dell/HP "RAID On"), CONFIG_HOTPLUG_PCI_PCIE=y.
+  950 modules (lcos20 had 949; only new is drivers/pci/controller/vmd.ko). uname -r 7.2.6-lunduke (build string #lcos21).
+  initramfs (MODULES=most) includes vmd automatically. See docs/094-vmd.md.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.6-lcos20 (moved to superseded/, gitignored).
+cc3f027bbc0b18d317c35726e0ecff2a51f3d95f60f58a989cdd60e3df5b8add  linux-image-7.2.6-lunduke_7.2.6-lcos21_amd64.deb
+9e2c601edfb3d0f2418f22df75ba4699eb533f83b1e61dbc464d3d55b66293c5  linux-headers-7.2.6-lunduke_7.2.6-lcos21_amd64.deb
+eef8e9e9ad97bf9a832b1ef2b2e5ece126b561f08e462164b0be43a628217ca8  lunduke-linux-kernel_7.2.6-lcos21_all.deb
