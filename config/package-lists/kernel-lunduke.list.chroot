@@ -1,13 +1,14 @@
 # Lunduke Linux Kernel: default ISO kernel for 0.9.4.
-# Seeded 7.2.6-lcos21 on 2026-10-13 CT (lunduke-linux-kernel master ee74301e,
-# PR #17, tag 7.2.6-lcos21); see config/packages.chroot/SEED-llk-7.2.6-lcos21.txt.
-# Replaced lcos20 (moved to config/packages.chroot/superseded/).
+# Seeded 7.2.6-lcos22 on 2026-10-13 CT (lunduke-linux-kernel master 1f5d4e60,
+# PR #18, tag 7.2.6-lcos22); see config/packages.chroot/SEED-llk-7.2.6-lcos22.txt.
+# Replaced lcos21 (moved to config/packages.chroot/superseded/).
 # Package names are unversioned; the ABI stays 7.2.6-lunduke, so only the
-# seeded debs pin the lcos21 revision.
+# seeded debs pin the lcos22 revision.
 # lcos18: DM_CRYPT=m + XTS (#123), UHID=m (#120), RMI4_F11=y (#121).
 # lcos19: radeon=m, vga_switcheroo, DC_SI, HSA, FW compress (#115/#118); 948 modules.
 # lcos20: EXFAT_FS=m, iocharset utf8 (#131); 949 modules.
-# lcos21: VMD=m (Intel VMD / "RAID On" NVMe), HOTPLUG_PCI_PCIE=y; 950 modules. No Forced Rust.
+# lcos21: VMD=m (Intel VMD / "RAID On" NVMe), HOTPLUG_PCI_PCIE=y; 950 modules.
+# lcos22: RTW89_8852CU/8852BU/8851BU/8922AU=m, RTW88_8814AE=m (#138); 955 modules. No Forced Rust.
 linux-image-7.2.6-lunduke
 linux-headers-7.2.6-lunduke
 lunduke-linux-kernel

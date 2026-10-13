@@ -1,0 +1,10 @@
+SEED LLK 7.2.6-lcos22 2026-10-13T14:50:39-05:00
+GitHub BryanLunduke/lunduke-linux-kernel PR #18, squash-merged as 1f5d4e6044a636df23f7b213b1941fa02beae0b3
+(tag 7.2.6-lcos22; tree identical to the built commit 47ffe36b). Editor ordered merge 2026-10-13 CT.
+Adds (LCOS #138): RTW89_8852CU/8852BU/8851BU/8922AU=m (Realtek USB Wi-Fi 6/6E/7), RTW88_8814AE=m.
+  955 modules (lcos21 had 950). uname -r 7.2.6-lunduke (build string #lcos22).
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.6-lcos21 (moved to superseded/, gitignored).
+c0ef9fb0ff94d20e518b03d6740bb2acb738389d6bdbbaa40e6c5b087e33ac48  linux-image-7.2.6-lunduke_7.2.6-lcos22_amd64.deb
+e8d6b1a10cc9526f2189f298b6ec68db391d3e44965e286e801775ebedfa161a  linux-headers-7.2.6-lunduke_7.2.6-lcos22_amd64.deb
+1bc2eea4134ace59935c85bf75b5e4b65666a381d49ebb4cab5439587082a6b7  lunduke-linux-kernel_7.2.6-lcos22_all.deb
