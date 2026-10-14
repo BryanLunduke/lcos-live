@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.4-3 2026-10-14T13:38:31-05:00 (built by packaging/build-deb.sh)
+Source: BryanLunduke/LCOS-AboutThisComputer master fe2108ed (PR #23), tag v0.9.4-3 (tag object e77ac0d8).
+Round 11 review fix A-1. Replaces lunduke-about 0.9.4-2. No ISO bake / no apt publish.
+
+1462b6b7133981996c1553d7b2c504cb52abf388158e7617fdd6f9300a77b665  lunduke-about_0.9.4-3_amd64.deb
