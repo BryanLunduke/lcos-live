@@ -1,0 +1,6 @@
+SEED lunduke-edit 0.9.4-2 2026-10-14T06:09:43-05:00
+Replaces lunduke-edit 0.9.4-1. Round 9 fixes (PR #25) + Replace All timing-test fixes (PR #26).
+Source: BryanLunduke/lunduke-edit tag v0.9.4-2 (tag object 8b74fae, commit 71e04ef). Normal build suite passed twice in a row.
+No ISO bake / no apt publish.
+
+1593662b2beff0418f2d0bfeed251574a1320c4f61a9c7635de096744265bcfc  lunduke-edit_0.9.4-2_amd64.deb
