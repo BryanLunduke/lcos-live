@@ -1,0 +1,7 @@
+SEED lcos-updates 0.9.4-2 2026-10-14T11:56:30-05:00
+Replaces lcos-updates 0.9.4-1. Round 10 fixes (PR #19): Repair for interrupted installs (U-1),
+helper protocol escaping (U-2), overflow-safe counts (U-3), no auth_admin_keep (U-4).
+Source: BryanLunduke/lcos-updates tag v0.9.4-2 (tag object 52724bd, commit 42ed446). Suite: 8 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+7256bcbba70dc44019f49e0b352e79c92ea48dc35543b62b013f6ed17c62c7b2  lcos-updates_0.9.4-2_amd64.deb
