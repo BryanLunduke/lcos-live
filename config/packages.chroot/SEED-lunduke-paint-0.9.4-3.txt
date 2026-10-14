@@ -1,0 +1,5 @@
+SEED lunduke-paint 0.9.4-3 2026-10-14T00:22:41-05:00 (built by packaging/build-deb.sh)
+Source: BryanLunduke/lunduke-paint master 79e17098 (PR #26), tag v0.9.4-3 (tag object b8d3fa18).
+Round 9 review fixes P-1..P-3. Replaces lunduke-paint 0.9.4-2. No ISO bake / no apt publish.
+
+608e58cae1282551aeb967aa6f92029470944d45c2b7daa94b4c23cd91ab1a97  lunduke-paint_0.9.4-3_amd64.deb
