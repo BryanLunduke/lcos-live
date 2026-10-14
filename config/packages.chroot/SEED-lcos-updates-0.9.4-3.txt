@@ -1,0 +1,8 @@
+SEED lcos-updates 0.9.4-3 2026-10-14T13:33:21-05:00
+Replaces lcos-updates 0.9.4-2. Round 11 fixes (PR #20): unfinished/interrupted installs detected at Check (U-1),
+lock wording (U-2), failed-Repair wording (U-3), offline headline (U-4), rows refreshed after partial failure (U-5),
+sizes include new dependencies (U-6), repair close/timeout wording, Check uses auth_admin_keep (check action only).
+Source: BryanLunduke/lcos-updates tag v0.9.4-3 (tag object aad754f, commit 4685730). Suite: 9 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+50e95d20b537258ea3dd508f4a70e1767e06878db41bcce4be9183b890fc8afd  lcos-updates_0.9.4-3_amd64.deb
