@@ -1,0 +1,5 @@
+SEED lunduke-city 0.9.4-4 2026-10-14T12:19:09-05:00 (built by packaging/build-deb.sh)
+Source: BryanLunduke/LundukeCity master 82be4154 (PR #29), tag v0.9.4-4 (tag object 780c69c3).
+Round 10 review fix C-1. Replaces lunduke-city 0.9.4-3. No ISO bake / no apt publish.
+
+191affe1c5f3191a551c19aea7df6444bca2678e6c496b94c2f5ecf32b6820f1  lunduke-city_0.9.4-4_amd64.deb
