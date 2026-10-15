@@ -1,0 +1,8 @@
+SEED lcos-updates 0.9.4-4 2026-10-14T20:42:37-05:00
+Replaces lcos-updates 0.9.4-3. Round 12 fixes (PR #21): the review dialog names packages with debconf setup
+questions and says defaults will be used (install stays non-interactive); the result lists the questions answered
+automatically with their values and a "sudo dpkg-reconfigure <pkg>" hint (U-1); new packages have a Size column (U-2).
+Source: BryanLunduke/lcos-updates tag v0.9.4-4 (tag object 5eb9af5, commit 6085425). Suite: 9 ok + 2 expected fail
+(+1 build-dir-only fail outside the repo). No ISO bake / no apt publish.
+
+ef5cb75239f85bd33cc5c0ca164eaa16c979e68d6b0052b7903856e45abe02ea  lcos-updates_0.9.4-4_amd64.deb
