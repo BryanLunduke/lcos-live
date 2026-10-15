@@ -1,15 +1,16 @@
 # Lunduke Linux Kernel: default ISO kernel for 0.9.4.
-# Seeded 7.2.6-lcos23 on 2026-10-15 CT (lunduke-linux-kernel master 049986eb,
-# PR #19, tag 7.2.6-lcos23); see config/packages.chroot/SEED-llk-7.2.6-lcos23.txt.
-# Replaced lcos22 (moved to config/packages.chroot/superseded/).
+# Seeded 7.2.6-lcos24 on 2026-10-15 CT (lunduke-linux-kernel master 295e3550,
+# PR #20, tag 7.2.6-lcos24); see config/packages.chroot/SEED-llk-7.2.6-lcos24.txt.
+# Replaced lcos23 (moved to config/packages.chroot/superseded/).
 # Package names are unversioned; the ABI stays 7.2.6-lunduke, so only the
-# seeded debs pin the lcos23 revision.
+# seeded debs pin the lcos24 revision.
 # lcos18: DM_CRYPT=m + XTS (#123), UHID=m (#120), RMI4_F11=y (#121).
 # lcos19: radeon=m, vga_switcheroo, DC_SI, HSA, FW compress (#115/#118); 948 modules.
 # lcos20: EXFAT_FS=m, iocharset utf8 (#131); 949 modules.
 # lcos21: VMD=m (Intel VMD / "RAID On" NVMe), HOTPLUG_PCI_PCIE=y; 950 modules.
 # lcos22: RTW89_8852CU/8852BU/8851BU/8922AU=m, RTW88_8814AE=m (#138); 955 modules.
-# lcos23: CHROMEOS_LAPTOP=m, MOUSE_CYAPA=m (Chromebook touchpads, #141); 957 modules. No Forced Rust.
+# lcos23: CHROMEOS_LAPTOP=m, MOUSE_CYAPA=m (Chromebook touchpads, #141); 957 modules.
+# lcos24: Ubuntu 26.10 HW gap (IPU cameras, Logitech HID++, joydev/xpad/Steam, Intel thermal, AMD_HSMP/TAC5XX2, ACPI_ALS); 1015 modules. No Forced Rust.
 linux-image-7.2.6-lunduke
 linux-headers-7.2.6-lunduke
 lunduke-linux-kernel

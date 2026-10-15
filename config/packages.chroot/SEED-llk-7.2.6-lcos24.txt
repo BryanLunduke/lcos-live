@@ -1,0 +1,11 @@
+SEED LLK 7.2.6-lcos24 2026-10-15T15:41:15-05:00
+GitHub BryanLunduke/lunduke-linux-kernel PR #20, squash-merged as 295e3550684e47832d5824abea95f7d48e630804
+(tag 7.2.6-lcos24; tree identical to the built commit 01c5611cd609280774a3fc0c995b38513a2daab9). Editor ordered merge 2026-10-15 CT.
+Adds (Ubuntu 26.10 hardware gap items 1–3, 6, 13): Intel IPU3/IPU6+VSC+sensors, Logitech HID++/Unifying, joydev/xpad/Steam HID, Intel PMC/PCH thermal, AMD_HSMP + TAC5XX2, ACPI_ALS.
+  1015 modules (lcos23 had 957). uname -r 7.2.6-lunduke (build string #lcos24).
+  /boot/config-7.2.6-lunduke byte-identical to configs/lunduke-7.2.6-lcos24.config at the PR head.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.6-lcos23 (moved to superseded/, gitignored).
+7772dc6a3a4b0c149ba4055926adc9ce623b30c687d5f86aca1dabf37342a6e1  linux-image-7.2.6-lunduke_7.2.6-lcos24_amd64.deb
+24fcfcc61307aeb2459c8f831660e290761234508634cbf9af64e5b20f6bba8f  linux-headers-7.2.6-lunduke_7.2.6-lcos24_amd64.deb
+46263988518cd685ba479c0bbd72c3d4d6ce6b831aa76ae40eb7ffdcf2f97e44  lunduke-linux-kernel_7.2.6-lcos24_all.deb
