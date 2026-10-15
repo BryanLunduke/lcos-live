@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.4-7 2026-10-15T08:49:36-05:00
+Replaces lunduke-about 0.9.4-6 (moved to superseded/, gitignored). Editor order: pondo_hound, Bobby Hollingsworth, Otto R. Doll, Jesse Buschhaus appended to the end of the Supporters list.
+Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.4-7 (tag object 231be99, commit 63b9434), PR #27. No ISO bake / no apt publish.
+
+83d2c139b9a43bd63a386b875b31a091e8c9c0b8c7c3f68071dce442923f308a  lunduke-about_0.9.4-7_amd64.deb
