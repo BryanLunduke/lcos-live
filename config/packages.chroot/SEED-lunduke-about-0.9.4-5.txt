@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.4-5 2026-10-14T22:24:40-05:00
+Replaces lunduke-about 0.9.4-4. Round 13 fixes: bidi/control characters neutralized in window titles (rows, tooltip, Force Close list) (A-1); row tooltip hidden while the Force Close menu is open (A-2).
+Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.4-5 (tag object e9f49dd, commit cc639ff), PR #25. No ISO bake / no apt publish.
+
+27b4a06dbb2a05ffcc09d34bd506cbb51937c2e34725fa16baefb815f79e4d1d  lunduke-about_0.9.4-5_amd64.deb

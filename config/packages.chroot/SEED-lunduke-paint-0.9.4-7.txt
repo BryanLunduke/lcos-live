@@ -1,0 +1,5 @@
+SEED lunduke-paint 0.9.4-7 2026-10-14T22:24:40-05:00
+Replaces lunduke-paint 0.9.4-6. Round 13 fixes: Recover keeps the autosave until a fresh autosave or Save, so a second crash does not lose the work (P-1); Cancel on Delete unsaved work? returns to the recovery prompt (P-2); save errors name the file and folder (P-3).
+Source: BryanLunduke/lunduke-paint tag v0.9.4-7 (tag object 6769dc7, commit e10b565), PR #30. No ISO bake / no apt publish.
+
+c6be0a3b940017f18b3d0c0fd51cda90ee525f1ac6cd33f3e03803ba8de8baf3  lunduke-paint_0.9.4-7_amd64.deb

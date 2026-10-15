@@ -1,0 +1,5 @@
+SEED lunduke-city 0.9.4-7 2026-10-14T22:24:40-05:00
+Replaces lunduke-city 0.9.4-6. Round 13 fixes: implausible city files (unknown tiles, too many building centres, funds/date out of range) are refused with the reason and the open city untouched (C-1); main and Budget windows kept inside the work area on 768-pixel screens (C-2).
+Source: BryanLunduke/LundukeCity tag v0.9.4-7 (tag object 96b7d97, commit 2623c70), PR #32. No ISO bake / no apt publish.
+
+6990e712556a56dbd203acf5bcdaf669183953ec5d301e220c0c4f49ce357711  lunduke-city_0.9.4-7_amd64.deb
