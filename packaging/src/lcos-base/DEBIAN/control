@@ -1,9 +1,9 @@
 Package: lcos-base
-Version: 0.9.4-2
+Version: 0.9.4-3
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 104
+Installed-Size: 112
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk
@@ -40,5 +40,8 @@ Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  Chromium/Brave file pickers work (#135).
  0.9.4-2: the apt pin also takes firmware-realtek from excalibur-backports
  (newest rtw89 firmware for LLK lcos22 Realtek USB Wi-Fi, #138).
+ 0.9.4-3: ships /usr/lib/sysctl.d/99-lcos-userns.conf
+ (user.max_user_namespaces=15000) so Steam, Flatpak and bubblewrap work;
+ it overrides the =0 line older ISOs left in /etc/sysctl.d.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

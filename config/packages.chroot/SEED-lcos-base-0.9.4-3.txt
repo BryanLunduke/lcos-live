@@ -1,0 +1,5 @@
+SEED lcos-base 0.9.4-3 2026-10-14T19:38:20-05:00 (packaging/build-094-system-debs.sh --seed --only lcos-base)
+Replaces lcos-base 0.9.4-2. Only change: ships /usr/lib/sysctl.d/99-lcos-userns.conf
+(user.max_user_namespaces=15000) and applies it in postinst (skipped in chroots). Overrides the
+=0 line 0.8-0.9.3 ISOs left in /etc/sysctl.d/99-lcos-hardening.conf (Steam/Flatpak/bubblewrap). firmware-realtek pin kept.
+cfdde3f5b01b998b8c8d6ebfb850d98f99e383f14ab3780718c2042fd2f18ce3  lcos-base_0.9.4-3_all.deb

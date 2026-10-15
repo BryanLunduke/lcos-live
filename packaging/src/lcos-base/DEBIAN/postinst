@@ -26,6 +26,19 @@ if [ "$1" = configure ]; then
         "${DPKG_ROOT:-}"/usr/share/X11/xorg.conf.d/15-lcos-amdgpu-hotplug.conf \
         "${DPKG_ROOT:-}"/run/lcos-amdgpu-ddx
   rmdir "${DPKG_ROOT:-}"/usr/share/lcos/xorg 2>/dev/null || true
+
+  # LCOS 0.9.4-3: user namespaces on now (Steam etc.). Apply our file
+  # immediately unless the admin overrides it with the same name in /etc.
+  # The /etc/sysctl.d/99-lcos-hardening.conf left by older ISOs is not
+  # touched; this file sorts after it at boot. Fails harmlessly in a chroot
+  # or container where /proc/sys is read-only or absent, and is skipped in
+  # a chroot (ISO build) so the build host's kernel is not changed.
+  in_chroot=no
+  if command -v ischroot >/dev/null 2>&1 && ischroot; then in_chroot=yes; fi
+  if [ -z "${DPKG_ROOT:-}" ] && [ "$in_chroot" = no ] && [ ! -e /etc/sysctl.d/99-lcos-userns.conf ] && \
+     [ -w /proc/sys/user/max_user_namespaces ] && command -v sysctl >/dev/null 2>&1; then
+    sysctl -q -p /usr/lib/sysctl.d/99-lcos-userns.conf >/dev/null 2>&1 || true
+  fi
 fi
 dpkg-maintscript-helper rm_conffile /etc/init.d/lcos-amdgpu-ddx 0.9.2-2~ lcos-base -- "$@"
 exit 0

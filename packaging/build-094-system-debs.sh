@@ -43,7 +43,7 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=0.9.4-2
+BASEVER=0.9.4-3
 DCVER=0.9.4-1
 ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
