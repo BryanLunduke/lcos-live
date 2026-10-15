@@ -9,11 +9,11 @@ e94b8febbb5de683bcea243a3d5c9c7d61c87cbf51fdc70b94d338ede2e13f5d  lcos-updates_0
 32b13dbaa75a7b721427b67e94bdeab5692a4e50b27acfa711bd1a78a8b5078f  lcos-zork_0.9.4-1_all.deb
 e8d6b1a10cc9526f2189f298b6ec68db391d3e44965e286e801775ebedfa161a  linux-headers-7.2.6-lunduke_7.2.6-lcos22_amd64.deb
 c0ef9fb0ff94d20e518b03d6740bb2acb738389d6bdbbaa40e6c5b087e33ac48  linux-image-7.2.6-lunduke_7.2.6-lcos22_amd64.deb
-27b4a06dbb2a05ffcc09d34bd506cbb51937c2e34725fa16baefb815f79e4d1d  lunduke-about_0.9.4-5_amd64.deb
-6990e712556a56dbd203acf5bcdaf669183953ec5d301e220c0c4f49ce357711  lunduke-city_0.9.4-7_amd64.deb
+9035d54856de54bf137eb0389f1d3801d33b5c7d3e5e26c64b966c7d961982cf  lunduke-about_0.9.4-6_amd64.deb
+c940b16b3208896582b879c7b33b0b3bc28bafce5bb3a0061fa5d2993c04a733  lunduke-city_0.9.4-8_amd64.deb
 1593662b2beff0418f2d0bfeed251574a1320c4f61a9c7635de096744265bcfc  lunduke-edit_0.9.4-2_amd64.deb
 1bc2eea4134ace59935c85bf75b5e4b65666a381d49ebb4cab5439587082a6b7  lunduke-linux-kernel_7.2.6-lcos22_all.deb
-c6be0a3b940017f18b3d0c0fd51cda90ee525f1ac6cd33f3e03803ba8de8baf3  lunduke-paint_0.9.4-7_amd64.deb
+7832ec8555cfabb4c7d61a420b3a273cec71a22a0bf5b09a8c71d818a70cb530  lunduke-paint_0.9.4-8_amd64.deb
 2f977684848deb6861d1d85cbbcc53a5d0c993f950f428ac45e6420355c15156  xlibre-x11-common_25.1.9-1+lcos1_all.deb
 e0d8ddda1cda7493aff3ef736176238b747469890cb9b8dd98929c6e420f274c  xlibre_25.1.9-1+lcos1_amd64.deb
 476bb5fcc91db89958811388c7c0992fb0b49b8110b19b4eecad14e5b5f2ad0a  xserver-xlibre-common_25.1.9-1+lcos1_all.deb

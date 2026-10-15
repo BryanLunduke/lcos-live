@@ -1,0 +1,5 @@
+SEED lunduke-city 0.9.4-8 2026-10-14T23:14:18-05:00
+Replaces lunduke-city 0.9.4-7. Round 14 fixes: saving keeps the file mode, new files respect umask (C-1); unique mkstemp temp file so <city>.tmp is never touched (C-2).
+Source: BryanLunduke/LundukeCity tag v0.9.4-8 (tag object b1b15c2, commit dd2d06f), PR #33; built from master 5697c31 (test-only PR #34 on top). No ISO bake / no apt publish.
+
+c940b16b3208896582b879c7b33b0b3bc28bafce5bb3a0061fa5d2993c04a733  lunduke-city_0.9.4-8_amd64.deb

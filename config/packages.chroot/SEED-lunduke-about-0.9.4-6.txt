@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.4-6 2026-10-14T23:14:18-05:00
+Replaces lunduke-about 0.9.4-5. Round 14 fixes: Force Close checks window ownership with the X-Resource client PID and WM_CLIENT_MACHINE, refuses a mismatch and never promises an unconfirmed window will close (A-1); zero-width/invisible/format characters stripped from titles (A-2). Recommends libxres1 (pulled in by xfwm4).
+Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.4-6 (tag object 94c0e54, commit 2b296ae), PR #26. No ISO bake / no apt publish.
+
+9035d54856de54bf137eb0389f1d3801d33b5c7d3e5e26c64b966c7d961982cf  lunduke-about_0.9.4-6_amd64.deb

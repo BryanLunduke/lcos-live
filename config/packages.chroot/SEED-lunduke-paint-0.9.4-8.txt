@@ -1,0 +1,5 @@
+SEED lunduke-paint 0.9.4-8 2026-10-14T23:14:18-05:00
+Replaces lunduke-paint 0.9.4-7. Round 14 fixes: .ora decoded-pixel budget checked from every layer PNG header before decoding, for all layers combined (P-1, 38 KB bomb now refused at ~61 MB RSS); recovered legacy autosaves keep their "Drawing from <date>" label after a second crash (P-2).
+Source: BryanLunduke/lunduke-paint tag v0.9.4-8 (tag object 63deeff, commit 491370d), PR #31. No ISO bake / no apt publish.
+
+7832ec8555cfabb4c7d61a420b3a273cec71a22a0bf5b09a8c71d818a70cb530  lunduke-paint_0.9.4-8_amd64.deb
