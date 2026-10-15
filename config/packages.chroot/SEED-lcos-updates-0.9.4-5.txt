@@ -1,0 +1,8 @@
+SEED lcos-updates 0.9.4-5 2026-10-14T22:07:31-05:00
+Replaces lcos-updates 0.9.4-4. Round 13 fixes (PR #22): password questions reported without values (U-1),
+no repeated answers (U-2), priority-aware list with question text (U-3), answers on partial failure (U-4),
+accurate notice wording + Terminal hint (U-5), template detection in new debs (U-6).
+Source: BryanLunduke/lcos-updates tag v0.9.4-5 (tag object 67f8c46, commit dcb4a48). Suite: 11 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+59b3bc97c0884ae03b53ec55fd3a7a0e9fb5f9390e75c7808d88d7413c209ec9  lcos-updates_0.9.4-5_amd64.deb
