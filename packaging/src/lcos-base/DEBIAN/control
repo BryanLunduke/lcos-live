@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.4-3
+Version: 0.9.4-4
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 112
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji
 Replaces: base-files
 Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.4 (excalibur), lcos-write-os-release,
@@ -43,5 +43,7 @@ Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  0.9.4-3: ships /usr/lib/sysctl.d/99-lcos-userns.conf
  (user.max_user_namespaces=15000) so Steam, Flatpak and bubblewrap work;
  it overrides the =0 line older ISOs left in /etc/sysctl.d.
+ 0.9.4-4: Depends fonts-noto-color-emoji (colour emoji, #142) so
+ upgraders get the 0.9.4 ISO addition.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

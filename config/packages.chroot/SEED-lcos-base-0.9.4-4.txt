@@ -1,0 +1,4 @@
+SEED lcos-base 0.9.4-4 2026-10-14T20:42:07-05:00 (packaging/build-094-system-debs.sh --seed --only lcos-base)
+Replaces lcos-base 0.9.4-3. Only change: Depends fonts-noto-color-emoji (#142) so upgraders get the colour emoji font
+(ISO also lists it in desktop.list.chroot). Depends, not Recommends: the Updates tool runs apt-get upgrade, which never installs new Recommends; it does install kept-back upgrades that only add packages (as with 0.9.2-4).
+730c8a4f4748dd35acf1f5ef03bd486ba25503baeb16708cbec098ef64193425  lcos-base_0.9.4-4_all.deb

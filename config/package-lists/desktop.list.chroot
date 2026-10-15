@@ -31,6 +31,8 @@ xfce4-wavelan-plugin
 xfce4-weather-plugin
 xfce4-whiskermenu-plugin
 xfce4-xkb-plugin
+# #142 (0.9.4): colour emoji font (GTK3/Firefox render emoji instead of boxes)
+fonts-noto-color-emoji
 adwaita-icon-theme
 adwaita-icon-theme-legacy
 # SVG loader for Lunduke Paint toolbox icons (and other symbolic SVGs)
