@@ -6,7 +6,7 @@ Opened 2026-10-13 (America/Chicago) from official 0.9.3 (/workspace/lcos-live-09
 Do not edit /workspace/lcos-live-093 (0.9.3 frozen, tracks lcos-0.9.3) unless Ted says hotfix.
 Identity/overlay track: 0.9.4
 Next bake filename: lcos-live-094-01.iso
-Default kernel: LLK 7.2.6-lcos22 (seeded 2026-10-13; kernel tag 7.2.6-lcos22 = 1f5d4e60; Realtek USB Wi-Fi #138, docs/094-138-realtek.md; lcos21 VMD, docs/094-vmd.md).
+Default kernel: LLK 7.2.6-lcos23 (seeded 2026-10-15; kernel tag 7.2.6-lcos23 = 049986eb; Chromebook touchpad #141; lcos22 Realtek USB Wi-Fi #138, docs/094-138-realtek.md; lcos21 VMD, docs/094-vmd.md).
 Apps: still the 0.9.3 set (Edit/Paint/City/About 0.9.3-1, Updates 0.9.3-2) until Phil seeds 0.9.4-1.
 System debs 0.9.4-1: see docs/094-TRACK-OPENED.md.
 Apt: do NOT publish from this open. Official 0.9.3 overlay is live (lcosrepo1 99b49ebd).

@@ -1,0 +1,11 @@
+SEED LLK 7.2.6-lcos23 2026-10-15T07:21:23-05:00
+GitHub BryanLunduke/lunduke-linux-kernel PR #19, squash-merged as 049986eb60a14cbd4a3e0b618a5dc8533f3677ef
+(tag 7.2.6-lcos23; tree identical to the built commit 626dfe93). Editor ordered merge 2026-10-15 CT.
+Adds (LCOS #141): CHROMEOS_LAPTOP=m, MOUSE_CYAPA=m (Acer C720 Peppy / Haswell Chromebook touchpads).
+  957 modules (lcos22 had 955). uname -r 7.2.6-lunduke (build string #lcos23).
+  /boot/config-7.2.6-lunduke byte-identical to configs/lunduke-7.2.6-lcos23.config at the PR head.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.6-lcos22 (moved to superseded/, gitignored).
+52e1e8d1f76d28cad3a222882d807c1704f0bef037fcda26d287b31ee93e9f1f  linux-image-7.2.6-lunduke_7.2.6-lcos23_amd64.deb
+440bd0ae9da3e1b94031319197f113d71c322a1e8f872a5a9a85bce0f840781b  linux-headers-7.2.6-lunduke_7.2.6-lcos23_amd64.deb
+3a17600d88082b69ece21c2aa1316b93162b5357189c93ecf1f7425288508bd2  lunduke-linux-kernel_7.2.6-lcos23_all.deb
