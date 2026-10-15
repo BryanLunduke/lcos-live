@@ -1,0 +1,10 @@
+SEED lcos-updates 0.9.4-7 2026-10-14T23:10:09-05:00
+Replaces lcos-updates 0.9.4-6. Round 14 fixes (PR #24): stale lcos-updates-templates.* dirs removed at
+helper start and no private download dir any more (U-1); Check downloads into /var/cache/apt/archives so
+Install/later Checks reuse debs (U-2); no deb inspected after a failed download/checksum (U-3); Repair
+reports setup-question auto-answers (U-4); single brackets on password answers (U-5); tests clean /tmp (U-6).
+Still DEBCONF_NONINTERACTIVE_SEEN only, no DEBCONF_DEBUG (strings-checked). Verified in a trixie chroot.
+Source: BryanLunduke/lcos-updates tag v0.9.4-7 (tag object 7fbf725, commit 61d0d30). Suite: 12 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+e94b8febbb5de683bcea243a3d5c9c7d61c87cbf51fdc70b94d338ede2e13f5d  lcos-updates_0.9.4-7_amd64.deb
