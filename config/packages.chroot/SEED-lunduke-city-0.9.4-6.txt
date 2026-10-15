@@ -1,0 +1,5 @@
+SEED lunduke-city 0.9.4-6 2026-10-14T20:48:03-05:00
+Replaces lunduke-city 0.9.4-5. Round 12 fixes: full map redraw once tile images are ready / on first show, paused map diff (C-1 dirt map); Budget fits 1366x768 and 1280x720 with buttons visible (C-2); load errors give the reason (C-3); Help menu with About (C-4); empty city 'not rated yet' (C-5); Ctrl+Shift+S Save As (C-6).
+Source: BryanLunduke/LundukeCity tag v0.9.4-6 (tag object 46eb2a4, commit d9e2d36), PR #31. No ISO bake / no apt publish.
+
+a2582bb465a4fb309123a3fa87b13abf7c9ce07b2fa9e07ca3c31aa014e102d8  lunduke-city_0.9.4-6_amd64.deb

@@ -1,0 +1,5 @@
+SEED lunduke-paint 0.9.4-6 2026-10-14T20:48:03-05:00
+Replaces lunduke-paint 0.9.4-5. Round 12 fixes: recovered drawings keep their real name and original path in title, status bar and Save target (P-1); pre-0.9.4-5 autosaves are labelled 'Drawing from <date>' (P-2); long Unicode titles cut on UTF-8 boundaries (P-3).
+Source: BryanLunduke/lunduke-paint tag v0.9.4-6 (tag object ce13d20, commit d3e2804), PR #29. No ISO bake / no apt publish.
+
+0b723b481b1a11b72c40de155a2bb64ff8e9ce50d7367924397d996022575bbd  lunduke-paint_0.9.4-6_amd64.deb

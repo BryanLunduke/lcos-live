@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.4-4 2026-10-14T20:48:03-05:00
+Replaces lunduke-about 0.9.4-3. Round 12 fixes: Force Close warning states how many windows close and lists their titles (A-1); rows show window title(s) under the name and in the tooltip (A-2).
+Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.4-4 (tag object 76bf9ac, commit 802d60e), PR #24. No ISO bake / no apt publish.
+
+78e984f492b93626443fbb3cf40b59d2fee07c46fb8786304dd0982fc8f0f088  lunduke-about_0.9.4-4_amd64.deb
