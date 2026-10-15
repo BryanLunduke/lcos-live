@@ -52,3 +52,32 @@ firmware-b43legacy-installer
 # firmware-amd-graphics/firmware-misc-nonfree at the exact same version).
 firmware-linux
 firmware-linux-nonfree
+
+# Ubuntu 26.10 hardware gap (0.9.4, editor 2026-10-15): firmware refresh +
+# device services. firmware-sof-signed stays at excalibur 2025.01-1 (no
+# newer build in excalibur-backports). iwlwifi / intel-* pinned to
+# backports 20260810 via lcos-amd-backports.pref.
+firmware-iwlwifi
+firmware-intel-sound
+firmware-intel-graphics
+
+# Device firmware updates (D-Bus activated; opensysusers provides systemd-sysusers)
+fwupd
+
+# Intel laptop thermal daemon (sysvinit script shipped by lcos-base)
+thermald
+
+# Convertible / ambient-light sensors (sysvinit script shipped by lcos-base)
+iio-sensor-proxy
+
+# Hybrid GPU switching userspace (sysvinit script shipped by lcos-base)
+switcheroo-control
+
+# Driverless USB IPP printers (udev + sysvinit script shipped by lcos-base)
+ipp-usb
+
+# Modern network scanners (eSCL/WSD); SANE plugin, no daemon
+sane-airscan
+
+# Intel VA-API iHD (AMD already has mesa-va-drivers / radeonsi)
+intel-media-va-driver

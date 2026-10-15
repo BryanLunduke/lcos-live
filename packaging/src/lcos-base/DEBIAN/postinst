@@ -27,6 +27,17 @@ if [ "$1" = configure ]; then
         "${DPKG_ROOT:-}"/run/lcos-amdgpu-ddx
   rmdir "${DPKG_ROOT:-}"/usr/share/lcos/xorg 2>/dev/null || true
 
+
+  # LCOS 0.9.4-5: enable sysvinit wrappers for Debian systemd-only daemons
+  # (thermald, iio-sensor-proxy, switcheroo-control, ipp-usb). Scripts are
+  # no-ops when the package binary is missing.
+  if command -v update-rc.d >/dev/null 2>&1; then
+    for svc in thermald iio-sensor-proxy switcheroo-control ipp-usb; do
+      if [ -x "/etc/init.d/$svc" ]; then
+        update-rc.d "$svc" defaults >/dev/null 2>&1 || true
+      fi
+    done
+  fi
   # LCOS 0.9.4-3: user namespaces on now (Steam etc.). Apply our file
   # immediately unless the admin overrides it with the same name in /etc.
   # The /etc/sysctl.d/99-lcos-hardening.conf left by older ISOs is not

@@ -6,9 +6,13 @@
 # because firmware-linux-nonfree Depends on firmware-amd-graphics (= version).
 # 0.9.4 (#138): firmware-realtek also from backports (20260810-1~bpo13+1) so
 # the rtw89 USB drivers in LLK lcos22 get their newest firmware formats.
+# 0.9.4 Ubuntu-gap: firmware-iwlwifi, firmware-intel-sound and
+# firmware-intel-graphics from backports (20260810-1~bpo13+1).
+# firmware-sof-signed stays at excalibur 2025.01-1 — no newer build in
+# excalibur-backports (checked 2026-10-15).
 # Everything else in backports is blocked (-1).
 
-Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-realtek
+Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-realtek firmware-iwlwifi firmware-intel-sound firmware-intel-graphics
 Pin: release n=excalibur-backports
 Pin-Priority: 990
 
@@ -26,3 +30,4 @@ Pin-Priority: 990
 Package: *
 Pin: release n=excalibur-backports
 Pin-Priority: -1
+

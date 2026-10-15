@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.4-4
+Version: 0.9.4-5
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 112
+Installed-Size: 132
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver
 Replaces: base-files
 Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.4 (excalibur), lcos-write-os-release,
@@ -45,5 +45,13 @@ Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  it overrides the =0 line older ISOs left in /etc/sysctl.d.
  0.9.4-4: Depends fonts-noto-color-emoji (colour emoji, #142) so
  upgraders get the 0.9.4 ISO addition.
+ 0.9.4-5: Ubuntu 26.10 hardware gap — Depends firmware-iwlwifi,
+ firmware-intel-sound, firmware-intel-graphics (backports 20260810),
+ fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb,
+ sane-airscan, intel-media-va-driver. Ships sysvinit wrappers for
+ thermald, iio-sensor-proxy, switcheroo-control and ipp-usb (Debian
+ packages are systemd-only). firmware-sof-signed stays at 2025.01-1
+ (no newer build in excalibur-backports). Apt pin updated for the
+ three firmware packages.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

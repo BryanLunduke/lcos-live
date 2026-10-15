@@ -1,0 +1,7 @@
+SEED lcos-base 0.9.4-5 2026-10-15T14:54:20-05:00 (packaging/build-094-system-debs.sh --seed --only lcos-base)
+Ubuntu 26.10 hardware gap: Depends firmware-iwlwifi, firmware-intel-sound,
+firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control,
+ipp-usb, sane-airscan, intel-media-va-driver. Ships sysvinit wrappers for the
+four systemd-only daemons. Apt pin gains the three firmware packages from
+backports. firmware-sof-signed unchanged (2025.01-1; no newer in backports).
+9578671076c228e632132252b49bfff72155b7c3cb095b236b34e62fc5df262f  config/packages.chroot/lcos-base_0.9.4-5_all.deb

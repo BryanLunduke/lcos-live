@@ -1,5 +1,9 @@
-5e6305b720b7eff19e1fe67754577a65  etc/apt/preferences.d/lcos-amd-backports.pref
+c31f85fdc35f43f81a979897183fb2b9  etc/apt/preferences.d/lcos-amd-backports.pref
 b1d850ea41c017e51aa60d079a87c5d1  etc/default/grub.d/lcos.cfg
+6b255422dd6c1f5ff4fd1bf57099ad54  etc/init.d/iio-sensor-proxy
+b3df674cab88aacdd53dc62cc6c1258f  etc/init.d/ipp-usb
+976593d9b090c3ff710a5d91b669dc11  etc/init.d/switcheroo-control
+97e4bf5306a456b13d0c087352a2a3b7  etc/init.d/thermald
 ddf0feb5732abf70947b83d4a49d1db9  etc/insserv/overrides/lightdm
 e82c9b298fe94f27faf152d32b1ae179  etc/insserv/overrides/plymouth
 29782ac73edf13b21c847e9eccb7ac9d  etc/issue
