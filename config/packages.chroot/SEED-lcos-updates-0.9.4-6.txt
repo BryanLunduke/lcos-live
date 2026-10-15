@@ -1,0 +1,8 @@
+SEED lcos-updates 0.9.4-6 2026-10-14T22:34:15-05:00
+Replaces lcos-updates 0.9.4-5. Security fix (PR #23): installs no longer run with DEBCONF_DEBUG=developer,
+whose protocol trace put preseeded/script-set password values into /var/log/apt/term.log. Asked questions
+are now found via DEBCONF_NONINTERACTIVE_SEEN=true (seen-flag diff). Verified in a trixie chroot.
+Source: BryanLunduke/lcos-updates tag v0.9.4-6 (tag object e067f0e, commit 52fd7b7). Suite: 11 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+0cdbbff94e63cecae325f3074fd3baa2d114685662e01d970974a4bf124a570d  lcos-updates_0.9.4-6_amd64.deb
