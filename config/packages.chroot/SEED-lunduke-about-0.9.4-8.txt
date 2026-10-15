@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.4-8 2026-10-15T08:54:09-05:00
+Replaces lunduke-about 0.9.4-7 (moved to superseded/, gitignored). Editor decision: duplicate Jesse Buschhaus removed from the end of the Supporters list; he keeps his 8th place. List ends pondo_hound, Bobby Hollingsworth, Otto R. Doll (13 names).
+Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.4-8 (tag object 5355ef1, commit d833a6c), PR #28. No ISO bake / no apt publish.
+
+bf89cc342d6fe7905b09b41281518d1cb10d14cbb5fdaf92ad2e143bf186de32  lunduke-about_0.9.4-8_amd64.deb
