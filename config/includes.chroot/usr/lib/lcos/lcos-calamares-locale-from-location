@@ -1,0 +1,26 @@
+#!/bin/sh
+# LCOS#133 (0.9.4): make the system language follow the location picked in
+# the installer. Calamares 3.3 sets LANG from the installer's own UI
+# language (American English unless changed on the Welcome page) and only
+# the formats (LC_*) from the location, so choosing Europe/Paris gave
+# LANG=en_US.UTF-8 with French formats.
+# Runs in the target after localecfg. Rule: if LANG is still the default
+# en_US.UTF-8 and the location gave a different locale, use that locale
+# for LANG as well. A language picked on purpose (anything other than
+# en_US) is left alone, as is a US location.
+set -e
+for f in /etc/default/locale /etc/locale.conf; do
+  [ -f "$f" ] || continue
+  lang=$(sed -n 's/^LANG="\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' "$f" | tail -n1)
+  loc=$(sed -n 's/^LC_TIME="\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' "$f" | tail -n1)
+  [ -n "$loc" ] || loc=$(sed -n 's/^LC_NUMERIC="\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' "$f" | tail -n1)
+  case "$lang" in en_US.UTF-8|en_US.utf8|en_US) ;; *) continue ;; esac
+  case "$loc" in ""|en_US*|C|C.*|POSIX) continue ;; esac
+  # Only switch to a locale that was generated in the target.
+  if ! locale -a 2>/dev/null | grep -qix "$(echo "$loc" | sed 's/\.UTF-8$/.utf8/')"; then
+    echo "lcos#133: $loc not generated; keeping LANG=$lang" >&2; continue
+  fi
+  sed -i "s/^LANG=.*/LANG=$loc/" "$f"
+  echo "lcos#133: $f LANG $lang -> $loc"
+done
+exit 0

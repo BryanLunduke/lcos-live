@@ -110,3 +110,12 @@ eject
 # Standard user folders (Desktop/Documents/Downloads/…) for Thunar.
 # Thunar Recommends this; recipe installs no Recommends. Editor 2026-09-19.
 xdg-user-dirs
+
+# #117 (0.9.4): AT-SPI accessibility D-Bus service (at-spi-bus-launcher,
+# at-spi2-registryd). Stops "Couldn't connect to accessibility bus" and lets
+# screen readers/onscreen keyboards work.
+at-spi2-core
+
+# #116 (0.9.4): 7-Zip (7z/7za/7zz). Excalibur's package is 7zip
+# (p7zip-full is only a transitional dummy). xarchiver uses it for .7z.
+7zip

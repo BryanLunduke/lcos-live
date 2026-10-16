@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.4-5
+Version: 0.9.4-6
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 132
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip
 Replaces: base-files
 Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.4 (excalibur), lcos-write-os-release,
@@ -53,5 +53,9 @@ Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  packages are systemd-only). firmware-sof-signed stays at 2025.01-1
  (no newer build in excalibur-backports). Apt pin updated for the
  three firmware packages.
+ 0.9.4-6: Depends zstd and console-setup (kernel#15: initramfs "No zstd"
+ and "setupcon is missing" warnings on kernel upgrades), at-spi2-core
+ (accessibility bus, #117) and 7zip (#116) so upgraders get the 0.9.4
+ ISO additions.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

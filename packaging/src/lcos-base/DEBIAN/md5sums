@@ -12,5 +12,5 @@ ed457213826a67720fdc1cc1618b07b5  etc/os-release
 ed457213826a67720fdc1cc1618b07b5  usr/lib/os-release
 0675b4543be4f461fff53db12727cc45  usr/lib/sysctl.d/99-lcos-userns.conf
 d55af6ca6f8f1102ea6e66c38584aeeb  usr/local/sbin/lcos-write-os-release
-0691bec60e52fe0de563f0c3e8c0d080  usr/share/doc/lcos-base/changelog.gz
+2f01e248ef46020d339d75345e040d9e  usr/share/doc/lcos-base/changelog.gz
 c0e05c4866809a72a18e607fbfbe8797  usr/share/doc/lcos-base/copyright

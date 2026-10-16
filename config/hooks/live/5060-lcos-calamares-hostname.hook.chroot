@@ -1,0 +1,40 @@
+#!/bin/sh
+# LCOS#107 (0.9.4): RFC 1123 computer names in the installer.
+# Calamares 3.3.14 hard-codes its hostname check (users/Config.cpp HOSTNAME_RX
+# "^[a-zA-Z0-9][-a-zA-Z0-9_]*$", length 2..63). users.conf cannot override
+# it, and that regex allows "_" (glibc/hostname then fall back to localhost)
+# and a trailing "-". Replace it in place, same length (27 bytes), with
+#   ^(?!-)[-a-zA-Z0-9]*[^\W_]\z
+# = ASCII letters, digits and hyphens; no leading or trailing hyphen.
+# Calamares keeps its own 2..63 length limit. Dots stay rejected: the
+# installer writes a single host label to /etc/hostname (RFC 1123 labels
+# have no dots; "LCOS-0.8" was cut to "LCOS-0" in #107). Only the exact
+# Debian 3.3.14-1 binaries are touched; anything else fails the build.
+# The hostname error text is fixed to match, same length (space padded):
+#   "Only letters, numbers, underscore and hyphen are allowed."
+#   -> "Use letters, numbers and hyphens (not first or last)."
+# (Other installer languages fall back to this English text for that line.)
+set -e
+D=/usr/lib/x86_64-linux-gnu/calamares/modules
+OLD='^[a-zA-Z0-9][-a-zA-Z0-9_]*$'
+NEW='^(?!-)[-a-zA-Z0-9]*[^\W_]\z'
+OLDMSG='Only letters, numbers, underscore and hyphen are allowed.'
+NEWMSG='Use letters, numbers and hyphens (not first or last).    '
+for pair in \
+  "users/libcalamares_viewmodule_users.so fd7ae6acd35d05a1180c6dedb44e6f8a3f011b2fc7f801bfefe531f79b20be82" \
+  "usersq/libcalamares_viewmodule_usersq.so 7ab157627ba493f6135f8f8b100c3723fd8b750b357b9fbea462d0c9edbae675"
+do
+  set -- $pair
+  f="$D/$1"
+  [ -f "$f" ] || { echo "lcos#107: $f missing" >&2; exit 1; }
+  sum=$(sha256sum "$f" | cut -d' ' -f1)
+  if [ "$sum" != "$2" ]; then
+    echo "lcos#107: $f is not the known calamares 3.3.14-1 build ($sum); update this hook" >&2
+    exit 1
+  fi
+  [ "$(grep -c -a -F "$OLD" "$f")" = 1 ] || { echo "lcos#107: regex not found once in $f" >&2; exit 1; }
+  [ "$(grep -c -a -F "$OLDMSG" "$f")" = 1 ] || { echo "lcos#107: message not found once in $f" >&2; exit 1; }
+  OLD="$OLD" NEW="$NEW" OLDMSG="$OLDMSG" NEWMSG="$NEWMSG" perl -0777 -pi -e 'for my $p (["OLD","NEW"],["OLDMSG","NEWMSG"]) { my ($o,$n)=@ENV{@$p}; length($n)==length($o) or die "len"; my $q=quotemeta $o; s/$q/$n/ == 1 or die "subst"; }' "$f"
+  grep -q -a -F "$NEW" "$f" && grep -q -a -F "$NEWMSG" "$f" || { echo "lcos#107: patch failed on $f" >&2; exit 1; }
+  echo "lcos#107: patched hostname rule in $f"
+done

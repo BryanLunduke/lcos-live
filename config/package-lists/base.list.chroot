@@ -35,3 +35,10 @@ bash-completion
 # on apt installs from a terminal). Editor 2026-10-10 CT, LCOS 0.9.2.
 # New: dialog + libdialog15 only, no systemd.
 dialog
+
+# kernel#15 (0.9.4): silence apt/initramfs warnings on kernel upgrades.
+# zstd: "W: No zstd in /usr/bin:/sbin:/bin, using gzip" (initramfs-tools).
+# console-setup: "setupcon is missing. Please install the 'console-setup'
+# package." Pulls console-setup-linux + kbd; sysvinit scripts, no systemd.
+zstd
+console-setup

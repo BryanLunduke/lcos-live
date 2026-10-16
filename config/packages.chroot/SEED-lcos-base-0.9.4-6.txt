@@ -1,0 +1,7 @@
+SEED lcos-base 0.9.4-6 2026-10-15T23:25:26-05:00 (packaging/build-094-system-debs.sh --seed --only lcos-base)
+kernel#15: Depends zstd + console-setup (initramfs "No zstd" / "setupcon is
+missing" warnings). #117: Depends at-spi2-core. #116: Depends 7zip
+(excalibur name; p7zip-full is transitional). The four r8169 firmware files
+from kernel#15 (rtl8127a-1, rtl9151a-1, rtl8125cp-1, rtl8125k-1) are already
+shipped by firmware-realtek 20260810-1~bpo13+1 (excalibur-backports).
+b3ff1295f2089e32d9cb063eece31beeb31aa5f5b221359051e325c2602ef18a  config/packages.chroot/lcos-base_0.9.4-6_all.deb
