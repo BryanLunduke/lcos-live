@@ -1,0 +1,5 @@
+SEED lunduke-paint 0.9.4-9 2026-10-16T00:34:57-05:00
+Replaces lunduke-paint 0.9.4-8 (moved to superseded/). LCOS#136: minimum main-window height lowered from 324 to 264 px (canvas minimum content height 180 -> 120 px), so the window fits a 1366x768 screen with the XFCE panel showing. #148 untouched.
+Source: BryanLunduke/lunduke-paint tag v0.9.4-9 (tag object 94c7827, commit 32f4adf), PR #32. No ISO bake / no apt publish.
+
+0cfd429adf0cc2d114b20bd39553f2af32c26f86911e1df1174e888ce4d7ee14  lunduke-paint_0.9.4-9_amd64.deb
