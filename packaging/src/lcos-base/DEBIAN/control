@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.4-6
+Version: 0.9.4-7
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 132
+Installed-Size: 144
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils
 Replaces: base-files
 Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.4 (excalibur), lcos-write-os-release,
@@ -57,5 +57,9 @@ Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
  and "setupcon is missing" warnings on kernel upgrades), at-spi2-core
  (accessibility bus, #117) and 7zip (#116) so upgraders get the 0.9.4
  ISO additions.
+ 0.9.4-7: ships /etc/X11/Xsession.d/20lcos-atspi-reset, which drops a
+ stale AT_SPI_BUS root-window property left by the LightDM greeter's
+ at-spi bus (lightdm uid) so session apps reach the user's own
+ accessibility bus after a greeter login; Depends x11-utils (xprop).
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

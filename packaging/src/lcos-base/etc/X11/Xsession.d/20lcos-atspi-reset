@@ -1,0 +1,27 @@
+# /etc/X11/Xsession.d/20lcos-atspi-reset  (lcos-base 0.9.4-7)
+# Sourced by /etc/X11/Xsession (POSIX sh) at the start of every X session.
+#
+# at-spi-bus-launcher publishes its accessibility bus address on the X root
+# window (AT_SPI_BUS). The LightDM greeter runs its own launcher as the
+# lightdm user; that launcher outlives the greeter and leaves AT_SPI_BUS
+# pointing at /run/user/<lightdm uid>/at-spi/bus_0 on the shared display.
+# GTK/Qt apps in the user session read the stale property before asking
+# org.a11y.Bus on the session bus and fail with "Couldn't connect to
+# accessibility bus: ... permission denied", so the user's own at-spi bus
+# is never started (LCOS 094-04 QA). Drop any AT_SPI_BUS that is not ours;
+# the user's launcher then starts on demand via D-Bus activation and
+# publishes its own address. Autologin/live sessions are unaffected.
+
+lcos_atspi_mine="unix:path=/run/user/$(id -u)/"
+if command -v xprop >/dev/null 2>&1; then
+	lcos_atspi_prop=$(xprop -root AT_SPI_BUS 2>/dev/null)
+	case "$lcos_atspi_prop" in
+	*"$lcos_atspi_mine"*|*"not found"*|"") ;;
+	*) xprop -root -remove AT_SPI_BUS 2>/dev/null || true ;;
+	esac
+fi
+case "${AT_SPI_BUS_ADDRESS:-}" in
+""|"$lcos_atspi_mine"*) ;;
+*) unset AT_SPI_BUS_ADDRESS ;;
+esac
+unset lcos_atspi_mine lcos_atspi_prop

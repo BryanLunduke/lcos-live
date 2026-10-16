@@ -1,3 +1,4 @@
+ead67f4133f3ee91aa6361a57ebebb9e  etc/X11/Xsession.d/20lcos-atspi-reset
 c31f85fdc35f43f81a979897183fb2b9  etc/apt/preferences.d/lcos-amd-backports.pref
 b1d850ea41c017e51aa60d079a87c5d1  etc/default/grub.d/lcos.cfg
 6b255422dd6c1f5ff4fd1bf57099ad54  etc/init.d/iio-sensor-proxy
