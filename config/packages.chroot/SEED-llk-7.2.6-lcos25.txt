@@ -1,0 +1,13 @@
+SEED LLK 7.2.6-lcos25 2026-10-16T08:39:50-05:00
+GitHub BryanLunduke/lunduke-linux-kernel PR #21, squash-merged as e7a72c166d72affe3d2696c2cd957260531e6bd1
+(tag 7.2.6-lcos25; tree identical to the built commit 8ee1a914c896f5d5d3ff57352032d0fc206db011). Editor ordered merge 2026-10-16 CT.
+Adds (on lcos24): UDF filesystem (CONFIG_UDF_FS=m, LCOS#149) and TUXEDO keyboard LED class options
+(CONFIG_LEDS_CLASS_FLASH=m, CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y; LEDS_CLASS_MULTICOLOR already =m)
+for out-of-tree tuxedo-drivers (kernel#14).
+  1017 modules (lcos24 had 1015). uname -r 7.2.6-lunduke (build string #lcos25).
+  /boot/config-7.2.6-lunduke byte-identical to configs/lunduke-7.2.6-lcos25.config at the PR head.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.6-lcos24 (moved to superseded/, gitignored).
+93186bedb6e05bda6ea5fc46f2726e9abb4337464cdc208d0699f910829648e9  linux-image-7.2.6-lunduke_7.2.6-lcos25_amd64.deb
+e22b8367b427fff5ecb369a523b3713ba8f03d9a0a749c774799ab26935f4abb  linux-headers-7.2.6-lunduke_7.2.6-lcos25_amd64.deb
+9f22c047510bf6f383939397b37ebf3fb4d4dbdd7608978c9c8d71b34004ca0b  lunduke-linux-kernel_7.2.6-lcos25_all.deb
