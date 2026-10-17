@@ -7,8 +7,11 @@ Do not edit /workspace/lcos-live-094 (0.9.4 frozen) unless Ted says hotfix.
 Identity/overlay track: 0.9.5
 Next bake filename: lcos-live-095-01.iso
 Default kernel: LLK 7.2.6-lcos25 (carried from 0.9.4; kernel tag 7.2.6-lcos25 = e7a72c16).
-Apps: still the 0.9.4 set (Edit 0.9.4-2, Paint 0.9.4-9, City 0.9.4-8, About 0.9.4-8, Updates 0.9.4-7).
-System debs: still 0.9.4 (lcos-base 0.9.4-7, others 0.9.4-1); their payload os-release still says 0.9.4 until 0.9.5 system debs are built.
+Apps: Edit 0.9.4-2, Paint 0.9.5-1, City 0.9.5-1, About 0.9.5-2, Updates 0.9.5-1 (review r15 fixes).
+System debs: lcos-base 0.9.5-3 (reboot-required trigger, #112, identity 0.9.5), lcos-desktop-config 0.9.5-1 (#143), others 0.9.4-1.
+2026-10-16 CT: 0.9.5 track reset to the 0.9.4 release and selected changes re-applied; the first 0.9.5
+  history (incl. the backed-out per-build kernel naming experiment) is on branch backup/095-pre-reset (a9b46ab).
+  LLK lcos27 (lcos25 + ExpressCard/eSATA, same 7.2.6-lunduke name) waits for the kernel PR merge.
 Apt: do NOT publish from this open. Official 0.9.4 overlay is live (lcosrepo1 efca16a6).
 
 ===== 0.9.4 history below =====

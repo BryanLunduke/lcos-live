@@ -29,3 +29,12 @@ Not changed: the lcos-base payload (os-release files), which goes with the 0.9.5
 
 ## Rules for this open
 No bake and no apt publish until Ted or the editor say go.
+
+## Re-applied after the reset (2026-10-16 CT)
+- lcos-base 0.9.5-3: reboot-required dpkg file trigger (r15 U-1), #112 HOME=/ fix, identity 0.9.5.
+  Same payload as 0.9.5-2; new version because 0.9.5-1 and 0.9.5-2 were already tagged.
+- lcos-desktop-config 0.9.5-1 (#143 lid suspend), the tagged deb reused byte-for-byte.
+- Apps re-seeded byte-for-byte: Updates 0.9.5-1, About 0.9.5-2, City 0.9.5-1, Paint 0.9.5-1.
+- Kernel: LLK 7.2.6-lcos25 stays seeded; the kernel package list and the 0095 hook are as in 0.9.4.
+  lcos27 is seeded only after its PR is merged.
+- Not re-applied: the per-build kernel naming experiment (kernel tag after lcos25) and its recipe changes.
