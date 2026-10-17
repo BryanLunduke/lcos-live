@@ -11,6 +11,7 @@ a21c0696d54f9049fdd7f9a2df6ae7e9  etc/issue
 ba64fa472339b159419332bcc389e240  etc/issue.net
 9b1b0d4146bdfb47cb0d07dddd1ebad9  etc/os-release
 1bb6f98b4c55c58c493e2bf8e79d0045  usr/lib/lcos/lcos-reboot-required
+677f8f656e8dd2fbde9c8588b5d45a50  usr/lib/lsb/init-functions.d/05-lcos-home
 9b1b0d4146bdfb47cb0d07dddd1ebad9  usr/lib/os-release
 0675b4543be4f461fff53db12727cc45  usr/lib/sysctl.d/99-lcos-userns.conf
 ba49c29cc630b8b0e9cd3d0a66ee9858  usr/local/sbin/lcos-write-os-release
