@@ -1,0 +1,5 @@
+interest-noawait /boot
+interest-noawait /lib/modules
+interest-noawait /usr/lib/modules
+interest-noawait /lib/firmware
+interest-noawait /usr/lib/firmware

@@ -1,6 +1,14 @@
 #!/bin/sh
 set -e
+# LCOS 0.9.5-1 (r15 U-1): file trigger on /boot, modules and firmware ->
+# write /var/run/reboot-required(.pkgs) for kernel/firmware/microcode.
+if [ "$1" = triggered ]; then
+  /usr/lib/lcos/lcos-reboot-required || true
+  exit 0
+fi
 if [ "$1" = configure ]; then
+  # first install: start reading dpkg.log from here, don't flag history
+  [ -f "${DPKG_ROOT:-}"/var/lib/lcos/reboot-required.offset ] || { /usr/lib/lcos/lcos-reboot-required --init && /usr/lib/lcos/lcos-reboot-required; } || true
   /usr/local/sbin/lcos-write-os-release || true
 
   # LCOS 0.9: apply /etc/insserv/overrides/{plymouth,lightdm}.
