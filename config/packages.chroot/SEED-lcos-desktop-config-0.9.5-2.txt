@@ -1,0 +1,15 @@
+SEED lcos-desktop-config 0.9.5-2 2026-10-17
+Replaces lcos-desktop-config 0.9.5-1 (moved to superseded/). Editor-approved fix: tap-to-click on by default
+for touchpads. Report: on the 0.9.4 live ISO (AMD A6-4400M laptop) tapping did nothing although Xfce Mouse and
+Touchpad showed the box checked; it only applied after unchecking and rechecking. LCOS never enabled tapping and
+libinput's default is off.
+New conffile /etc/X11/xorg.conf.d/50-lcos-touchpad.conf (sorts after /usr/share/X11/xorg.conf.d/40-libinput.conf):
+InputClass "LCOS touchpad tap-to-click", MatchIsTouchpad on, MatchDriver libinput, Tapping on, TappingDrag on.
+No other input default (scrolling etc.) changed. Everything else identical to 0.9.5-1.
+Built with packaging/build-095-system-debs.sh --only lcos-desktop-config (root:root). Lintian tags identical to 0.9.5-1.
+dpkg upgrade 0.9.4-1 -> 0.9.5-1 -> 0.9.5-2 and 0.9.4-1 -> 0.9.5-2 tested in a throwaway --root: file listed as conffile.
+XLibre 25.1.9 Xorg parses the file (a deliberately broken InputClass is rejected); no real touchpad tested.
+Source: lcos-live packaging/src/lcos-desktop-config, tag lcos-desktop-config/0.9.5-2.
+No ISO bake / no apt publish.
+
+720be97572ae172916add49db508812333f89b831a2bc2b564f99a0f0112bfab  lcos-desktop-config_0.9.5-2_all.deb

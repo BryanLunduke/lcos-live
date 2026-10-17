@@ -1,4 +1,5 @@
 56b5888dc4acc258f70c4a7c0cc11eb4  etc/X11/Xsession.d/54lcos-xdg-config-dirs
+d0f2b09a906c4f574feb405f482e9eb0  etc/X11/xorg.conf.d/50-lcos-touchpad.conf
 8e3a7e5fb11ae189af58b3db316555ad  etc/skel/.config/autostart/lcos-set-wallpaper.desktop
 8d3b317715ce019fe2b34ba9f15d5eda  etc/skel/.config/mimeapps.list
 105cddf512db88b2aa84458f04b06273  etc/skel/.config/xfce4/helpers.rc
@@ -32,7 +33,7 @@ ab401ce1969242f07f9e693ca34d41bf  usr/share/applications/xfce4-file-manager.desk
 a0ad452e8aa96d87297dfb5da61a9ee8  usr/share/applications/xfce4-terminal-emulator.desktop
 247b13b4685edb31b7af875e20a5c3cc  usr/share/applications/xfce4-web-browser.desktop
 6dfa38f524706408d2164d9c0af9052a  usr/share/desktop-directories/xfce-science.directory
-5963fb504231f5334184673223fe411b  usr/share/doc/lcos-desktop-config/changelog.gz
+fdcdee939ba8eacdc45f51eb3f508a2c  usr/share/doc/lcos-desktop-config/changelog.gz
 7536e82bc2eb72d295eeae9eedb62e52  usr/share/doc/lcos-desktop-config/copyright
 55a6d7f2acb36a9c4429591ff52d90b6  usr/share/xfce4/helpers/cool-retro-term.desktop
 82193fb792ea743233468877be0d48bc  usr/share/xfce4/helpers/lunduke-edit.desktop

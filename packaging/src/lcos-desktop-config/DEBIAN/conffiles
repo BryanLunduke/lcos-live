@@ -24,3 +24,4 @@
 /etc/xdg/lcos/xfce4/xfconf/xfce-perchannel-xml/xfce4-screensaver.xml
 /etc/xdg/lcos/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 /etc/X11/Xsession.d/54lcos-xdg-config-dirs
+/etc/X11/xorg.conf.d/50-lcos-touchpad.conf
