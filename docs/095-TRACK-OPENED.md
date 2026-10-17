@@ -19,7 +19,7 @@ Version bump only. No feature work in this open.
 ## Identity
 `auto/config` iso-volume `LCOS 0.9.5`, image-name `lcos-live-095-01`; os-release, issue,
 issue.net, Calamares branding, hook 8900, lcos-write-os-release.
-The 0095 initramfs hook is kept byte-for-byte as in 0.9.4 (its log text still says 0.9.4).
+The 0095 initramfs hook differs from 0.9.4 only in its "0.9.5" comment and log text.
 Not changed: the lcos-base payload (os-release files), which goes with the 0.9.5 system debs.
 
 ## Kernel and apps
@@ -35,6 +35,6 @@ No bake and no apt publish until Ted or the editor say go.
   Same payload as 0.9.5-2; new version because 0.9.5-1 and 0.9.5-2 were already tagged.
 - lcos-desktop-config 0.9.5-1 (#143 lid suspend), the tagged deb reused byte-for-byte.
 - Apps re-seeded byte-for-byte: Updates 0.9.5-1, About 0.9.5-2, City 0.9.5-1, Paint 0.9.5-1.
-- Kernel: LLK 7.2.6-lcos25 stays seeded; the kernel package list and the 0095 hook are as in 0.9.4.
-  lcos27 is seeded only after its PR is merged.
+- Kernel: LLK 7.2.6-lcos27 (PR #23, merge bb839085, tag 7.2.6-lcos27) replaced lcos25, same package names
+  and kernel release 7.2.6-lunduke. The kernel package list is as in 0.9.4.
 - Not re-applied: the per-build kernel naming experiment (kernel tag after lcos25) and its recipe changes.
