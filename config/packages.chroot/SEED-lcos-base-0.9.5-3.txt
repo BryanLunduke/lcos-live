@@ -1,0 +1,3 @@
+lcos-base 0.9.5-3 seeded 2026-10-16 (0.9.5 track reset to 0.9.4): r15 U-1 dpkg file trigger /usr/lib/lcos/lcos-reboot-required writes /var/run/reboot-required(.pkgs) after kernel/firmware/microcode installs; #112 /lib/lsb/init-functions.d/05-lcos-home unsets HOME=/ for sysvinit services, postinst removes empty /.cache; identity 0.9.5. Same payload as 0.9.5-2.
+SHA256 1e226b0e6474cfd7dc0a4b03d7598b876c1ff25c7b2a4ed82084a76b0899f0b6
+0.9.4-7 moved to superseded/.

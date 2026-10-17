@@ -1,7 +1,22 @@
 #!/bin/sh
 set -e
+# LCOS 0.9.5-1 (r15 U-1): file trigger on /boot, modules and firmware ->
+# write /var/run/reboot-required(.pkgs) for kernel/firmware/microcode.
+if [ "$1" = triggered ]; then
+  /usr/lib/lcos/lcos-reboot-required || true
+  exit 0
+fi
 if [ "$1" = configure ]; then
+  # first install: start reading dpkg.log from here, don't flag history
+  [ -f "${DPKG_ROOT:-}"/var/lib/lcos/reboot-required.offset ] || { /usr/lib/lcos/lcos-reboot-required --init && /usr/lib/lcos/lcos-reboot-required; } || true
   /usr/local/sbin/lcos-write-os-release || true
+
+  # LCOS 0.9.5-2 (#112): boot services no longer get HOME=/ (see
+  # /lib/lsb/init-functions.d/05-lcos-home). Remove the Mesa shader cache
+  # an X server with HOME=/ could leave in /.cache, and /.cache itself if
+  # it is then empty (it is recreated until the next reboot otherwise).
+  rm -rf "${DPKG_ROOT:-}/.cache/mesa_shader_cache" "${DPKG_ROOT:-}/.cache/mesa_shader_cache_db"
+  rmdir "${DPKG_ROOT:-}/.cache" 2>/dev/null || true
 
   # LCOS 0.9: apply /etc/insserv/overrides/{plymouth,lightdm}.
   # plymouth: drop the runlevel 2-5 start link (its start action only ran
