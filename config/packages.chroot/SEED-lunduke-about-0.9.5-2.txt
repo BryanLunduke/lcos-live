@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.5-2 2026-10-16T21:36:45-05:00
+Replaces lunduke-about 0.9.5-1 (moved to superseded/, gitignored). Editor add-on via Ted: append "RussWill" to the end of the Supporters list after Otto R. Doll (14 names). Includes all 0.9.5-1 round-15 fixes.
+Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.5-2 (tag object b47a031, commit 1e5bcdc), PR #30. No ISO bake / no apt publish.
+
+5e21a9608bb353c7ea15770383ee3ea7b250d423435f9883056e3908bed89d86  lunduke-about_0.9.5-2_amd64.deb
