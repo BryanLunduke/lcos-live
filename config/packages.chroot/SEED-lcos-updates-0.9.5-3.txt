@@ -1,0 +1,10 @@
+SEED lcos-updates 0.9.5-3 2026-10-17T07:01:22-05:00
+Replaces lcos-updates 0.9.5-2 (moved to superseded/). Editor-approved follow-up (PR #28): the action area
+keeps one order in every state (launch, each Check result, after Install/Repair/Remove Unused Packages,
+with or without /var/run/reboot-required): Cancel, Install updates, Check for updates, Repair,
+Remove Unused Packages, Restart (the post-install Restart order). Default buttons unchanged from 0.9.5-2.
+Release binaries strings-checked (no /workspace, no LCOS_UPDATES_TEST, no DEBCONF_DEBUG).
+Source: BryanLunduke/lcos-updates tag v0.9.5-3 (tag object 4b0ebaa, commit f7c2632). Suite: 13 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+417cc7e48ea2df0e8333c885278b49b9ca25d9aa6fd9261742ba9e0f718213ec  lcos-updates_0.9.5-3_amd64.deb
