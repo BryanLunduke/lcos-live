@@ -11,7 +11,7 @@ efe86fe9f707d6bbcfc76cea56a146eb  etc/skel/.config/xfce4/panel/launcher-5/org.lu
 23c97732c1ede0566d1beeb00f9d01ac  etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 46c75c236e9405107198acf1bea9b878  etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 8e3a7e5fb11ae189af58b3db316555ad  etc/xdg/autostart/lcos-set-wallpaper.desktop
-8cc24246c8f98826e5db1988cdd72e4e  etc/xdg/lcos/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+3d556eb72b1885690601683b1cba4ddd  etc/xdg/lcos/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 daa5a3fad560568af8db3c1174241554  etc/xdg/lcos/xfce4/xfconf/xfce-perchannel-xml/xfce4-screensaver.xml
 ba2357cefc8c3dc9fa0ddacbc3c26ca8  etc/xdg/menus/xfce-applications.menu
 8d3b317715ce019fe2b34ba9f15d5eda  etc/xdg/mimeapps.list
