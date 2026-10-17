@@ -3,7 +3,7 @@ GitHub BryanLunduke/lunduke-linux-kernel PR #23, squash-merged as bb839085c26fa0
 (tag 7.2.6-lcos27; tree identical to the built commit 278e585dd656bf9fbae88f629c94c6dd2d32ede1). Editor ordered merge 2026-10-17 CT.
 Adds (on lcos25): ExpressCard/eSATA (CONFIG_SATA_SIL24=m, CONFIG_SATA_MV=m, CONFIG_HOTPLUG_PCI_ACPI=y,
 CONFIG_USB_XHCI_PCI_RENESAS=m; GENERIC_PHY=y selected by SATA_MV). Metapackage built with
-dpkg-deb --root-owner-group (all files root:root). The lcos26 per-build naming experiment is not used.
+dpkg-deb --root-owner-group (all files root:root). Same kernel release and package names as lcos25.
   1020 modules (lcos25 had 1017). uname -r 7.2.6-lunduke (build string #lcos27).
   /boot/config-7.2.6-lunduke byte-identical to configs/lunduke-7.2.6-lcos27.config at the PR head.
 Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
