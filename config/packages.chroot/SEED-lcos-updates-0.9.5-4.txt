@@ -1,0 +1,13 @@
+SEED lcos-updates 0.9.5-4 2026-10-17T12:44:13-05:00
+Replaces lcos-updates 0.9.5-3 (moved to superseded/). Editor-approved fix for 095-03 real-ISO QA (PR #29):
+with /var/run/reboot-required present and the Devuan mirror unreachable (other sources answering), the helper
+reports up to date with W:/Err: warnings and the restart notice was appended below them, hidden by the 160px
+status scroller. The notice now has its own line above the status, outside the scroller, after every Check
+result (failed, partial, up to date, listed, pkexec/auth errors, cancel, timeout) and after Install, Repair
+and Remove Unused Packages. Button order and default buttons unchanged from 0.9.5-3.
+Tests replay Chloe's captured apt-get update output through the real helper and window code.
+Release binaries strings-checked (no /workspace, no LCOS_UPDATES_TEST, no DEBCONF_DEBUG).
+Source: BryanLunduke/lcos-updates tag v0.9.5-4 (tag object aa9aa51, commit 8c849c4). Suite: 13 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+20ed8f409b32dc51dc92b51861c88d7604dc8dd8bc17ce54e4fee689a5334ac1  lcos-updates_0.9.5-4_amd64.deb
