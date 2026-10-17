@@ -1,0 +1,5 @@
+SEED lunduke-paint 0.9.5-1 2026-10-16T21:33:25-05:00
+Replaces lunduke-paint 0.9.4-9 (moved to superseded/, gitignored). Review r15: P-1 save through symlink keeps the link; P-2 release-binary test skipped for non-release builds; P-3 stale save temps cleaned; P-4 opened/saved images registered in Recent. Version follows the LCOS 0.9.5 track.
+Source: BryanLunduke/lunduke-paint tag v0.9.5-1 (tag object 28ee364, commit 5353e03), PR #33. No ISO bake / no apt publish.
+
+b0b54eadf3cf2c37d524186c7d53eb031a175ecfac18e59f313873a2c07291b9  lunduke-paint_0.9.5-1_amd64.deb
