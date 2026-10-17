@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- LCOS system default (lcos-desktop-config, /etc/xdg/lcos is ahead of
      /etc/xdg in XDG_CONFIG_DIRS): no lock on suspend/hibernate, no DPMS or
-     blanking. power-button-action=3 is xfce4-power-manager's stock value.
-     0.9.5-1 (#143): closing the lid suspends (1) on AC and on battery.
-     xfpm 4.20's stock lid action is 3 (lock screen) on both, and LCOS ships
-     locking off, so closing the lid did nothing (0.9.2: "None of the screen
-     lock tools ran"). xfpm keeps the elogind handle-lid-switch inhibitor
-     (logind-handle-lid-switch=false) and suspends through elogind, without
-     locking. -->
+     blanking. power-button-action=3 is xfce4-power-manager's stock value. -->
 <channel name="xfce4-power-manager" version="1.0">
   <property name="xfce4-power-manager" type="empty">
     <property name="power-button-action" type="uint" value="3"/>
     <property name="lock-screen-suspend-hibernate" type="bool" value="false"/>
-    <property name="lid-action-on-ac" type="uint" value="1"/>
-    <property name="lid-action-on-battery" type="uint" value="1"/>
-    <property name="logind-handle-lid-switch" type="bool" value="false"/>
     <property name="dpms-enabled" type="bool" value="false"/>
     <property name="blank-on-ac" type="int" value="0"/>
     <property name="blank-on-battery" type="int" value="0"/>

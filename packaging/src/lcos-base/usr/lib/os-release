@@ -1,7 +1,7 @@
-PRETTY_NAME="LCOS 0.9.5"
+PRETTY_NAME="LCOS 0.9.4"
 NAME="LCOS"
-VERSION_ID="0.9.5"
-VERSION="0.9.5 (excalibur)"
+VERSION_ID="0.9.4"
+VERSION="0.9.4 (excalibur)"
 VERSION_CODENAME=excalibur
 ID=lcos
 ID_LIKE="devuan debian"

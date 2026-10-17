@@ -1,3 +1,0 @@
-lcos-base 0.9.5-1 seeded 2026-10-16: r15 U-1 dpkg file trigger writes /var/run/reboot-required(.pkgs) after linux-image-*, firmware-*, intel-microcode, amd64-microcode installs/upgrades (same-version kernels too); identity 0.9.5.
-SHA256 8af3f44c7b8895af3ac300d0b7325646c84e6255cd1d972a5b7943f791169cd4
-0.9.4-7 moved to superseded/.

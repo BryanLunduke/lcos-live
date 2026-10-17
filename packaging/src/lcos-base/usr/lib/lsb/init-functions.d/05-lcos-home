@@ -1,9 +1,0 @@
-# /lib/lsb/init-functions.d/05-lcos-home  (lcos-base 0.9.5-2, #112)
-# Sourced by every LSB init script through /lib/lsb/init-functions.
-# The kernel starts init with HOME=/, and sysvinit passes it on to every
-# boot service. GLib daemons (lightdm, NetworkManager, ...) then create
-# /.cache. Drop that HOME so programs use their user's passwd home
-# (/root for root), as they do under systemd. A real HOME is kept.
-if [ "${HOME:-}" = / ]; then
-	unset HOME
-fi

@@ -1,3 +1,0 @@
-lcos-desktop-config 0.9.5-1 seeded 2026-10-16: #143 xfpm lid-action-on-ac/-battery=1 (suspend, no lock; stock was lock screen).
-SHA256 d4ec2c1746ff60c8c4adbbbd1cfd20de057b2274c74be6497df2c4a221bad006
-0.9.4-1 moved to superseded/.

@@ -1,3 +1,0 @@
-lcos-base 0.9.5-2 seeded 2026-10-16: #112 /lib/lsb/init-functions.d/05-lcos-home unsets HOME=/ for sysvinit services (lightdm, NetworkManager created /.cache); postinst removes empty /.cache.
-SHA256 93892697eb61e53e68a469c6c06e8aa4bfd09de89c511dc33cb102ebc8ebe6b0
-0.9.5-1 moved to superseded/.

@@ -1,15 +1,15 @@
 Package: lcos-base
-Version: 0.9.5-2
+Version: 0.9.4-7
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 164
+Installed-Size: 144
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils
 Replaces: base-files
-Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
- os-release / issue for LCOS 0.9.5 (excalibur), lcos-write-os-release,
+Description: LCOS 0.9.4 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 0.9.4 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
@@ -61,15 +61,5 @@ Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  stale AT_SPI_BUS root-window property left by the LightDM greeter's
  at-spi bus (lightdm uid) so session apps reach the user's own
  accessibility bus after a greeter login; Depends x11-utils (xprop).
- 0.9.5-1: dpkg file trigger (/boot, /lib/modules, /lib/firmware and
- /usr variants) runs /usr/lib/lcos/lcos-reboot-required, which writes
- /var/run/reboot-required and appends to /var/run/reboot-required.pkgs
- after linux-image-*, firmware-*, intel-microcode or amd64-microcode is
- installed or upgraded (same-version kernels included), so Updates offers
- a restart (review r15 U-1).
- 0.9.5-2: /lib/lsb/init-functions.d/05-lcos-home unsets the kernel's
- HOME=/ for sysvinit boot services, so lightdm and NetworkManager no
- longer create /.cache at boot (#112); postinst removes an empty /.cache
- and any Mesa shader cache left there.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

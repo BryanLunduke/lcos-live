@@ -1,5 +1,0 @@
-SEED lunduke-about 0.9.5-1 2026-10-16T21:29:12-05:00
-Replaces lunduke-about 0.9.4-8 (moved to superseded/, gitignored). Review r15: A-1 /usr/lib/os-release fallback; A-2 UI test stable under load (36/36 vs 0/36); A-3 AppStream metainfo installed. Version follows the LCOS 0.9.5 track.
-Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.5-1 (tag object 415d86b, commit fe7a96a), PR #29. No ISO bake / no apt publish.
-
-5e96bd1d00f050044f001825eabb52d1abe60303fa705e67a30f56a5d5c2bbf6  lunduke-about_0.9.5-1_amd64.deb

@@ -1,17 +1,13 @@
 #!/bin/sh
 set -e
-# LCOS 0.9.5 / LLK default: custom linux-image with --linux-packages none may not
-# generate initrd during dpkg configure; force it for the Lunduke kernel.
-# From lcos26 the kernel release is per build (7.2.6-lunduke-lcos26), so pick
-# the newest installed /boot/vmlinuz-7.2.6-lunduke* instead of a fixed name.
-KVER=$(ls /boot/vmlinuz-7.2.6-lunduke* 2>/dev/null | sed 's|^/boot/vmlinuz-||' | sort -V | tail -n1)
-if [ -z "${KVER}" ]; then
-	echo "I: LCOS 0.9.5 LLK hook: no /boot/vmlinuz-7.2.6-lunduke* found"
-elif [ ! -e "/boot/initrd.img-${KVER}" ]; then
-	echo "I: LCOS 0.9.5 LLK hook: generating initrd for ${KVER}"
+# LCOS 0.9.4 / LLK default: custom linux-image with --linux-packages none may not
+# generate initrd during dpkg configure; force it for the Lunduke ABI.
+KVER="7.2.6-lunduke"
+if [ -e "/boot/vmlinuz-${KVER}" ] && [ ! -e "/boot/initrd.img-${KVER}" ]; then
+	echo "I: LCOS 0.9.4 LLK hook: generating initrd for ${KVER}"
 	update-initramfs -c -k "${KVER}"
-else
-	echo "I: LCOS 0.9.5 LLK hook: refreshing initrd for ${KVER}"
+elif [ -e "/boot/vmlinuz-${KVER}" ]; then
+	echo "I: LCOS 0.9.4 LLK hook: refreshing initrd for ${KVER}"
 	update-initramfs -u -k "${KVER}" || update-initramfs -c -k "${KVER}"
 fi
 ls -la /boot/vmlinuz-* /boot/initrd.img-* 2>/dev/null || true

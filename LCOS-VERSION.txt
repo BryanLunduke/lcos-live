@@ -1,17 +1,3 @@
-LCOS 0.9.5 recipe tree (git: BryanLunduke/lcos-live master)
-Opened 2026-10-16 (America/Chicago) from official 0.9.4 (/workspace/lcos-live-094, frozen).
-0.9.4 freeze point: tag lcos-0.9.4-release = 0cc29fbf (image-name lcos-live-094-05 as baked);
-  branch lcos-0.9.4 = 0cc29fbf. Overlay live: lcosrepo1 efca16a6 (0.9.4, signed).
-0.9.4 hotfixes go on branch lcos-0.9.4; master is 0.9.5.
-Do not edit /workspace/lcos-live-094 (0.9.4 frozen) unless Ted says hotfix.
-Identity/overlay track: 0.9.5
-Next bake filename: lcos-live-095-01.iso
-Default kernel: LLK 7.2.6-lcos25 (carried from 0.9.4; kernel tag 7.2.6-lcos25 = e7a72c16).
-Apps: still the 0.9.4 set (Edit 0.9.4-2, Paint 0.9.4-9, City 0.9.4-8, About 0.9.4-8, Updates 0.9.4-7).
-System debs: still 0.9.4 (lcos-base 0.9.4-7, others 0.9.4-1); their payload os-release still says 0.9.4 until 0.9.5 system debs are built.
-Apt: do NOT publish from this open. Official 0.9.4 overlay is live (lcosrepo1 efca16a6).
-
-===== 0.9.4 history below =====
 LCOS 0.9.4 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-10-13 (America/Chicago) from official 0.9.3 (/workspace/lcos-live-093, frozen).
 0.9.3 freeze point: tag lcos-0.9.3-release = 79c8c52b (image-name lcos-live-093-04 as baked);
