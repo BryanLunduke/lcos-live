@@ -1,0 +1,11 @@
+SEED lcos-updates 0.9.5-2 2026-10-17T06:44:03-05:00
+Replaces lcos-updates 0.9.5-1 (moved to superseded/). Editor-approved fix for 095-02 QA U-1 (PR #27):
+when /var/run/reboot-required exists, the restart notice and Restart button show on launch, after Check
+(up to date, updates listed or failed), after Install, Repair and Remove Unused Packages. Names the
+deduplicated reboot-required.pkgs entries, or says a system update (kernel/firmware) needs a restart.
+No marker, no notice. Post-install wording/layout unchanged. Marker path override exists only in the
+-DLCOS_UPDATES_TEST build; release GUI strings-checked (no /workspace, no LCOS_UPDATES_TEST_, no DEBCONF_DEBUG).
+Source: BryanLunduke/lcos-updates tag v0.9.5-2 (tag object 08604a8, commit 49a0d1d). Suite: 13 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+ac9adec1258785e254e9fd5d3ac427ebeb9c70288344b2d023fecf6c87522ad6  lcos-updates_0.9.5-2_amd64.deb
