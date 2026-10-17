@@ -1,0 +1,12 @@
+SEED lcos-updates 0.9.5-1 2026-10-16T21:03:41-05:00
+Replaces lcos-updates 0.9.4-7 (moved to superseded/). LCOS 0.9.5 track. Round 15 fixes (PR #25):
+U-1 Restart offered after Install when the transaction has linux-image-*/linux-signed-*/firmware-*/
+linux-firmware*/*-microcode, even without /var/run/reboot-required (pairs with lcos-base 0.9.5-1 trigger);
+an existing marker also shows Restart. U-2 Install uses APT::Keep-Downloaded-Packages=false and apt-get clean
+after success; new "Remove Unused Packages" (helper "cleanup", polkit action org.lunduke.lcos-updates.cleanup,
+auth_admin; re-simulated, exact set, never purge). U-3 AppStream metainfo.
+Still DEBCONF_NONINTERACTIVE_SEEN only, no DEBCONF_DEBUG (strings-checked). Verified in a trixie chroot.
+Source: BryanLunduke/lcos-updates tag v0.9.5-1 (tag object bb1a079, commit 7eff02c). Suite: 13 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+122fe56a82b3a256f6ce1bd80462176f18abd36cf1099e3ff40fef5aead34c7b  lcos-updates_0.9.5-1_amd64.deb
