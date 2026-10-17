@@ -1,9 +1,9 @@
-# Lunduke Linux Kernel: default ISO kernel for 0.9.4.
-# Seeded 7.2.6-lcos25 on 2026-10-16 CT (lunduke-linux-kernel master e7a72c16,
-# PR #21, tag 7.2.6-lcos25); see config/packages.chroot/SEED-llk-7.2.6-lcos25.txt.
-# Replaced lcos24 (moved to config/packages.chroot/superseded/).
-# Package names are unversioned; the ABI stays 7.2.6-lunduke, so only the
-# seeded debs pin the lcos25 revision.
+# Lunduke Linux Kernel: default ISO kernel for 0.9.5.
+# Seeded 7.2.6-lcos26 on 2026-10-16 CT (lunduke-linux-kernel master a9189492,
+# PR #22, tag 7.2.6-lcos26); see config/packages.chroot/SEED-llk-7.2.6-lcos26.txt.
+# Replaced lcos25 (moved to config/packages.chroot/superseded/).
+# From lcos26 the kernel release is per build (7.2.6-lunduke-lcos26), so the
+# package names carry the revision; lcos4-lcos25 were all 7.2.6-lunduke.
 # lcos18: DM_CRYPT=m + XTS (#123), UHID=m (#120), RMI4_F11=y (#121).
 # lcos19: radeon=m, vga_switcheroo, DC_SI, HSA, FW compress (#115/#118); 948 modules.
 # lcos20: EXFAT_FS=m, iocharset utf8 (#131); 949 modules.
@@ -12,6 +12,7 @@
 # lcos23: CHROMEOS_LAPTOP=m, MOUSE_CYAPA=m (Chromebook touchpads, #141); 957 modules.
 # lcos24: Ubuntu 26.10 HW gap (IPU cameras, Logitech HID++, joydev/xpad/Steam, Intel thermal, AMD_HSMP/TAC5XX2, ACPI_ALS); 1015 modules. No Forced Rust.
 # lcos25: UDF_FS=m (#149), LEDS_CLASS_FLASH=m + LEDS_BRIGHTNESS_HW_CHANGED=y (TUXEDO keyboard, kernel#14); 1017 modules.
-linux-image-7.2.6-lunduke
-linux-headers-7.2.6-lunduke
+# lcos26: SATA_SIL24/SATA_MV=m, HOTPLUG_PCI_ACPI=y, USB_XHCI_PCI_RENESAS=m (ExpressCard/eSATA); per-build ABI for DKMS; 1020 modules.
+linux-image-7.2.6-lunduke-lcos26
+linux-headers-7.2.6-lunduke-lcos26
 lunduke-linux-kernel
