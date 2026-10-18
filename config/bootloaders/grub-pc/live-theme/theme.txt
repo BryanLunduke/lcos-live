@@ -1,4 +1,8 @@
-desktop-image: "../splash.png"
+# Solid background (sampled from the old 1920x1080 splash.png) instead of a
+# stretched desktop-image: with gfxmode=auto (#151) GRUB runs at the
+# firmware's mode (4:3, 16:10, 16:9 ...) and a stretched splash made the
+# round logo an oval.
+desktop-color: "#0d1b30"
 title-color: "#ffffff"
 title-font: "Unifont Regular 16"
 title-text: "LCOS"
@@ -48,4 +52,16 @@ terminal-font: "Unifont Regular 16"
         bg_color = "#a8a8a8"
         border_color = "#ffffff"
         text = "@TIMEOUT_NOTIFICATION_LONG@"
+}
+
+#LCOS logo: unscaled 232x224 image (same art as the old splash, composited
+#on #0d1b30), centered horizontally and vertically centered between the
+#title (~y 40-60) and the boot menu (top = 52%). At 800x600 it spans
+#y 76-300 (menu starts at 312); at 1920x1080 y 200-424 (menu at 561).
++ image {
+        left = 50%-116
+        top = 26%-80
+        width = 232
+        height = 224
+        file = "lcos-logo.png"
 }
