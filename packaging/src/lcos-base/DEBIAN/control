@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.5-3
+Version: 0.9.5-4
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 164
+Installed-Size: 180
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper
 Replaces: base-files
 Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.5 (excalibur), lcos-write-os-release,
@@ -74,5 +74,15 @@ Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  0.9.5-3: same content as 0.9.5-2, rebuilt on the 0.9.5 track reset
  to the 0.9.4 release (0.9.5-1 and 0.9.5-2 were tagged before the
  reset).
+ 0.9.5-4: printing. Depends libnss-mdns (resolve <printer>.local),
+ system-config-printer (Print Settings) and cups-pk-helper, so upgraders
+ get the 0.9.5 ISO additions (Updates installs with Recommends off). On
+ upgrade from below 0.9.5-4, postinst adds existing sudo-group users
+ (UID 1000-59999) to lpadmin once; installers before 0.9.5 left them out,
+ so adding a printer failed with CUPS 'forbidden'. Postinst diverts
+ /etc/xdg/autostart/print-applet.desktop (system-config-printer) to the
+ name print-applet.desktop.distrib and installs a Hidden=true copy from
+ /usr/share/lcos-base, so the print-queue tray icon is off by default and
+ can be turned on in Session and Startup.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

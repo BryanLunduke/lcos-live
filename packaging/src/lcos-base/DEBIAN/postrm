@@ -18,5 +18,23 @@ if [ "$1" = remove ] || [ "$1" = purge ]; then
         "${DPKG_ROOT:-}"/usr/share/X11/xorg.conf.d/15-lcos-amdgpu-hotplug.conf \
         "${DPKG_ROOT:-}"/run/lcos-amdgpu-ddx
 fi
+# LCOS 0.9.5-4: on removal drop our generated Hidden=true copy (unless it
+# was edited locally) and give print-applet.desktop back to
+# system-config-printer.
+if [ "$1" = remove ] || [ "$1" = disappear ]; then
+  applet=/etc/xdg/autostart/print-applet.desktop
+  if dpkg-divert --listpackage "$applet" 2>/dev/null | grep -qx lcos-base; then
+    if grep -q '^# lcos-base generated' "${DPKG_ROOT:-}$applet" 2>/dev/null; then
+      rm -f "${DPKG_ROOT:-}$applet"
+    fi
+    if [ ! -e "${DPKG_ROOT:-}$applet" ]; then
+      dpkg-divert --package lcos-base --remove --rename \
+        --divert "$applet.distrib" "$applet" >/dev/null || true
+    else
+      dpkg-divert --package lcos-base --remove \
+        --divert "$applet.distrib" "$applet" >/dev/null || true
+    fi
+  fi
+fi
 dpkg-maintscript-helper rm_conffile /etc/init.d/lcos-amdgpu-ddx 0.9.2-2~ lcos-base -- "$@"
 exit 0

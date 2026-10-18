@@ -11,6 +11,34 @@ if [ "$1" = configure ]; then
   [ -f "${DPKG_ROOT:-}"/var/lib/lcos/reboot-required.offset ] || { /usr/lib/lcos/lcos-reboot-required --init && /usr/lib/lcos/lcos-reboot-required; } || true
   /usr/local/sbin/lcos-write-os-release || true
 
+  # LCOS 0.9.5-4: installers before 0.9.5 left users out of lpadmin, so
+  # adding a printer failed with CUPS 'forbidden'. Once, on upgrade from
+  # below 0.9.5-4, add existing sudo-group users (UID 1000-59999) to
+  # lpadmin. Fresh installs ($2 empty) are left to the installer. Takes
+  # effect at the user's next login.
+  if [ -n "${2:-}" ] && dpkg --compare-versions "$2" lt 0.9.5-4 && \
+     getent group lpadmin >/dev/null 2>&1 && getent group sudo >/dev/null 2>&1; then
+    for u in $(getent group sudo | cut -d: -f4 | tr ',' ' '); do
+      uid=$(id -u "$u" 2>/dev/null) || continue
+      [ "$uid" -ge 1000 ] && [ "$uid" -le 59999 ] || continue
+      id -nG "$u" | tr ' ' '\n' | grep -qx lpadmin && continue
+      usermod -aG lpadmin "$u" && echo "lcos-base: added $u to lpadmin (printer admin)" || true
+    done
+  fi
+
+  # LCOS 0.9.5-4: print-queue tray icon off by default. Done here, not by
+  # shipping the file: Depends makes system-config-printer configured before
+  # this runs, so its conffile is in place and --rename moves it to
+  # .distrib (outside the *.desktop glob); its later upgrades land there.
+  # Our Hidden=true copy is not dpkg-owned, so the two packages never
+  # contend for the path. A copy without the marker (local edit) is kept.
+  applet=/etc/xdg/autostart/print-applet.desktop
+  dpkg-divert --package lcos-base --add --rename \
+    --divert "$applet.distrib" "$applet" >/dev/null
+  if [ ! -e "${DPKG_ROOT:-}$applet" ] || grep -q '^# lcos-base generated' "${DPKG_ROOT:-}$applet"; then
+    install -m 0644 /usr/share/lcos-base/print-applet-hidden.desktop "${DPKG_ROOT:-}$applet"
+  fi
+
   # LCOS 0.9.5-2 (#112): boot services no longer get HOME=/ (see
   # /lib/lsb/init-functions.d/05-lcos-home). Remove the Mesa shader cache
   # an X server with HOME=/ could leave in /.cache, and /.cache itself if

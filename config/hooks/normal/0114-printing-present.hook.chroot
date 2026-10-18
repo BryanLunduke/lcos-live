@@ -18,3 +18,9 @@ if ! grep -q '^hosts:.*mdns4_minimal' /etc/nsswitch.conf; then
 	sed -i 's/^hosts:.*/hosts:          files mdns4_minimal [NOTFOUND=return] dns/' /etc/nsswitch.conf
 fi
 grep '^hosts:' /etc/nsswitch.conf
+# lcos-base 0.9.5-4 diverts system-config-printer's tray-icon autostart and
+# ships a Hidden=true copy.
+if ! grep -qx 'Hidden=true' /etc/xdg/autostart/print-applet.desktop 2>/dev/null; then
+	echo "ERROR: print-applet.desktop is not Hidden=true; lcos-base diversion missing" >&2
+	exit 1
+fi
