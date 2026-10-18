@@ -17,6 +17,13 @@ cups-filters
 printer-driver-gutenprint
 # Network printer discovery (cups Recommends; needed for a usable stack)
 avahi-daemon
+# Resolve <printer>.local names (postinst adds mdns4_minimal to nsswitch.conf)
+libnss-mdns
+# Print Settings GUI. cups-pk-helper is only a Recommends of
+# system-config-printer-common and we build with --apt-recommends false,
+# so list it explicitly (polkit backend for printer admin actions).
+system-config-printer
+cups-pk-helper
 
 # Scanning
 sane-utils

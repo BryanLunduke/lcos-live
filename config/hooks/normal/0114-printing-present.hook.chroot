@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+# Printing stack sanity (0.9.5): Print Settings, its polkit helper, and
+# mDNS host resolution for network printers (<name>.local).
+for f in /usr/bin/system-config-printer /usr/libexec/cups-pk-helper-mechanism; do
+	if [ ! -e "$f" ]; then
+		echo "ERROR: $f missing; printing packages did not land" >&2
+		exit 1
+	fi
+done
+if [ ! -e /usr/lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2 ]; then
+	echo "ERROR: libnss-mdns did not land" >&2
+	exit 1
+fi
+# libnss-mdns's postinst normally does this; enforce it in case it was skipped.
+if ! grep -q '^hosts:.*mdns4_minimal' /etc/nsswitch.conf; then
+	echo "WARNING: nsswitch.conf lacked mdns4_minimal; setting hosts line" >&2
+	sed -i 's/^hosts:.*/hosts:          files mdns4_minimal [NOTFOUND=return] dns/' /etc/nsswitch.conf
+fi
+grep '^hosts:' /etc/nsswitch.conf
