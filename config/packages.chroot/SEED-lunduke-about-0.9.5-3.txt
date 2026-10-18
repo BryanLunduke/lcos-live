@@ -1,0 +1,5 @@
+SEED lunduke-about 0.9.5-3 2026-10-18T15:26:00-05:00
+Replaces lunduke-about 0.9.5-2 (moved to superseded/, gitignored). Editor add-on via Ted: append "xhighj", "R3", "naterthegreater" to the end of the Supporters list after RussWill (17 names).
+Source: BryanLunduke/LCOS-AboutThisComputer tag v0.9.5-3 (tag object bcd4d45, merge b6cb349), PR #31. No ISO bake / no apt publish.
+
+679551dbb3d3a0e4bd7a9726c646bdf0e18a75857294458059763cadea09e014  lunduke-about_0.9.5-3_amd64.deb
