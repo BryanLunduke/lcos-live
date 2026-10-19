@@ -1,0 +1,6 @@
+SEED lunduke-paint 0.9.5-2 2026-10-18T21:40:00-05:00
+Replaces lunduke-paint 0.9.5-1 (moved to superseded/). Pre-1.0 review fixes: tab bar shown for 2+ images; opens queued while dialogs/saves run and Save/Save As bound to their document; GIF/read-only formats routed to Save As (PNG); large-image warning before decode; status-bar timer stopped on close.
+Source: BryanLunduke/lunduke-paint PR #34, merge fb0a79f, tag v0.9.5-2 (tag object 8fb02a5).
+No ISO bake / no apt publish.
+
+022646a3bc9789c0d5f0915ba23aaf9aeb6048e279dc37e46e0c1dff035e1c89  lunduke-paint_0.9.5-2_amd64.deb
