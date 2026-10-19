@@ -6,12 +6,13 @@ Opened 2026-10-16 (America/Chicago) from official 0.9.4 (/workspace/lcos-live-09
 Do not edit /workspace/lcos-live-094 (0.9.4 frozen) unless Ted says hotfix.
 Identity/overlay track: 0.9.5
 Next bake filename: lcos-live-095-01.iso
-Default kernel: LLK 7.2.6-lcos27 (seeded 2026-10-17 CT; kernel tag 7.2.6-lcos27 = bb839085, PR #23; lcos25 + ExpressCard/eSATA; uname 7.2.6-lunduke).
+Default kernel: LLK 7.2.6-lcos28 (seeded 2026-10-19 CT; kernel tag 7.2.6-lcos28 = 0ee2c315, PR #24; lcos27 + applespi for MacBook8,1 SPI keyboard/trackpad; uname 7.2.6-lunduke).
 Apps: Edit 0.9.4-2, Paint 0.9.5-1, City 0.9.5-1, About 0.9.5-2, Updates 0.9.5-1 (review r15 fixes).
 System debs: lcos-base 0.9.5-3 (reboot-required trigger, #112, identity 0.9.5), lcos-desktop-config 0.9.5-1 (#143), others 0.9.4-1.
 2026-10-16 CT: 0.9.5 track reset to the 0.9.4 release and selected changes re-applied; the first 0.9.5
   history (incl. the backed-out per-build kernel naming experiment) is on branch backup/095-pre-reset (a9b46ab).
   LLK lcos27 (lcos25 + ExpressCard/eSATA, same 7.2.6-lunduke name) seeded after the PR #23 merge.
+  2026-10-19 CT: LLK lcos28 (lcos27 + CONFIG_KEYBOARD_APPLESPI=m, same 7.2.6-lunduke name) seeded after the PR #24 merge.
 Apt: do NOT publish from this open. Official 0.9.4 overlay is live (lcosrepo1 efca16a6).
 
 ===== 0.9.4 history below =====

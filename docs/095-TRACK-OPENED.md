@@ -59,3 +59,13 @@ No bake and no apt publish until Ted or the editor say go.
   - Calamares sequence before: 89 purged incl. fdisk; after: 88, no fdisk.
   - Post-install autoremove: 0.
 - Existing installs: not changed by this hook (see review report, proposal for lcos-base).
+
+## Kernel lcos28 (2026-10-19 CT)
+- LLK 7.2.6-lcos28 (PR #24, merge 0ee2c315, tag 7.2.6-lcos28) replaced lcos27: lcos27 plus
+  `CONFIG_KEYBOARD_APPLESPI=m` (applespi, ACPI APP000D), the internal SPI keyboard and trackpad of the
+  12-inch Retina MacBook (2015, MacBook8,1). Same package names and kernel release 7.2.6-lunduke.
+- The image deb differs from lcos27 only by applespi.ko. initramfs-tools MODULES=most includes it,
+  so the keyboard is also there at the encrypted-disk passphrase prompt.
+- Checked without an ISO build: lcos28 kernel boots the 095-07 live system in QEMU (with the 095-07 initrd
+  and with an lcos28 initrd); apt upgrade lcos27 to lcos28 in a 095-07 chroot upgrades the three packages
+  in place, removes nothing. Not tested on MacBook hardware.
