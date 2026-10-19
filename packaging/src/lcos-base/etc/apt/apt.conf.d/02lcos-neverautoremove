@@ -1,0 +1,22 @@
+// LCOS (lcos-base 0.9.5-5): never offer these for autoremove ("Remove
+// Unused" in Updates, apt-get autoremove). fdisk was automatically
+// installed for the installer's partitioner and the core Xfce pieces only
+// for the xfce4 metapackage, so removing the installer or xfce4 (e.g.
+// together with xfce4-appfinder) made apt treat them as unused. Packages
+// they depend on stay protected as well. Removing them by name still works.
+APT
+{
+  NeverAutoRemove
+  {
+	"^fdisk$";
+	"^xfce4-panel$";
+	"^xfwm4$";
+	"^xfce4-session$";
+	"^xfdesktop4$";
+	"^xfce4-settings$";
+	"^xfconf$";
+	"^thunar$";
+	"^network-manager-applet$";
+	"^nm-connection-editor$";
+  };
+};

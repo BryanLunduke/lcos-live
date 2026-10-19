@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.5-4
+Version: 0.9.5-5
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 180
+Installed-Size: 188
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk
 Replaces: base-files
 Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.5 (excalibur), lcos-write-os-release,
@@ -84,5 +84,12 @@ Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  name print-applet.desktop.distrib and installs a Hidden=true copy from
  /usr/share/lcos-base, so the print-queue tray icon is off by default and
  can be turned on in Session and Startup.
+ 0.9.5-5: Depends fdisk (the installer's autoremove purged it on every
+ install since 0.9.2, so upgraders get it back) and ships the conffile
+ /etc/apt/apt.conf.d/02lcos-neverautoremove: APT::NeverAutoRemove for
+ fdisk and the core Xfce desktop (xfce4-panel, xfwm4, xfce4-session,
+ xfdesktop4, xfce4-settings, xfconf, thunar, network-manager-applet,
+ nm-connection-editor), so removing the xfce4 metapackage no longer makes
+ autoremove offer the desktop.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
