@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 0.9.5-5
+Version: 0.9.5-6
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 188
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g
 Replaces: base-files
 Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 0.9.5 (excalibur), lcos-write-os-release,
@@ -91,5 +91,12 @@ Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  xfdesktop4, xfce4-settings, xfconf, thunar, network-manager-applet,
  nm-connection-editor), so removing the xfce4 metapackage no longer makes
  autoremove offer the desktop.
+ 0.9.5-6: GRUB drop-in sets GRUB_DISABLE_OS_PROBER=false, so update-grub
+ lists Windows and other installed systems (GRUB 2.12 skips os-prober by
+ default). Depends ntfs-3g (ntfsresize, ntfsfix; only a udisks2 Recommends
+ before). On upgrade from below 0.9.5-6, postinst removes the bake-only
+ /etc/apt/apt.conf.d/00lcos-noninteractive (APT::Get::Assume-Yes) when it
+ is unchanged from what the images shipped, so terminal apt asks before
+ installing or removing again; an edited copy is kept.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

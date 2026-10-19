@@ -26,6 +26,20 @@ if [ "$1" = configure ]; then
     done
   fi
 
+  # LCOS 0.9.5-6 (M-1): images before 0.9.5-6 shipped the ISO-build-only
+  # /etc/apt/apt.conf.d/00lcos-noninteractive (APT::Get::Assume-Yes), so
+  # terminal apt never asked before removing. Once, on upgrade from below
+  # 0.9.5-6, remove it if it is byte-identical to the shipped file (same
+  # since 0.8); a locally edited copy or a symlink is kept. Fresh installs
+  # ($2 empty) are skipped: the ISO build itself still needs the file.
+  if [ -n "${2:-}" ] && dpkg --compare-versions "$2" lt 0.9.5-6; then
+    nonint="${DPKG_ROOT:-}/etc/apt/apt.conf.d/00lcos-noninteractive"
+    if [ -f "$nonint" ] && [ ! -L "$nonint" ] && \
+       [ "$(sha256sum < "$nonint" | cut -d' ' -f1)" = 21458429a9cac275f0dc32beac8fca2ef4c96088b78aec5bd7dbb0a861b1709e ]; then
+      rm -f "$nonint" && echo "lcos-base: removed /etc/apt/apt.conf.d/00lcos-noninteractive (apt asks before changes again)" || true
+    fi
+  fi
+
   # LCOS 0.9.5-4: print-queue tray icon off by default. Done here, not by
   # shipping the file: Depends makes system-config-printer configured before
   # this runs, so its conffile is in place and --rename moves it to

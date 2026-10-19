@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build the LCOS 0.9.5 system overlay debs (unsigned). lcos-base 0.9.5-5 (printing; fdisk, NeverAutoRemove) and lcos-desktop-config 0.9.5-2 (tap-to-click), others stay 0.9.4-1
+# Build the LCOS 0.9.5 system overlay debs (unsigned). lcos-base 0.9.5-6 (printing; fdisk, NeverAutoRemove; os-prober on, ntfs-3g, Assume-Yes cleanup) and lcos-desktop-config 0.9.5-2 (tap-to-click), others stay 0.9.4-1
 # (lcos-base Depends and pin as 0.9.3-3, incl. xdg-desktop-portal-gtk #135; lcos-desktop-config content as 0.9.3-2):
 # lcos-base (identity 0.9.5; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
@@ -43,7 +43,7 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=0.9.5-5
+BASEVER=0.9.5-6
 DCVER=0.9.5-2
 ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"

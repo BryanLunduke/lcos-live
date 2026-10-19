@@ -1,0 +1,12 @@
+#!/bin/sh
+# LCOS 0.9.5-6 (M-1): 00lcos-noninteractive (APT::Get::Assume-Yes) comes in
+# with includes.chroot_before_packages for the bake only. Remove it as the
+# last hook so the squashfs (live session and installs) does not carry it
+# and terminal apt asks before installing or removing again. live-build,
+# Calamares and Updates pass -y themselves. 00lcos-force-conf stays.
+set -e
+rm -f /etc/apt/apt.conf.d/00lcos-noninteractive
+if apt-config dump | grep -qi '^APT::Get::Assume-Yes "\(true\|1\|yes\)"'; then
+	echo "E: APT::Get::Assume-Yes still set after 9900-lcos-drop-bake-apt-conf" >&2
+	exit 1
+fi

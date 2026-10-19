@@ -1,7 +1,7 @@
 ead67f4133f3ee91aa6361a57ebebb9e  etc/X11/Xsession.d/20lcos-atspi-reset
 1e868060dfbfa69dd8d81c08c4454203  etc/apt/apt.conf.d/02lcos-neverautoremove
 c31f85fdc35f43f81a979897183fb2b9  etc/apt/preferences.d/lcos-amd-backports.pref
-b1d850ea41c017e51aa60d079a87c5d1  etc/default/grub.d/lcos.cfg
+e6f37c8f9dd81db7029cbb8715bae745  etc/default/grub.d/lcos.cfg
 6b255422dd6c1f5ff4fd1bf57099ad54  etc/init.d/iio-sensor-proxy
 b3df674cab88aacdd53dc62cc6c1258f  etc/init.d/ipp-usb
 976593d9b090c3ff710a5d91b669dc11  etc/init.d/switcheroo-control
@@ -16,6 +16,6 @@ ba64fa472339b159419332bcc389e240  etc/issue.net
 9b1b0d4146bdfb47cb0d07dddd1ebad9  usr/lib/os-release
 0675b4543be4f461fff53db12727cc45  usr/lib/sysctl.d/99-lcos-userns.conf
 ba49c29cc630b8b0e9cd3d0a66ee9858  usr/local/sbin/lcos-write-os-release
-74f2294a336b160cbfb7d239e518ec98  usr/share/doc/lcos-base/changelog.gz
+3879a994f53a9b96dac53b29b4cfe4f0  usr/share/doc/lcos-base/changelog.gz
 8ba62121c628fade9f6f1ae32463af96  usr/share/doc/lcos-base/copyright
 776cd7b3d6b91ff04930e6508e22b1fe  usr/share/lcos-base/print-applet-hidden.desktop

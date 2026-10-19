@@ -88,3 +88,7 @@ sane-airscan
 
 # Intel VA-API iHD (AMD already has mesa-va-drivers / radeonsi)
 intel-media-va-driver
+
+# NTFS tools (ntfsresize for Calamares/GParted shrinking Windows, ntfsfix);
+# only a Recommends of udisks2, so --apt-recommends false left it out
+ntfs-3g
