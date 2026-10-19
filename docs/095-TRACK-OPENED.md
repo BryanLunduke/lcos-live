@@ -38,3 +38,24 @@ No bake and no apt publish until Ted or the editor say go.
 - Kernel: LLK 7.2.6-lcos27 (PR #23, merge bb839085, tag 7.2.6-lcos27) replaced lcos25, same package names
   and kernel release 7.2.6-lunduke. The kernel package list is as in 0.9.4.
 - Not re-applied: the per-build kernel naming experiment (kernel tag after lcos25) and its recipe changes.
+
+## Package marks (review 1.0b U-1, 2026-10-18 CT)
+- Calamares `packages` (try_remove) runs `apt-get --purge remove <pkg>` and then
+  `apt-get --purge autoremove`, one package at a time. Removing `calamares` therefore
+  autoremoved everything only it pulled in. That was the installer stack, plus `fdisk`,
+  which was auto-marked because libkpmcore12 was its only reverse dependency.
+  Every install since 0.9.2 has shipped without fdisk.
+- Hook normal/0116-lcos-mark-manual marks these as manual:
+  - all Priority required/important packages (15 were auto on 095-06, fdisk among them);
+  - the direct Depends of xfce4 and network-manager-gnome (so removing a metapackage
+    no longer makes Remove Unused offer xfce4-panel);
+  - a short list of user tools.
+- The hook fails the bake if:
+  - the live image has anything autoremovable; or
+  - simulating the installer's removal would purge anything outside an
+    installer-stack allowlist (Calamares, Qt6/KF6, live-boot/config, kpmcore,
+    libpython3.x, libpwquality, etc.).
+- Simulated on 095-06:
+  - Calamares sequence before: 89 purged incl. fdisk; after: 88, no fdisk.
+  - Post-install autoremove: 0.
+- Existing installs: not changed by this hook (see review report, proposal for lcos-base).

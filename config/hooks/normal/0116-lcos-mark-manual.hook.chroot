@@ -1,0 +1,95 @@
+#!/bin/sh
+# LCOS 0.9.5 (U-1, editor 2026-10-18 CT): keep user tools out of autoremove.
+#
+# Calamares' packages module removes live-boot, live-config,
+# live-config-sysvinit and calamares from the installed target one at a time
+# and runs "apt-get --purge -y autoremove" after each one. Anything those
+# packages pulled in as an automatic dependency is purged at install time.
+# fdisk is only depended on by libkpmcore12 (Calamares' partitioner), so
+# 0.9.2-0.9.5-06 installs lost /usr/sbin/fdisk (seen in the 0.9.2 #123
+# install log). Packages from config/package-lists are already manual,
+# because live-build installs them with "apt-get install".
+#
+# This hook:
+#  1. marks every installed Priority required/important package manual
+#     (fdisk, man-db, procps, kmod, ...), the same as a debootstrap or
+#     Debian installer system;
+#  2. marks the direct dependencies of the xfce4 and network-manager-gnome
+#     metapackages manual, so removing one Xfce piece cannot make Updates'
+#     "Remove Unused Packages" offer the whole desktop;
+#  3. marks a short list of user-facing command-line tools manual;
+#  4. simulates the Calamares removal plus autoremove and fails the bake if
+#     anything outside the known installer-only stack would be removed.
+# Any error fails the bake.
+set -eu
+
+mark=""
+add() { mark="$mark $*"; }
+
+installed() {
+	[ "$(dpkg-query -W -f='${db:Status-Status}' "$1" 2>/dev/null || true)" = installed ]
+}
+
+# 1. Priority required/important.
+add $(dpkg-query -W -f='${db:Status-Status} ${Priority} ${Package}\n' |
+	awk '$1 == "installed" && ($2 == "required" || $2 == "important") { print $3 }')
+
+# 2. Direct dependencies of the desktop metapackages (first alternative).
+for meta in xfce4 network-manager-gnome; do
+	if ! installed "$meta"; then
+		echo "ERROR: metapackage $meta is not installed" >&2
+		exit 1
+	fi
+	add $(dpkg-query -W -f='${Depends}\n' "$meta" |
+		tr ',' '\n' | sed -e 's/|.*//' -e 's/(.*)//' -e 's/:any//' -e 's/[[:space:]]//g' |
+		grep -v '^$')
+done
+
+# 3. User-facing tools that only arrive as dependencies.
+for p in fdisk parted wget lsof psmisc pciutils x11-utils x11-xserver-utils \
+	xdg-utils python3 perl gpg bc bzip2 acl initramfs-tools; do
+	add "$p"
+done
+
+for p in $mark; do
+	if ! installed "$p"; then
+		echo "ERROR: $p is not installed; cannot mark it manual" >&2
+		exit 1
+	fi
+done
+# shellcheck disable=SC2086
+apt-mark manual $mark >/dev/null
+
+if [ -n "$(apt-mark showauto fdisk)" ]; then
+	echo "ERROR: fdisk is still marked automatically installed" >&2
+	exit 1
+fi
+echo "lcos-mark-manual: $(echo $mark | tr ' ' '\n' | sort -u | wc -l) packages marked manual"
+
+# 4. What Calamares' try_remove + autoremove will purge on an installed system.
+# The live image itself must have nothing to autoremove.
+if LC_ALL=C apt-get -s autoremove | grep -q '^Remv '; then
+	echo "ERROR: the live image has autoremovable packages:" >&2
+	LC_ALL=C apt-get -s autoremove | grep '^Remv ' >&2
+	exit 1
+fi
+removed=$(LC_ALL=C apt-get -s --purge --auto-remove remove \
+	live-boot live-config live-config-sysvinit calamares |
+	awk '$1 == "Purg" || $1 == "Remv" { print $2 }' | sort -u)
+echo "lcos-mark-manual: installer removal purges $(echo "$removed" | wc -l) packages:"
+echo "$removed" | tr '\n' ' '
+echo
+# Installer-only stack: Calamares, its partitioner (kpmcore), Qt6/KF6, the
+# live-boot initramfs scripts, and Calamares' Python and YAML libraries.
+allowed='^(live-boot|live-boot-initramfs-tools|live-config|live-config-sysvinit|calamares|libkpmcore[0-9]+|kio6|kded6|kwallet6|libkf6.*|libqt6.*|libqca-qt6-2|libpolkit-qt6-1-1|libpython3\.[0-9]+|libyaml-cpp[0-9.]+|libts0t64|libxcb-cursor0|libxcb-res0|libb2-1|libpwquality1|libpwquality-common|libcrack2)$'
+bad=$(echo "$removed" | grep -Ev "$allowed" || true)
+if [ -n "$bad" ]; then
+	echo "ERROR: removing the installer would also purge packages outside the installer stack:" >&2
+	echo "$bad" >&2
+	echo "Mark them manual in this hook, or extend the allowed list if they are installer-only." >&2
+	exit 1
+fi
+if ! echo "$removed" | grep -qx calamares; then
+	echo "ERROR: the removal simulation did not remove calamares" >&2
+	exit 1
+fi
