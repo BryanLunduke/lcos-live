@@ -1,0 +1,16 @@
+# LCOS (lcos-desktop-config 0.9.5-3): helpers.rc sets WebBrowser=brave, but
+# the stock helper (/usr/share/xfce4/helpers/brave.desktop) only looks for
+# brave or com.brave.Browser, and Brave Origin installs brave-origin, so
+# exo showed the "choose your preferred Web Browser" dialog instead.
+# /usr/local/share comes before /usr/share in XDG_DATA_DIRS, so this
+# same-named copy wins for new and existing users.
+[Desktop Entry]
+Version=1.0
+Icon=brave-origin
+Type=X-XFCE-Helper
+Name=Brave
+StartupNotify=true
+X-XFCE-Binaries=brave-origin;brave-origin-stable;brave;com.brave.Browser;
+X-XFCE-Category=WebBrowser
+X-XFCE-Commands=%B;
+X-XFCE-CommandsWithParameter=%B "%s";
