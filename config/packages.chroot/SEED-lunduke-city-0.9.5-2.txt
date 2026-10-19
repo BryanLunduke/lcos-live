@@ -1,0 +1,6 @@
+SEED lunduke-city 0.9.5-2 2026-10-18T22:32:32-05:00
+Replaces lunduke-city 0.9.5-1 (moved to superseded/). Pre-1.0 review fixes: outside opens (CLI, file manager, second launch) queued while any modal dialog is up via AppWindow::request_open(); Save As bound to its document; refuse with notice if the city changed while the Save dialog was open; app->hold() only in the primary instance so second launches no longer leave a hidden ~46 MB process.
+Source: BryanLunduke/LundukeCity PR #36, merge 59fc175c, tag v0.9.5-2 (tag object c94db055).
+No ISO bake / no apt publish.
+
+033906e8d89883fe5fa5de30bb15729bda77e1fd0b5e2cc0eaaa4338922f9414  lunduke-city_0.9.5-2_amd64.deb
