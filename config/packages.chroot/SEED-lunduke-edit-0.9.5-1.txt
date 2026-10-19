@@ -1,0 +1,6 @@
+SEED lunduke-edit 0.9.5-1 2026-10-18T21:35:18-05:00
+Replaces lunduke-edit 0.9.4-2 (moved to superseded/). Opening a nonexistent path creates a new document bound to it (PR #29).
+Source: BryanLunduke/lunduke-edit PR #29, merge 3524d50, tag v0.9.5-1 (tag object f3ed532).
+No ISO bake / no apt publish.
+
+15e397213a561aab270923b877e4f9e5f7abcce7cb3ecfa65cd509cc39f0a5c6  lunduke-edit_0.9.5-1_amd64.deb
