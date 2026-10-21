@@ -1,0 +1,6 @@
+SEED lunduke-about 0.9.6-1 2026-10-20T20:52:55-05:00
+Replaces lunduke-about 0.9.5-3 (removed from packages.chroot). Editor add-on via Ted: append "Neil Stevens", "Fischer", "cowprint" to the end of the Supporters list after naterthegreater (20 names).
+Source: BryanLunduke/LCOS-AboutThisComputer PR #32, merge 10628e4, tag v0.9.6-1 (tag object f861ee0).
+No ISO bake / no apt publish.
+
+232e926ba93d79133913a70e284c22c3aed8cefe0cf0293cdcae84c07e4fb07d  lunduke-about_0.9.6-1_amd64.deb
