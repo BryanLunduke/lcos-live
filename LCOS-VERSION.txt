@@ -1,3 +1,25 @@
+LCOS 0.9.6 recipe tree (git: BryanLunduke/lcos-live master)
+Opened 2026-10-20 (America/Chicago) from official 0.9.5.
+Working version: 0.9.6 - testing and critical-fixes-only release before 1.0 (2026-11-01).
+0.9.5 freeze point (last release):
+  ISO lcos-live-095-09.iso, SHA256 e0093900c59cdd37850dc300677b2d70dc4b3ee83770d4a11c4bc54e9f3612b1, 1525235712 bytes.
+  Tag lcos-0.9.5-release (tag object 1638e667) on 68ab9f0; hotfix branch lcos-0.9.5 = 68ab9f0.
+  Overlay live: lcosrepo1 master 365830b (0.9.5, signed; Release SHA256 7bb70cee6c11db433b585bf74d36e141cfb574c39428fe3e11a4d626974c1327).
+0.9.5 hotfixes go on branch lcos-0.9.5; master is 0.9.6.
+Identity/overlay track: 0.9.6
+Next bake filename: lcos-live-096-01.iso (not published until approved)
+0.9.5 package versions (carried into 0.9.6 until changed):
+  lcos-base 0.9.5-6, lcos-desktop-config 0.9.5-3, Updates 0.9.5-4, Paint 0.9.5-2, City 0.9.5-2,
+  About 0.9.5-3, Edit 0.9.5-1, kernel LLK 7.2.6-lcos28, backports firmware 20260916-1~bpo13+1.
+Approved 0.9.6 items (2026-10-20 CT):
+  - bootlogd cleanup
+  - VM graphics fixes, LCOS#152 and LCOS#153 (reproduce first)
+  - Edit cursor visibility on dark themes (lunduke-edit#28)
+  - this LCOS-VERSION.txt header update
+Autologin stays ON by default (editor's decision, 2026-10-20).
+Apt: do NOT publish from this open until approved. Official 0.9.5 overlay is live (lcosrepo1 365830b).
+
+===== 0.9.5 history below =====
 LCOS 0.9.5 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-10-16 (America/Chicago) from official 0.9.4 (/workspace/lcos-live-094, frozen).
 0.9.4 freeze point: tag lcos-0.9.4-release = 0cc29fbf (image-name lcos-live-094-05 as baked);
