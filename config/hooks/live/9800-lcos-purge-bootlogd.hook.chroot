@@ -1,0 +1,68 @@
+#!/bin/sh
+# LCOS 0.9.6: purge bootlogd and any other removed-but-not-purged package.
+#
+# bootlogd is Priority: required in Devuan, so debootstrap installs it, but it
+# Conflicts: plymouth. Installing plymouth from config/package-lists removes
+# it and leaves it in "rc" state (deinstall ok config-files): /etc/init.d/
+# bootlogd, stop-bootlogd, stop-bootlogd-single and their rcS.d/rc[2-5].d
+# links stay behind, and "dpkg -l" and the .packages manifest still list it.
+# Calamares copies the live squashfs, so every install carried that entry.
+# We keep plymouth and drop bootlogd: purge it here so the squashfs (live
+# session and installed systems) has no bootlogd dpkg entry at all. The
+# purge runs bootlogd's postrm, which removes the rc links with update-rc.d.
+#
+# Any other "rc" package is purged too (removing a package that is already
+# removed only deletes its leftover conffiles), and the bake fails if dpkg
+# still knows any package that is not installed.
+set -eu
+
+status() {
+	dpkg-query -W -f='${db:Status-Status}' "$1" 2>/dev/null || true
+}
+
+case "$(status bootlogd)" in
+	"" | not-installed)
+		echo "lcos-purge-bootlogd: no bootlogd dpkg entry"
+		;;
+	config-files)
+		echo "lcos-purge-bootlogd: purging bootlogd (rc after plymouth removed it)"
+		dpkg --purge bootlogd
+		;;
+	*)
+		echo "E: bootlogd is '$(status bootlogd)'; plymouth should have removed it (Conflicts: plymouth)" >&2
+		exit 1
+		;;
+esac
+
+rc=$(dpkg-query -W -f='${db:Status-Status} ${binary:Package}\n' |
+	awk '$1 == "config-files" { print $2 }')
+if [ -n "$rc" ]; then
+	echo "lcos-purge-bootlogd: purging other config-files packages: $(echo "$rc" | tr '\n' ' ')"
+	# shellcheck disable=SC2086
+	dpkg --purge $rc
+fi
+
+bad=$(dpkg-query -W -f='${db:Status-Abbrev} ${binary:Package}\n' |
+	awk '$1 != "ii" && $1 != "hi" && $1 != "un" && $1 != "pn"')
+if [ -n "$bad" ]; then
+	echo "E: dpkg entries that are not installed after 9800-lcos-purge-bootlogd:" >&2
+	echo "$bad" >&2
+	exit 1
+fi
+if [ -n "$(status bootlogd)" ] && [ "$(status bootlogd)" != not-installed ]; then
+	echo "E: bootlogd still has a dpkg entry" >&2
+	exit 1
+fi
+for f in /etc/init.d/bootlogd /etc/init.d/stop-bootlogd /etc/init.d/stop-bootlogd-single \
+	/etc/rc?.d/[SK][0-9][0-9]bootlogd /etc/rc?.d/[SK][0-9][0-9]stop-bootlogd \
+	/etc/rc?.d/[SK][0-9][0-9]stop-bootlogd-single; do
+	if [ -e "$f" ] || [ -L "$f" ]; then
+		echo "E: $f is still present after purging bootlogd" >&2
+		exit 1
+	fi
+done
+if ! [ "$(status plymouth)" = installed ]; then
+	echo "E: plymouth is not installed" >&2
+	exit 1
+fi
+echo "lcos-purge-bootlogd: no bootlogd entry; plymouth installed"
