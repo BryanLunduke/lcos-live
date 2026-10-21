@@ -1,0 +1,6 @@
+SEED lunduke-edit 0.9.6-1 2026-10-20T19:43:38-05:00
+Replaces lunduke-edit 0.9.5-1 (removed from packages.chroot). Text cursor stays dark (#1a1a1a) on the light text area with dark themes (lunduke-edit#28, PR #30).
+Source: BryanLunduke/lunduke-edit PR #30, merge 5951368, tag v0.9.6-1 (tag object 1e0dd40).
+No ISO bake / no apt publish.
+
+612a8b2587f8e94ffe2b484a462a4691f359f2129639de4168ec7ea29d044daf  lunduke-edit_0.9.6-1_amd64.deb
