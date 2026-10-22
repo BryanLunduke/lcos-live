@@ -1,0 +1,6 @@
+SEED lunduke-about 0.9.6-2 2026-10-22T09:59:17-05:00
+Replaces lunduke-about 0.9.6-1 (removed from packages.chroot). Editor add-on via Ted: append "KekPriestess of Kekistan", "john-okeefe" to the end of the Supporters list after cowprint (22 names).
+Source: BryanLunduke/LCOS-AboutThisComputer PR #33, merge c0a1163, tag v0.9.6-2 (tag object 6174565).
+No ISO bake / no apt publish.
+
+02843a34dea81ccc19ec180cbecc5939d9557b67387976f1287e3d4658ccf759  lunduke-about_0.9.6-2_amd64.deb
