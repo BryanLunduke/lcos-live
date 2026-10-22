@@ -1,0 +1,7 @@
+SEED lcos-updates 0.9.6-1 2026-10-22T14:53:39-05:00
+Replaces lcos-updates 0.9.5-4 (removed from packages.chroot). Version-only bump for the LCOS 0.9.6 track:
+kVersion, meson project version, build-deb.sh and debian/changelog 0.9.6-1. helper.cpp unchanged.
+Source: BryanLunduke/lcos-updates PR #30, squash 60ecfac, tag v0.9.6-1 (tag object 20591c2). Suite: 13 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+bdf94a5fc1780f8dd560336b6ddbe41560c20ebb959a108a173e38d7a277d14e  lcos-updates_0.9.6-1_amd64.deb
