@@ -1,16 +1,15 @@
 Package: lcos-base
-Version: 0.9.6-1
+Version: 0.9.6-2
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 188
+Installed-Size: 192
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g
-Recommends: libmtp-runtime
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime
 Replaces: base-files
-Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
- os-release / issue for LCOS 0.9.5 (excalibur), lcos-write-os-release,
+Description: LCOS 0.9.6 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 0.9.6 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
@@ -103,5 +102,9 @@ Description: LCOS 0.9.5 identity, GRUB drop-in, X/boot-order system config
  libmtp-common udev rule; only a libmtp9t64 Recommends, so images built
  with --apt-recommends false logged "mtp-probe" errors and missed MTP
  devices not in libmtp's list). Editor 2026-10-22. Identity stays 0.9.5.
+ 0.9.6-2: identity 0.9.6 (os-release, /usr/lib/os-release, issue,
+ issue.net, lcos-write-os-release). libmtp-runtime moves from Recommends
+ to Depends so upgraders get it (Updates installs with Recommends off).
+ Editor 2026-10-22.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
