@@ -89,6 +89,8 @@ libplymouth5
 # libcdio*, libavahi-glib1, psmisc. Still no samba/ksmbd server.
 gvfs
 gvfs-backends
+# Editor 2026-10-22: mtp-probe for libmtp udev rule (libmtp9 Recommends, skipped by --apt-recommends false)
+libmtp-runtime
 udisks2
 # #131 (0.9.3): exFAT tools (mkfs/fsck.exfat); kernel exfat.ko from LLK lcos20.
 exfatprogs
