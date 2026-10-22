@@ -1,11 +1,13 @@
 #!/bin/sh
 set -e
 # LOCKED 2026-08-20: Calamares. --debian-installer none.
-# Mirror pinned to FAU (not deb.devuan.org geo-RR) after download drops.
-MIRROR="http://ftp.fau.de/devuan/merged"
-# Build-time fetches use HTTPS to the same FAU mirror (plain HTTP to FAU is
-# blocked from the bake box since 2026-10-09; lcos-live-09-04 was built this way).
-# Image apt sources (--mirror-binary*) stay on the http pin above.
+# Image apt sources (--mirror-binary*, written to the installed
+# /etc/apt/sources.list) use Devuan's recommended default mirror,
+# deb.devuan.org over http (#163).
+MIRROR="http://deb.devuan.org/merged"
+# Build-time fetches stay pinned to FAU over HTTPS (deb.devuan.org geo-RR
+# dropped downloads during bakes; plain HTTP to FAU is blocked from the bake
+# box since 2026-10-09; lcos-live-09-04 was built this way).
 BUILD_MIRROR="https://ftp.fau.de/devuan/merged"
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 DSCRIPT="${HERE}/helpers/debootstrap-excalibur"

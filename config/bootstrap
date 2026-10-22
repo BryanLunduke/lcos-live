@@ -40,10 +40,10 @@ LB_PARENT_MIRROR_CHROOT="http://ftp.fau.de/devuan/merged"
 LB_PARENT_MIRROR_CHROOT_SECURITY="http://ftp.fau.de/devuan/merged"
 
 # Set parent mirror which ends up in the image
-LB_PARENT_MIRROR_BINARY="http://ftp.fau.de/devuan/merged"
+LB_PARENT_MIRROR_BINARY="http://deb.devuan.org/merged"
 
 # Set security parent mirror which ends up in the image
-LB_PARENT_MIRROR_BINARY_SECURITY="http://ftp.fau.de/devuan/merged"
+LB_PARENT_MIRROR_BINARY_SECURITY="http://deb.devuan.org/merged"
 
 # Set debian-installer parent mirror
 LB_PARENT_MIRROR_DEBIAN_INSTALLER="http://deb.devuan.org/merged"
@@ -58,10 +58,10 @@ LB_MIRROR_CHROOT="http://ftp.fau.de/devuan/merged"
 LB_MIRROR_CHROOT_SECURITY="http://ftp.fau.de/devuan/merged"
 
 # Set mirror which ends up in the image
-LB_MIRROR_BINARY="http://ftp.fau.de/devuan/merged"
+LB_MIRROR_BINARY="http://deb.devuan.org/merged"
 
 # Set security mirror which ends up in the image
-LB_MIRROR_BINARY_SECURITY="http://ftp.fau.de/devuan/merged"
+LB_MIRROR_BINARY_SECURITY="http://deb.devuan.org/merged"
 
 # Set debian-installer mirror
 LB_MIRROR_DEBIAN_INSTALLER="http://deb.devuan.org/merged"
