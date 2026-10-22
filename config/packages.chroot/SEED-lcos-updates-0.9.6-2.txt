@@ -1,0 +1,9 @@
+SEED lcos-updates 0.9.6-2 2026-10-22T15:10:46-05:00
+Replaces lcos-updates 0.9.6-1 (removed from packages.chroot). Use the app's own icon, org.lunduke.LcosUpdates
+(hicolor 32/48/128/256 PNGs shipped in the package), instead of stock system-software-update: window and About
+dialog (kIconName), .desktop Icon= and polkit policy icon_name. Comment-only fixes in window.hpp and meson.build.
+helper.cpp unchanged.
+Source: BryanLunduke/lcos-updates PR #31, squash 529a048, tag v0.9.6-2 (tag object 64323ad). Suite: 13 ok + 2 expected fail.
+No ISO bake / no apt publish.
+
+7cafe5e4d39a199bd76ced9e4cc1b7a36d89f5381199276d17826a1abde9f4f4  lcos-updates_0.9.6-2_amd64.deb
