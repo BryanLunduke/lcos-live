@@ -1,0 +1,6 @@
+SEED lunduke-about 0.9.6-3 2026-10-22T10:14:05-05:00
+Replaces lunduke-about 0.9.6-2 (removed from packages.chroot). Editor add-on via Ted: append "Brian Woodruff" to the end of the Supporters list after john-okeefe (23 names).
+Source: BryanLunduke/LCOS-AboutThisComputer PR #34, merge cce1afa, tag v0.9.6-3 (tag object 65a4051).
+No ISO bake / no apt publish.
+
+9d8023c93327d89b81a78d98f0407c33d8951c8c3390ef72dde0d1ec75eb94fa  lunduke-about_0.9.6-3_amd64.deb
