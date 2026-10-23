@@ -1,0 +1,6 @@
+SEED lunduke-about 0.9.6-4 2026-10-23T11:02:12-05:00
+Replaces lunduke-about 0.9.6-3 (removed from packages.chroot). Editor add-on via Ted: append "Richard Mead" to the end of the Supporters list after Brian Woodruff (24 names); the list now wraps past six lines, so the names scroll slowly upward like movie credits inside the same six-line area (window unchanged, 520x360), looping in from the bottom.
+Source: BryanLunduke/LCOS-AboutThisComputer PR #35, merge 5ad0c69, tag v0.9.6-4 (tag object a97981a).
+No ISO bake / no apt publish.
+
+c33bb7adb703e1f908bb0cf1b7078a3e5ce977a5ae0aa6d131fc674d91267de6  lunduke-about_0.9.6-4_amd64.deb
