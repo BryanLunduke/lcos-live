@@ -1,7 +1,16 @@
 # Solid background (sampled from the old 1920x1080 splash.png) instead of a
-# stretched desktop-image: with gfxmode=auto (#151) GRUB runs at the
-# firmware's mode (4:3, 16:10, 16:9 ...) and a stretched splash made the
-# round logo an oval.
+# stretched splash: with gfxmode=auto (#151) GRUB runs at the firmware's mode
+# (4:3, 16:10, 16:9 ...) and a stretched splash made the round logo an oval.
+#
+# desktop-image must still be set: GRUB 2.12's gfxmenu (view.c
+# init_background) always calls grub_video_bitmap_create_scaled() on the
+# desktop image, and with none it leaves "null src bitmap in
+# grub_video_bitmap_create_scaled" in grub_errno, which is printed with
+# "Press any key to continue..." when a menu entry is booted (UEFI).
+# background.png is a 16x16 solid #0d1b30 tile; stretching a solid colour
+# cannot distort anything. desktop-color stays as the same colour.
+desktop-image: "background.png"
+desktop-image-scale-method: "stretch"
 desktop-color: "#0d1b30"
 title-color: "#ffffff"
 title-font: "Unifont Regular 16"
