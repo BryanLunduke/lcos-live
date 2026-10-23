@@ -1,9 +1,9 @@
 Package: lcos-desktop-config
-Version: 0.9.6-1
+Version: 0.9.6-2
 Section: x11
 Priority: optional
 Architecture: all
-Installed-Size: 424
+Installed-Size: 432
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-branding (>= 0.7), lcos-theme-clearlooks (>= 0.7)
@@ -37,5 +37,11 @@ Description: LCOS XFCE defaults (xdg, skel, wallpaper, menus)
  install it instead of Xarchiver; Xarchiver keeps every other archive
  type. GDebi itself comes from lcos-base 0.9.6-3 (Depends gdebi).
  Editor 2026-10-23.
+ .
+ 0.9.6-2: Thunar's "Open Terminal Here" opens Cool Retro Term in that
+ folder instead of the home folder (#166). The Cool Retro Term
+ TerminalEmulator helper now runs /usr/bin/lcos-cool-retro-term, which
+ starts cool-retro-term with --workdir set to the directory it was
+ launched in (cool-retro-term ignores its starting directory without it).
  .
  Live-only installer bits are not included.

@@ -5,6 +5,6 @@ Name=Cool Retro Term
 Icon=cool-retro-term
 StartupNotify=true
 X-XFCE-Category=TerminalEmulator
-X-XFCE-Binaries=cool-retro-term;
+X-XFCE-Binaries=lcos-cool-retro-term;
 X-XFCE-Commands=%B;
 X-XFCE-CommandsWithParameter=%B -e %s;

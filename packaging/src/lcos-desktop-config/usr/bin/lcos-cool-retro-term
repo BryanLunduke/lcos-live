@@ -1,0 +1,27 @@
+#!/bin/sh
+# lcos-cool-retro-term (lcos-desktop-config): start Cool Retro Term in the
+# directory it was launched from. Cool Retro Term ignores its starting
+# directory and opens $HOME unless it gets --workdir, so Thunar's "Open
+# Terminal Here" (exo-open --working-directory DIR --launch TerminalEmulator)
+# landed in the home folder (LCOS #166). The Xfce TerminalEmulator helper
+# /usr/share/xfce4/helpers/cool-retro-term.desktop runs this wrapper.
+# --workdir goes first because cool-retro-term's -e takes every argument
+# after it.
+
+# --help/--version are only recognised as the first argument.
+case ${1-} in
+-h|--help|-v|--version) exec cool-retro-term "$@" ;;
+esac
+
+# Keep a --workdir the caller gave (before -e); cool-retro-term uses the first.
+for arg in "$@"; do
+	case $arg in
+	-e) break ;;
+	--workdir) exec cool-retro-term "$@" ;;
+	esac
+done
+
+# Fall back to the home folder if the current directory is gone.
+dir=$(pwd 2>/dev/null) || dir=
+[ -n "$dir" ] && [ -d "$dir" ] || dir=${HOME:-/}
+exec cool-retro-term --workdir "$dir" "$@"

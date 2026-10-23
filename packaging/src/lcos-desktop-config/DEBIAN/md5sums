@@ -25,6 +25,7 @@ efe86fe9f707d6bbcfc76cea56a146eb  etc/xdg/xfce4/panel/launcher-5/org.lunduke.Lun
 9a411121e73799bba5ba9163f8c2f2bb  etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 23c97732c1ede0566d1beeb00f9d01ac  etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 46c75c236e9405107198acf1bea9b878  etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+a6c055a26d37878ce982413beb7e7baa  usr/bin/lcos-cool-retro-term
 1840a9f7b6d4757c6a8982657d1b3b02  usr/local/bin/lcos-set-wallpaper
 5d7db597f1f260403219b7b03fc353b6  usr/local/share/applications/micropolis.desktop
 2dc078a492f058deb95e36a8c8b3d581  usr/local/share/applications/xfce4-about.desktop
@@ -34,7 +35,7 @@ ab401ce1969242f07f9e693ca34d41bf  usr/share/applications/xfce4-file-manager.desk
 a0ad452e8aa96d87297dfb5da61a9ee8  usr/share/applications/xfce4-terminal-emulator.desktop
 247b13b4685edb31b7af875e20a5c3cc  usr/share/applications/xfce4-web-browser.desktop
 6dfa38f524706408d2164d9c0af9052a  usr/share/desktop-directories/xfce-science.directory
-c662c41bac1f4694a90fb6965269cb3a  usr/share/doc/lcos-desktop-config/changelog.gz
+967be74e712d1197f0a1109716b78905  usr/share/doc/lcos-desktop-config/changelog.gz
 7536e82bc2eb72d295eeae9eedb62e52  usr/share/doc/lcos-desktop-config/copyright
-55a6d7f2acb36a9c4429591ff52d90b6  usr/share/xfce4/helpers/cool-retro-term.desktop
+18eb98b0a03e4b7a869037e844903357  usr/share/xfce4/helpers/cool-retro-term.desktop
 82193fb792ea743233468877be0d48bc  usr/share/xfce4/helpers/lunduke-edit.desktop
