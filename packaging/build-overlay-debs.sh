@@ -174,21 +174,18 @@ rm -rf "$SRC/lcos-branding"
 mkdir -p "$SRC/lcos-branding/DEBIAN"
 # backgrounds/lcos (LCOS stock + 4k wood + Flat Stock desk)
 copy_from_chroot "$SRC/lcos-branding" /usr/share/backgrounds/lcos/lcos-desktop-stock.jpg
-copy_from_chroot "$SRC/lcos-branding" /usr/share/backgrounds/lcos/lcos-desktop-stock.png
 copy_from_chroot "$SRC/lcos-branding" /usr/share/backgrounds/lcos/lcos-desktop-4k-wood.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/backgrounds/lcos/lcos-desktop-desk-coffee.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/backgrounds/lcos/lcos-desktop-desk-oak-map.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/backgrounds/lcos/lcos-desktop-synthwave.jpg
 # xfce4 backdrops copies
 copy_from_chroot "$SRC/lcos-branding" /usr/share/xfce4/backdrops/lcos-desktop-stock.jpg
-copy_from_chroot "$SRC/lcos-branding" /usr/share/xfce4/backdrops/lcos-desktop-stock.png
 copy_from_chroot "$SRC/lcos-branding" /usr/share/xfce4/backdrops/lcos-desktop-4k-wood.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/xfce4/backdrops/lcos-desktop-desk-coffee.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/xfce4/backdrops/lcos-desktop-desk-oak-map.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/xfce4/backdrops/lcos-desktop-synthwave.jpg
 # desktop-base (stock + extra old bw-720 because it is present + Flat Stock desk)
 copy_from_chroot "$SRC/lcos-branding" /usr/share/images/desktop-base/lcos-desktop-stock.jpg
-copy_from_chroot "$SRC/lcos-branding" /usr/share/images/desktop-base/lcos-desktop-stock.png
 copy_from_chroot "$SRC/lcos-branding" /usr/share/images/desktop-base/lcos-bw-720.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/images/desktop-base/lcos-desktop-desk-coffee.jpg
 copy_from_chroot "$SRC/lcos-branding" /usr/share/images/desktop-base/lcos-desktop-desk-oak-map.jpg
@@ -215,7 +212,7 @@ Provides: lcos-branding
 Replaces: lcos-branding (<< 0.4)
 Conflicts: lcos-branding (<< 0.4)
 Description: LCOS 0.4 artwork (0.2-locked wallpapers, splash, logos)
- Current 0.2-locked LCOS artwork: stock wallpaper (jpg/png), 4K wood
+ Current 0.2-locked LCOS artwork: stock wallpaper (jpg), 4K wood
  backdrop, GRUB splash (default / 1024x768 / 4K), and logos.
  Also ships the extra legacy desktop-base lcos-bw-720.jpg.
  Replaces old lcos-branding 1.0-2 / 0.2.0 (bw-720 + lcos32 only).

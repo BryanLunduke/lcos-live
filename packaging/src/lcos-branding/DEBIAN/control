@@ -1,19 +1,25 @@
 Package: lcos-branding
-Version: 0.9.4-1
+Version: 0.9.6-1
 Section: x11
 Priority: optional
 Architecture: all
-Installed-Size: 15960
+Installed-Size: 12264
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Provides: lcos-branding
 Replaces: lcos-branding (<< 0.7)
 Conflicts: lcos-branding (<< 0.7)
 Description: LCOS 0.9.4 artwork (wallpapers, splash, logos, Plymouth)
- LCOS 0.9.4 artwork: stock wallpaper (jpg/png), synthwave nebula-grid, 4K wood
+ LCOS 0.9.4 artwork: stock wallpaper (jpg), synthwave nebula-grid, 4K wood
  backdrop, GRUB splash (default / 1024x768 / 4K), logos, and the LCOS
  Plymouth boot theme (frames + Shutdown-1.png) plus the LightDM
  greeter/session setup helper (lcos-display-fix: .Xauthority seeding;
  no longer quits Plymouth, LightDM does). postinst sets Theme=lcos when
  plymouth is present.
  Replaces old lcos-branding 1.0-2 / 0.2.0 (bw-720 + lcos32 only).
+ .
+ 0.9.6-1: drops the duplicate lcos-desktop-stock.png (same 1792x1008
+ picture as lcos-desktop-stock.jpg; nothing referenced it) from
+ /usr/share/backgrounds/lcos, /usr/share/xfce4/backdrops and
+ /usr/share/images/desktop-base. lcos-desktop-stock.jpg stays the stock
+ wallpaper. Editor 2026-10-23.

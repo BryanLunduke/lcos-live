@@ -2,6 +2,8 @@
 # Seed LCOS stock wallpaper on first login / late VirtualBox monitors.
 # Never overwrite a user-chosen wallpaper. Must never fail the graphical session.
 # LCOS #84: old versions forced stock for LINGER seconds on every login.
+# 0.9.6-3: runs only until the first seeded login (marker), and never stamps a
+# monitor whose workspaces already hold a user-chosen image (reboot reset bug).
 WALL=/usr/share/backgrounds/lcos/lcos-desktop-stock.jpg
 SKEL=/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 # Tight cap: only to catch monitors that appear after xfdesktop starts.
@@ -77,15 +79,24 @@ set_color1() {
 }
 
 stamp_backdrop() {
-	# Stamp one backdrop base (monitor/workspace) with stock + centered style.
+	# Stamp one backdrop base (monitor/workspace) with stock + zoomed style (image-style 5).
 	_base=$1
 	[ -n "$_base" ] || return 0
 	set_prop "$_base/last-image" string "$WALL"
 	set_prop "$_base/image-path" string "$WALL"
-	set_prop "$_base/image-style" int 1
+	set_prop "$_base/image-style" int 5
 	set_prop "$_base/image-show" bool true
 	set_prop "$_base/color-style" int 0
 	set_color1 "$_base/color1"
+}
+
+base_has_custom() {
+	_b=$1
+	for _ip in $(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep "^$_b/workspace[0-9][0-9]*/\(last-image\|image-path\)$"); do
+		_iv=$(xfconf-query -c xfce4-desktop -p "$_ip" 2>/dev/null) || _iv=""
+		is_unset_or_stock "$_iv" || return 0
+	done
+	return 1
 }
 
 # Apply stock only where image is unset/empty/still stock. Never touch custom paths.
@@ -117,9 +128,18 @@ apply_wallpaper_safe() {
 	bases=$(printf '%s\n' "$props" | sed -n 's|^\(/backdrop/screen[0-9][0-9]*/[^/][^/]*\).*|\1|p' | sort -u)
 	printf '%s\n' "$bases" | while IFS= read -r base; do
 		[ -n "$base" ] || continue
+		# A user choice made in Desktop Settings lives only under
+		# $base/workspaceN/last-image (xfdesktop 4.20 never writes
+		# $base/last-image), so leave the whole monitor alone if any of its
+		# workspaces already holds a non-stock image.
+		if base_has_custom "$base"; then
+			continue
+		fi
 		if ! xfconf-query -c xfce4-desktop -p "$base/last-image" >/dev/null 2>&1; then
 			stamp_backdrop "$base"
-			stamp_backdrop "$base/workspace0"
+			if ! xfconf-query -c xfce4-desktop -p "$base/workspace0/last-image" >/dev/null 2>&1; then
+				stamp_backdrop "$base/workspace0"
+			fi
 			continue
 		fi
 		val=$(xfconf-query -c xfce4-desktop -p "$base/last-image" 2>/dev/null) || val=""
@@ -160,8 +180,10 @@ done
 adopt_dbus || true
 seed_user_xml
 
+# Already seeded on an earlier login: nothing to do. The user owns the
+# wallpaper from here on (#84 and the 0.9.6 reboot reset).
 if [ -f "$MARKER" ]; then
-	LINGER=8
+	exit 0
 fi
 
 elapsed=0

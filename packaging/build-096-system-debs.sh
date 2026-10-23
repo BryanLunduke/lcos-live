@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build the LCOS 0.9.6 system overlay debs (unsigned). lcos-base 0.9.6-3 (Depends gdebi, editor 2026-10-23; 0.9.6-2: identity 0.9.6; Depends libmtp-runtime, editor 2026-10-22; otherwise as 0.9.5-6: printing; fdisk, NeverAutoRemove; os-prober on, ntfs-3g, Assume-Yes cleanup) and lcos-desktop-config 0.9.6-2 (Open Terminal Here opens Cool Retro Term in the folder via /usr/bin/lcos-cool-retro-term, #166; 0.9.6-1: .deb default gdebi.desktop; 0.9.5-3: tap-to-click; Brave Origin web-browser helper), others stay 0.9.4-1
+# Build the LCOS 0.9.6 system overlay debs (unsigned). lcos-base 0.9.6-3 (Depends gdebi, editor 2026-10-23; 0.9.6-2: identity 0.9.6; Depends libmtp-runtime, editor 2026-10-22; otherwise as 0.9.5-6: printing; fdisk, NeverAutoRemove; os-prober on, ntfs-3g, Assume-Yes cleanup), lcos-branding 0.9.6-1 (duplicate lcos-desktop-stock.png dropped, editor 2026-10-23) and lcos-desktop-config 0.9.6-3 (custom wallpaper survives reboot, stock style zoomed, editor 2026-10-23; 0.9.6-2: Open Terminal Here opens Cool Retro Term in the folder via /usr/bin/lcos-cool-retro-term, #166; 0.9.6-1: .deb default gdebi.desktop; 0.9.5-3: tap-to-click; Brave Origin web-browser helper), others stay 0.9.4-1
 # (lcos-base Depends and pin as 0.9.3-3, incl. xdg-desktop-portal-gtk #135; lcos-desktop-config content as 0.9.3-2):
 # lcos-base (identity 0.9.6; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
@@ -44,8 +44,9 @@ build() {
 
 VER=0.9.4-1
 BASEVER=0.9.6-3
-DCVER=0.9.6-2
-ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
+DCVER=0.9.6-3
+BRVER=0.9.6-1
+ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
 SEED=
 while [ $# -gt 0 ]; do
