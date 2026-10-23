@@ -10,3 +10,5 @@ text/x-readme=org.lunduke.LundukeEdit.desktop
 application/x-zerosize=org.lunduke.LundukeEdit.desktop
 x-scheme-handler/http=brave-origin.desktop
 x-scheme-handler/https=brave-origin.desktop
+application/vnd.debian.binary-package=gdebi.desktop
+application/x-deb=gdebi.desktop

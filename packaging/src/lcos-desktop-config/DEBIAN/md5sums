@@ -15,7 +15,7 @@ efe86fe9f707d6bbcfc76cea56a146eb  etc/skel/.config/xfce4/panel/launcher-5/org.lu
 3d556eb72b1885690601683b1cba4ddd  etc/xdg/lcos/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
 daa5a3fad560568af8db3c1174241554  etc/xdg/lcos/xfce4/xfconf/xfce-perchannel-xml/xfce4-screensaver.xml
 ba2357cefc8c3dc9fa0ddacbc3c26ca8  etc/xdg/menus/xfce-applications.menu
-6e06d7dbeab7c3f3a7509fa0039efb62  etc/xdg/mimeapps.list
+6c1fe4f35306ce6f299d26fc2026def8  etc/xdg/mimeapps.list
 105cddf512db88b2aa84458f04b06273  etc/xdg/xfce4/helpers.rc
 9a411121e73799bba5ba9163f8c2f2bb  etc/xdg/xfce4/panel/default.xml
 44119ece66029e0d8a3df7cc6b48afc5  etc/xdg/xfce4/panel/launcher-3/brave-origin.desktop
@@ -34,7 +34,7 @@ ab401ce1969242f07f9e693ca34d41bf  usr/share/applications/xfce4-file-manager.desk
 a0ad452e8aa96d87297dfb5da61a9ee8  usr/share/applications/xfce4-terminal-emulator.desktop
 247b13b4685edb31b7af875e20a5c3cc  usr/share/applications/xfce4-web-browser.desktop
 6dfa38f524706408d2164d9c0af9052a  usr/share/desktop-directories/xfce-science.directory
-3bbc889e59f95aaf5c08159f0b8776ce  usr/share/doc/lcos-desktop-config/changelog.gz
+c662c41bac1f4694a90fb6965269cb3a  usr/share/doc/lcos-desktop-config/changelog.gz
 7536e82bc2eb72d295eeae9eedb62e52  usr/share/doc/lcos-desktop-config/copyright
 55a6d7f2acb36a9c4429591ff52d90b6  usr/share/xfce4/helpers/cool-retro-term.desktop
 82193fb792ea743233468877be0d48bc  usr/share/xfce4/helpers/lunduke-edit.desktop
