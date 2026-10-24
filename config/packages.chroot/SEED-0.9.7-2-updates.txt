@@ -1,0 +1,3 @@
+LCOS 0.9.7 Updates seed (2026-10-24 CT; editor-approved layout fixes UL-1 to UL-13; layout only, no logic or feature changes; tag v0.9.7-2 pushed on GitHub), replacing Updates 0.9.7-1 (moved to superseded/).
+PR/tag: lcos-updates #33 915e725 (v0.9.7-2). Depends and file list identical to 0.9.7-1. meson test: 13 OK, 2 expected fail.
+73d718a4bcb28a30ec1fc046a817b9cfc92e815ceb76f21efd7ec341d62ebef3  lcos-updates_0.9.7-2_amd64.deb
