@@ -1,3 +1,23 @@
+LCOS 0.9.7 recipe tree (git: BryanLunduke/lcos-live master)
+Opened 2026-10-24 (America/Chicago) from official 0.9.6.
+Working version: 0.9.7 - testing and critical-bug-fix-only release before 1.0 (2026-11-01).
+0.9.6 freeze point (last release):
+  ISO lcos-live-096-03.iso, SHA256 d2f1b4c7c43a9da737d56ff702d63f7e60a106787fbc81ab8c4aaa3b92527ade, 1526923264 bytes.
+  Tag lcos-0.9.6-release (tag object 150b1175) on 9ed43eb; hotfix branch lcos-0.9.6 = 9ed43eb.
+  Overlay live: lcosrepo1 master 9150658 (0.9.6, signed; Release SHA256 8f09050e5b1aa65bc2c21c8d90820ba7b489d7a94dee875843b210951b2fc2a6).
+0.9.6 hotfixes go on branch lcos-0.9.6; master is 0.9.7.
+Identity/overlay track: 0.9.7
+Next bake filename: lcos-live-097-01.iso (not published until approved)
+0.9.6 package versions (official 0.9.6):
+  lcos-base 0.9.6-3, lcos-desktop-config 0.9.6-3, lcos-branding 0.9.6-1, Updates 0.9.6-2, About 0.9.6-4,
+  Edit 0.9.6-1, Paint 0.9.5-2, City 0.9.5-2, kernel LLK 7.2.6-lcos28, other system debs 0.9.4-1.
+0.9.7 version bump (editor 2026-10-24, "move everything to 0.9.7"; version only, no functional changes):
+  lcos-base, lcos-desktop-config, lcos-branding 0.9.7-1; Edit, Paint, City, About, Updates 0.9.7-1.
+  Kernel LLK keeps its own versioning (7.2.6-lcos28, unchanged). Other system debs stay 0.9.4-1.
+Autologin stays ON by default; screensaver and lock stay OFF by default.
+Apt: do NOT publish from this open until approved. Official 0.9.6 overlay is live (lcosrepo1 9150658).
+
+===== 0.9.6 history below =====
 LCOS 0.9.6 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-10-20 (America/Chicago) from official 0.9.5.
 Working version: 0.9.6 - testing and critical-fixes-only release before 1.0 (2026-11-01).
