@@ -1,0 +1,7 @@
+LCOS 0.9.7 app seeds (2026-10-24 CT; editor: "move everything to 0.9.7"; version + changelog only, no functional changes; tags v0.9.7-1 pushed on GitHub), replacing Edit 0.9.6-1, Paint 0.9.5-2, City 0.9.5-2, About 0.9.6-4 and Updates 0.9.6-2 (moved to superseded/).
+PRs/tags: lunduke-edit #31 cb442c7d, lunduke-paint #35 74785bc8, LundukeCity #37 8d75546f, LCOS-AboutThisComputer #36 c79f57cf, lcos-updates #32 c9e349fe.
+767b77ebe42e73da0625d20570ad6d98859e02155e0e54273a445e4302c4077f  lunduke-edit_0.9.7-1_amd64.deb
+1ef762ba9f4c2e9deacdece7e1fbea536353d8b8b152aff2872879a3eae59eb4  lunduke-paint_0.9.7-1_amd64.deb
+3575fe3170eaeea286e18879fb9f332e05e6ed7567cd9c0484dd52b8ae462bfa  lunduke-city_0.9.7-1_amd64.deb
+7669ffaf0ec8413d59885a241b69716f52df8e0b0a1692b35488235640b3730a  lunduke-about_0.9.7-1_amd64.deb
+df30ad21fd54aedcbde21eb7b128fd55916bdd79889358f5cc2acf5e505a53e5  lcos-updates_0.9.7-1_amd64.deb
