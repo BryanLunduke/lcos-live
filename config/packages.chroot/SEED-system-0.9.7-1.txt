@@ -1,0 +1,11 @@
+SEED LCOS 0.9.7-1 system debs 2026-10-24 (built by packaging/build-097-system-debs.sh --seed --only lcos-branding,lcos-base,lcos-desktop-config)
+Editor 2026-10-24: "Let's move everything to 0.9.7." Version bump only, no functional changes.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 0.9.6-3, lcos-desktop-config 0.9.6-3, lcos-branding 0.9.6-1 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base: identity 0.9.7 (os-release, /usr/lib/os-release, issue, issue.net, lcos-write-os-release, copyright Source, description); Depends unchanged from 0.9.6-3.
+lcos-desktop-config, lcos-branding: control, changelog, copyright Source only.
+lcos-appimage-thumbnailer, lcos-archive-keyring, lcos-desktop, lcos-theme-clearlooks, lcos-zork stay 0.9.4-1. Kernel LLK 7.2.6-lcos28 unchanged.
+
+977fdef3b916e8504ad3c48c0de421707d96c26cd3b62f519be2b98c3e671d6d  lcos-base_0.9.7-1_all.deb
+2e7a1f22abdfc9ccf8fd12187cdfb89f1e9a653611031b8f2945edfc566c23be  lcos-branding_0.9.7-1_all.deb
+82ea553ab988a2c6ea33854275a75576c9e59af016a994016a84fd9fdbe9d959  lcos-desktop-config_0.9.7-1_all.deb

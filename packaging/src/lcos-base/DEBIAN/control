@@ -1,5 +1,5 @@
 Package: lcos-base
-Version: 0.9.6-3
+Version: 0.9.7-1
 Section: admin
 Priority: optional
 Architecture: all
@@ -8,8 +8,8 @@ Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi
 Replaces: base-files
-Description: LCOS 0.9.6 identity, GRUB drop-in, X/boot-order system config
- os-release / issue for LCOS 0.9.6 (excalibur), lcos-write-os-release,
+Description: LCOS 0.9.7 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 0.9.7 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2).
@@ -109,5 +109,8 @@ Description: LCOS 0.9.6 identity, GRUB drop-in, X/boot-order system config
  0.9.6-3: Depends gdebi (graphical .deb installer; lcos-desktop-config
  0.9.6-1 makes it the default for .deb files) so upgraders get the 0.9.6
  ISO addition (Updates installs with Recommends off). Editor 2026-10-23.
+ 0.9.7-1: version bump for LCOS 0.9.7; identity 0.9.7 (os-release,
+ /usr/lib/os-release, issue, issue.net, lcos-write-os-release). Depends
+ unchanged from 0.9.6-3. Editor 2026-10-24.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
