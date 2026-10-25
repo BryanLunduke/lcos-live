@@ -1,0 +1,6 @@
+SEED lunduke-about 0.9.7-2 2026-10-25T11:00:56-05:00
+Replaces lunduke-about 0.9.7-1 (moved to superseded/, kept in history). Editor add-ons via Ted: append "Simon the Floppy Disk Whisperer", "Danzo & Delzo" and "Lurksmore" to the end of the Supporters list after Richard Mead (27 names). No other changes.
+Source: BryanLunduke/LCOS-AboutThisComputer PRs #37 (062c457), #38 (4b69920), #39 (fc3e9b8); version bump PR #40, merge 9c36941, tag v0.9.7-2 (tag object 70fe33a).
+No ISO bake / no apt publish.
+
+622ead9ade8abe400ba5c831ebb45db513e5bc6da0f6c96351d563ee66bc8627  lunduke-about_0.9.7-2_amd64.deb
