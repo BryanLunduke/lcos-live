@@ -1,0 +1,13 @@
+# LCOS 0.9.7 (A1, laptop survey): firmware-sof-signed 2026.09.1-1 (Debian
+# forky/sid, unmodified signed binary) ships as a local deb in
+# config/packages.chroot/ so Panther Lake (ptl) and Wildcat Lake (wcl) audio
+# DSPs find intel/sof-ipc4/{ptl,wcl}/sof-*.ri (LLK 7.2.6 asks for them).
+# live-build's local file:/packages repo only gets the default priority 500,
+# and lcos.pref pins excalibur at 700, so without this stanza apt would keep
+# excalibur's 2025.01-1. Build-time only (.chroot): installed systems keep
+# 2026.09.1-1 because apt never downgrades below priority 1000.
+# See config/packages.chroot/SEED-sof-firmware-2026.09.1.txt.
+
+Package: firmware-sof-signed
+Pin: version 2026.09.1-1
+Pin-Priority: 990

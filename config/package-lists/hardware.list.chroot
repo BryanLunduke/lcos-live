@@ -61,9 +61,12 @@ firmware-linux
 firmware-linux-nonfree
 
 # Ubuntu 26.10 hardware gap (0.9.4, editor 2026-10-15): firmware refresh +
-# device services. firmware-sof-signed stays at excalibur 2025.01-1 (no
-# newer build in excalibur-backports). iwlwifi / intel-* pinned to
-# backports 20260810 via lcos-amd-backports.pref.
+# device services. iwlwifi / intel-* pinned to backports 20260810 via
+# lcos-amd-backports.pref.
+# 0.9.7 (A1): firmware-sof-signed 2026.09.1-1 (Debian forky, unmodified)
+# is a local deb in config/packages.chroot/ for Panther Lake / Wildcat Lake
+# audio; config/archives/lcos-sof-firmware.pref.chroot makes it win over
+# excalibur 2025.01-1. See SEED-sof-firmware-2026.09.1.txt.
 firmware-iwlwifi
 firmware-intel-sound
 firmware-intel-graphics

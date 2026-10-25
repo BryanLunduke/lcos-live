@@ -1,0 +1,149 @@
+SEED firmware-sof-signed 2026.09.1-1 2026-10-24 CT (LCOS 0.9.7, laptop survey item A1; editor approved 2026-10-24 8:17 PM CT)
+Purpose: Intel Panther Lake (ptl) and Wildcat Lake (wcl) laptop audio. LLK 7.2.6 (sound/soc/sof/intel/pci-ptl.c) asks for
+intel/sof-ipc4/{ptl,wcl}/sof-{ptl,wcl}.ri, intel/sof-ipc4-lib/{ptl,wcl}/ and the sof-ptl-*/sof-wcl-* topologies in
+intel/sof-ipc4-tplg/. excalibur's 2025.01-1 has none of them, so those laptops had no internal speakers or mics.
+Also new: nvl, nvl-s (Nova Lake) firmware, more arl/lnl/mtl topologies, SDCA/UAOL/HDMI generic topologies.
+
+Package: unmodified Debian binary, version string unchanged (2026.09.1-1 sorts above 2025.01-1; no ~lcos suffix
+because the file is byte-for-byte Debian's signed-index deb, nothing rebuilt). Section non-free-firmware/kernel.
+Source URL: http://deb.debian.org/debian/pool/non-free-firmware/f/firmware-sof/firmware-sof-signed_2026.09.1-1_all.deb
+Size 3242312 bytes, MD5 39eee7367570fe53397d77e3f82fa812.
+Verification: Debian forky InRelease (Date Sat, 24 Oct 2026 20:12:33 UTC) checked with sqv and gpg against
+/usr/share/keyrings/debian-archive-keyring.pgp: good signatures, Debian 12 and Debian 13 archive automatic signing keys
+(primary 04B54C3CDCA79751B16BC6B5225629DF75B188BD, B8B80B5B623EAB6AD8775C45B7C5D7D6350947F8) -> InRelease SHA256 for
+non-free-firmware/binary-all/Packages.xz (by-hash e1b3513b744a7a0c2ad51e1ca526a52588ecdf8eb493c4e8826244b1aeb2d904) matched
+-> Packages stanza SHA256 d58a00a5... matched the downloaded deb. Devuan merged mirrors pass Debian's pool through
+unchanged (pkgmaster.devuan.org timed out from the build box, so the Debian archive was the verified source).
+The 2025.01-1 deb it replaces was verified the same way via trixie's InRelease
+(3a74157bd612ef9e408b80f09e751274698ecefef77c3e302a6462728cc90797, 1377152 bytes); its 435 md5sums match the files
+installed in the lcos-live-096-03 chroot.
+License: debian/copyright identical in both versions; Intel/NXP SOF Firmware Release Licence permits redistribution in
+binary form with the notice kept (copyright file ships in the deb). Not free software (that is why it is non-free-firmware).
+
+Control: identical to 2025.01-1 except Version and Installed-Size (35000 -> 56849). Only Pre-Depends: dpkg (>= 1.17.14);
+no Depends/Recommends/Conflicts/Replaces/Provides. Maintainer scripts byte-identical (dir_to_symlink sof-ace-tplg).
+Files: 551 -> 768 entries (435 -> 613 files, 62 -> 79 symlinks). 0 removed, 0 renamed/type changes, 0 symlink retargets,
+every 2025.01-1 path still exists; 333 files identical, 217 entries added, 102 files changed.
+
+Pinning: lcos.pref pins excalibur at 700 and live-build's local file:/packages repo only gets 500, so
+config/archives/lcos-sof-firmware.pref.chroot pins version 2026.09.1-1 at 990 (build only). Without it apt kept 2025.01-1
+(checked with apt-cache policy). Installed systems get it from filesystem.squashfs (Calamares unpackfs); apt never
+downgrades it (installed 2026.09.1-1 prio 100 vs excalibur 2025.01-1 at 700 < 1000; apt-get -s upgrade: 0 upgraded).
+Not in any apt repo LCOS points at, so apt install --reinstall cannot fetch it until the LCOS overlay
+(lcos.lunduke.com/apt excalibur main) carries it. Not published there (no apt changes in this seed).
+lcos-amd-backports.pref (.chroot/.binary/lcos-base) left byte-identical; its "stays at 2025.01-1" comment is now
+historical (changing it would need an lcos-base bump).
+
+Tested: dpkg-deb -c/-x and -e on both debs; apt-cache policy, apt-get -s install and a real apt-get install of
+2026.09.1-1 over 2025.01-1 inside an overlayfs copy of the lcos-live-096-03 chroot (lower dir untouched), local repo
+built the live-build way (apt-ftparchive, Origin config/packages.chroot): 1 upgraded, 0 removed, dpkg --verify clean,
+dpkg --audit clean, lcos-base trigger ran. Not tested: ISO build, live boot, any real Intel laptop audio.
+
+Regression risk (what older Intel laptops load differently). LLK 7.2.6 defaults CNL/ICL/TGL/ADL/RPL to IPC3, which uses
+intel/sof/ and intel/sof-tplg/: 0 files changed there. IPC4 platforms that DO get new bits: Meteor Lake, Arrow Lake
+(arl and arl-s community link to sof-mtl.ri), Arrow Lake-S signed, Lunar Lake. The tgl/adl/rpl ipc4 topologies below
+only matter if someone forces snd_sof_pci ipc_type=1. Changed files (102):
+  intel/sof-ipc4-lib/lnl/community/drc.llext
+  intel/sof-ipc4-lib/lnl/intel-signed/drc.llext
+  intel/sof-ipc4-tplg/sof-adl-cs42l43-l0-cs35l56-l23.tplg
+  intel/sof-ipc4-tplg/sof-adl-rt711-4ch.tplg
+  intel/sof-ipc4-tplg/sof-adl-rt711-l0-rt1308-l12-rt715-l3.tplg
+  intel/sof-ipc4-tplg/sof-adl-rt711-l0-rt1316-l12-rt714-l3.tplg
+  intel/sof-ipc4-tplg/sof-adl-rt711-l0-rt1316-l13-rt714-l2.tplg
+  intel/sof-ipc4-tplg/sof-arl-cs42l43-l0-cs35l56-l2.tplg
+  intel/sof-ipc4-tplg/sof-arl-cs42l43-l0-cs35l56-l23.tplg
+  intel/sof-ipc4-tplg/sof-arl-cs42l43-l0.tplg
+  intel/sof-ipc4-tplg/sof-arl-cs42l43-l2-cs35l56-l3.tplg
+  intel/sof-ipc4-tplg/sof-arl-cs42l43-l2.tplg
+  intel/sof-ipc4-tplg/sof-arl-rt722-l0_rt1320-l2.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace1-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace1-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace1-idisp-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace1-idisp-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace3-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace3-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace3-idisp-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-ace3-idisp-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-cavs25-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-cavs25-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-cavs25-idisp-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-cavs25-idisp-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-idisp-2ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-idisp-4ch.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic-idisp.tplg
+  intel/sof-ipc4-tplg/sof-hda-generic.tplg
+  intel/sof-ipc4-tplg/sof-lnl-cs42l43-l0-2ch.tplg
+  intel/sof-ipc4-tplg/sof-lnl-cs42l43-l0-4ch.tplg
+  intel/sof-ipc4-tplg/sof-lnl-cs42l43-l0-cs35l56-l23.tplg
+  intel/sof-ipc4-tplg/sof-lnl-cs42l43-l0-cs35l56-l3-2ch.tplg
+  intel/sof-ipc4-tplg/sof-lnl-cs42l43-l0-cs35l56-l3.tplg
+  intel/sof-ipc4-tplg/sof-lnl-cs42l43-l0.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt1318-l12-rt714-l0.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt711-4ch.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt711-l0-rt1316-l23-rt714-l1.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt712-l2-rt1320-l1.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt712-l2-rt1712-l3.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt713-l0-rt1318-l1-2ch.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt713-l2-rt1320-l13.tplg
+  intel/sof-ipc4-tplg/sof-lnl-rt722-l0.tplg
+  intel/sof-ipc4-tplg/sof-mtl-cs35l56-l01-fb8.tplg
+  intel/sof-ipc4-tplg/sof-mtl-cs42l43-l0-cs35l56-l12.tplg
+  intel/sof-ipc4-tplg/sof-mtl-cs42l43-l0-cs35l56-l23.tplg
+  intel/sof-ipc4-tplg/sof-mtl-cs42l43-l0.tplg
+  intel/sof-ipc4-tplg/sof-mtl-cs42l43-l3-cs35l56-l01-spkagg.tplg
+  intel/sof-ipc4-tplg/sof-mtl-es83x6-ssp1-hdmi-ssp02.tplg
+  intel/sof-ipc4-tplg/sof-mtl-es83x6-ssp1.tplg
+  intel/sof-ipc4-tplg/sof-mtl-hdmi-ssp02.tplg
+  intel/sof-ipc4-tplg/sof-mtl-max98357a-rt5682-google-aec.tplg
+  intel/sof-ipc4-tplg/sof-mtl-max98357a-rt5682-ssp2-ssp0-2ch-pdm1-google-aec.tplg
+  intel/sof-ipc4-tplg/sof-mtl-max98357a-rt5682-ssp2-ssp0-2ch-pdm1.tplg
+  intel/sof-ipc4-tplg/sof-mtl-max98357a-rt5682-ssp2-ssp0-google-aec.tplg
+  intel/sof-ipc4-tplg/sof-mtl-max98357a-rt5682-ssp2-ssp0.tplg
+  intel/sof-ipc4-tplg/sof-mtl-max98357a-rt5682.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt1019-rt5682.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt1318-l12-rt714-l0.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt5650-dts-google-aec.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt5650-dts.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt5650.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt711-4ch.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt711-l0-rt1316-l23-rt714-l1.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt711-l0-rt1316-l3-2ch.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt711-l0-rt1316-l3-4ch.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt711-l0-rt1316-l3.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt712-l0-2ch.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt712-l0-4ch.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt712-l0-rt1712-l3.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt712-l0.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt712-vb-l0.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt713-l0-rt1316-l12-rt1713-l3.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt713-l0-rt1316-l12.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt713-l0-rt1318-l1-rt1713-l3.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt713-l0-rt1318-l12-rt1713-l3.tplg
+  intel/sof-ipc4-tplg/sof-mtl-rt722-l0.tplg
+  intel/sof-ipc4-tplg/sof-mtl-sdw-cs42l42-l0-max98363-l2.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt712-l2-rt1320-l1.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt713-l2-rt1320-l13.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt721-4ch.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt721.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt722-192k.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt722-4ch.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt722-96k.tplg
+  intel/sof-ipc4-tplg/sof-ptl-rt722.tplg
+  intel/sof-ipc4-tplg/sof-rpl-cs42l43-l0.tplg
+  intel/sof-ipc4-tplg/sof-tgl-cs35l56-l01-fb8.tplg
+  intel/sof-ipc4-tplg/sof-tgl-cs42l43-l3-cs35l56-l01.tplg
+  intel/sof-ipc4-tplg/sof-tgl-rt711-rt1308-4ch.tplg
+  intel/sof-ipc4-tplg/sof-tgl-rt711-rt1308-rt715.tplg
+  intel/sof-ipc4-tplg/sof-tgl-rt711-rt1316-rt714.tplg
+  intel/sof-ipc4-tplg/sof-tgl-rt712.tplg
+  intel/sof-ipc4-tplg/sof-tgl-rt715-rt711-rt1308-mono.tplg
+  intel/sof-ipc4/arl-s/intel-signed/sof-arl-s.ri
+  intel/sof-ipc4/lnl/community/sof-lnl.ri
+  intel/sof-ipc4/lnl/intel-signed/sof-lnl.ri
+  intel/sof-ipc4/mtl/community/sof-mtl.ri
+  intel/sof-ipc4/mtl/intel-signed/sof-mtl.ri
+  usr/share/doc/firmware-sof-signed/changelog.Debian.gz
+
+d58a00a54522982318dd515fd8b864c0001c8ee01d0a9c6ffe519b7975d135ec  firmware-sof-signed_2026.09.1-1_all.deb
