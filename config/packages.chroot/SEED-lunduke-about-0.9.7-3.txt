@@ -1,0 +1,6 @@
+SEED lunduke-about 0.9.7-3 2026-10-26T09:37:18-05:00
+Replaces lunduke-about 0.9.7-2 (moved to superseded/, kept in history). Editor add-ons via Ted: append "MacroPheliac" and "ClarkP57" to the end of the Supporters list after Lurksmore (29 names). No other changes.
+Source: BryanLunduke/LCOS-AboutThisComputer PRs #41 (1b0ca1e), #42 (8ff5af0); version bump PR #43, merge d8814db, tag v0.9.7-3 (tag object 93b1dea).
+No ISO bake / no apt publish.
+
+96ef380d07d5d0e5923c88fe805b4c5b57957174726d5cf75a931eb1ec67ba01  lunduke-about_0.9.7-3_amd64.deb
