@@ -1,3 +1,24 @@
+LCOS 1.0.0 recipe tree (git: BryanLunduke/lcos-live master)
+Opened 2026-10-27 (America/Chicago) from official 0.9.7.
+Working version: 1.0.0 - LCOS 1.0 release, ships 2026-11-01.
+0.9.7 freeze point (last release):
+  ISO lcos-live-097-02.iso, SHA256 5d327546de8481672cfcfd2e327681c1298557dcec1a43e8c7e5daa1f2c6e8ea, 1532952576 bytes.
+  Tag lcos-0.9.7-release (tag object 8915bcc) on 71c4902; hotfix branch lcos-0.9.7 = 71c4902.
+  Overlay live: lcosrepo1 master f3b29f0 (0.9.7, signed; Release SHA256 8bb674e98a61bc3722cd5123b01a00a8d70d503d488a5db68feeb29b13977609).
+0.9.7 hotfixes go on branch lcos-0.9.7; master is 1.0.0.
+Identity/overlay track: 1.0.0
+Next bake filename: lcos-live-100-01.iso (not published until approved)
+0.9.7 package versions (official 0.9.7):
+  lcos-base 0.9.7-1, lcos-desktop-config 0.9.7-1, lcos-branding 0.9.7-1, Updates 0.9.7-2, About 0.9.7-3,
+  Edit 0.9.7-1, Paint 0.9.7-1, City 0.9.7-1, firmware-sof-signed 2026.09.1-1, kernel LLK 7.2.6-lcos28, other system debs 0.9.4-1.
+1.0.0 version bump (editor 2026-10-27, "bump the version number to 1.0.0 for everything"):
+  lcos-base, lcos-desktop-config, lcos-branding 1.0.0-1; Edit, Paint, City, About, Updates 1.0.0-1
+  (About 1.0.0-1 also carries the editor's Supporters additions: Barble Bapkins 10th, six names appended; 36 names).
+  Kernel LLK keeps its own versioning (7.2.6-lcos28, unchanged). Other system debs stay 0.9.4-1 (editor 2026-10-27: skip for now).
+Autologin stays ON by default; screensaver and lock stay OFF by default.
+Apt: do NOT publish from this open until approved. Official 0.9.7 overlay is live (lcosrepo1 f3b29f0).
+
+===== 0.9.7 history below =====
 LCOS 0.9.7 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-10-24 (America/Chicago) from official 0.9.6.
 Working version: 0.9.7 - testing and critical-bug-fix-only release before 1.0 (2026-11-01).
