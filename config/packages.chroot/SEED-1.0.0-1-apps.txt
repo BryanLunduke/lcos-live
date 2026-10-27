@@ -1,0 +1,8 @@
+LCOS 1.0.0 app seeds (2026-10-27 CT; editor: "bump the version number to 1.0.0 for everything"; version + changelog only, plus the About Supporters list update; tags v1.0.0-1 pushed on GitHub), replacing Edit 0.9.7-1, Paint 0.9.7-1, City 0.9.7-1, About 0.9.7-3 and Updates 0.9.7-2 (moved to superseded/).
+About 1.0.0-1 Supporters: 36 names (appended deano186, Johnnydollar2, CTG, local_Dave, Mikkel Meinike, Darko Kernytsky; Barble Bapkins inserted as entry 10), LCOS-AboutThisComputer #44 (11b9c88).
+PRs/tags: lunduke-edit #32 75ff4150, lunduke-paint #36 8073eaec, LundukeCity #38 867e1c3e, LCOS-AboutThisComputer #45 06f8b4f3, lcos-updates #34 7e0a66b4.
+e81040d91c03fbd03682b8ea37a6dcb939a5e843ea0a646524c09c7fd3ffd3c7  lunduke-edit_1.0.0-1_amd64.deb
+3d9181c624f3355d2ca0d9b55662965033c6e78e96ebaa1cb59ed63ee0673858  lunduke-paint_1.0.0-1_amd64.deb
+7afe3b115a8e4e9714877196653557ec854d563ada5e808302c5485312b4a25a  lunduke-city_1.0.0-1_amd64.deb
+78a68a1920b843de53d40d065c5e6d42b8c0932667684acdd0a49897a9fc0398  lunduke-about_1.0.0-1_amd64.deb
+7e6b980f6320f4ae6b4f93eb9899903bea7500143b6450cd908d4f401e44e0e1  lcos-updates_1.0.0-1_amd64.deb
