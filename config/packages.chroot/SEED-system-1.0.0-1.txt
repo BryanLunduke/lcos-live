@@ -1,0 +1,11 @@
+SEED LCOS 1.0.0-1 system debs 2026-10-27 (built by packaging/build-100-system-debs.sh --seed --only lcos-branding,lcos-base,lcos-desktop-config)
+Editor 2026-10-27: "Let's bump the version number to 1.0.0 for everything." Version bump only, no functional changes.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 0.9.7-1, lcos-desktop-config 0.9.7-1, lcos-branding 0.9.7-1 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base: identity 1.0.0 (os-release, /usr/lib/os-release, issue, issue.net, lcos-write-os-release, copyright Source, description); Depends unchanged from 0.9.7-1.
+lcos-desktop-config, lcos-branding: control, changelog, copyright Source only.
+lcos-appimage-thumbnailer, lcos-archive-keyring, lcos-desktop, lcos-theme-clearlooks, lcos-zork stay 0.9.4-1 (editor 2026-10-27: skip for now). Kernel LLK 7.2.6-lcos28 unchanged.
+
+cb0b7f5faa61fcf281d69b78c48fef2f2fb59cfcd2df2b205e3d7638c1369339  lcos-base_1.0.0-1_all.deb
+c5d0f4119e08e4a5be3636d54fde80229e45deb6726fecfda1d54c507d7df0c5  lcos-branding_1.0.0-1_all.deb
+e15db721eeffcdb27154d48c4a8fe824adb3f41df976c4aede2db2cfde3edc3c  lcos-desktop-config_1.0.0-1_all.deb
