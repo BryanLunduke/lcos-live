@@ -92,6 +92,11 @@ sane-airscan
 # Intel VA-API iHD (AMD already has mesa-va-drivers / radeonsi)
 intel-media-va-driver
 
+# USB device listing (#176, editor 2026-10-27): lsusb. pciutils (lspci) and
+# dmidecode were already in the image; libusb-1.0-0 and libeudev1 (libudev1)
+# are too, so this adds only usbutils 1:018-2 (~0.3 MB installed).
+usbutils
+
 # NTFS tools (ntfsresize for Calamares/GParted shrinking Windows, ntfsfix);
 # only a Recommends of udisks2, so --apt-recommends false left it out
 ntfs-3g

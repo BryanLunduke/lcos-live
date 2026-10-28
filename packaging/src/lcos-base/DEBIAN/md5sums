@@ -16,6 +16,6 @@ d5e1de685581aae4ecb11b8589530ae2  etc/os-release
 d5e1de685581aae4ecb11b8589530ae2  usr/lib/os-release
 0675b4543be4f461fff53db12727cc45  usr/lib/sysctl.d/99-lcos-userns.conf
 d8ed6e24e66a5a2a70aff81f6c719f6b  usr/local/sbin/lcos-write-os-release
-3d8d61ce55fce0be29cfebdf2d635093  usr/share/doc/lcos-base/changelog.gz
+0ab28f524cf9f7c6c890ca53208aeed0  usr/share/doc/lcos-base/changelog.gz
 c22b22158178e0d08235a1364012cc57  usr/share/doc/lcos-base/copyright
 776cd7b3d6b91ff04930e6508e22b1fe  usr/share/lcos-base/print-applet-hidden.desktop
