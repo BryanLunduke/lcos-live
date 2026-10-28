@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build the LCOS 1.0.0 system overlay debs (unsigned). lcos-base, lcos-branding and lcos-desktop-config 1.0.0-1 (version bump for the 1.0.0 track, editor 2026-10-27; lcos-base identity 1.0.0; content otherwise as lcos-base, lcos-branding, lcos-desktop-config 0.9.7-1), others stay 0.9.4-1
+# Build the LCOS 1.0.0 system overlay debs (unsigned). lcos-base 1.0.0-2 (Depends usbutils, #176, editor 2026-10-27), lcos-branding and lcos-desktop-config 1.0.0-1 (version bump for the 1.0.0 track, editor 2026-10-27; lcos-base identity 1.0.0; content otherwise as lcos-base, lcos-branding, lcos-desktop-config 0.9.7-1), others stay 0.9.4-1
 # (lcos-base Depends and pin as 0.9.3-3, incl. xdg-desktop-portal-gtk #135; lcos-desktop-config content as 0.9.3-2):
 # lcos-base (identity 1.0.0; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
@@ -43,7 +43,7 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=1.0.0-1
+BASEVER=1.0.0-2
 DCVER=1.0.0-1
 BRVER=1.0.0-1
 ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }

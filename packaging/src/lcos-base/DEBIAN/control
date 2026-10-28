@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 1.0.0-1
+Version: 1.0.0-2
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 192
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils
 Replaces: base-files
 Description: LCOS 1.0.0 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 1.0.0 (excalibur), lcos-write-os-release,
@@ -115,5 +115,8 @@ Description: LCOS 1.0.0 identity, GRUB drop-in, X/boot-order system config
  1.0.0-1: version bump for LCOS 1.0.0; identity 1.0.0 (os-release,
  /usr/lib/os-release, issue, issue.net, lcos-write-os-release). Depends
  unchanged from 0.9.7-1. Editor 2026-10-27.
+ 1.0.0-2: Depends usbutils (lsusb, #176) so upgraders get the 1.0.0
+ ISO addition (Updates installs with Recommends off). Identity stays
+ 1.0.0. Editor 2026-10-27.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
