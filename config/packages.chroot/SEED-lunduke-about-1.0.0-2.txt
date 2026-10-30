@@ -1,0 +1,7 @@
+SEED lunduke-about 1.0.0-2 2026-10-30T09:52:14-05:00
+Replaces lunduke-about 1.0.0-1 (moved to superseded/, kept in history). Editor add-ons via Ted: Supporters list 53 names (36 in 1.0.0-1). Appended after Darko Kernytsky: Dstahlback, Brad Lavis, William Nichols II, Juan M/Oldplay, cckaiser, Erik Blaire, The Jake; then Ray Trautman, Logan R., Spencer Siemer, Randall McPherson, Phil Allen, Doug Devine, Greg Saltis, Chuck&Rose, Tony Dip, Leslie K Skidmore II. No other changes.
+Source: BryanLunduke/LCOS-AboutThisComputer PRs #46 (1523cbe), #47 (5c06a2c); version bump PR #48, merge 78079ad, tag v1.0.0-2 (tag object 832d81b).
+Built from 78079ad with packaging/build-deb.sh (meson tests 4/4 OK).
+No ISO bake / no apt publish.
+
+d1bdf25b1fe660de45e4b7b7daff17242c84acaa2f7dd34f343c232047f60648  lunduke-about_1.0.0-2_amd64.deb
