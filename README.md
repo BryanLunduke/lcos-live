@@ -1,20 +1,19 @@
-# LCOS live-build recipe (0.9.3)
+# LCOS live-build recipe (1.0.0)
 
-> **0.9.3 track (2026-10-11):** this repo's `master` is the 0.9.3 recipe (working
-> tree `/workspace/lcos-live-093/`). Official 0.9.2 (`lcos-live-092-02`, overlay
-> lcosrepo1 0bd3bfbc) is frozen on branch **`lcos-0.9.2`** (= `b68d9fe6`, hotfixes
-> only; tag `lcos-0.9.2-release` = `b68d9fe6`; `/workspace/lcos-live-092` tracks it).
-> 0.9.1 stays frozen on `lcos-0.9.1`, 0.9 on `lcos-0.9`, 0.8 on `lcos-0.8`. Next bake:
-> **`lcos-live-093-01.iso`**. See `docs/093-TRACK-OPENED.md`.
-> App debs 0.9.3-1 are seeded
-> (`config/packages.chroot/SEED-0.9.3-1-apps.txt`).
-> The 0.9.2, 0.9.1, 0.9 and 0.8 notes below are kept for history.
+> **1.0.0 track (opened 2026-10-27):** this repo's `master` is the LCOS 1.0.0
+> recipe (LCOS 1.0 ships 2026-11-01). Official 0.9.7 (`lcos-live-097-02`, overlay
+> lcosrepo1 f3b29f0) is frozen on branch **`lcos-0.9.7`** (= `71c4902`, hotfixes
+> only; tag `lcos-0.9.7-release`). Next test bake: **`lcos-live-100-02.iso`**.
+> Current versions and seeds: `LCOS-VERSION.txt`, `config/packages.chroot/SHA256SUMS`
+> and the `config/packages.chroot/SEED-*.txt` notes (apps 1.0.0-1, About 1.0.0-2,
+> lcos-base 1.0.0-2, LLK 7.2.6-lcos28).
+> The 0.9.x and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,
 XFCE, Calamares, and a thin signed LCOS apt overlay. No systemd. No Refracta.
 No debian-installer. No AI.
 
-Tree: `/workspace/lcos-live-08/` (0.8 recipe). Branched from frozen 0.7
+*History (0.8 open, 2026-09-28):* Tree: `/workspace/lcos-live-08/` (0.8 recipe). Branched from frozen 0.7
 (`/workspace/lcos-live-07/`, last ISO `lcos-live-07-08.iso`, SHA256
 `c27376f042e3b3153899636b3ffc0eaa9cf44dbe31c8cf56393e78d0a0816cde`,
 1409286144 bytes; tag `lcos-live-07-08`). Prior official 0.6:
@@ -30,11 +29,12 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
 ## Locked stack
 
 - Suite: Devuan `excalibur` (never the moving `stable` alias)
-- Mirror: pinned in `auto/config` (FAU; not `deb.devuan.org` geo-RR)
+- Mirror: set in `auto/config`. Build-time fetches are pinned to FAU over HTTPS;
+  the installed system's apt sources use `deb.devuan.org` (#163)
 - Init: sysvinit (`--initsystem sysvinit`, `sysvinit-core`, `live-config-sysvinit`)
 - Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.2.6-lunduke`);
   live-build `--linux-packages none` + `kernel-lunduke.list.chroot`. Seeded
-  7.2.6-lcos8 debs carried from 0.7 until a newer LLK is handed over. Bake
+  7.2.6-lcos28 debs (see `config/packages.chroot/SEED-llk-7.2.6-lcos28.txt`). Bake
   override: `helpers/binary_linux-image` — see `helpers/README-LLK-BAKE.md`.
 - Display: XLibre (vendored debs in `config/packages.chroot/` / overlay).
   Not Xorg, not Wayland. Do **not** point users at `xlibre-deb.github.io`.
@@ -48,11 +48,9 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
 - Browser: Brave Origin from Brave’s apt (seed archives). Not vendored into
   the LCOS overlay.
 - Paint: **Lunduke Paint** only (`lunduke-paint`). No mtPaint.
-  *(Paint **0.7-1** still seeded — waiting on Phil for 0.8.)*
-- Text editor: **Lunduke Edit** (`lunduke-edit` 0.7-5). Mousepad removed. XFCE Preferred Applications TextEditor + mime defaults point at Edit.
+- Text editor: **Lunduke Edit** (`lunduke-edit`). Mousepad removed. XFCE Preferred Applications TextEditor + mime defaults point at Edit.
 - Updates UI: **Check for updates…** (`lcos-updates`). Manual only — no
   background auto-update, no PackageKit.
-  *(Updates **0.7-1** still seeded — waiting on Phil for 0.8.)*
 - AppImage icons: **tumbler** + `lcos-appimage-thumbnailer` (`.DirIcon` →
   Thunar / xfdesktop). No menu integration.
 
@@ -65,7 +63,7 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
   `--force-confold` so branding/plymouth conffile order does not hang the build.
 - Installer art: Calamares welcome `lcos-05-ideals.png`; progress slideshow
   `lcos-05-slide-01`…`06` (680×360, top-anchored, no sidebands). Asset
-  filenames kept; Calamares `version` / `shortVersion` are **0.8**.
+  filenames kept; Calamares `version` / `shortVersion` are **1.0.0**.
 
 ## Apt overlay
 
@@ -95,12 +93,12 @@ Host `live-build` only documents `--mode debian`. This recipe uses
 ## ISO names
 
 Sequential: `lcos-live-VV-BB.iso` where `VV` is the version without the dot
-(`08` = 0.8) and `BB` is the build number. Do not use `notes/` or
+(`08` = 0.8, `097` = 0.9.7, `100` = 1.0.0) and `BB` is the build number. Do not use `notes/` or
 `grubtest`-style names.
 
 Private test uploads: `BryanLunduke/lcos-testing` Release assets.
 
-## Current 0.8 seed highlights (apps still 0.7 track)
+## 0.8 seed highlights (history)
 
 - Overlay identity packages **0.7-1** (base, branding, desktop, desktop-config,
   clearlooks, archive-keyring, appimage-thumbnailer, zork)
@@ -120,18 +118,15 @@ Private test uploads: `BryanLunduke/lcos-testing` Release assets.
 Chloe owns ISO/image builds. Do not bake unless Ted says go.
 
 ```
-cd /workspace/lcos-live-08
+cd <lcos-live checkout on master>
 lb config
 sudo lb build
 ```
 
-Log typically: `/workspace/lcos-live-08/bake.log` (or as Chloe records for
-that run).
+Log: as Chloe records for that run.
 
-Seeded overlay/app debs remain **0.7** until Phil lands 0.8. Do **not**
-publish apt from this 0.8 open; public overlay stays signed 0.7
-(`lcosrepo1` `53439b7`). See `docs/08-TRACK-OPENED.md` and
-`config/packages.chroot/WAITING_ON_PHIL-0.8-apps.txt`.
+Do **not** publish apt from the 1.0.0 track until approved; the public overlay
+is the signed 0.9.7 tree (`lcosrepo1` `f3b29f0`). See `LCOS-VERSION.txt`.
 
 ## Roles (quick)
 
