@@ -7,7 +7,7 @@ Working version: 1.0.0 - LCOS 1.0 release, ships 2026-11-01.
   Overlay live: lcosrepo1 master f3b29f0 (0.9.7, signed; Release SHA256 8bb674e98a61bc3722cd5123b01a00a8d70d503d488a5db68feeb29b13977609).
 0.9.7 hotfixes go on branch lcos-0.9.7; master is 1.0.0.
 Identity/overlay track: 1.0.0
-Next bake filename: lcos-live-100-01.iso (not published until approved)
+Next bake filename: lcos-live-100-02.iso (test bake; not published until approved)
 0.9.7 package versions (official 0.9.7):
   lcos-base 0.9.7-1, lcos-desktop-config 0.9.7-1, lcos-branding 0.9.7-1, Updates 0.9.7-2, About 0.9.7-3,
   Edit 0.9.7-1, Paint 0.9.7-1, City 0.9.7-1, firmware-sof-signed 2026.09.1-1, kernel LLK 7.2.6-lcos28, other system debs 0.9.4-1.
@@ -16,7 +16,14 @@ Next bake filename: lcos-live-100-01.iso (not published until approved)
   (About 1.0.0-1 also carries the editor's Supporters additions: Barble Bapkins 10th, six names appended; 36 names).
   Kernel LLK keeps its own versioning (7.2.6-lcos28, unchanged). Other system debs stay 0.9.4-1 (editor 2026-10-27: skip for now).
 1.0.0 additions:
-  #176 (editor 2026-10-27): usbutils (lsusb) on the ISO (hardware.list.chroot) and lcos-base 1.0.0-2 Depends usbutils for upgraders.
+  #176 (editor 2026-10-27): usbutils (lsusb) on the ISO (hardware.list.chroot) and lcos-base 1.0.0-2 Depends usbutils for upgraders
+    (lcos-live PR #3, merge 03ad984).
+  Build fix (lcos-live PR #4, merge 884d3c2): build-time config/apt/apt.conf keeps live-build from aborting on HTTP 500 from
+    plain-http deb.devuan.org; build-time only, the shipped ISO's apt sources are unchanged.
+  About 1.0.0-2 (editor 2026-10-30): Supporters list 53 names (About PRs #46, #47; bump PR #48, merge 78079ad, tag v1.0.0-2);
+    see config/packages.chroot/SEED-lunduke-about-1.0.0-2.txt.
+Next test bake lcos-live-100-02 carries: About 1.0.0-2 (53 supporters), lcos-base 1.0.0-2 (Depends usbutils, #176),
+  usbutils in hardware.list.chroot, and the PR #4 apt.conf build fix. Not baked yet (Chloe bakes).
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 0.9.7 overlay is live (lcosrepo1 f3b29f0).
 
