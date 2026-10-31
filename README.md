@@ -3,9 +3,9 @@
 > **1.0.0 track (opened 2026-10-27):** this repo's `master` is the LCOS 1.0.0
 > recipe (LCOS 1.0 ships 2026-11-01). Official 0.9.7 (`lcos-live-097-02`, overlay
 > lcosrepo1 f3b29f0) is frozen on branch **`lcos-0.9.7`** (= `71c4902`, hotfixes
-> only; tag `lcos-0.9.7-release`). Next test bake: **`lcos-live-100-02.iso`**.
+> only; tag `lcos-0.9.7-release`). Next test bake: **`lcos-live-100-03.iso`**.
 > Current versions and seeds: `LCOS-VERSION.txt`, `config/packages.chroot/SHA256SUMS`
-> and the `config/packages.chroot/SEED-*.txt` notes (apps 1.0.0-1, About 1.0.0-2,
+> and the `config/packages.chroot/SEED-*.txt` notes (apps 1.0.0-1, About 1.0.0-3,
 > lcos-base 1.0.0-2, LLK 7.2.6-lcos28).
 > The 0.9.x and 0.8 notes below are kept for history.
 

@@ -7,7 +7,7 @@ Working version: 1.0.0 - LCOS 1.0 release, ships 2026-11-01.
   Overlay live: lcosrepo1 master f3b29f0 (0.9.7, signed; Release SHA256 8bb674e98a61bc3722cd5123b01a00a8d70d503d488a5db68feeb29b13977609).
 0.9.7 hotfixes go on branch lcos-0.9.7; master is 1.0.0.
 Identity/overlay track: 1.0.0
-Next bake filename: lcos-live-100-02.iso (test bake; not published until approved)
+Next bake filename: lcos-live-100-03.iso (test bake; not published until approved)
 0.9.7 package versions (official 0.9.7):
   lcos-base 0.9.7-1, lcos-desktop-config 0.9.7-1, lcos-branding 0.9.7-1, Updates 0.9.7-2, About 0.9.7-3,
   Edit 0.9.7-1, Paint 0.9.7-1, City 0.9.7-1, firmware-sof-signed 2026.09.1-1, kernel LLK 7.2.6-lcos28, other system debs 0.9.4-1.
@@ -22,8 +22,13 @@ Next bake filename: lcos-live-100-02.iso (test bake; not published until approve
     plain-http deb.devuan.org; build-time only, the shipped ISO's apt sources are unchanged.
   About 1.0.0-2 (editor 2026-10-30): Supporters list 53 names (About PRs #46, #47; bump PR #48, merge 78079ad, tag v1.0.0-2);
     see config/packages.chroot/SEED-lunduke-about-1.0.0-2.txt.
-Next test bake lcos-live-100-02 carries: About 1.0.0-2 (53 supporters), lcos-base 1.0.0-2 (Depends usbutils, #176),
-  usbutils in hardware.list.chroot, and the PR #4 apt.conf build fix. Not baked yet (Chloe bakes).
+  About 1.0.0-3 (editor 2026-10-30): Supporters list 58 names (Christian Inci 7th; Oddbrother, Friedrich H. Boettger,
+    Peter K Evans, Eric R Monson appended; About PRs #49, #50, #51; bump PR #52, merge e926044, tag v1.0.0-3);
+    see config/packages.chroot/SEED-lunduke-about-1.0.0-3.txt.
+Test bake lcos-live-100-02 (history): baked from lcos-live eff49e0 (About 1.0.0-2, 53 supporters; lcos-base 1.0.0-2,
+  usbutils, PR #4 apt.conf build fix) and QA'd.
+Next test bake lcos-live-100-03 carries: About 1.0.0-3 (58 supporters); everything else as in 100-02 (lcos-base 1.0.0-2
+  Depends usbutils #176, usbutils in hardware.list.chroot, PR #4 apt.conf build fix). Not baked yet (Chloe bakes).
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 0.9.7 overlay is live (lcosrepo1 f3b29f0).
 
