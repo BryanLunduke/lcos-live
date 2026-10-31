@@ -1,0 +1,7 @@
+SEED lunduke-about 1.0.0-3 2026-10-30T22:31:20-05:00
+Replaces lunduke-about 1.0.0-2 (moved to superseded/, kept in history). Editor add-ons via Ted: Supporters list 58 names (53 in 1.0.0-2). Christian Inci inserted as the 7th name (after Mike Beasley); appended after Leslie K Skidmore II: Oddbrother, Friedrich H. Boettger, Peter K Evans, Eric R Monson. No other changes.
+Source: BryanLunduke/LCOS-AboutThisComputer PRs #49 (merge abe56a2), #50 (76df962), #51 (125e785); version bump PR #52, merge e926044, tag v1.0.0-3 (tag object ac15c2f).
+Built from e926044 with packaging/build-deb.sh (meson tests 4/4 OK).
+No ISO bake / no apt publish.
+
+e7adbb70ffd02c16dabc7b7cd18903ba53fa54f47663e74c5bf64ec40ad234d7  lunduke-about_1.0.0-3_amd64.deb
