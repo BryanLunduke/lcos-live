@@ -1,0 +1,7 @@
+SEED lunduke-about 1.0.0-5 2026-10-31T23:08:06-05:00
+Replaces lunduke-about 1.0.0-4 (moved to superseded/, kept in history). Editor add-ons via Ted: Supporters list 72 names (70 in 1.0.0-4). Appended after Anton Schenker: GuessEye, WhiteWave; SkibidiOhio67 stays the 37th name. No other changes.
+Source: BryanLunduke/LCOS-AboutThisComputer PR #60 (merge 943aa8b); version bump PR #61, merge 6afb835, tag v1.0.0-5 (tag object bb935f8).
+Built from 6afb835 with packaging/build-deb.sh (meson tests 4/4 OK).
+No ISO bake / no apt publish.
+
+ee724149ef0320aed669e356ea89740f42e8a38131a5451171e2682824fa322b  lunduke-about_1.0.0-5_amd64.deb
