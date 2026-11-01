@@ -1,0 +1,7 @@
+SEED lunduke-about 1.0.0-4 2026-10-31T23:13:20-04:00
+Replaces lunduke-about 1.0.0-3 (moved to superseded/, kept in history). Editor add-ons via Ted: Supporters list 70 names (58 in 1.0.0-3). Appended after Eric R Monson: b1tpunk, K. Gibson, David Hover, RWDraper, Jason T, Shelby Roth, wlp3, Alexander Akilov, Shaunn Ersch, Roger Austin, Anton Schenker; SkibidiOhio67 inserted as the 37th name (between Mikkel Meinike and Darko Kernytsky). No other changes.
+Source: BryanLunduke/LCOS-AboutThisComputer PRs #53 (merge 757f83f), #54 (af6ec61), #55 (80ac816), #56 (06a1542), #57 (d96dec9), #58 (d344d3c); version bump PR #59, merge 2c149e9, tag v1.0.0-4 (tag object a633877).
+Built from 2c149e9 with packaging/build-deb.sh (meson tests 4/4 OK).
+No ISO bake / no apt publish.
+
+768dd7f8ed2dce04cef8eed4b64c3bb07aa6cdd43dc19e3e1d4fc8f1714ead9b  lunduke-about_1.0.0-4_amd64.deb
