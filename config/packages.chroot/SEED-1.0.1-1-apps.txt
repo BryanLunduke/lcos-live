@@ -1,0 +1,8 @@
+LCOS 1.0.1 app seeds (2026-11-02 CT; editor: "start work on LCOS 1.0.1. Move to that version."; version + changelog only; tags v1.0.1-1 pushed on GitHub), replacing Edit 1.0.0-1, Paint 1.0.0-1, City 1.0.0-1, About 1.0.0-5 and Updates 1.0.0-1 (moved to superseded/). Testing only: no ISO bake, no apt publish.
+PRs/merges: lunduke-edit #33 bc2873b3, lunduke-paint #37 91e845b0, LundukeCity #39 26d84d8c, LCOS-AboutThisComputer #62 db7e4324, lcos-updates #35 2ef50895.
+Depends and file lists identical to the replaced debs. All test suites pass (Edit behavior suite needs cpulimit on the build box).
+6bd697f0fe531a7842aaddee7f0d7abbf79237a2101f3577dc25025a12a8a7ca  lunduke-edit_1.0.1-1_amd64.deb
+305a40833212d9c669490f1b494af6602b1a4bfec1c7bafc1fd42d48c22bad34  lunduke-paint_1.0.1-1_amd64.deb
+c2b7a42406a0db101ac371d13767c64572bfef2348a3f5f8f62673d0523656ad  lunduke-city_1.0.1-1_amd64.deb
+fca4bb440ae67dff0ea15a7af00cb3a88e2b1bc7a34dc166e872239c4e9cee3c  lunduke-about_1.0.1-1_amd64.deb
+baaf2881c6269360defb3bff724daeced6bd58671f23b9423c9d437c782f41d6  lcos-updates_1.0.1-1_amd64.deb
