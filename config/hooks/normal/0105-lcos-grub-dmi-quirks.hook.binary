@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+# LCOS 1.0.1: append ${lcos_quirks} to every live-boot kernel line in the UEFI
+# GRUB menu. config/bootloaders/grub-pc/config.cfg (sourced at the top of
+# grub.cfg) sets lcos_quirks from SMBIOS: "xe.enable_panel_replay=0" on the
+# Dell XPS 13 DX13260 (SKU 0E53, Panel Replay judder), empty everywhere else.
+# GRUB expands the variable at boot, like findiso=${iso_path}. BIOS boot uses
+# isolinux and is not changed (the XPS 13 is UEFI-only).
+CFG=binary/boot/grub/grub.cfg
+if [ ! -f "${CFG}" ] || [ ! -f binary/boot/grub/config.cfg ]; then
+	echo "E: LCOS 0105: ${CFG} or config.cfg missing" >&2
+	exit 1
+fi
+if ! grep -q 'lcos_quirks=' binary/boot/grub/config.cfg; then
+	echo "E: LCOS 0105: lcos_quirks block missing from binary/boot/grub/config.cfg" >&2
+	exit 1
+fi
+for f in binary/boot/grub/*.cfg; do
+	[ -f "${f}" ] || continue
+	sed -i -E '/^[[:space:]]*linux[[:space:]].*boot=live/{/lcos_quirks/!s/[[:space:]]*$/ ${lcos_quirks}/}' "${f}"
+done
+n=$(grep -cE '^[[:space:]]*linux[[:space:]].*boot=live.*\$\{lcos_quirks\}' "${CFG}" || true)
+if [ "${n:-0}" -lt 1 ]; then
+	echo "E: LCOS 0105: no live kernel line in ${CFG} got \${lcos_quirks}" >&2
+	exit 1
+fi
+echo "I: LCOS 0105: \${lcos_quirks} on ${n} live kernel line(s) in ${CFG}"

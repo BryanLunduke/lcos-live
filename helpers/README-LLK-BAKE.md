@@ -17,7 +17,7 @@ Do **not** seed lcos5/lcos6 (or older) LLK debs.
 
 - `auto/config` / `config/chroot`: `--linux-packages none` / `LB_LINUX_PACKAGES="none"`
 - Package list: `config/package-lists/kernel-lunduke.list.chroot`
-- Initramfs hook: `config/hooks/live/0095-lunduke-initramfs.hook.chroot` (`KVER=7.2.6-lunduke`)
+- Initramfs hook: `config/hooks/live/0095-lunduke-initramfs.hook.chroot` (`KVER=7.2.15-lunduke` since LCOS 1.0.1 / LLK 7.2.15-lcos30; was `7.2.6-lunduke` for lcos4-lcos28)
 
 ## KernelTest lesson — override `binary_linux-image`
 

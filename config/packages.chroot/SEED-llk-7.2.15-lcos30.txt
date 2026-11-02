@@ -1,0 +1,19 @@
+SEED LLK 7.2.15-lcos30 2026-11-02 CT (LCOS 1.0.1, testing only)
+GitHub BryanLunduke/lunduke-linux-kernel PR #27, merged (merge commit) as 8d2193b0903c7a9b64679b3795061aad906224a5
+(tag 7.2.15-lcos30, annotated; built from the PR head 0983b60, same tree). Editor ordered 2026-11-02 CT
+("move to the 7.2.[1]5 with the same configurations as we are currently using, plus the small changes").
+Upstream Linux 7.2.15 (kernel.org 2026-11-01, final 7.2.y; tarball sha256 d0f6b1d7...09ab matches sha256sums.asc).
+Config = lcos28 + SND_ENS1371=m (lcos29, PR #25) + INTEL_THC_HID=m, INTEL_QUICKI2C=m, INTEL_QUICKSPI=m (Intel THC
+touchscreens, Dell XPS 13 DX13260) + HID_HAPTIC=y + ZRAM=m (ZSMALLOC=m, zstd default). olddefconfig also added the
+compiler-detected CC_OPT_INLINE_MEMSET. Nothing removed. No source patches. No Forced Rust. GCC 14.2, binutils 2.44.
+  1027 modules (lcos28 had 1021; +snd-ens1371, intel-thc, intel-quicki2c, intel-quickspi, zram, zsmalloc).
+  uname -r 7.2.15-lunduke (build string #lcos30). /boot/config-7.2.15-lunduke byte-identical to
+  configs/lunduke-7.2.15-lcos30.config. QEMU smoke boot (busybox initramfs) OK on SeaBIOS and OVMF via GRUB 2.12.
+NEW kernel release 7.2.15-lunduke: package names changed (linux-image-7.2.15-lunduke, linux-headers-7.2.15-lunduke).
+On an upgraded system they install beside 7.2.6-lunduke, which stays as a GRUB fallback. The live ISO carries only 7.2.15.
+kernel-lunduke.list.chroot and KVER in hooks/live/0095-lunduke-initramfs.hook.chroot updated to 7.2.15-lunduke.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.6-lcos28 (moved to superseded/, gitignored).
+a788b1417f8c53afead912923d2f2f40cfb9c61e4e5a23294a7dba19a74445fc  linux-image-7.2.15-lunduke_7.2.15-lcos30_amd64.deb
+6c38bc60323ad211c47df1f070a9f320aff31708d18843bf14e5408c8e2c9d50  linux-headers-7.2.15-lunduke_7.2.15-lcos30_amd64.deb
+4f37368495c59fe17c681aadcdb8e338bbb88e514ea4d68432df3fe3967575a0  lunduke-linux-kernel_7.2.15-lcos30_all.deb

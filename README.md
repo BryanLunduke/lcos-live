@@ -32,10 +32,16 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
 - Mirror: set in `auto/config`. Build-time fetches are pinned to FAU over HTTPS;
   the installed system's apt sources use `deb.devuan.org` (#163)
 - Init: sysvinit (`--initsystem sysvinit`, `sysvinit-core`, `live-config-sysvinit`)
-- Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.2.6-lunduke`);
+- Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.2.15-lunduke`, 1.0.1);
   live-build `--linux-packages none` + `kernel-lunduke.list.chroot`. Seeded
-  7.2.6-lcos28 debs (see `config/packages.chroot/SEED-llk-7.2.6-lcos28.txt`). Bake
+  7.2.15-lcos30 debs (see `config/packages.chroot/SEED-llk-7.2.15-lcos30.txt`). When the
+  kernel release changes, keep the package list, `KVER` in
+  `config/hooks/live/0095-lunduke-initramfs.hook.chroot` and the seeded debs in step. Bake
   override: `helpers/binary_linux-image` — see `helpers/README-LLK-BAKE.md`.
+- Per-machine kernel options (1.0.1): the UEFI live menu and the installed system's
+  GRUB set `${lcos_quirks}` from SMBIOS (`config/bootloaders/grub-pc/config.cfg`,
+  hook `0105-lcos-grub-dmi-quirks.hook.binary`, lcos-base `/etc/grub.d/05_lcos_quirks`).
+  Only entry: Dell XPS 13 DX13260 (SKU 0E53) gets `xe.enable_panel_replay=0`.
 - Display: XLibre (vendored debs in `config/packages.chroot/` / overlay).
   Not Xorg, not Wayland. Do **not** point users at `xlibre-deb.github.io`.
 - Desktop: XFCE + LightDM. Default look: Clearlooks-Phenix / Clearlooks /

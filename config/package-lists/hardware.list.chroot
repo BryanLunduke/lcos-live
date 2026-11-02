@@ -70,6 +70,10 @@ firmware-linux-nonfree
 firmware-iwlwifi
 firmware-intel-sound
 firmware-intel-graphics
+# 1.0.1: Cirrus speaker-amp and Intel misc firmware, from excalibur-backports
+# via lcos-amd-backports.pref (Dell XPS 13 DX13260 speaker amps; Intel ISH ish_wcl.bin sensors).
+firmware-cirrus
+firmware-intel-misc
 
 # Device firmware updates (D-Bus activated; opensysusers provides systemd-sysusers)
 fwupd
