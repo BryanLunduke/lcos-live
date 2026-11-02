@@ -1,18 +1,18 @@
 Package: lcos-base
-Version: 1.0.0-2
+Version: 1.0.1-1
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 192
+Installed-Size: 200
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils
 Replaces: base-files
-Description: LCOS 1.0.0 identity, GRUB drop-in, X/boot-order system config
- os-release / issue for LCOS 1.0.0 (excalibur), lcos-write-os-release,
+Description: LCOS 1.0.1 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 1.0.1 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
- loglevel=2).
+ loglevel=2 $lcos_quirks) and /etc/grub.d/05_lcos_quirks.
  .
  AMD GPUs (0.9.2-2, #115/#118): no Xorg driver override. Xorg
  autoselects the AMD driver as in 0.8. The 0.9/0.9.1 modesetting snippets,
@@ -118,5 +118,14 @@ Description: LCOS 1.0.0 identity, GRUB drop-in, X/boot-order system config
  1.0.0-2: Depends usbutils (lsusb, #176) so upgraders get the 1.0.0
  ISO addition (Updates installs with Recommends off). Identity stays
  1.0.0. Editor 2026-10-27.
+ 1.0.1-1: version bump for LCOS 1.0.1; identity 1.0.1. Ships
+ /etc/grub.d/05_lcos_quirks, which sets the GRUB variable lcos_quirks
+ from SMBIOS at boot; lcos.cfg appends $lcos_quirks to
+ GRUB_CMDLINE_LINUX_DEFAULT. Only entry: Dell XPS 13 DX13260 (SKU 0E53)
+ gets xe.enable_panel_replay=0 (eDP Panel Replay judder); other machines
+ get nothing. Postinst runs update-grub once on upgrade from below
+ 1.0.1-1. The apt pin also takes firmware-cirrus and firmware-intel-misc
+ from excalibur-backports. Depends unchanged from 1.0.0-2. Editor
+ 2026-11-02.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

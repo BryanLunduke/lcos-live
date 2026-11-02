@@ -2,3 +2,4 @@
 /etc/insserv/overrides/lightdm
 /etc/insserv/overrides/plymouth
 /etc/apt/apt.conf.d/02lcos-neverautoremove
+/etc/grub.d/05_lcos_quirks

@@ -1,0 +1,17 @@
+SEED LCOS 1.0.1-1 system debs 2026-11-02 (built by packaging/build-101-system-debs.sh --seed --only lcos-branding,lcos-base,lcos-desktop-config)
+Editor 2026-11-02: "Ok, let's start work on LCOS 1.0.1. Move to that version." Testing only.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 1.0.0-2, lcos-desktop-config 1.0.0-1, lcos-branding 1.0.0-1 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.0.1-1: identity 1.0.1 (os-release, /usr/lib/os-release, issue, issue.net, lcos-write-os-release, copyright Source,
+  description). New conffile /etc/grub.d/05_lcos_quirks (sets GRUB ${lcos_quirks} from SMBIOS type-1 SKU: 0E53 Dell XPS 13
+  DX13260 -> xe.enable_panel_replay=0, else empty); /etc/default/grub.d/lcos.cfg CMDLINE_LINUX_DEFAULT "quiet splash
+  loglevel=2 \$lcos_quirks" (normal entries only; recovery unchanged). Postinst runs update-grub once on upgrade from below
+  1.0.1-1 (not in a chroot). Apt pin adds firmware-cirrus and firmware-intel-misc (excalibur-backports). Depends unchanged
+  from 1.0.0-2. Unpacked diff vs 1.0.0-2: control, conffiles, md5sums, postinst, the pin, lcos.cfg, +etc/grub.d/05_lcos_quirks,
+  identity files, copyright, changelog.gz.
+lcos-desktop-config, lcos-branding 1.0.1-1: control, md5sums, changelog, copyright Source only.
+lcos-appimage-thumbnailer, lcos-archive-keyring, lcos-desktop, lcos-theme-clearlooks, lcos-zork stay 0.9.4-1. Kernel: see SEED-llk-7.2.15-lcos30.txt.
+
+c8cbf7e9abc0bb4761d04800315d68be083a4f5c16c2a8e937679325fb0b6825  lcos-base_1.0.1-1_all.deb
+241c0885438ea3cdc8fa0c4d022c0767ea71919a2e5b740e190f1667ef23efc2  lcos-branding_1.0.1-1_all.deb
+70096b02f0c89393fd61b7f0017f69a5b5e1593a6f2238fda64ca5b0fa664d3b  lcos-desktop-config_1.0.1-1_all.deb

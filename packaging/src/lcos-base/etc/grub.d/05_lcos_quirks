@@ -1,0 +1,34 @@
+#!/bin/sh
+set -e
+# /etc/grub.d/05_lcos_quirks (lcos-base 1.0.1-1)
+# Emits a GRUB snippet that sets ${lcos_quirks} from SMBIOS (DMI) at boot.
+# /etc/default/grub.d/lcos.cfg adds ${lcos_quirks} to GRUB_CMDLINE_LINUX_DEFAULT,
+# so it lands on every normal (non-recovery) kernel line written by 10_linux,
+# like Ubuntu's ${vt_handoff}. Runs before 10_linux. Same block as the LCOS
+# live ISO (lcos-live config/bootloaders/grub-pc/config.cfg).
+cat <<'GRUBEOF'
+# LCOS 1.0.1: per-machine kernel options chosen from SMBIOS (DMI).
+# Dell XPS 13 DX13260 (Wildcat Lake, DMI product SKU 0E53): the 120 Hz LG
+# panel judders with eDP Panel Replay (drm/xe #8930; no upstream quirk yet),
+# so turn Panel Replay off on that model only. PSR stays on. Other machines
+# get an empty $lcos_quirks.
+set lcos_quirks=""
+if insmod smbios; then
+	# SMBIOS type 1 (System Information), offset 0x19 = SKU Number.
+	# Check the structure length (offset 1) and that the SKU string index
+	# is non-zero first, so firmware with a short type-1 table or no SKU
+	# string does not print a GRUB error at boot.
+	if smbios --type 1 --get-byte 1 --set lcos_t1len; then
+		if [ "${lcos_t1len}" -gt 25 ]; then
+			smbios --type 1 --get-byte 25 --set lcos_skuidx
+			if [ "${lcos_skuidx}" != "0" ]; then
+				if smbios --type 1 --get-string 25 --set lcos_sku; then
+					if [ "${lcos_sku}" = "0E53" ]; then
+						set lcos_quirks="xe.enable_panel_replay=0"
+					fi
+				fi
+			fi
+		fi
+	fi
+fi
+GRUBEOF

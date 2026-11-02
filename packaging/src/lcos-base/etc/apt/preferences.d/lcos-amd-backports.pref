@@ -10,9 +10,13 @@
 # firmware-intel-graphics from backports (20260810-1~bpo13+1).
 # firmware-sof-signed stays at excalibur 2025.01-1 — no newer build in
 # excalibur-backports (checked 2026-10-15).
+# 1.0.1 (editor 2026-11-02): firmware-cirrus (Cirrus CS35L56/CS42L43 laptop
+# speaker amps, e.g. Dell XPS 13 DX13260) and firmware-intel-misc (Intel
+# ISH sensor-hub firmware incl. ish_wcl.bin, NPU vpu_50xx) from backports (20260916-1~bpo13+1, the same
+# upstream drop as the other pinned firmware packages; checked 2026-11-02).
 # Everything else in backports is blocked (-1).
 
-Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-realtek firmware-iwlwifi firmware-intel-sound firmware-intel-graphics
+Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-realtek firmware-iwlwifi firmware-intel-sound firmware-intel-graphics firmware-cirrus firmware-intel-misc
 Pin: release n=excalibur-backports
 Pin-Priority: 990
 
