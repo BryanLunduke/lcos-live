@@ -1,3 +1,28 @@
+LCOS 1.0.1 recipe tree (git: BryanLunduke/lcos-live master)
+Opened 2026-11-02 (America/Chicago) from official 1.0.0.
+Working version: 1.0.1 - kernel update (LLK 7.2.15-lcos30) and small hardware fixes; 1.1 will move to kernel 7.4 (not started).
+1.0.0 freeze point (last release):
+  ISO lcos-live-100-05.iso, SHA256 6be0bec6f967642e4e0cfd51ded577b43c29f9ce58b31abfd1d83b245902fd15, 1534459904 bytes.
+  Tag lcos-1.0.0-release (tag object f26de9f) on 6363b8c; hotfix branch lcos-1.0.0.
+1.0.0 hotfixes go on branch lcos-1.0.0; master is 1.0.1.
+Identity/overlay track: 1.0.1
+Next bake filename: lcos-live-101-01.iso (test bake; not published until approved)
+1.0.0 package versions (official 1.0.0):
+  lcos-base 1.0.0-2, lcos-desktop-config 1.0.0-1, lcos-branding 1.0.0-1, Updates 1.0.0-1, About 1.0.0-5,
+  Edit 1.0.0-1, Paint 1.0.0-1, City 1.0.0-1, firmware-sof-signed 2026.09.1-1, kernel LLK 7.2.6-lcos28, other system debs 0.9.4-1.
+1.0.1 (editor 2026-11-02, "start work on LCOS 1.0.1. Move to that version"):
+  Version bump to 1.0.1 for lcos-base, lcos-desktop-config, lcos-branding and Edit, Paint, City, About, Updates (1.0.1-1).
+  Kernel LLK 7.2.15-lcos30 (Linux 7.2.15, final 7.2.y): lcos28 config + SND_ENS1371=m, Intel THC touchscreens
+    (INTEL_THC_HID/QUICKI2C/QUICKSPI=m), HID_HAPTIC=y, ZRAM=m (zstd). New kernel release 7.2.15-lunduke installs beside
+    7.2.6-lunduke on upgraded systems (fallback in GRUB). See config/packages.chroot/SEED-llk-7.2.15-lcos30.txt.
+  Dell XPS 13 DX13260 panel judder: xe.enable_panel_replay=0 added by GRUB only on DMI SKU 0E53 (live ISO UEFI GRUB and
+    lcos-base /etc/grub.d/05_lcos_quirks). No kernel patch.
+  Firmware: firmware-cirrus and firmware-intel-misc from excalibur-backports (pin in lcos-amd-backports.pref).
+  Other system debs stay 0.9.4-1.
+Autologin stays ON by default; screensaver and lock stay OFF by default.
+Apt: do NOT publish from this open until approved.
+
+===== 1.0.0 history below =====
 LCOS 1.0.0 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-10-27 (America/Chicago) from official 0.9.7.
 Working version: 1.0.0 - LCOS 1.0 release, ships 2026-11-01.
