@@ -1,0 +1,14 @@
+SEED LLK 7.2.15-lcos31 2026-11-03 CT (LCOS 1.0.1, testing only)
+GitHub BryanLunduke/lunduke-linux-kernel PR #28, merged as 5b5e419c9cde7a1f7bf991ab31c65dfe2ebe1ef5
+(tag 7.2.15-lcos31, annotated). Editor ordered 2026-11-03 CT (issue fixes as modules + INT3472 camera + survey easy batch).
+Config = lcos30 + driver modules for LCOS#182 (HID_RMI), #183 (IXGBE), #184 (net sched/cls/act set for libvirt),
+#187 (B44, IWLEGACY/IWL3945), INTEL_SKL_INT3472 (camera sensor power), and the 7.2 survey easy-modules batch
+(DRM_PANIC, SENSORS_DRIVETEMP/SPD5118, Intel uncore/TPMI/HFI, HID_ASUS/ALPS/VIVALDI/PLAYSTATION/NINTENDO,
+AQTION, I40E, USB_IPHETH, SD readers, touchscreens, laptop/handheld platform drivers, USB4). Nothing removed.
+  1088 modules (lcos30 had 1027). QEMU boot OK on SeaBIOS and OVMF; 27 new modules load without errors.
+Kernel release unchanged: 7.2.15-lunduke (same package names as lcos30); KVER in 0095 hook unchanged.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.15-lcos30 (moved to superseded/, gitignored).
+f5f358435632ee05b41a83875fd624e1d6cf00f29dcba4dba46e6c0c5bd5f628  linux-image-7.2.15-lunduke_7.2.15-lcos31_amd64.deb
+9519b4cfd53fcafcbcd91b9384369f354d4d4579fd7398def7d6c351262bb0f5  linux-headers-7.2.15-lunduke_7.2.15-lcos31_amd64.deb
+4da46780282b9bf3ddf8fa73bf6dec4e53fd54dd4c72cfeecbb9fa33c136f4f1  lunduke-linux-kernel_7.2.15-lcos31_all.deb

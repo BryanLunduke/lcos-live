@@ -1,8 +1,8 @@
 # Lunduke Linux Kernel: default ISO kernel for 0.9.5.
-# Seeded 7.2.15-lcos30 on 2026-11-02 CT for LCOS 1.0.1 (lunduke-linux-kernel
-# master 8d2193b0, PR #27, tag 7.2.15-lcos30); see
-# config/packages.chroot/SEED-llk-7.2.15-lcos30.txt.
-# Replaced 7.2.6-lcos28 (moved to config/packages.chroot/superseded/).
+# Seeded 7.2.15-lcos31 on 2026-11-03 CT for LCOS 1.0.1 (lunduke-linux-kernel
+# master 5b5e419c, PR #28, tag 7.2.15-lcos31); see
+# config/packages.chroot/SEED-llk-7.2.15-lcos31.txt.
+# Replaced 7.2.15-lcos30 (moved to config/packages.chroot/superseded/).
 # lcos30 is a new kernel release (7.2.15-lunduke), so the image/headers
 # package names changed. Keep this list, the KVER in
 # config/hooks/live/0095-lunduke-initramfs.hook.chroot and the seeded debs in step.
@@ -18,6 +18,7 @@
 # lcos27: SATA_SIL24=m, SATA_MV=m, HOTPLUG_PCI_ACPI=y, USB_XHCI_PCI_RENESAS=m (ExpressCard/eSATA); 1020 modules.
 # lcos28: KEYBOARD_APPLESPI=m (MacBook8,1 SPI keyboard/trackpad); 1021 modules.
 # lcos30: Linux 7.2.15; SND_ENS1371=m, INTEL_THC_HID/QUICKI2C/QUICKSPI=m, HID_HAPTIC=y, ZRAM=m (zstd); 1027 modules.
+# lcos31: HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera, 7.2 survey easy batch; 1088 modules.
 linux-image-7.2.15-lunduke
 linux-headers-7.2.15-lunduke
 lunduke-linux-kernel
