@@ -19,6 +19,8 @@ Next bake filename: lcos-live-101-01.iso (test bake; not published until approve
     lcos-base /etc/grub.d/05_lcos_quirks). No kernel patch.
   Firmware: firmware-cirrus and firmware-intel-misc from excalibur-backports (pin in lcos-amd-backports.pref).
   Other system debs stay 0.9.4-1.
+  2026-11-03 (editor): lcos-base 1.0.1-2 (SEED-system-1.0.1-2.txt): XPS 13 SKU 0E53 only, s2idle-only suspend (GRUB
+    mem_sleep_default=s2idle + elogind hook lcos-sleep) and a synced sleep log at /var/log/lcos/sleep.log. Not baked.
   Seeded 2026-11-02: lcos-base, lcos-desktop-config, lcos-branding 1.0.1-1 (SEED-system-1.0.1-1.txt); apps 1.0.1-1 (SEED-1.0.1-1-apps.txt):
     lunduke-edit #33 bc2873b, lunduke-paint #37 91e845b, LundukeCity #39 26d84d8, LCOS-AboutThisComputer #62 db7e432,
     lcos-updates #35 2ef5089 (tags v1.0.1-1). Kernel: lunduke-linux-kernel #27 8d2193b, tag 7.2.15-lcos30.

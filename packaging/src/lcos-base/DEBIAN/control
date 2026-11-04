@@ -1,9 +1,9 @@
 Package: lcos-base
-Version: 1.0.1-1
+Version: 1.0.1-2
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 200
+Installed-Size: 212
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils
@@ -127,5 +127,15 @@ Description: LCOS 1.0.1 identity, GRUB drop-in, X/boot-order system config
  1.0.1-1. The apt pin also takes firmware-cirrus and firmware-intel-misc
  from excalibur-backports. Depends unchanged from 1.0.0-2. Editor
  2026-11-02.
+ 1.0.1-2: Dell XPS 13 DX13260 (SKU 0E53) only: the GRUB quirk adds
+ mem_sleep_default=s2idle, and the elogind hook
+ /usr/libexec/system-sleep/lcos-sleep writes s2idle back to
+ /sys/power/mem_sleep before each suspend (elogind writes "deep" first),
+ so suspend avoids S3 deep sleep on that model. The same hook keeps a
+ small synced sleep log, /var/log/lcos/sleep.log (about 512 KB plus one
+ old copy), with kernel PM messages, so a hang on suspend or resume
+ leaves evidence. No daemon. Other machines unaffected unless
+ /etc/lcos/sleep-log exists (log only). Postinst runs update-grub once on
+ upgrade from below 1.0.1-2. Editor 2026-11-03.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

@@ -4,8 +4,10 @@ set -e
 # ../config/hooks/...), so every path here is relative to the ISO root.
 # LCOS 1.0.1: append ${lcos_quirks} to every live-boot kernel line in the UEFI
 # GRUB menu. config/bootloaders/grub-pc/config.cfg (sourced at the top of
-# grub.cfg) sets lcos_quirks from SMBIOS: "xe.enable_panel_replay=0" on the
-# Dell XPS 13 DX13260 (SKU 0E53, Panel Replay judder), empty everywhere else.
+# grub.cfg) sets lcos_quirks from SMBIOS: "xe.enable_panel_replay=0
+# mem_sleep_default=s2idle" on the
+# Dell XPS 13 DX13260 (SKU 0E53: Panel Replay judder;
+# s2idle-only suspend since 1.0.1-2), empty everywhere else.
 # GRUB expands the variable at boot, like findiso=${iso_path}. BIOS boot uses
 # isolinux and is not changed (the XPS 13 is UEFI-only).
 CFG=boot/grub/grub.cfg

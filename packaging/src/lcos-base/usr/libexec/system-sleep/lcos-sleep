@@ -1,0 +1,74 @@
+#!/bin/sh
+# /usr/libexec/system-sleep/lcos-sleep (lcos-base 1.0.1-2)
+# elogind runs this as "lcos-sleep pre|post suspend|hibernate|..." around
+# every sleep. It does nothing unless the machine is the Dell XPS 13
+# DX13260 (DMI product SKU 0E53), or the admin creates
+# /etc/lcos/sleep-log (then only the log part runs on that machine).
+#
+# On SKU 0E53:
+#  * s2idle only. elogind writes the first of its SuspendMode list
+#    ("deep s2idle") to /sys/power/mem_sleep just before it runs the "pre"
+#    hooks, which would undo the kernel's mem_sleep_default=s2idle (set by
+#    the GRUB quirk). "pre" writes s2idle back; elogind writes "mem" to
+#    /sys/power/state after the hooks, so the suspend is s2idle.
+#  * A small persistent sleep log, /var/log/lcos/sleep.log (about 512 KB,
+#    one old copy kept as sleep.log.1). Each "pre" line is synced to disk
+#    before the suspend starts, so a "pre" with no "post" after it (the
+#    next line being a later boot's entry) means the machine never came
+#    back. "post" also saves the kernel's suspend/resume messages
+#    (pm_debug_messages is turned on in "pre") and the wakeup source.
+# No daemon; runs only when the system sleeps. Never fails the suspend.
+
+SKU=$(cat /sys/class/dmi/id/product_sku 2>/dev/null || true)
+XPS=no
+[ "$SKU" = "0E53" ] && XPS=yes
+[ "$XPS" = yes ] || [ -e /etc/lcos/sleep-log ] || exit 0
+
+LOGDIR=/var/log/lcos
+LOG=$LOGDIR/sleep.log
+MAX=524288
+
+now() { date '+%Y-%m-%d %H:%M:%S %z' 2>/dev/null; }
+boot_id() { cat /proc/sys/kernel/random/boot_id 2>/dev/null; }
+
+log_setup() {
+	mkdir -p "$LOGDIR" 2>/dev/null || return 1
+	if [ -f "$LOG" ] && [ "$(wc -c < "$LOG" 2>/dev/null || echo 0)" -gt "$MAX" ]; then
+		mv -f "$LOG" "$LOG.1" 2>/dev/null || true
+	fi
+	return 0
+}
+
+case "$1" in
+pre)
+	if [ "$XPS" = yes ] && [ "$2" = suspend ] && [ -w /sys/power/mem_sleep ] && \
+	   grep -qw s2idle /sys/power/mem_sleep 2>/dev/null; then
+		echo s2idle > /sys/power/mem_sleep 2>/dev/null || true
+	fi
+	[ -w /sys/power/pm_debug_messages ] && echo 1 > /sys/power/pm_debug_messages 2>/dev/null
+	log_setup || exit 0
+	{
+		echo "$(now) pre $2 boot=$(boot_id) sku=${SKU:-none} kernel=$(uname -r)"
+		echo "  mem_sleep: $(cat /sys/power/mem_sleep 2>/dev/null) | state: $(cat /sys/power/state 2>/dev/null)"
+		echo "  ac: $(cat /sys/class/power_supply/A*/online 2>/dev/null | tr '\n' ' ')lid: $(cat /proc/acpi/button/lid/*/state 2>/dev/null | awk '{print $2}' | tr '\n' ' ')"
+		echo "  dmesg-last: $(dmesg 2>/dev/null | tail -n 1)"
+	} >> "$LOG" 2>/dev/null
+	sync "$LOG" 2>/dev/null || sync
+	;;
+post)
+	log_setup || exit 0
+	{
+		echo "$(now) post $2 boot=$(boot_id) mem_sleep: $(cat /sys/power/mem_sleep 2>/dev/null)"
+		echo "  last_failed_dev: $(cat /sys/power/suspend_stats/last_failed_dev 2>/dev/null) fail: $(cat /sys/power/suspend_stats/fail 2>/dev/null) success: $(cat /sys/power/suspend_stats/success 2>/dev/null)"
+		echo "  last_hw_sleep_us: $(cat /sys/power/suspend_stats/last_hw_sleep 2>/dev/null)"
+		if [ -r /sys/kernel/debug/wakeup_sources ]; then
+			echo "  wakeup (most recent):"
+			awk 'NR>1 && $NF+0>0 {print $NF, $1}' /sys/kernel/debug/wakeup_sources 2>/dev/null | sort -rn | head -n 3 | sed 's/^/    /'
+		fi
+		echo "  kernel PM messages (last 40):"
+		dmesg 2>/dev/null | grep -iE 'PM: |suspend|resume|s2idle|ACPI: (PM|EC|button)|wake|xe 0000|i915' | tail -n 40 | sed 's/^/    /'
+	} >> "$LOG" 2>/dev/null
+	sync "$LOG" 2>/dev/null || sync
+	;;
+esac
+exit 0
