@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-# /etc/grub.d/05_lcos_quirks (lcos-base 1.0.1-1)
+# /etc/grub.d/05_lcos_quirks (lcos-base 1.0.1-2)
 # Emits a GRUB snippet that sets ${lcos_quirks} from SMBIOS (DMI) at boot.
 # /etc/default/grub.d/lcos.cfg adds ${lcos_quirks} to GRUB_CMDLINE_LINUX_DEFAULT,
 # so it lands on every normal (non-recovery) kernel line written by 10_linux,
@@ -10,8 +10,13 @@ cat <<'GRUBEOF'
 # LCOS 1.0.1: per-machine kernel options chosen from SMBIOS (DMI).
 # Dell XPS 13 DX13260 (Wildcat Lake, DMI product SKU 0E53): the 120 Hz LG
 # panel judders with eDP Panel Replay (drm/xe #8930; no upstream quirk yet),
-# so turn Panel Replay off on that model only. PSR stays on. Other machines
-# get an empty $lcos_quirks.
+# so turn Panel Replay off on that model only. PSR stays on.
+# LCOS 1.0.1-2: the same model also gets mem_sleep_default=s2idle, so
+# suspend uses s2idle and avoids S3 "deep" (lid close then reopen left a
+# 1.0.1-01 install dead; cause unconfirmed). elogind writes "deep" to
+# /sys/power/mem_sleep before each suspend, so lcos-base also ships the
+# elogind hook /usr/libexec/system-sleep/lcos-sleep, which puts s2idle back
+# on this SKU. Other machines get an empty $lcos_quirks.
 set lcos_quirks=""
 if insmod smbios; then
 	# SMBIOS type 1 (System Information), offset 0x19 = SKU Number.
@@ -24,7 +29,7 @@ if insmod smbios; then
 			if [ "${lcos_skuidx}" != "0" ]; then
 				if smbios --type 1 --get-string 25 --set lcos_sku; then
 					if [ "${lcos_sku}" = "0E53" ]; then
-						set lcos_quirks="xe.enable_panel_replay=0"
+						set lcos_quirks="xe.enable_panel_replay=0 mem_sleep_default=s2idle"
 					fi
 				fi
 			fi

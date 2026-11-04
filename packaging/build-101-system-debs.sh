@@ -33,7 +33,7 @@ build() {
 	done
 	find "$root" -path "$root/DEBIAN" -prune -o -type d -exec chmod 0755 {} +
 	# executables we ship
-	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer usr/lib/lcos/lcos-reboot-required usr/bin/lcos-cool-retro-term etc/grub.d/05_lcos_quirks; do
+	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer usr/lib/lcos/lcos-reboot-required usr/bin/lcos-cool-retro-term etc/grub.d/05_lcos_quirks usr/libexec/system-sleep/lcos-sleep; do
 		[ -f "$root/$x" ] && chmod 0755 "$root/$x"
 	done
 	local out="$DEBDIR/${name}_${ver}_all.deb"
@@ -43,7 +43,7 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=1.0.1-1
+BASEVER=1.0.1-2
 DCVER=1.0.1-1
 BRVER=1.0.1-1
 ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }

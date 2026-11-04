@@ -1,0 +1,13 @@
+SEED LCOS lcos-base 1.0.1-2 2026-11-03 (built by packaging/build-101-system-debs.sh --seed --only lcos-base)
+Editor 2026-11-03: XPS 13 light-sleep config + small persistent logger for the next 1.0.1 test ISO. Testing only.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 1.0.1-1 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.0.1-2: Dell XPS 13 DX13260 (DMI SKU 0E53) only: ${lcos_quirks} = "xe.enable_panel_replay=0 mem_sleep_default=s2idle";
+  new /usr/libexec/system-sleep/lcos-sleep (elogind hook): on SKU 0E53 writes s2idle to /sys/power/mem_sleep in "pre"
+  (elogind writes its default "deep" first), sets pm_debug_messages, and appends synced pre/post records to
+  /var/log/lcos/sleep.log (rotates at 512 KB, one .1 copy). Exits at once on any other SKU unless /etc/lcos/sleep-log exists.
+  Postinst update-grub gate moved to "upgrade from below 1.0.1-2". Unpacked diff vs 1.0.1-1: control, md5sums, postinst,
+  lcos.cfg (comment), 05_lcos_quirks, +usr/libexec/system-sleep/lcos-sleep, changelog.gz.
+lcos-desktop-config, lcos-branding stay 1.0.1-1.
+
+99d2bf91eaa3a0bd1d4c64c53bf007de696c268a2a0a170fc8e5815410a992f5  lcos-base_1.0.1-2_all.deb

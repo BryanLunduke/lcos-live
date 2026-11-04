@@ -41,11 +41,12 @@ if [ "$1" = configure ]; then
   fi
 
   # LCOS 1.0.1-1: /etc/grub.d/05_lcos_quirks and the $lcos_quirks cmdline
-  # entry are new. Once, on upgrade from below 1.0.1-1, regenerate
+  # entry are new (1.0.1-2 adds mem_sleep_default=s2idle on SKU 0E53). Once,
+  # on upgrade from below 1.0.1-2, regenerate
   # grub.cfg so they take effect without waiting for the next kernel
   # install. Skipped in a chroot (ISO build; the installer runs
   # grub-mkconfig itself) and when GRUB is not set up.
-  if [ -n "${2:-}" ] && dpkg --compare-versions "$2" lt 1.0.1-1 && \
+  if [ -n "${2:-}" ] && dpkg --compare-versions "$2" lt 1.0.1-2 && \
      [ -z "${DPKG_ROOT:-}" ] && ! { command -v ischroot >/dev/null 2>&1 && ischroot; } && \
      [ -f /boot/grub/grub.cfg ] && command -v update-grub >/dev/null 2>&1; then
     update-grub >/dev/null 2>&1 || echo "lcos-base: update-grub failed; run it by hand" >&2
