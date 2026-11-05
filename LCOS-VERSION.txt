@@ -1,12 +1,12 @@
 LCOS 1.0.1 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-11-02 (America/Chicago) from official 1.0.0.
-Working version: 1.0.1 - kernel update (LLK 7.2.15-lcos31) and small hardware fixes; 1.1 will move to kernel 7.4 (not started).
+Working version: 1.0.1 - kernel update (LLK 7.2.15-lcos32) and small hardware fixes; 1.1 will move to kernel 7.4 (not started).
 1.0.0 freeze point (last release):
   ISO lcos-live-100-05.iso, SHA256 6be0bec6f967642e4e0cfd51ded577b43c29f9ce58b31abfd1d83b245902fd15, 1534459904 bytes.
   Tag lcos-1.0.0-release (tag object f26de9f) on 6363b8c; hotfix branch lcos-1.0.0.
 1.0.0 hotfixes go on branch lcos-1.0.0; master is 1.0.1.
 Identity/overlay track: 1.0.1
-Next bake filename: lcos-live-101-02.iso (test bake; not published until approved)
+Next bake filename: lcos-live-101-03.iso (test bake; not published until approved)
 1.0.0 package versions (official 1.0.0):
   lcos-base 1.0.0-2, lcos-desktop-config 1.0.0-1, lcos-branding 1.0.0-1, Updates 1.0.0-1, About 1.0.0-5,
   Edit 1.0.0-1, Paint 1.0.0-1, City 1.0.0-1, firmware-sof-signed 2026.09.1-1, kernel LLK 7.2.6-lcos28, other system debs 0.9.4-1.
@@ -24,6 +24,8 @@ Next bake filename: lcos-live-101-02.iso (test bake; not published until approve
   2026-11-03 (editor): kernel LLK 7.2.15-lcos31 (lunduke-linux-kernel #28 5b5e419, tag 7.2.15-lcos31) replaces lcos30:
     + HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera and the
     7.2 survey easy-modules batch; 1088 modules. Same release 7.2.15-lunduke. See SEED-llk-7.2.15-lcos31.txt.
+  2026-11-04 (editor): kernel LLK 7.2.15-lcos32 (lunduke-linux-kernel #29 f0922c9, tag 7.2.15-lcos32) replaces lcos31:
+    + ACPI_SBS=m (#191, MacBook Air 2014 battery; sbshc/sbs); 1090 modules. Same release 7.2.15-lunduke. See SEED-llk-7.2.15-lcos32.txt.
   Seeded 2026-11-02: lcos-base, lcos-desktop-config, lcos-branding 1.0.1-1 (SEED-system-1.0.1-1.txt); apps 1.0.1-1 (SEED-1.0.1-1-apps.txt):
     lunduke-edit #33 bc2873b, lunduke-paint #37 91e845b, LundukeCity #39 26d84d8, LCOS-AboutThisComputer #62 db7e432,
     lcos-updates #35 2ef5089 (tags v1.0.1-1). Kernel: lunduke-linux-kernel #27 8d2193b, tag 7.2.15-lcos30.

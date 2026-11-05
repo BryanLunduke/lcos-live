@@ -3,10 +3,10 @@
 > **1.0.1 track (opened 2026-11-02):** this repo's `master` is the LCOS 1.0.1
 > recipe. Official 1.0.0 (`lcos-live-100-05`) is frozen on branch **`lcos-1.0.0`**
 > (hotfixes only; tag `lcos-1.0.0-release` on `6363b8c`). Next test bake:
-> **`lcos-live-101-02.iso`**. 1.0.1 moves the kernel to LLK 7.2.15-lcos31 (Linux 7.2.15).
+> **`lcos-live-101-03.iso`**. 1.0.1 moves the kernel to LLK 7.2.15-lcos32 (Linux 7.2.15).
 > Current versions and seeds: `LCOS-VERSION.txt`, `config/packages.chroot/SHA256SUMS`
 > and the `config/packages.chroot/SEED-*.txt` notes (apps 1.0.1-1, system 1.0.1-1,
-> LLK 7.2.15-lcos31).
+> LLK 7.2.15-lcos32).
 > The 1.0.0, 0.9.x and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,
@@ -34,7 +34,7 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
 - Init: sysvinit (`--initsystem sysvinit`, `sysvinit-core`, `live-config-sysvinit`)
 - Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.2.15-lunduke`, 1.0.1);
   live-build `--linux-packages none` + `kernel-lunduke.list.chroot`. Seeded
-  7.2.15-lcos31 debs (see `config/packages.chroot/SEED-llk-7.2.15-lcos31.txt`). When the
+  7.2.15-lcos32 debs (see `config/packages.chroot/SEED-llk-7.2.15-lcos32.txt`). When the
   kernel release changes, keep the package list, `KVER` in
   `config/hooks/live/0095-lunduke-initramfs.hook.chroot` and the seeded debs in step. Bake
   override: `helpers/binary_linux-image` — see `helpers/README-LLK-BAKE.md`.

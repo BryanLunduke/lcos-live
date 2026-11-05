@@ -1,0 +1,12 @@
+SEED LLK 7.2.15-lcos32 2026-11-04 CT (LCOS 1.0.1, testing only)
+GitHub BryanLunduke/lunduke-linux-kernel PR #29, merged as f0922c9ed48228cee7486625c28721e20ef221e0
+(tag 7.2.15-lcos32, annotated). Editor ordered 2026-11-04 CT.
+Config = lcos31 + CONFIG_ACPI_SBS=m (LCOS#191, MacBook Air 2014 smart battery; sbshc + sbs). Nothing removed.
+  1090 modules (lcos31 had 1088). QEMU boot OK on SeaBIOS and OVMF; sbshc and sbs load without errors
+  (no real smart battery in QEMU; attach must be checked on the 2014 MacBook Air).
+Kernel release unchanged: 7.2.15-lunduke (same package names as lcos31); KVER in 0095 hook unchanged.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.15-lcos31 (moved to superseded/, gitignored).
+ba3bca9ec3b83d180a75fede25d19dd52188518187d599a4147781a024cc585b  linux-image-7.2.15-lunduke_7.2.15-lcos32_amd64.deb
+ab01ea081f36d9f5e31a4a8074db844f564bdf0fcbef18f3d8ec58a97de2fdf1  linux-headers-7.2.15-lunduke_7.2.15-lcos32_amd64.deb
+eed97b32b45640412773615ab47c7901beca8b9372d10b4ed963c9fd8ed9ed0c  lunduke-linux-kernel_7.2.15-lcos32_all.deb
