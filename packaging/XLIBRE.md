@@ -125,3 +125,23 @@ xlibre-debian `debian/` from `xlibre-debian/xlibre-server` was inspected as a
 ## SHA256SUMS
 
 See `packaging/debs/xlibre/SHA256SUMS` (same bytes as `config/packages.chroot/`).
+
+## Update: 25.1.11-1+lcos1 (2026-11-04, America/Chicago)
+
+Rebuilt from tag **xlibre-xserver-25.1.11** (`ec1f2d37daa1450d8452abb547de4546321d7bb9`) with the
+recipe above; only tag and version changed. Excalibur chroot re-created over HTTPS
+(`https://ftp.fau.de/devuan/merged`; plain HTTP is blocked from the build box) with
+libc6 2.41-12+deb13u4. Meson needs `--libdir=lib` to keep `/usr/lib/xorg/modules/xlibre-25`
+(default would be the multiarch path). ABI unchanged (input 26.0, video 28.0, ext 11.0), so the
+drivers were **not** rebuilt. Details and SHA256s: `config/packages.chroot/SEED-xlibre-25.1.11-1.txt`.
+25.1.9 debs kept in `packaging/debs/xlibre-25.1.9-rollback/`.
+
+| Package | Version | SHA256 |
+|---|---|---|
+| xlibre-x11-common | 1:25.1.11-1+lcos1 | d399b08e512b3269385ec342e0882ce3edd046717e8242e0c85817985baa3ccc |
+| xlibre | 1:25.1.11-1+lcos1 | 9d3521a16007fffa6d57b0f1230f69e9a0ab752d21e999593a161e70215f1330 |
+| xserver-xlibre-common | 2:25.1.11-1+lcos1 | 22ef0de657658a2dd9afe1d145dccd51f999ea69d702be14441d88b40b4eeed5 |
+| xserver-xlibre-core | 2:25.1.11-1+lcos1 | 97cf1a6fb042e9d2cd3249ae420398a2adaa57d964f199913b0ad6989abbd6b2 |
+| xserver-xlibre-input-all | 1:25.1.11-1+lcos1 | 8110eaad5fd06698ec1658a0e7b3464edbafe286e94e5132b324e62e10e3947f |
+| xserver-xlibre-video-all | 1:25.1.11-1+lcos1 | e2eb436353f7ea6b75c9f88c94959d5337ee6ee0bf50486cb4f683ceb8c09d6b |
+| xserver-xlibre | 1:25.1.11-1+lcos1 | 4aa7391aa6a88f01d6a16eb2e601af616591c81aaf42593ef5385be26adb1f84 |
