@@ -1,8 +1,8 @@
 # Lunduke Linux Kernel: default ISO kernel for 0.9.5.
-# Seeded 7.2.15-lcos32 on 2026-11-04 CT for LCOS 1.0.1 (lunduke-linux-kernel
-# master f0922c9e, PR #29, tag 7.2.15-lcos32); see
-# config/packages.chroot/SEED-llk-7.2.15-lcos32.txt.
-# Replaced 7.2.15-lcos31 (moved to config/packages.chroot/superseded/).
+# Seeded 7.2.15-lcos33 on 2026-11-06 CT for LCOS 1.0.1 (lunduke-linux-kernel
+# master 7b7536ca, PR #30, tag 7.2.15-lcos33); see
+# config/packages.chroot/SEED-llk-7.2.15-lcos33.txt.
+# Replaced 7.2.15-lcos32 (moved to config/packages.chroot/superseded/).
 # lcos30 is a new kernel release (7.2.15-lunduke), so the image/headers
 # package names changed. Keep this list, the KVER in
 # config/hooks/live/0095-lunduke-initramfs.hook.chroot and the seeded debs in step.
@@ -20,6 +20,7 @@
 # lcos30: Linux 7.2.15; SND_ENS1371=m, INTEL_THC_HID/QUICKI2C/QUICKSPI=m, HID_HAPTIC=y, ZRAM=m (zstd); 1027 modules.
 # lcos31: HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera, 7.2 survey easy batch; 1088 modules.
 # lcos32: ACPI_SBS=m (#191, MacBook Air 2014 smart battery); 1090 modules.
+# lcos33: WireGuard, IPv6 policy routing, OVPN, INET ESP/AH, FQ/CAKE, VLAN/macvlan/ipvlan, rt2x00, ATH5K, ATL1C/E, HID gaming, VMware balloon, Galaxy Book/MSI/Uniwill; 1133 modules.
 linux-image-7.2.15-lunduke
 linux-headers-7.2.15-lunduke
 lunduke-linux-kernel

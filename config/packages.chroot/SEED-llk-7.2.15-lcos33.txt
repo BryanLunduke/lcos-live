@@ -1,0 +1,14 @@
+SEED LLK 7.2.15-lcos33 2026-11-06 CT (LCOS 1.0.1, testing only)
+GitHub BryanLunduke/lunduke-linux-kernel PR #30, merged as 7b7536ca8507dc75f8194f9bc412270d69d7b872
+(tag 7.2.15-lcos33, annotated). Editor ordered 2026-11-06 CT ("Merge it!" after PR build).
+Config = lcos32 + WireGuard, IPv6 policy routing, OVPN DCO, INET ESP/AH, FQ/CAKE,
+  VLAN/macvlan/ipvlan, full rt2x00 (RT73 + RT2800/RT2500/RT2400), ATH5K, ATL1C/ATL1E,
+  Corsair/Razer/Glorious/Plantronics HID, VMware balloon, Samsung Galaxy Book, MSI WMI,
+  Uniwill/TUXEDO (UNIWILL_LAPTOP=m). Mesh/zswap/PPP/IPW left off. Nothing removed.
+  1133 modules (lcos32 had 1090). QEMU boot OK on SeaBIOS and OVMF; new modules present.
+Kernel release unchanged: 7.2.15-lunduke (same package names as lcos32); KVER in 0095 hook unchanged.
+Seeded image + headers + meta; linux-libc-dev intentionally NOT seeded.
+Replaced LLK 7.2.15-lcos32 (moved to superseded/, gitignored).
+682f8fc008e9c32d51dab4e303704dbe687a02feffbb994378e637b621b1d0d4  linux-image-7.2.15-lunduke_7.2.15-lcos33_amd64.deb
+02645534d8fe8ab3993d448eb4ac7a733c353013aa13cf02787f688030028e8d  linux-headers-7.2.15-lunduke_7.2.15-lcos33_amd64.deb
+e4a62d9a96638516d675d7d2a6b21b7d15bc8a8780df757f934987066ee49a7e  lunduke-linux-kernel_7.2.15-lcos33_all.deb

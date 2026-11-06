@@ -2,7 +2,7 @@
 set -e
 # LCOS 0.9.5 / LLK default: custom linux-image with --linux-packages none may not
 # generate initrd during dpkg configure; force it for the Lunduke ABI.
-# LCOS 1.0.1: LLK 7.2.15-lcos32 (kernel release 7.2.15-lunduke since lcos30; was 7.2.6-lunduke).
+# LCOS 1.0.1: LLK 7.2.15-lcos33 (kernel release 7.2.15-lunduke since lcos30; was 7.2.6-lunduke).
 KVER="7.2.15-lunduke"
 if [ -e "/boot/vmlinuz-${KVER}" ] && [ ! -e "/boot/initrd.img-${KVER}" ]; then
 	echo "I: LCOS 0.9.5 LLK hook: generating initrd for ${KVER}"
