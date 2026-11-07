@@ -25,6 +25,10 @@ Next bake filename: lcos-live-101-04.iso (test bake; not published until approve
     /etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf sets SuspendMode= empty so elogind 255 does not
     override the kernel mem_sleep default (#195, HP Elite Dragonfly G2 and the XPS 13 mechanism).
     SKU 0E53 GRUB quirk and lcos-sleep unchanged. Not baked. No apt publish.
+  2026-11-07: lcos-branding 1.0.1-2 (SEED-lcos-branding-1.0.1-2.txt): Plymouth theme draws the LUKS
+    passphrase over the splash (#196; password, question and message callbacks; plymouth-label in
+    desktop.list.chroot and as a Depends). includes.chroot copy of lcos.script kept identical. Not baked.
+    No apt publish.
   2026-11-03 (editor): kernel LLK 7.2.15-lcos31 (lunduke-linux-kernel #28 5b5e419, tag 7.2.15-lcos31) replaces lcos30:
     + HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera and the
     7.2 survey easy-modules batch; 1088 modules. Same release 7.2.15-lunduke. See SEED-llk-7.2.15-lcos31.txt.

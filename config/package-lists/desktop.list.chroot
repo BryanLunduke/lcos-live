@@ -84,6 +84,8 @@ xfce4-screensaver
 # (elogind already listed above). Avoids pulling systemd-sysv.
 plymouth
 libplymouth5
+# Label plugin: lets the script theme draw text (LUKS passphrase prompt, #196).
+plymouth-label
 
 # Removable media in Thunar (preferred: gvfs + udisks2 + thunar-volman).
 # Editor 2026-09-19 left out gvfs-backends; editor 2026-10-09 CT adds it for

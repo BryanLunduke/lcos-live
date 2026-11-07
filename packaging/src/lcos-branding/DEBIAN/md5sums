@@ -6,7 +6,7 @@ fe885d7bca672b909bab93a711849cb4  usr/lib/lcos/lcos-display-fix
 b317c15e6677165ea7d707fc57e27b63  usr/share/backgrounds/lcos/lcos-desktop-desk-oak-map.jpg
 72c32d25fc8056329ac03f1470ece5ff  usr/share/backgrounds/lcos/lcos-desktop-stock.jpg
 18a5a14f87d8421db49c09e28b45c766  usr/share/backgrounds/lcos/lcos-desktop-synthwave.jpg
-0c0ebd8b1cfa39258d12d2c0aeeb4a36  usr/share/doc/lcos-branding/changelog.gz
+4f819a5f03640a2fb4d99ee0275fc1f8  usr/share/doc/lcos-branding/changelog.gz
 03efea02c23348365bacf0106077ac07  usr/share/doc/lcos-branding/copyright
 8fe4ec973c36a3d8f13cd0a626161c21  usr/share/grub/lcos-splash-1024x768.png
 960e9bb0fecfadc339c44796c1238256  usr/share/grub/lcos-splash-4k.png
@@ -24,7 +24,7 @@ daea0441719c5d67c8eb24efb658ada4  usr/share/plymouth/themes/lcos/frame-1.png
 995a9c46cbf251e05f83b17cbc804156  usr/share/plymouth/themes/lcos/frame-2.png
 b51b30a3385d3d5092924110974d0964  usr/share/plymouth/themes/lcos/frame-3.png
 58c47c338d793dd9256f52f05916e6f1  usr/share/plymouth/themes/lcos/lcos.plymouth
-cdae63960c8317fb071dfa6ca419458d  usr/share/plymouth/themes/lcos/lcos.script
+8afac95e9604ce170ebe38a67ee5073c  usr/share/plymouth/themes/lcos/lcos.script
 169f00ab06105c120adc8a54d1a8aab8  usr/share/xfce4/backdrops/lcos-desktop-4k-wood.jpg
 937582dd7b9f30736cf0b72f29cadbbf  usr/share/xfce4/backdrops/lcos-desktop-desk-coffee.jpg
 b317c15e6677165ea7d707fc57e27b63  usr/share/xfce4/backdrops/lcos-desktop-desk-oak-map.jpg
