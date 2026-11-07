@@ -43,7 +43,7 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=1.0.1-2
+BASEVER=1.0.1-3
 DCVER=1.0.1-1
 BRVER=1.0.1-1
 ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }

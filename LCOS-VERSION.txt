@@ -21,6 +21,10 @@ Next bake filename: lcos-live-101-04.iso (test bake; not published until approve
   Other system debs stay 0.9.4-1.
   2026-11-03 (editor): lcos-base 1.0.1-2 (SEED-system-1.0.1-2.txt): XPS 13 SKU 0E53 only, s2idle-only suspend (GRUB
     mem_sleep_default=s2idle + elogind hook lcos-sleep) and a synced sleep log at /var/log/lcos/sleep.log. Not baked.
+  2026-11-07: lcos-base 1.0.1-3 (SEED-system-1.0.1-3.txt): elogind drop-in
+    /etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf sets SuspendMode= empty so elogind 255 does not
+    override the kernel mem_sleep default (#195, HP Elite Dragonfly G2 and the XPS 13 mechanism).
+    SKU 0E53 GRUB quirk and lcos-sleep unchanged. Not baked. No apt publish.
   2026-11-03 (editor): kernel LLK 7.2.15-lcos31 (lunduke-linux-kernel #28 5b5e419, tag 7.2.15-lcos31) replaces lcos30:
     + HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera and the
     7.2 survey easy-modules batch; 1088 modules. Same release 7.2.15-lunduke. See SEED-llk-7.2.15-lcos31.txt.
