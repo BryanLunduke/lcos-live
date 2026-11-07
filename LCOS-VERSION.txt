@@ -29,6 +29,10 @@ Next bake filename: lcos-live-101-04.iso (test bake; not published until approve
     passphrase over the splash (#196; password, question and message callbacks; plymouth-label in
     desktop.list.chroot and as a Depends). includes.chroot copy of lcos.script kept identical. Not baked.
     No apt publish.
+  2026-11-07: installer shellprocess orders /etc/fstab so parent mounts precede children (#198;
+    separate /boot was hiding /boot/efi under sysvinit). Helper
+    config/includes.chroot/usr/lib/lcos/lcos-calamares-order-fstab (not an lcos-base bump).
+    crypttab header no longer points at Arch mkinitcpio. Not baked.
   2026-11-03 (editor): kernel LLK 7.2.15-lcos31 (lunduke-linux-kernel #28 5b5e419, tag 7.2.15-lcos31) replaces lcos30:
     + HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera and the
     7.2 survey easy-modules batch; 1088 modules. Same release 7.2.15-lunduke. See SEED-llk-7.2.15-lcos31.txt.
