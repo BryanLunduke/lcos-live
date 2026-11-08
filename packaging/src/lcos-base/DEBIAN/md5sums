@@ -2,6 +2,7 @@ ead67f4133f3ee91aa6361a57ebebb9e  etc/X11/Xsession.d/20lcos-atspi-reset
 1e868060dfbfa69dd8d81c08c4454203  etc/apt/apt.conf.d/02lcos-neverautoremove
 926d302cbb1a3f40e25dafb8c645cea9  etc/apt/preferences.d/lcos-amd-backports.pref
 c33686a07ec4493e4fbff4ab8ca146d2  etc/default/grub.d/lcos.cfg
+f56d02b3846a37c64e9e14a05ab06b66  etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf
 c5195d1ee8d32e709ab0bd7d8547ad9d  etc/grub.d/05_lcos_quirks
 6b255422dd6c1f5ff4fd1bf57099ad54  etc/init.d/iio-sensor-proxy
 b3df674cab88aacdd53dc62cc6c1258f  etc/init.d/ipp-usb
@@ -16,8 +17,8 @@ ba73ff06ce023cc4d16440d2dd12c146  etc/issue
 677f8f656e8dd2fbde9c8588b5d45a50  usr/lib/lsb/init-functions.d/05-lcos-home
 9abc98bfbf1453aec0463ccc8c4b75c9  usr/lib/os-release
 0675b4543be4f461fff53db12727cc45  usr/lib/sysctl.d/99-lcos-userns.conf
-0112dfad3daf49872615c254ba702a96  usr/libexec/system-sleep/lcos-sleep
+1c677d4fd5e55873f0f475bc511618e1  usr/libexec/system-sleep/lcos-sleep
 7cce50ebb8c199526281048095984ca7  usr/local/sbin/lcos-write-os-release
-b266b21a0a79b3bf6f07b949b00777fa  usr/share/doc/lcos-base/changelog.gz
+dd490bb95291a0ed3809c5a8b71f97fa  usr/share/doc/lcos-base/changelog.gz
 694bd9516d05bf1d42b97be10c1847f3  usr/share/doc/lcos-base/copyright
 776cd7b3d6b91ff04930e6508e22b1fe  usr/share/lcos-base/print-applet-hidden.desktop

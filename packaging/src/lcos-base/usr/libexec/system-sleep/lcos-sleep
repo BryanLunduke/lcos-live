@@ -1,16 +1,19 @@
 #!/bin/sh
-# /usr/libexec/system-sleep/lcos-sleep (lcos-base 1.0.1-2)
+# /usr/libexec/system-sleep/lcos-sleep (lcos-base 1.0.1-3)
 # elogind runs this as "lcos-sleep pre|post suspend|hibernate|..." around
 # every sleep. It does nothing unless the machine is the Dell XPS 13
 # DX13260 (DMI product SKU 0E53), or the admin creates
 # /etc/lcos/sleep-log (then only the log part runs on that machine).
 #
 # On SKU 0E53:
-#  * s2idle only. elogind writes the first of its SuspendMode list
-#    ("deep s2idle") to /sys/power/mem_sleep just before it runs the "pre"
-#    hooks, which would undo the kernel's mem_sleep_default=s2idle (set by
-#    the GRUB quirk). "pre" writes s2idle back; elogind writes "mem" to
-#    /sys/power/state after the hooks, so the suspend is s2idle.
+#  * s2idle only, as extra safety on top of
+#    /etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf. That drop-in sets
+#    SuspendMode= empty so elogind does not write /sys/power/mem_sleep.
+#    If the drop-in is removed, elogind's compiled default "deep s2idle"
+#    is written just before the "pre" hooks and would undo the kernel's
+#    mem_sleep_default=s2idle (set by the GRUB quirk). "pre" writes
+#    s2idle back; elogind writes "mem" to /sys/power/state after the
+#    hooks, so the suspend is s2idle.
 #  * A small persistent sleep log, /var/log/lcos/sleep.log (about 512 KB,
 #    one old copy kept as sleep.log.1). Each "pre" line is synced to disk
 #    before the suspend starts, so a "pre" with no "post" after it (the

@@ -1,9 +1,9 @@
 Package: lcos-base
-Version: 1.0.1-2
+Version: 1.0.1-3
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 212
+Installed-Size: 224
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils
@@ -137,5 +137,16 @@ Description: LCOS 1.0.1 identity, GRUB drop-in, X/boot-order system config
  leaves evidence. No daemon. Other machines unaffected unless
  /etc/lcos/sleep-log exists (log only). Postinst runs update-grub once on
  upgrade from below 1.0.1-2. Editor 2026-11-03.
+ 1.0.1-3: /etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf sets
+ SuspendMode= empty (#195). elogind 255's compiled SuspendMode is
+ "deep s2idle" and it writes "deep" to /sys/power/mem_sleep before
+ every suspend, which overrides the kernel default (s2idle on
+ modern-standby laptops such as the HP Elite Dragonfly G2; the same
+ mechanism as the XPS 13 SKU 0E53 case). An empty assignment clears
+ that mode list instead of falling back to the compiled default, so
+ elogind leaves mem_sleep alone and each machine keeps the mode its
+ firmware advertises. SuspendState is not set to freeze. The SKU 0E53
+ GRUB quirk and lcos-sleep hook are unchanged extra safety. Editor
+ 2026-11-07.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.

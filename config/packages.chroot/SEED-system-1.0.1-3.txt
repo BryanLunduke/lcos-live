@@ -1,0 +1,15 @@
+SEED LCOS lcos-base 1.0.1-3 2026-11-07 (built by packaging/build-101-system-debs.sh --seed --only lcos-base)
+Issue #195: elogind 255 writes its compiled SuspendMode "deep s2idle" to /sys/power/mem_sleep before every suspend, so machines whose kernel default is s2idle (HP Elite Dragonfly G2, same mechanism as Dell XPS 13 SKU 0E53) never resume. Testing only.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 1.0.1-2 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.0.1-3: new conffile /etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf with SuspendMode= empty.
+  elogind 255.17 config_parse_sleep_mode() turns an empty assignment into a non-NULL empty list, so
+  parse_sleep_config() does not copy the compiled "deep s2idle" default back, and write_mode() does not
+  write /sys/power/mem_sleep. suspend_mode_supported() still allows suspend and uses the kernel default.
+  No SuspendState=freeze. No new DMI SKU. XPS 13 SKU 0E53 GRUB quirk (xe.enable_panel_replay=0
+  mem_sleep_default=s2idle) and lcos-sleep s2idle rewrite unchanged (hook comment notes the drop-in).
+  Unpacked diff vs 1.0.1-2: control, md5sums, +etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf,
+  lcos-sleep comment, changelog.gz.
+lcos-desktop-config, lcos-branding stay 1.0.1-1.
+
+5a0f95666edfd7b20afaa4a46c2db1768fbf9dea32b84e83f9733c35507e8e92  lcos-base_1.0.1-3_all.deb

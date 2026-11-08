@@ -3,3 +3,4 @@
 /etc/insserv/overrides/plymouth
 /etc/apt/apt.conf.d/02lcos-neverautoremove
 /etc/grub.d/05_lcos_quirks
+/etc/elogind/sleep.conf.d/50-lcos-mem-sleep.conf
