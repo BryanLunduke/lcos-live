@@ -20,4 +20,14 @@ elif [ -d /usr/share/plymouth/themes/lcos ]; then
       /usr/share/plymouth/themes/default.plymouth 2>/dev/null || true
   fi
 fi
+# LCOS 1.0.1-2 (#196): the theme draws the LUKS prompt, which needs
+# plymouth-label inside the initramfs. Once, on upgrade from below
+# 1.0.1-2, rebuild the initramfs. Skipped in a chroot (the ISO build and
+# the installer both run update-initramfs themselves) and on a fresh
+# install ($2 empty).
+if [ "$1" = configure ] && [ -n "${2:-}" ] && dpkg --compare-versions "$2" lt 1.0.1-2 && \
+   [ -z "${DPKG_ROOT:-}" ] && ! { command -v ischroot >/dev/null 2>&1 && ischroot; } && \
+   command -v update-initramfs >/dev/null 2>&1; then
+  update-initramfs -u || echo "lcos-branding: update-initramfs failed; run it by hand so the LUKS prompt is on the boot splash" >&2
+fi
 exit 0

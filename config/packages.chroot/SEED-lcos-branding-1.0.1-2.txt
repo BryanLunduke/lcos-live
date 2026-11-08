@@ -1,0 +1,15 @@
+SEED LCOS lcos-branding 1.0.1-2 2026-11-07 (built by packaging/build-101-system-debs.sh --only lcos-branding, LC_ALL=C)
+Issue #196: with disk encryption the Plymouth splash never shows the LUKS passphrase until Esc.
+Two causes: lcos.script registered no Plymouth.SetDisplayPasswordFunction, and plymouth-label
+(label-pango.so) was not installed, so a script theme cannot draw text.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-branding 1.0.1-1 (moved to superseded/, kept in packaging/debs and git history).
+lcos-branding 1.0.1-2: password, question and message callbacks in lcos.script (white, centred at
+  about 85% of screen height, a star per typed character; display_normal hides them after unlock).
+  Depends plymouth-label. postinst runs update-initramfs once on upgrade from below 1.0.1-2
+  (skipped in a chroot). config/includes.chroot copy of lcos.script kept identical.
+  desktop.list.chroot lists plymouth-label next to plymouth and libplymouth5.
+  Unpacked diff vs 1.0.1-1: control, md5sums, postinst, lcos.script, changelog.gz.
+lcos-base stays 1.0.1-2. lcos-desktop-config stays 1.0.1-1.
+
+39ea7a68cd7018a44c7b24216177f9a1466d9281704b22084965cfb94b4ef66c  lcos-branding_1.0.1-2_all.deb

@@ -92,6 +92,9 @@ else
 fun display_normal_callback()
 {
   sprite.SetOpacity(1);
+  prompt_sprite.SetOpacity(0);
+  entry_sprite.SetOpacity(0);
+  message_sprite.SetOpacity(0);
 }
 
 Plymouth.SetDisplayNormalFunction(display_normal_callback);
@@ -102,3 +105,60 @@ fun quit_callback()
 }
 
 Plymouth.SetQuitFunction(quit_callback);
+
+# Prompts: passphrase (e.g. LUKS unlock), questions and messages (#196).
+# Without these callbacks Plymouth has nowhere to draw the request,
+# so the prompt stays hidden until the user presses Esc.
+# Image.Text needs the label plugin (package plymouth-label).
+# White, centred at about 85% of screen height, under the animation text.
+# A star per typed character. display_normal hides the prompt after unlock.
+
+prompt_y = Window.GetY() + screen_h * 0.85;
+prompt_font = "Sans 16";
+
+prompt_sprite = Sprite();
+entry_sprite = Sprite();
+message_sprite = Sprite();
+prompt_sprite.SetZ(10);
+entry_sprite.SetZ(10);
+message_sprite.SetZ(10);
+prompt_sprite.SetOpacity(0);
+entry_sprite.SetOpacity(0);
+message_sprite.SetOpacity(0);
+
+fun show_centred(spr, text, y)
+{
+  if (text == "")
+    text = " ";
+  img = Image.Text(text, 1, 1, 1, 1, prompt_font);
+  spr.SetImage(img);
+  spr.SetX(Window.GetX() + (screen_w - img.GetWidth()) / 2);
+  spr.SetY(y);
+  spr.SetOpacity(1);
+}
+
+fun display_password_callback(prompt, bullets)
+{
+  show_centred(prompt_sprite, prompt, prompt_y);
+  stars = "";
+  for (i = 0; i < bullets; i++)
+    stars += "*";
+  show_centred(entry_sprite, stars, prompt_y + 40);
+}
+
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+
+fun display_question_callback(prompt, entry)
+{
+  show_centred(prompt_sprite, prompt, prompt_y);
+  show_centred(entry_sprite, entry, prompt_y + 40);
+}
+
+Plymouth.SetDisplayQuestionFunction(display_question_callback);
+
+fun message_callback(text)
+{
+  show_centred(message_sprite, text, prompt_y + 80);
+}
+
+Plymouth.SetMessageFunction(message_callback);

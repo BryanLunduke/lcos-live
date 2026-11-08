@@ -1,11 +1,12 @@
 Package: lcos-branding
-Version: 1.0.1-1
+Version: 1.0.1-2
 Section: x11
 Priority: optional
 Architecture: all
-Installed-Size: 12264
+Installed-Size: 12268
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
+Depends: plymouth-label
 Provides: lcos-branding
 Replaces: lcos-branding (<< 0.7)
 Conflicts: lcos-branding (<< 0.7)
@@ -23,3 +24,9 @@ Description: LCOS 1.0.1 artwork (wallpapers, splash, logos, Plymouth)
  /usr/share/backgrounds/lcos, /usr/share/xfce4/backdrops and
  /usr/share/images/desktop-base. lcos-desktop-stock.jpg stays the stock
  wallpaper. Editor 2026-10-23.
+ 1.0.1-2: the Plymouth script theme draws the passphrase prompt over
+ the splash (#196). Depends plymouth-label (label-pango.so; script
+ themes cannot draw text without it, and update-initramfs warns when
+ it is missing). On upgrade from below 1.0.1-2, postinst runs
+ update-initramfs so an installed encrypted system picks up the theme
+ and the label plugin. Editor 2026-11-07.
