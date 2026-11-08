@@ -33,6 +33,15 @@ Next bake filename: lcos-live-101-04.iso (test bake; not published until approve
     separate /boot was hiding /boot/efi under sysvinit). Helper
     config/includes.chroot/usr/lib/lcos/lcos-calamares-order-fstab (not an lcos-base bump).
     crypttab header no longer points at Arch mkinitcpio. Not baked.
+  2026-11-08: lcos-base 1.0.1-4 (SEED-system-1.0.1-4.txt): postinst configure always runs
+    lcos-reboot-required. A 1.0 to 1.0.1 upgrade unpacks the new kernel in the same apt run,
+    dpkg drops the pending /boot trigger, and the old configure check skipped the scan because
+    the 1.0 offset already exists, so /var/run/reboot-required was never written. Not baked.
+    No apt publish.
+  2026-11-08: lcos-branding 1.0.1-3 (SEED-lcos-branding-1.0.1-3.txt): the one-shot initramfs
+    rebuild uses update-initramfs -u -k all (1.0.1-2's -u rebuilt only the newest kernel, so
+    initrd.img-7.2.6-lunduke never got plymouth-label). Gate is upgrade from below 1.0.1-3.
+    Not baked. No apt publish.
   2026-11-03 (editor): kernel LLK 7.2.15-lcos31 (lunduke-linux-kernel #28 5b5e419, tag 7.2.15-lcos31) replaces lcos30:
     + HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera and the
     7.2 survey easy-modules batch; 1088 modules. Same release 7.2.15-lunduke. See SEED-llk-7.2.15-lcos31.txt.

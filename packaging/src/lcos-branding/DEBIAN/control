@@ -1,5 +1,5 @@
 Package: lcos-branding
-Version: 1.0.1-2
+Version: 1.0.1-3
 Section: x11
 Priority: optional
 Architecture: all
@@ -30,3 +30,9 @@ Description: LCOS 1.0.1 artwork (wallpapers, splash, logos, Plymouth)
  it is missing). On upgrade from below 1.0.1-2, postinst runs
  update-initramfs so an installed encrypted system picks up the theme
  and the label plugin. Editor 2026-11-07.
+ 1.0.1-3: that upgrade rebuild uses "update-initramfs -u -k all", so
+ every installed kernel gets the label plugin, not only the newest.
+ 1.0.1-2 left initrd.img-7.2.6-lunduke without label-pango.so, and an
+ encrypted 1.0 system that boots 7.2.6 from Advanced options missed the
+ LUKS prompt text. The one-shot runs on upgrade from below 1.0.1-3.
+ Editor 2026-11-08.

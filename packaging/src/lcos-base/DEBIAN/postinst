@@ -7,8 +7,21 @@ if [ "$1" = triggered ]; then
   exit 0
 fi
 if [ "$1" = configure ]; then
-  # first install: start reading dpkg.log from here, don't flag history
-  [ -f "${DPKG_ROOT:-}"/var/lib/lcos/reboot-required.offset ] || { /usr/lib/lcos/lcos-reboot-required --init && /usr/lib/lcos/lcos-reboot-required; } || true
+  # First install: start reading dpkg.log from this apt run so older
+  # history is not flagged. An upgrade keeps the offset it already has.
+  [ -f "${DPKG_ROOT:-}"/var/lib/lcos/reboot-required.offset ] || /usr/lib/lcos/lcos-reboot-required --init || true
+  # LCOS 1.0.1-4: always scan. dpkg records the /boot file trigger
+  # (status triggers-pending) while the new kernel and firmware unpack,
+  # then drops it when lcos-base itself is unpacked for upgrade. postinst
+  # is only called as "configure", never "triggered" (dpkg triggers.txt:
+  # activations while the interested package is not configured are not
+  # delivered, and configure must handle them). Every 1.0 to 1.0.1
+  # upgrade ships lcos-base with the new kernel, and the offset from 1.0
+  # already exists, so the old "only when the offset is missing" check
+  # skipped the scan and /var/run/reboot-required was never written.
+  # The helper is a no-op in a chroot and when the log has nothing new.
+  # The triggered branch above still covers a later kernel install.
+  /usr/lib/lcos/lcos-reboot-required || true
   /usr/local/sbin/lcos-write-os-release || true
 
   # LCOS 0.9.5-4: installers before 0.9.5 left users out of lpadmin, so
