@@ -1,0 +1,100 @@
+#!/bin/sh
+# lcos-calamares-order-fstab (#198)
+# Calamares writes /etc/fstab in partition-list order. With a separate
+# /boot and an EFI partition at /boot/efi, the /boot/efi line can come
+# before the /boot line. sysvinit mounts filesystems in file order, so
+# /boot is then mounted on top of the already-mounted ESP and hides it.
+# Later writes to /boot/efi miss the real EFI partition.
+#
+# Reorder filesystem-mount lines so a parent mount point is listed before
+# its children (shallower path first, then the path). Comments, blank
+# lines, swap, and anything that is not a filesystem mount stay on the
+# lines they already occupy. Mount lines are written back into those same
+# slots, so dump/pass fields, bind options and spacing are kept as written.
+# Swap is not a directory mount (Calamares uses mount point "swap"); a
+# bind is, and is ordered by its mount point.
+#
+# Runs from the Calamares shellprocess module inside the target. $1 is an
+# alternate fstab path for tests.
+set -e
+FSTAB=${1:-/etc/fstab}
+[ -f "$FSTAB" ] || exit 0
+
+tmp=$(mktemp "${FSTAB}.lcos.XXXXXX")
+trap 'rm -f "$tmp"' EXIT
+
+awk '
+function normpath(p,    s) {
+	s = p
+	sub(/\/+$/, "", s)
+	if (s == "")
+		return "/"
+	return s
+}
+function depth(p,    s, n, i) {
+	s = normpath(p)
+	if (s == "/")
+		return 0
+	n = 0
+	for (i = 1; i <= length(s); i++)
+		if (substr(s, i, 1) == "/")
+			n++
+	return n
+}
+function is_fs_mount(    mp, typ) {
+	if ($0 ~ /^[ \t]*#/)
+		return 0
+	if ($0 ~ /^[ \t]*$/)
+		return 0
+	if (NF < 3)
+		return 0
+	mp = $2
+	typ = tolower($3)
+	if (typ == "swap")
+		return 0
+	if (tolower(mp) == "none" || tolower(mp) == "swap")
+		return 0
+	if (substr(mp, 1, 1) != "/")
+		return 0
+	return 1
+}
+{
+	line[NR] = $0
+	nlines = NR
+	if (is_fs_mount()) {
+		m++
+		slot[m] = NR
+		orig[m] = NR
+		text[m] = $0
+		path[m] = normpath($2)
+		dep[m] = depth($2)
+	}
+}
+END {
+	for (i = 2; i <= m; i++) {
+		td = dep[i]; tp = path[i]; tt = text[i]; to = orig[i]
+		j = i - 1
+		while (j >= 1 && (dep[j] > td || (dep[j] == td && (path[j] > tp || (path[j] == tp && orig[j] > to))))) {
+			dep[j + 1] = dep[j]
+			path[j + 1] = path[j]
+			text[j + 1] = text[j]
+			orig[j + 1] = orig[j]
+			j--
+		}
+		dep[j + 1] = td
+		path[j + 1] = tp
+		text[j + 1] = tt
+		orig[j + 1] = to
+	}
+	for (i = 1; i <= m; i++)
+		line[slot[i]] = text[i]
+	for (i = 1; i <= nlines; i++)
+		print line[i]
+}
+' "$FSTAB" > "$tmp"
+
+if ! cmp -s "$FSTAB" "$tmp"; then
+	cat "$tmp" > "$FSTAB"
+	echo "lcos-calamares-order-fstab: ordered filesystem mounts in $FSTAB (parents before children)"
+fi
+exit 0
