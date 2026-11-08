@@ -22,12 +22,16 @@ elif [ -d /usr/share/plymouth/themes/lcos ]; then
 fi
 # LCOS 1.0.1-2 (#196): the theme draws the LUKS prompt, which needs
 # plymouth-label inside the initramfs. Once, on upgrade from below
-# 1.0.1-2, rebuild the initramfs. Skipped in a chroot (the ISO build and
-# the installer both run update-initramfs themselves) and on a fresh
-# install ($2 empty).
-if [ "$1" = configure ] && [ -n "${2:-}" ] && dpkg --compare-versions "$2" lt 1.0.1-2 && \
+# 1.0.1-3, rebuild every installed kernel's initramfs. 1.0.1-2 ran
+# "update-initramfs -u", which rebuilds only the newest kernel, so a
+# 1.0 system kept initrd.img-7.2.6-lunduke without the label plugin and
+# the Advanced-options fallback missed the passphrase text. The gate is
+# 1.0.1-3 so a system that already ran the 1.0.1-2 one-shot is rebuilt
+# too. Skipped in a chroot (the ISO build and the installer both run
+# update-initramfs themselves) and on a fresh install ($2 empty).
+if [ "$1" = configure ] && [ -n "${2:-}" ] && dpkg --compare-versions "$2" lt 1.0.1-3 && \
    [ -z "${DPKG_ROOT:-}" ] && ! { command -v ischroot >/dev/null 2>&1 && ischroot; } && \
    command -v update-initramfs >/dev/null 2>&1; then
-  update-initramfs -u || echo "lcos-branding: update-initramfs failed; run it by hand so the LUKS prompt is on the boot splash" >&2
+  update-initramfs -u -k all || echo "lcos-branding: update-initramfs failed; run it by hand so the LUKS prompt is on the boot splash" >&2
 fi
 exit 0

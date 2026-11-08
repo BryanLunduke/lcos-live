@@ -1,7 +1,9 @@
 #!/bin/sh
 # /usr/lib/lcos/lcos-reboot-required  (lcos-base 0.9.5-1, review r15 U-1)
 # Run from lcos-base's dpkg file trigger whenever a package touches /boot,
-# the kernel module tree or the firmware tree. Every LCOS kernel is named
+# the kernel module tree or the firmware tree, and from postinst configure
+# (an upgrade of lcos-base in the same apt run never gets "triggered").
+# Every LCOS kernel is named
 # 7.2.6-lunduke, so a version change can't be relied on; instead read the
 # dpkg log written since the last run and flag every linux-image-*,
 # firmware-*, intel-microcode or amd64-microcode install/upgrade

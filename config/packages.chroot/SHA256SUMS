@@ -1,8 +1,8 @@
 d58a00a54522982318dd515fd8b864c0001c8ee01d0a9c6ffe519b7975d135ec  firmware-sof-signed_2026.09.1-1_all.deb
 61fefa8a1a5818524fcbf4ddbc5bae834ca689d3461e21bb464d05c760d30072  lcos-appimage-thumbnailer_0.9.4-1_all.deb
 2baa4ec32260bb83bb498a632b7653a081c52dde260e47479209fbc2b974de7e  lcos-archive-keyring_0.9.4-1_all.deb
-5a0f95666edfd7b20afaa4a46c2db1768fbf9dea32b84e83f9733c35507e8e92  lcos-base_1.0.1-3_all.deb
-39ea7a68cd7018a44c7b24216177f9a1466d9281704b22084965cfb94b4ef66c  lcos-branding_1.0.1-2_all.deb
+3ad7a73ed8d71df103b529745805f59554e04afa7f59bc5c3e4014f61151b44a  lcos-base_1.0.1-4_all.deb
+35bb72c0970ed53c3c40860b073daa4d454f6c8c9b22907be01094c5a49e5e1d  lcos-branding_1.0.1-3_all.deb
 70096b02f0c89393fd61b7f0017f69a5b5e1593a6f2238fda64ca5b0fa664d3b  lcos-desktop-config_1.0.1-1_all.deb
 56fd3cd0710f0dfa26d9ee73c64132dee7ad2e1090af1a1a889d0843aa068ff2  lcos-desktop_0.9.4-1_all.deb
 e45543e702002b56aef3fc82f4431c0cfd417fd279b5a811673fccb12e7838df  lcos-theme-clearlooks_0.9.4-1_all.deb

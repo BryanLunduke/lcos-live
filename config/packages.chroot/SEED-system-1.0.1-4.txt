@@ -1,0 +1,17 @@
+SEED LCOS lcos-base 1.0.1-4 2026-11-08 (built by packaging/build-101-system-debs.sh --seed --only lcos-base,lcos-branding, LC_ALL=C)
+Extra QA of test ISO lcos-live-101-05: a stock 1.0 install upgraded to the 1.0.1 package set installed the new kernel and firmware but left /var/run/reboot-required unwritten, so Updates did not ask for a restart. Testing only.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 1.0.1-3 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.0.1-4: postinst configure always runs /usr/lib/lcos/lcos-reboot-required after the
+  first-install --init. dpkg sets triggers-pending on the /boot file trigger while the new kernel
+  and firmware unpack, then drops it when lcos-base is unpacked in the same apt run, so postinst
+  is called with "configure" only and the triggered branch never runs. A 1.0 system already has
+  /var/lib/lcos/reboot-required.offset, so the old configure check skipped the scan. The helper
+  is unchanged apart from a comment; a stale ISO-build offset still makes it reread dpkg.log
+  from the start. The triggered branch still covers a later kernel install that does not upgrade
+  lcos-base.
+  Unpacked diff vs 1.0.1-3: control, md5sums, postinst, lcos-reboot-required (comment), changelog.gz.
+lcos-branding is 1.0.1-3 in the same change (SEED-lcos-branding-1.0.1-3.txt).
+lcos-desktop-config stays 1.0.1-1.
+
+3ad7a73ed8d71df103b529745805f59554e04afa7f59bc5c3e4014f61151b44a  lcos-base_1.0.1-4_all.deb

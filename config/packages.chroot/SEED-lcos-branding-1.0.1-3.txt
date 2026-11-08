@@ -1,0 +1,15 @@
+SEED LCOS lcos-branding 1.0.1-3 2026-11-08 (built by packaging/build-101-system-debs.sh --seed --only lcos-base,lcos-branding, LC_ALL=C)
+Extra QA of test ISO lcos-live-101-05: after a 1.0 to 1.0.1 upgrade, initrd.img-7.2.15-lunduke contained plymouth/label-pango.so and initrd.img-7.2.6-lunduke did not (mtime still the 1.0 install). An encrypted 1.0 system that falls back to 7.2.6 would miss the #196 LUKS prompt text. Testing only.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-branding 1.0.1-2 (moved to superseded/, kept in packaging/debs and git history).
+lcos-branding 1.0.1-3: the one-shot upgrade rebuild runs "update-initramfs -u -k all".
+  "update-initramfs -u" with no -k rebuilds only the highest version that already has an initrd.
+  -k all rebuilds every installed kernel that already has an initrd. The one-shot now runs on
+  upgrade from below 1.0.1-3, so a system that already took 1.0.1-2 (whose one-shot rebuilt only
+  7.2.15) is rebuilt too. Still skipped in a chroot and on a fresh install ($2 empty).
+  Theme script unchanged.
+  Unpacked diff vs 1.0.1-2: control, md5sums, postinst, changelog.gz.
+lcos-base is 1.0.1-4 in the same change (SEED-system-1.0.1-4.txt).
+lcos-desktop-config stays 1.0.1-1.
+
+35bb72c0970ed53c3c40860b073daa4d454f6c8c9b22907be01094c5a49e5e1d  lcos-branding_1.0.1-3_all.deb
