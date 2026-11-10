@@ -50,6 +50,12 @@ Next bake filename: lcos-live-101-04.iso (test bake; not published until approve
     /etc/xdg/lcos and skel: /xfwm4/custom is the full libxfce4ui 4.20.1 xfwm4 list
     with those two commands empty and override true, so the other stock shortcuts
     stay. Not baked. No apt publish.
+  2026-11-10: lcos-base 1.0.1-5 (SEED-system-1.0.1-5.txt): Depends less, and
+    base.list.chroot lists it. minbase plus --apt-recommends false left the
+    pager off the ISO (less is Priority important; man-db only Suggests it).
+    sensible-utils already selects less for man once it is installed. Updates
+    installs with Recommends off, so the Depends reaches 1.0 upgraders.
+    Not baked. No apt publish.
   2026-11-03 (editor): kernel LLK 7.2.15-lcos31 (lunduke-linux-kernel #28 5b5e419, tag 7.2.15-lcos31) replaces lcos30:
     + HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera and the
     7.2 survey easy-modules batch; 1088 modules. Same release 7.2.15-lunduke. See SEED-llk-7.2.15-lcos31.txt.
