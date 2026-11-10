@@ -1,12 +1,12 @@
 Package: lcos-base
-Version: 1.0.1-4
+Version: 1.0.1-5
 Section: admin
 Priority: optional
 Architecture: all
 Installed-Size: 224
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils, less
 Replaces: base-files
 Description: LCOS 1.0.1 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 1.0.1 (excalibur), lcos-write-os-release,
@@ -156,3 +156,9 @@ Description: LCOS 1.0.1 identity, GRUB drop-in, X/boot-order system config
  branch is unchanged for a later kernel install. Editor 2026-11-08.
  Postinst re-applies identity on configure so apt upgrades overwrite
  stale 0.4 conffile text kept by noninteractive Updates.
+ 1.0.1-5: Depends less (the pager). debootstrap --variant=minbase with
+ --apt-recommends false never installed it: less is Priority important,
+ and man-db only Suggests it, so it was missing from the ISO.
+ sensible-utils already points man at less once the package is present.
+ Updates installs with Recommends off, so this is a Depends. Also listed
+ in base.list.chroot. Editor 2026-11-10.

@@ -1,0 +1,11 @@
+SEED LCOS lcos-base 1.0.1-5 2026-11-10 (built by packaging/build-101-system-debs.sh --seed --only lcos-base, LC_ALL=C)
+less was never on the ISO: debootstrap --variant=minbase does not install Priority important, and --apt-recommends false drops man-db's Suggests. Editor 2026-11-10 asked for it on the 1.0.1 queue.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 1.0.1-4 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.0.1-5: Depends less, so Updates (Recommends off) installs the pager on a 1.0 upgrade.
+  base.list.chroot lists less for the live ISO. sensible-utils already selects less for man
+  once the package is present. No other installed files change.
+  Unpacked diff vs 1.0.1-4: control, md5sums, changelog.gz.
+lcos-desktop-config stays 1.0.1-2. lcos-branding stays 1.0.1-3.
+
+817a1b3926d9b525256634b1706e76f576946eabf216a9de175e0e16b2f7d196  lcos-base_1.0.1-5_all.deb
