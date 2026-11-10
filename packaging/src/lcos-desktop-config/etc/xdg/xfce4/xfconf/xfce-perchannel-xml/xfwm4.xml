@@ -4,5 +4,9 @@
     <property name="theme" type="string" value="Clearlooks"/>
     <property name="placement_mode" type="string" value="center"/>
     <property name="placement_ratio" type="int" value="100"/>
+    <property name="workspace_count" type="int" value="1"/>
+    <property name="workspace_names" type="array">
+      <value type="string" value="Workspace 1"/>
+    </property>
   </property>
 </channel>
