@@ -48,3 +48,9 @@ console-setup
 # soft link (man-db Suggests less). sensible-utils already defaults man to
 # less once the package is installed. Editor 2026-11-10, LCOS 1.0.1.
 less
+
+# Glamor dlopens libEGL through libepoxy. Qt5, Qt6 and VLC pull libegl1
+# and mark it auto-installed, so removing those and running autoremove
+# drops it and breaks glamor. lcos-base Depends libegl1 as well.
+# Editor 2026-11-12, LCOS 1.0.2.
+libegl1

@@ -229,6 +229,9 @@ Meson 1.7.0 reported `xcsecurity: true`, `libunwind: true`, `sha1: libnettle`,
 `Xorg -version` prints `XLibre X Server 1.25.1.11`. NEEDED on the packaged Xorg:
 libnettle.so.8 and libunwind.so.8 are back (25.1.9 had them; 25.1.11-1+lcos1 had
 libmd.so.0 and no libunwind). libGL.so.1 is still needed, as in 25.1.11-1+lcos1.
+Glamor dlopens libEGL through libepoxy, and this xserver deb does not Depend
+on libegl1. lcos-base 1.0.2-1 does, and `base.list.chroot` lists it, so
+autoremove cannot drop it when Qt or VLC is removed.
 `Xorg -help` lists SECURITY as a runtime extension; the shipped 25.1.11-1+lcos1
 binary does not. `strings` contains `SingleDriver` and
 `Allowing %s one driver to add non-GPU screens`. `xorg.conf(5)` documents

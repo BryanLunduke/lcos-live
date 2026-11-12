@@ -12,7 +12,8 @@ Next bake filename: lcos-live-102-01.iso (test bake; not published until approve
   rebuilt from tag xlibre-xserver-25.1.11 (ec1f2d37daa1450d8452abb547de4546321d7bb9) plus the
   SingleDriver cherry-picks of 54a4b5f67 and 7d7a6c513 (XLibre PR #1749). Meson options pinned,
   including -Dxcsecurity=true -Dlibunwind=true -Dsha1=libnettle. amdgpu DDX not rebuilt (ABI unchanged).
-  lcos-base 1.0.2-1: identity 1.0.2 and /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf.
+  lcos-base 1.0.2-1: identity 1.0.2, /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf,
+    and Depends libegl1 (glamor dlopens libEGL; also in base.list.chroot).
   lcos-branding 1.0.2-1: description identity strings only; artwork and the plymouth one-shot unchanged.
   lcos-desktop-config stays 1.0.1-2. Apps stay 1.0.1-1. Other system debs stay 0.9.4-1. Kernel stays LLK 7.2.15-lcos33.
   Not baked. No apt publish. No GitHub release.

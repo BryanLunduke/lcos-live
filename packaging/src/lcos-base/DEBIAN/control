@@ -6,7 +6,7 @@ Architecture: all
 Installed-Size: 236
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils, less
+Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils, less, libegl1
 Replaces: base-files
 Description: LCOS 1.0.2 identity, GRUB drop-in, X/boot-order system config
  os-release / issue for LCOS 1.0.2 (excalibur), lcos-write-os-release,
@@ -168,5 +168,10 @@ Description: LCOS 1.0.2 identity, GRUB drop-in, X/boot-order system config
  XLibre server stops after the first driver that found a primary
  screen. That option is implemented by xserver-xlibre-core
  2:25.1.11-1+lcos2 and does nothing in an older server. A later
- ServerFlags section can set SingleDriver off. Depends unchanged
- from 1.0.1-5. Editor 2026-11-12.
+ ServerFlags section can set SingleDriver off. Depends libegl1.
+ Glamor dlopens libEGL through libepoxy. Qt5, Qt6 and VLC are the only
+ packages that pulled libegl1 onto the ISO, and they mark it auto, so
+ removing them and running autoremove deleted it and broke glamor.
+ xserver-xlibre-core 2:25.1.11-1+lcos2 does not depend on libegl1.
+ Updates installs with Recommends off, so this is a Depends. Also
+ listed in base.list.chroot. Editor 2026-11-12.
