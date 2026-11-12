@@ -1,0 +1,28 @@
+SEED LCOS lcos-base 1.1.0-2 2026-11-12 (built by packaging/build-110-system-debs.sh --seed --only lcos-base, LC_ALL=C)
+LCOS #201: a large copy to a USB drive was absorbed by the page cache, so Thunar
+showed it finished and unmount/unplug left the volume dirty ("Failed to mount").
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 1.1.0-1 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.1.0-2: ships /usr/lib/sysctl.d/60-lcos-dirty-writeback.conf
+  vm.dirty_background_bytes=16777216 (16 MiB) and vm.dirty_bytes=67108864 (64 MiB).
+  Absolute bytes, so the cap does not grow with RAM. Writing *_bytes zeroes the
+  matching *_ratio (confirmed: ratios read back 0). Background is set first.
+  Depends unchanged from 1.1.0-1.
+  Boot: procps 2:4.0.4-9devuan1 is already in the image (hard Depends of lightdm,
+  eudev, cups, cups-daemon, ucf, dconf-service and gnumeric; --apt-recommends false
+  still installs it). /etc/init.d/procps is Default-Start S and runs
+  `sysctl -q --system`, which loads /etc/sysctl.d then /usr/lib/sysctl.d (same
+  basename in /etc wins). Its postinst runs update-rc.d, and a dpkg trigger on
+  /usr/lib/sysctl.d reapplies sysctl on upgrade outside a chroot. No extra init
+  script. lcos-base postinst also applies this file on configure, skipped in a
+  chroot and when /etc/sysctl.d/60-lcos-dirty-writeback.conf exists.
+  ntfs-3g and exfatprogs were already on the ISO list and in Depends, so they
+  were not added. Devuan excalibur ntfs-3g 1:2022.10.3-5+deb13u2 ships
+  /usr/bin/ntfsfix; exfatprogs 1.2.9-1+deb13u1 ships /usr/sbin/fsck.exfat.
+  hardware.list.chroot lists ntfs-3g; desktop.list.chroot lists exfatprogs.
+  Unpacked diff vs 1.1.0-1: the new sysctl drop-in and changelog.gz.
+  Control archive also changes: version, Installed-Size 228, description, md5sums, postinst.
+lcos-desktop-config stays 1.1.0-2. lcos-branding stays 1.1.0-1.
+Other system debs stay 0.9.4-1. Apps stay 1.1.0-1. Kernel stays LLK 7.2.15-lcos33.
+
+5b61d88b2ae18a19ba89f7ddff6deb3cdb246b042e746b08b9372de1678551b2  lcos-base_1.1.0-2_all.deb

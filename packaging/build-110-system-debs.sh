@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build the LCOS 1.1.0 system overlay debs (unsigned). lcos-base and lcos-branding 1.1.0-1. lcos-desktop-config 1.1.0-2 (Lunduke Terminal default, Command Center settings menu and hot-plug display divert, 2026-11-12). lcos-zork 1.1.0-1 (launchers use lunduke-terminal). Other metapackages stay 0.9.4-1.
+# Build the LCOS 1.1.0 system overlay debs (unsigned). lcos-base 1.1.0-2 (dirty writeback cap, LCOS #201). lcos-branding 1.1.0-1. lcos-desktop-config 1.1.0-2 (Lunduke Terminal default, Command Center settings menu and hot-plug display divert, 2026-11-12). lcos-zork 1.1.0-1 (launchers use lunduke-terminal). Other metapackages stay 0.9.4-1.
 # (lcos-base Depends and pin as 1.0.1-5, incl. less; lcos-desktop-config 1.1.0-2 is the terminal and Command Center change):
 # lcos-base (identity 1.1.0; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
@@ -43,7 +43,7 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=1.1.0-1
+BASEVER=1.1.0-2
 DCVER=1.1.0-2
 BRVER=1.1.0-1
 ZORKVER=1.1.0-1
