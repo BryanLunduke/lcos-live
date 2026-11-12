@@ -1,15 +1,15 @@
 Package: lcos-base
-Version: 1.0.1-5
+Version: 1.0.2-1
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 224
+Installed-Size: 236
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils, less
 Replaces: base-files
-Description: LCOS 1.0.1 identity, GRUB drop-in, X/boot-order system config
- os-release / issue for LCOS 1.0.1 (excalibur), lcos-write-os-release,
+Description: LCOS 1.0.2 identity, GRUB drop-in, X/boot-order system config
+ os-release / issue for LCOS 1.0.2 (excalibur), lcos-write-os-release,
  and /etc/default/grub.d/lcos.cfg (BACKGROUND lcos-splash-1024x768.png,
  GFXMODE=1024x768, GFXPAYLOAD keep, CMDLINE_LINUX_DEFAULT quiet splash
  loglevel=2 $lcos_quirks) and /etc/grub.d/05_lcos_quirks.
@@ -162,3 +162,11 @@ Description: LCOS 1.0.1 identity, GRUB drop-in, X/boot-order system config
  sensible-utils already points man at less once the package is present.
  Updates installs with Recommends off, so this is a Depends. Also listed
  in base.list.chroot. Editor 2026-11-10.
+ 1.0.2-1: identity 1.0.2 (os-release, /usr/lib/os-release, issue,
+ issue.net, lcos-write-os-release). Ships
+ /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf (#202) so the
+ XLibre server stops after the first driver that found a primary
+ screen. That option is implemented by xserver-xlibre-core
+ 2:25.1.11-1+lcos2 and does nothing in an older server. A later
+ ServerFlags section can set SingleDriver off. Depends unchanged
+ from 1.0.1-5. Editor 2026-11-12.

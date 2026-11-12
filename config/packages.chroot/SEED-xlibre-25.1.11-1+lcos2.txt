@@ -1,0 +1,23 @@
+SEED XLibre 25.1.11-1+lcos2 2026-11-12 (America/Chicago). LCOS 1.0.2 hotfix for #202. Testing only.
+Unsigned (dpkg-deb). No ISO bake / no apt publish / no GitHub release.
+Source: X11Libre/xserver tag xlibre-xserver-25.1.11 = ec1f2d37daa1450d8452abb547de4546321d7bb9,
+plus cherry-picks of 54a4b5f67 and 7d7a6c513 (SingleDriver, XLibre PR #1749).
+Patches: packaging/xlibre/hotfix-202/. Recipe and the exact meson command: packaging/XLIBRE.md.
+Excalibur chroot (libc6 2.41-12+deb13u4, gcc 14.2.0, meson 1.7.0, ninja 1.12.1).
+ABI unchanged: input 26.0, video 28.0, extension 11.0, module dir /usr/lib/xorg/modules/xlibre-25.
+Rebuilt (7): xserver-xlibre-core 2:, xserver-xlibre-common 2:, xserver-xlibre / xlibre / xlibre-x11-common /
+  xserver-xlibre-input-all / xserver-xlibre-video-all 1:.
+Unchanged drivers (not rebuilt): libinput 25.0.1-1, amdgpu 25.1.2-1, ati 1:25.0.1-1,
+  fbdev/vesa 1:25.0.0-1, nouveau 1:25.0.1-1, vmware 1:25.0.0-2.
+ServerFlags snippet is not in these debs. It ships in lcos-base 1.0.2-1
+(/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf). Without that file the backport does nothing.
+Replaces the 25.1.11-1+lcos1 server and metapackages; rollback copies in
+packaging/debs/xlibre-25.1.11-1+lcos1-rollback/.
+
+f99127db9fca72c0f6aa0746f922c32410e33d2b6691def3760e17567c906fdf  xlibre-x11-common_25.1.11-1+lcos2_all.deb
+e068f7cb6da9e24e813572db25e291b0c5aca58726ffb889e428b2e65f95c0f0  xlibre_25.1.11-1+lcos2_amd64.deb
+88e3cf2d087e0fd7d5bd39ed9498efdf4d2181e132e2d4398fe886f3875a52a1  xserver-xlibre-common_25.1.11-1+lcos2_all.deb
+5347d94ed6587f9f2e5fb2df193d658d0bd8c99d9647e1e517a4d9f734bc9a2b  xserver-xlibre-core_25.1.11-1+lcos2_amd64.deb
+36891a07e013a8a6d8509f558e36f41b474ae125bf401c6c59fa539b9d996289  xserver-xlibre-input-all_25.1.11-1+lcos2_amd64.deb
+8e086a2ce2560c4e3b5c05b26402089476c8cbbbc36aeeb412d05edec1553d1e  xserver-xlibre-video-all_25.1.11-1+lcos2_amd64.deb
+053663afe0080915eb69dc8f6ed35a27c661b533fd9117d38d8d165e1e053120  xserver-xlibre_25.1.11-1+lcos2_amd64.deb

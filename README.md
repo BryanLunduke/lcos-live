@@ -1,13 +1,14 @@
-# LCOS live-build recipe (1.0.1)
+# LCOS live-build recipe (1.0.2 hotfix)
 
-> **1.0.1 track (opened 2026-11-02):** this repo's `master` is the LCOS 1.0.1
-> recipe. Official 1.0.0 (`lcos-live-100-05`) is frozen on branch **`lcos-1.0.0`**
-> (hotfixes only; tag `lcos-1.0.0-release` on `6363b8c`). Next test bake:
-> **`lcos-live-101-04.iso`**. 1.0.1 moves the kernel to LLK 7.2.15-lcos33 (Linux 7.2.15).
+> **1.0.2 hotfix (2026-11-12) on frozen branch `lcos-1.0.1`.** Identity is
+> **1.0.2**. Next test bake: **`lcos-live-102-01.iso`**. The change is the
+> AMD rootless X fix (#202): XLibre `2:25.1.11-1+lcos2` (SingleDriver) and
+> `lcos-base` `1.0.2-1`. Kernel stays LLK 7.2.15-lcos33. Apps stay 1.0.1-1.
+> `lcos-desktop-config` stays 1.0.1-2. Not published.
+> `master` is the 1.1 track and still needs the same XLibre change.
 > Current versions and seeds: `LCOS-VERSION.txt`, `config/packages.chroot/SHA256SUMS`
-> and the `config/packages.chroot/SEED-*.txt` notes (apps 1.0.1-1, system 1.0.1-1,
-> LLK 7.2.15-lcos33).
-> The 1.0.0, 0.9.x and 0.8 notes below are kept for history.
+> and the `config/packages.chroot/SEED-*.txt` notes.
+> The 1.0.1, 1.0.0, 0.9.x and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,
 XFCE, Calamares, and a thin signed LCOS apt overlay. No systemd. No Refracta.
@@ -32,7 +33,7 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
 - Mirror: set in `auto/config`. Build-time fetches are pinned to FAU over HTTPS;
   the installed system's apt sources use `deb.devuan.org` (#163)
 - Init: sysvinit (`--initsystem sysvinit`, `sysvinit-core`, `live-config-sysvinit`)
-- Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.2.15-lunduke`, 1.0.1);
+- Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.2.15-lunduke`, carried from 1.0.1);
   live-build `--linux-packages none` + `kernel-lunduke.list.chroot`. Seeded
   7.2.15-lcos33 debs (see `config/packages.chroot/SEED-llk-7.2.15-lcos33.txt`). When the
   kernel release changes, keep the package list, `KVER` in
@@ -69,7 +70,7 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
   `--force-confold` so branding/plymouth conffile order does not hang the build.
 - Installer art: Calamares welcome `lcos-05-ideals.png`; progress slideshow
   `lcos-05-slide-01`…`06` (680×360, top-anchored, no sidebands). Asset
-  filenames kept; Calamares `version` / `shortVersion` are **1.0.1**.
+  filenames kept; Calamares `version` / `shortVersion` are **1.0.2**.
 
 ## Apt overlay
 

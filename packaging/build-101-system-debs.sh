@@ -1,5 +1,10 @@
 #!/bin/bash
-# Build the LCOS 1.0.1 system overlay debs (unsigned). lcos-base, lcos-branding and lcos-desktop-config 1.0.1-1 (version bump for the 1.0.1 track, editor 2026-11-02; lcos-base identity 1.0.1, /etc/grub.d/05_lcos_quirks + $lcos_quirks cmdline, firmware-cirrus/firmware-intel-misc backports pin; content otherwise as lcos-base 1.0.0-2, lcos-branding, lcos-desktop-config 1.0.0-1), others stay 0.9.4-1
+# Build the LCOS system overlay debs (unsigned). Current: lcos-base 1.0.2-1
+# (identity 1.0.2 and SingleDriver snippet, #202), lcos-branding 1.0.2-1
+# (identity strings only), lcos-desktop-config stays 1.0.1-2, others stay 0.9.4-1.
+# History: 1.0.1-1 was the 1.0.1 track bump (editor 2026-11-02; lcos-base identity
+# 1.0.1, /etc/grub.d/05_lcos_quirks + $lcos_quirks cmdline, firmware-cirrus/firmware-intel-misc
+# backports pin; content otherwise as lcos-base 1.0.0-2, lcos-branding, lcos-desktop-config 1.0.0-1).
 # (lcos-base Depends and pin as 0.9.3-3, incl. xdg-desktop-portal-gtk #135; lcos-desktop-config content as 0.9.3-2):
 # lcos-base (identity 1.0.1; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
@@ -43,9 +48,9 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=1.0.1-5
+BASEVER=1.0.2-1
 DCVER=1.0.1-2
-BRVER=1.0.1-3
+BRVER=1.0.2-1
 ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
 SEED=
