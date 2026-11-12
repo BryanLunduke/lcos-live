@@ -1,4 +1,6 @@
 # XLibre — not xorg, not a Wayland compositor as the session
+# Seeded versions: config/packages.chroot/SEED-xlibre-25.1.11-1+lcos3.txt
+# (server and metapackages 25.1.11-1+lcos3; drivers stay +lcos1).
 xlibre
 xserver-xlibre
 xserver-xlibre-input-all

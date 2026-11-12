@@ -3,11 +3,13 @@
 > **1.1.0 track (opened 2026-11-12):** this repo's `master` is the LCOS 1.1.0
 > recipe, in development. Official 1.0.1 (`lcos-live-101-07`) is frozen on branch
 > **`lcos-1.0.1`** (hotfixes only; tag `lcos-1.0.1-release` on `b4d7bae`). Next
-> test bake: **`lcos-live-110-01.iso`**. lcos-base 1.1.0-2 caps dirty writeback
-> (LCOS #201; `SEED-system-1.1.0-2.txt`).
+> test bake: **`lcos-live-110-01.iso`**. lcos-base 1.1.0-3 turns SingleDriver on
+> (LCOS #202; `SEED-system-1.1.0-3.txt`). XLibre server is 25.1.11-1+lcos3
+> (`SEED-xlibre-25.1.11-1+lcos3.txt`), the 1.0.2 build reversioned so it sorts
+> above +lcos2. lcos-base 1.1.0-2 caps dirty writeback (LCOS #201).
 > Current versions and seeds: `LCOS-VERSION.txt`, `config/packages.chroot/SHA256SUMS`
 > and the `config/packages.chroot/SEED-*.txt` notes (apps 1.1.0-1, system 1.1.0-1,
-> lcos-base 1.1.0-2, LLK 7.2.15-lcos33).
+> lcos-base 1.1.0-3, LLK 7.2.15-lcos33).
 > The 1.0.1, 1.0.0, 0.9.x and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,

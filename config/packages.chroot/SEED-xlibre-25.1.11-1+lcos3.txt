@@ -1,0 +1,33 @@
+SEED XLibre 25.1.11-1+lcos3 2026-11-12 (America/Chicago). LCOS 1.1.0 port of the #202 hotfix. Testing only.
+Unsigned (dpkg-deb). No ISO bake / no apt publish / no GitHub release. Identity stays 1.1.0.
+Source: the exact +lcos2 build from lcos-live PR #17 (branch cursor/lcos-1.0.2-amd-singledriver-2605),
+reversioned so it sorts above that hotfix. Not recompiled.
+Tag xlibre-xserver-25.1.11 = ec1f2d37daa1450d8452abb547de4546321d7bb9,
+plus cherry-picks of 54a4b5f67 and 7d7a6c513 (SingleDriver, XLibre PR #1749).
+Patches: packaging/xlibre/hotfix-202/. Recipe, meson command, and why +lcos3: packaging/XLIBRE.md.
+Xorg is byte-identical to +lcos2 (BuildID 61c36fb470d674050d83680064715fadb75d5382).
+NEEDED still has libnettle.so.8, libunwind.so.8, and libGL.so.1.
+ABI unchanged: input 26.0, video 28.0, extension 11.0, module dir /usr/lib/xorg/modules/xlibre-25.
+Reversioned (7): xserver-xlibre-core 2:, xserver-xlibre-common 2:, xserver-xlibre / xlibre /
+  xlibre-x11-common / xserver-xlibre-input-all / xserver-xlibre-video-all 1:.
+  core and common also gain a +lcos3 changelog stanza. The other five payloads match +lcos2.
+Unchanged drivers (not rebuilt): libinput 25.0.1-1, amdgpu 25.1.2-1, ati 1:25.0.1-1,
+  fbdev/vesa 1:25.0.0-1, nouveau 1:25.0.1-1, vmware 1:25.0.0-2.
+  amdgpu SHA256 still 3e03da6ec399fadcf588f55f61504b3fc13124cbd770b153811b8afbd2bd5c67.
+Version: +lcos3, not +lcos1.1. dpkg compares 1+lcos3 > 1+lcos2. 1+lcos1.1 is less than
+  1+lcos2 because the number after lcos is 1 versus 2. 1.1+lcos1 would sort higher but
+  leaves the +lcosN series used since 25.1.9.
+XLibre PR #4080 (merge c66273f7, revert of 2e425acb3, crash #4076 on AMD 9070/9060 XT)
+  is not in this build. It drops libxserver_glx from the Xorg link and needs a rebuild.
+ServerFlags snippet is not in these debs. It ships in lcos-base 1.1.0-3
+(/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf). Without that file the backport does nothing.
+Replaces the 25.1.11-1+lcos1 server and metapackages; rollback copies in
+packaging/debs/xlibre-25.1.11-1+lcos1-rollback/.
+
+c5d9fb765810145720afaba0989d23654c0c0d59ba5d2717907af655a168067e  xlibre-x11-common_25.1.11-1+lcos3_all.deb
+d84b0094229d7a7e18bece2efd48297434c5c3ff945678be109c0343f829ed06  xlibre_25.1.11-1+lcos3_amd64.deb
+430fc544b28fb06f05baef46c9dd3e420114eca2817dbed57b23ebda44fc01c3  xserver-xlibre-common_25.1.11-1+lcos3_all.deb
+8eec6ac88bf66ba58aaf813ec12a6158fc685bbf31e3aade1b73a2e902c4717e  xserver-xlibre-core_25.1.11-1+lcos3_amd64.deb
+9fee90c3afcbbb06f1d26f48487a291517789e533aaa5e5ac1990ef0453acb1f  xserver-xlibre-input-all_25.1.11-1+lcos3_amd64.deb
+65c8f0db13a899d03cb5b905adf675bb217240bb085c188442ec15671a7eddd5  xserver-xlibre-video-all_25.1.11-1+lcos3_amd64.deb
+347fd4172a690e86fa3e36de550ce8de1c1e40ddc98608c1b24670ceb947d04a  xserver-xlibre_25.1.11-1+lcos3_amd64.deb

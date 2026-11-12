@@ -1,9 +1,9 @@
 Package: lcos-base
-Version: 1.1.0-2
+Version: 1.1.0-3
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 228
+Installed-Size: 240
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils, less
@@ -173,3 +173,10 @@ Description: LCOS 1.1.0 identity, GRUB drop-in, X/boot-order system config
  lightdm, eudev, cups, ucf, gnumeric) and its sysvinit script runs
  sysctl --system at boot, which loads /usr/lib/sysctl.d. Postinst
  applies the file on upgrade outside a chroot. Depends unchanged.
+ 1.1.0-3: ships /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf
+ (#202) so the XLibre server stops after the first driver that found a
+ primary screen. That option is implemented by xserver-xlibre-core
+ 2:25.1.11-1+lcos3 (same binaries as the 1.0.2 hotfix's +lcos2) and
+ does nothing in an older server. A later ServerFlags section can set
+ SingleDriver off. Identity stays 1.1.0. Depends unchanged from
+ 1.1.0-2. Editor 2026-11-12.
