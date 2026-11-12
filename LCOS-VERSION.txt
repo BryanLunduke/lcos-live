@@ -1,3 +1,27 @@
+LCOS 1.1.0 recipe tree (git: BryanLunduke/lcos-live master)
+Opened 2026-11-12 (America/Chicago) from official 1.0.1.
+Working version: 1.1.0 - in development. This open is a version bump only (identity and the three system debs). No functional changes. Kernel 7.4 is not started.
+1.0.1 freeze point (last release):
+  ISO lcos-live-101-07.iso, SHA256 5730641a4ec90ba188df463d0f77261494f333d4005869fc29c97ad33cd53841, 1557233664 bytes.
+  The 101-07 bake used a preseeded stock Debian librsvg2-bin_2.60.0+dfsg-1+deb13u1 as a build-env workaround.
+  lcos-live b4d7bae. Tag lcos-1.0.1-release (tag object 53a0717) on b4d7bae; hotfix branch lcos-1.0.1.
+  Overlay live: https://lcos.lunduke.com/apt, lcosrepo1 master facb90f5 (1.0.1, signed; Release SHA256 6d1d0f03804d7005ff0ca9dc6e0c3fdf7a5265af3c95f959c3a226c6afd490be).
+1.0.1 hotfixes go on branch lcos-1.0.1; master is 1.1.0.
+Identity/overlay track: 1.1.0
+Next bake filename: lcos-live-110-01.iso (test bake; not published until approved)
+1.0.1 package versions (official 1.0.1):
+  lcos-base 1.0.1-5, lcos-desktop-config 1.0.1-2, lcos-branding 1.0.1-3, Updates 1.0.1-1, About 1.0.1-1,
+  Edit 1.0.1-1, Paint 1.0.1-1, City 1.0.1-1, firmware-sof-signed 2026.09.1-1, kernel LLK 7.2.15-lcos33,
+  XLibre 25.1.11-1+lcos1, other system debs 0.9.4-1.
+1.1.0 (2026-11-12, version bump only, no functional changes):
+  Version bump to 1.1.0-1 for lcos-base, lcos-desktop-config and lcos-branding (identity 1.1.0).
+  Apps stay 1.0.1-1 (bumped in their own repos later). Kernel LLK stays 7.2.15-lcos33.
+  XLibre stays 25.1.11-1+lcos1. Other system debs stay 0.9.4-1.
+  Seeded: lcos-base, lcos-desktop-config, lcos-branding 1.1.0-1 (SEED-system-1.1.0-1.txt).
+Autologin stays ON by default; screensaver and lock stay OFF by default.
+Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).
+
+===== 1.0.1 history below =====
 LCOS 1.0.1 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-11-02 (America/Chicago) from official 1.0.0.
 Working version: 1.0.1 - kernel update (LLK 7.2.15-lcos33) and small hardware fixes; 1.1 will move to kernel 7.4 (not started).
@@ -6,7 +30,6 @@ Working version: 1.0.1 - kernel update (LLK 7.2.15-lcos33) and small hardware fi
   Tag lcos-1.0.0-release (tag object f26de9f) on 6363b8c; hotfix branch lcos-1.0.0.
 1.0.0 hotfixes go on branch lcos-1.0.0; master is 1.0.1.
 Identity/overlay track: 1.0.1
-Next bake filename: lcos-live-101-04.iso (test bake; not published until approved)
 1.0.0 package versions (official 1.0.0):
   lcos-base 1.0.0-2, lcos-desktop-config 1.0.0-1, lcos-branding 1.0.0-1, Updates 1.0.0-1, About 1.0.0-5,
   Edit 1.0.0-1, Paint 1.0.0-1, City 1.0.0-1, firmware-sof-signed 2026.09.1-1, kernel LLK 7.2.6-lcos28, other system debs 0.9.4-1.
@@ -69,7 +92,6 @@ Next bake filename: lcos-live-101-04.iso (test bake; not published until approve
     lunduke-edit #33 bc2873b, lunduke-paint #37 91e845b, LundukeCity #39 26d84d8, LCOS-AboutThisComputer #62 db7e432,
     lcos-updates #35 2ef5089 (tags v1.0.1-1). Kernel: lunduke-linux-kernel #27 8d2193b, tag 7.2.15-lcos30.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
-Apt: do NOT publish from this open until approved.
 
 ===== 1.0.0 history below =====
 LCOS 1.0.0 recipe tree (git: BryanLunduke/lcos-live master)
