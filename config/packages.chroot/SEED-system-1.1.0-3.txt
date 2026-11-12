@@ -1,0 +1,18 @@
+SEED LCOS lcos-base 1.1.0-3 2026-11-12 (built by packaging/build-110-system-debs.sh --seed --only lcos-base)
+LCOS #202 on the 1.1.0 track. Testing only. No ISO bake / no apt publish / no GitHub release.
+Identity stays 1.1.0. This is not the 1.0.2 identity bump.
+Replaces: lcos-base 1.1.0-2 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.1.0-3: ships /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf
+  Section "ServerFlags" / Option "SingleDriver" "on".
+  Only the first driver that finds a screen adds a primary screen. A second DRM
+  device is still added as a GPU screen. A later ServerFlags section can set it off.
+  The option is implemented by xserver-xlibre-core 2:25.1.11-1+lcos3 and does nothing
+  on an older server. That server deb is the 1.0.2 +lcos2 build, reversioned
+  (SEED-xlibre-25.1.11-1+lcos3.txt).
+  Depends unchanged from 1.1.0-2. os-release, issue, issue.net, and
+  lcos-write-os-release stay 1.1.0.
+  Unpacked diff vs 1.1.0-2: the new snippet and changelog.gz.
+lcos-desktop-config stays 1.1.0-2. lcos-branding stays 1.1.0-1.
+Other system debs stay 0.9.4-1. Apps stay 1.1.0-1. Kernel stays LLK 7.2.15-lcos33.
+
+bdb7696079c8111b5bf62cf294feaa8dcbd52d1858b2b092df23f4b8ea7866e5  lcos-base_1.1.0-3_all.deb

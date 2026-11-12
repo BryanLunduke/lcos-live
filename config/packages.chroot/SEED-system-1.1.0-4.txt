@@ -1,0 +1,19 @@
+SEED LCOS lcos-base 1.1.0-4 2026-11-12 (built by packaging/build-110-system-debs.sh --seed --only lcos-base)
+Follow-up on the 1.1.0 #202 port. Testing only. No ISO bake / no apt publish / no GitHub release.
+Identity stays 1.1.0.
+Replaces: lcos-base 1.1.0-3 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.1.0-4: Depends libegl1.
+  xserver-xlibre-core 2:25.1.11-1+lcos3 no longer depends on libegl1
+  (+lcos1 did). Glamor dlopens libEGL through libepoxy. Qt and VLC were
+  the remaining reverse dependencies, so removing either and running
+  autoremove can drop libegl1 and leave glamor without EGL.
+  Updates installs with Recommends off, so the Depends reaches upgraders.
+  xlibre.list.chroot lists libegl1 so the ISO keeps it.
+  The SingleDriver snippet from 1.1.0-3 is unchanged.
+  os-release, issue, issue.net, and lcos-write-os-release stay 1.1.0.
+  Unpacked diff vs 1.1.0-3: control (version, Depends, description), md5sums, changelog.gz.
+lcos-desktop-config stays 1.1.0-2. lcos-branding stays 1.1.0-1.
+Other system debs stay 0.9.4-1. Apps stay 1.1.0-1. Kernel stays LLK 7.2.15-lcos33.
+XLibre stays 25.1.11-1+lcos3.
+
+d7ffe03ebad0eaabc04474edb4536e119252d9c5cff2d83a622ff7f4f0bd70f0  lcos-base_1.1.0-4_all.deb

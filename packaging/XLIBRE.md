@@ -145,3 +145,122 @@ drivers were **not** rebuilt. Details and SHA256s: `config/packages.chroot/SEED-
 | xserver-xlibre-input-all | 1:25.1.11-1+lcos1 | 8110eaad5fd06698ec1658a0e7b3464edbafe286e94e5132b324e62e10e3947f |
 | xserver-xlibre-video-all | 1:25.1.11-1+lcos1 | e2eb436353f7ea6b75c9f88c94959d5337ee6ee0bf50486cb4f683ceb8c09d6b |
 | xserver-xlibre | 1:25.1.11-1+lcos1 | 4aa7391aa6a88f01d6a16eb2e601af616591c81aaf42593ef5385be26adb1f84 |
+
+## Update: 25.1.11-1+lcos3 (2026-11-12, America/Chicago)
+
+LCOS 1.1.0 port of the 1.0.2 #202 hotfix (lcos-live PR #17). Dev/test on
+master only. Not baked. No apt publish. No GitHub release. Identity stays
+1.1.0 (os-release, issue, Calamares, iso volume are not touched).
+
+The seven server and metapackage debs are the PR #17 `+lcos2` build,
+reversioned to `+lcos3`. They were not compiled again. `Xorg` is
+byte-identical to that build (BuildID `61c36fb470d674050d83680064715fadb75d5382`).
+NEEDED still includes `libnettle.so.8`, `libunwind.so.8`, and `libGL.so.1`.
+`strings` has `SingleDriver`. `xorg.conf(5)` documents it. Source is tag
+**xlibre-xserver-25.1.11** (`ec1f2d37daa1450d8452abb547de4546321d7bb9`) plus
+the two cherry-picks below. Patches: `packaging/xlibre/hotfix-202/`. The
+third commit on XLibre PR #1749 (`f06db2d6c`) was not taken. ABI is still
+input 26.0 / video 28.0 / extension 11.0, so the drivers were not rebuilt.
+`xserver-xlibre-video-amdgpu` SHA256 is still
+`3e03da6ec399fadcf588f55f61504b3fc13124cbd770b153811b8afbd2bd5c67`.
+
+| Patch | Upstream commit | What |
+|---|---|---|
+| `packaging/xlibre/hotfix-202/0001-xfree86-common-introduce-SingleDriver-server-flag.patch` | `54a4b5f670de257c83cdb8b6a743a1592e2e78d4` | SingleDriver server flag |
+| `packaging/xlibre/hotfix-202/0002-xfree86-man-add-SingleDriver-server-flag-to-man-page.patch` | `7d7a6c513be268483ecb52ceb341d5600a7878c5` | man page |
+
+The option does nothing unless a config turns it on. That file is
+`/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf` in **lcos-base 1.1.0-4**
+(added in 1.1.0-3; `ServerFlags` / `Option "SingleDriver" "on"`). It is not
+in the xserver deb. A later ServerFlags section can set it off.
+
+`xserver-xlibre-core` 2:25.1.11-1+lcos3 does not depend on `libegl1`
+(`+lcos1` did). Glamor dlopens libEGL through libepoxy. Qt and VLC were
+the other packages that pulled it in, so removing either and running
+autoremove can drop it. **lcos-base 1.1.0-4** depends on `libegl1`, and
+`config/package-lists/xlibre.list.chroot` lists it so the ISO keeps it.
+
+### Why +lcos3
+
+The repo's X revision is `25.1.11-1+lcosN` (epoch 2 on
+`xserver-xlibre-core` and `xserver-xlibre-common`, epoch 1 on the
+metapackages). `+lcos1` is what master shipped. `+lcos2` is the 1.0.2
+hotfix. `dpkg --compare-versions` says `2:25.1.11-1+lcos3` is greater than
+`2:25.1.11-1+lcos2`, and the same for epoch 1: after the shared prefix
+`1+lcos` the numbers 3 and 2 decide it.
+
+`+lcos1.1` does not sort above `+lcos2`. The number after `lcos` is 1
+versus 2, so the `.1` is never compared. A Debian revision of `1.1+lcos1`
+does sort above `1+lcos2` (`.` sorts after `+`), but it leaves the
+`+lcosN` series this tree has used since 25.1.9. `+lcos3` stays in that
+series, so an upgrade from master's `+lcos1` or from the 1.0.2 `+lcos2`
+packages selects it.
+
+Control fields that embed the revision (`Version`, `Depends` lower bounds,
+`Provides` versions) say `+lcos3`. Payload files are the `+lcos2` files.
+`xserver-xlibre-core` and `xserver-xlibre-common` also gain a changelog
+stanza for `+lcos3`; their other files match `+lcos2`. The five
+metapackage / `xlibre-x11-common` payloads match `+lcos2` entirely.
+Previous `+lcos1` debs of these seven packages are in
+`packaging/debs/xlibre-25.1.11-1+lcos1-rollback/`.
+
+### Meson command (the one that produced the +lcos2 binaries)
+
+Excalibur chroot, libc6 2.41-12+deb13u4, gcc 14.2.0, meson 1.7.0, ninja
+1.12.1. `libunwind-dev` and `nettle-dev` installed. Recorded with the
+1.0.2 build and not re-run for `+lcos3`:
+
+```
+meson setup /tmp/xlibre-build \
+  --prefix=/usr \
+  --libdir=lib \
+  --buildtype=release \
+  -Dxorg=true \
+  -Dxephyr=false \
+  -Dxnest=false \
+  -Dxvfb=false \
+  -Dxfbdev=false \
+  -Dglamor=true \
+  -Dudev=true \
+  -Dudev_kms=true \
+  -Dsystemd_logind=false \
+  -Dseatd_libseat=true \
+  -Dlegacy_nvidia_padding=false \
+  -Dxcsecurity=true \
+  -Dlibunwind=true \
+  -Dsha1=libnettle \
+  -Ddocs=true \
+  -Ddevel-docs=false \
+  -Ddocs-pdf=false
+```
+
+`-Dsha1=libnettle` and `-Dlibunwind=true` are explicit: sha1 `auto` prefers
+libmd when `libmd-dev` is present, and libunwind defaults to false.
+
+### XLibre PR #4080 is not in this build
+
+[X11Libre/xserver#4080](https://github.com/X11Libre/xserver/pull/4080)
+merged to `release/25.1` on 2026-11-12 (merge
+`c66273f7b623b7eba3e5b7cf958794673c918525`, patch commit
+`6f3d19537721929b639d69739bb0873fdcc0747b`). It deletes `libxserver_glx`
+from `xorg_link` in `hw/xfree86/meson.build`, reverting
+`2e425acb3514e637cfdd8a3f93ae140976069992`. That is the fix for the crash
+in X11Libre issue #4076 (AMD Radeon 9070 / 9060 XT). It is one line, and
+it applies on top of 25.1.11.
+
+It is not in these debs. The `+lcos2` binary still links `libGL.so.1`
+because of `2e425acb3`, and that link was left as upstream 25.1.11 shipped
+it. Taking #4080 means compiling Xorg again. That would no longer be the
+PR #17 build, and it would change NEEDED and the shlibdeps line. A later
+1.1 rebuild can take the revert. It was not added to the 1.0.2 hotfix.
+
+| Package | Version | SHA256 |
+|---|---|---|
+| xlibre-x11-common | 1:25.1.11-1+lcos3 | c5d9fb765810145720afaba0989d23654c0c0d59ba5d2717907af655a168067e |
+| xlibre | 1:25.1.11-1+lcos3 | d84b0094229d7a7e18bece2efd48297434c5c3ff945678be109c0343f829ed06 |
+| xserver-xlibre-common | 2:25.1.11-1+lcos3 | 430fc544b28fb06f05baef46c9dd3e420114eca2817dbed57b23ebda44fc01c3 |
+| xserver-xlibre-core | 2:25.1.11-1+lcos3 | 8eec6ac88bf66ba58aaf813ec12a6158fc685bbf31e3aade1b73a2e902c4717e |
+| xserver-xlibre-input-all | 1:25.1.11-1+lcos3 | 9fee90c3afcbbb06f1d26f48487a291517789e533aaa5e5ac1990ef0453acb1f |
+| xserver-xlibre-video-all | 1:25.1.11-1+lcos3 | 65c8f0db13a899d03cb5b905adf675bb217240bb085c188442ec15671a7eddd5 |
+| xserver-xlibre | 1:25.1.11-1+lcos3 | 347fd4172a690e86fa3e36de550ce8de1c1e40ddc98608c1b24670ceb947d04a |
+| lcos-base | 1.1.0-4 | d7ffe03ebad0eaabc04474edb4536e119252d9c5cff2d83a622ff7f4f0bd70f0 |

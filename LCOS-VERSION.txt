@@ -16,12 +16,27 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
 1.1.0 (2026-11-12, version bump only, no functional changes):
   Version bump to 1.1.0-1 for lcos-base, lcos-desktop-config and lcos-branding (identity 1.1.0).
   Apps stay 1.0.1-1 (bumped in their own repos later). Kernel LLK stays 7.2.15-lcos33.
-  XLibre stays 25.1.11-1+lcos1. Other system debs stay 0.9.4-1.
+  XLibre opened at 25.1.11-1+lcos1 (moved to +lcos3 below). Other system debs stay 0.9.4-1.
   Seeded: lcos-base, lcos-desktop-config, lcos-branding 1.1.0-1 (SEED-system-1.1.0-1.txt).
   2026-11-12: lcos-base 1.1.0-2 (SEED-system-1.1.0-2.txt): /usr/lib/sysctl.d/60-lcos-dirty-writeback.conf
     sets vm.dirty_background_bytes=16777216 and vm.dirty_bytes=67108864 (LCOS #201) so a large USB
     copy cannot sit entirely in the page cache. procps 2:4.0.4-9devuan1 is already on the ISO and
     its init script runs sysctl --system at boot. ntfs-3g and exfatprogs were already listed.
+    Not baked. No apt publish.
+  2026-11-12: lcos-base 1.1.0-3 (SEED-system-1.1.0-3.txt) and XLibre 25.1.11-1+lcos3
+    (SEED-xlibre-25.1.11-1+lcos3.txt). Port of the 1.0.2 #202 hotfix onto this track.
+    /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf sets ServerFlags Option
+    SingleDriver on. The server debs are the 1.0.2 +lcos2 build (tag
+    xlibre-xserver-25.1.11 plus 54a4b5f67 and 7d7a6c513, meson xcsecurity /
+    libunwind / sha1=libnettle) reversioned to +lcos3 so they sort above +lcos2.
+    +lcos1.1 does not. Identity stays 1.1.0. XLibre PR #4080 is not in this build.
+    Not baked. No apt publish.
+  2026-11-12: lcos-base 1.1.0-4 (SEED-system-1.1.0-4.txt): Depends libegl1.
+    xserver-xlibre-core 2:25.1.11-1+lcos3 no longer depends on it (+lcos1 did).
+    Glamor dlopens libEGL through libepoxy, so removing Qt or VLC and running
+    autoremove can drop libegl1. xlibre.list.chroot lists it for the ISO.
+    Updates installs with Recommends off, so the Depends reaches upgraders.
+    SingleDriver snippet unchanged. Identity stays 1.1.0.
     Not baked. No apt publish.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).

@@ -1,6 +1,15 @@
 # XLibre — not xorg, not a Wayland compositor as the session
+# Seeded versions: config/packages.chroot/SEED-xlibre-25.1.11-1+lcos3.txt
+# (server and metapackages 25.1.11-1+lcos3; drivers stay +lcos1).
 xlibre
 xserver-xlibre
 xserver-xlibre-input-all
 xserver-xlibre-video-all
 xserver-xlibre-input-libinput
+# libegl1: xserver-xlibre-core 2:25.1.11-1+lcos3 no longer Depends on it
+# (+lcos1 did). Glamor dlopens libEGL through libepoxy. Qt and VLC still
+# pull it in, so removing either and running autoremove can drop it.
+# Listed here so the ISO keeps it. lcos-base 1.1.0-4 also Depends on it
+# so upgraders get it (Updates installs with Recommends off).
+# Editor 2026-11-12.
+libegl1

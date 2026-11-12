@@ -1,4 +1,3 @@
-ead67f4133f3ee91aa6361a57ebebb9e  etc/X11/Xsession.d/20lcos-atspi-reset
 1e868060dfbfa69dd8d81c08c4454203  etc/apt/apt.conf.d/02lcos-neverautoremove
 926d302cbb1a3f40e25dafb8c645cea9  etc/apt/preferences.d/lcos-amd-backports.pref
 c33686a07ec4493e4fbff4ab8ca146d2  etc/default/grub.d/lcos.cfg
@@ -13,13 +12,15 @@ e82c9b298fe94f27faf152d32b1ae179  etc/insserv/overrides/plymouth
 d0716a22a96e37e51c220d0445bbd8a1  etc/issue
 5d82a3ee180c0a2b97c6920f0bd64a30  etc/issue.net
 1cad3458aba1863e996a1f34c61f0d96  etc/os-release
+ead67f4133f3ee91aa6361a57ebebb9e  etc/X11/Xsession.d/20lcos-atspi-reset
+1c677d4fd5e55873f0f475bc511618e1  usr/libexec/system-sleep/lcos-sleep
 63f0f9d1d92eba5d2dc148b94b693431  usr/lib/lcos/lcos-reboot-required
 677f8f656e8dd2fbde9c8588b5d45a50  usr/lib/lsb/init-functions.d/05-lcos-home
 1cad3458aba1863e996a1f34c61f0d96  usr/lib/os-release
 01d627d6e68dd1d64d747bb285e27de2  usr/lib/sysctl.d/60-lcos-dirty-writeback.conf
 0675b4543be4f461fff53db12727cc45  usr/lib/sysctl.d/99-lcos-userns.conf
-1c677d4fd5e55873f0f475bc511618e1  usr/libexec/system-sleep/lcos-sleep
 89a84bd7223cb0982a84cb3a9d00af20  usr/local/sbin/lcos-write-os-release
-875658411f251afc5cad64f502e86605  usr/share/doc/lcos-base/changelog.gz
+fc2cf8f80639a2890ece12b7008903f4  usr/share/doc/lcos-base/changelog.gz
 e082e949338be5244e6b201963071fe8  usr/share/doc/lcos-base/copyright
 776cd7b3d6b91ff04930e6508e22b1fe  usr/share/lcos-base/print-applet-hidden.desktop
+5b90c679f46607fa88d6367dbddc736c  usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf
