@@ -1,6 +1,11 @@
 brave-origin
 vlc
-cool-retro-term
+# Lunduke Terminal is the default terminal (hook 5020 pins
+# x-terminal-emulator). Command Center is the settings front end.
+# fonts-terminus is a Recommends of lunduke-terminal; apt recommends
+# are off, so it is not pulled in. CRT profiles fall back to DejaVu.
+lunduke-terminal
+lcos-settings
 htop
 curl
 gparted

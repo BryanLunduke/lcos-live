@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+# 1.1.0-1 was the last version that shipped these Cool Retro Term launchers.
+dpkg-maintscript-helper rm_conffile \
+	/etc/xdg/xfce4/panel/launcher-4/cool-retro-term.desktop 1.1.0-1 lcos-desktop-config -- "$@"
+dpkg-maintscript-helper rm_conffile \
+	/etc/skel/.config/xfce4/panel/launcher-4/cool-retro-term.desktop 1.1.0-1 lcos-desktop-config -- "$@"
+exit 0

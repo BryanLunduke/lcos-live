@@ -1,0 +1,34 @@
+SEED LCOS 1.1.0-2 Command Center and Lunduke Terminal. 2026-11-12.
+Testing only. Unsigned. No ISO bake, no apt publish, no GitHub release.
+SHA256SUMS covers 33 top-level debs. sha256sum -c passes.
+
+lcos-settings 1.1.0-1 amd64
+  Built with packaging/build-deb.sh from BryanLunduke/lcos-settings
+  annotated tag v1.1.0-1, commit b65313179e58ef2028e1a0bb123b4e5324574b42
+  (merge of PR #8), on Debian trixie, g++ 14.2.0-19.
+  DEB_BUILD_OPTIONS=nocheck (the package test suite was not run here).
+  PR #8 reported SHA256 e57af508670733db3f468e4eb0cef9aac5fd261a614c10780d954dcb165efea5.
+  Actual SHA256 of this build is below. It is a fresh dpkg-buildpackage,
+  not a copy of the PR artifact, so the hash is not the same.
+
+lunduke-terminal 1.1.0-1 amd64
+  Built with packaging/build-deb.sh from BryanLunduke/Lunduke-Term
+  annotated tag v1.1.0-1, commit 657d4bf3b4ff8d25c648ca8321bcf9ea4d381535
+  (merge of PR #14), same trixie chroot, DEB_BUILD_OPTIONS=nocheck.
+  PR #14 reported SHA256 29e22eda1303b010e9a82ffab87d93498287afc753fc6a85655b5e94145af16f.
+  Actual SHA256 of this build is below.
+
+lcos-desktop-config 1.1.0-2 all
+  Replaces 1.1.0-1 (moved to config/packages.chroot/superseded/, not committed).
+  Lunduke Terminal helper and panel launcher, Command Center settings menu,
+  NoDisplay overrides, hot-plug display divert. Depends on lcos-settings
+  and lunduke-terminal.
+
+lcos-zork 1.1.0-1 all
+  Replaces 0.9.4-1 (moved to superseded/). Launchers run lunduke-terminal.
+  Depends on frotz and lunduke-terminal.
+
+6712e48b15ac30c4b3446d28da25bb552aff88191ff5ee467ad9249395e4c386  lcos-settings_1.1.0-1_amd64.deb
+73188b98b49ee637a7c941b61b74ae04d6b3efae624d8c7e887b2a864efdd37b  lunduke-terminal_1.1.0-1_amd64.deb
+e5b5d567e56ef3f83e986b6a768915a958bfbfa2925643fb2030be23d9800279  lcos-desktop-config_1.1.0-2_all.deb
+9efc7aecb3e2c1811715e232a36d32c0926e1cb4c893d08f97e3725c69d0f29e  lcos-zork_1.1.0-1_all.deb

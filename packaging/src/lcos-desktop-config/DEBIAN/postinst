@@ -1,0 +1,124 @@
+#!/bin/sh
+set -e
+dpkg-maintscript-helper rm_conffile \
+	/etc/xdg/xfce4/panel/launcher-4/cool-retro-term.desktop 1.1.0-1 lcos-desktop-config -- "$@"
+dpkg-maintscript-helper rm_conffile \
+	/etc/skel/.config/xfce4/panel/launcher-4/cool-retro-term.desktop 1.1.0-1 lcos-desktop-config -- "$@"
+
+# Hot-plug displays. xfsettingsd runs xfce4-display-settings --minimal.
+# Command Center ships /usr/libexec/lcos-xfce4-display-settings for that.
+# --package (not --local) records the diversion as ours so purge can undo
+# it and so we do not remove a diversion an admin already added by hand.
+# Idempotent: a second configure does not add the diversion again.
+install_display_divert() {
+	target=/usr/bin/xfce4-display-settings
+	diverted=/usr/bin/xfce4-display-settings.xfce
+	wrapper=/usr/libexec/lcos-xfce4-display-settings
+	[ -x "$wrapper" ] || return 0
+	existing=$(dpkg-divert --list "$target" 2>/dev/null || true)
+	if [ -z "$existing" ]; then
+		dpkg-divert --package lcos-desktop-config --rename \
+			--divert "$diverted" --add "$target"
+	elif ! printf '%s\n' "$existing" | grep -q 'xfce4-display-settings\.xfce'; then
+		echo "lcos-desktop-config: $target is diverted elsewhere; leaving it" >&2
+		return 0
+	fi
+	if [ -L "$target" ] || [ ! -e "$target" ]; then
+		ln -sfn "$wrapper" "$target"
+	fi
+}
+
+# One helpers.rc line. Any other TerminalEmulator= value is a user choice
+# and is left alone, including a file that does not mention cool-retro-term.
+switch_helpers() {
+	file=$1
+	[ -f "$file" ] && [ ! -L "$file" ] || return 0
+	grep -q '^TerminalEmulator=cool-retro-term$' "$file" || return 0
+	tmp=$(mktemp "$file.XXXXXX")
+	sed 's/^TerminalEmulator=cool-retro-term$/TerminalEmulator=lunduke-terminal/' "$file" > "$tmp"
+	chown --reference="$file" "$tmp"
+	chmod --reference="$file" "$tmp"
+	mv "$tmp" "$file"
+}
+
+# Panel launcher. Replace only a launcher that still execs cool-retro-term
+# with no extra arguments. If any Cool Retro Term launcher was edited,
+# leave the whole panel alone so a customised one keeps its filename.
+switch_panel() {
+	base=$1
+	[ -d "$base/xfce4/panel" ] || return 0
+	template=/etc/xdg/xfce4/panel/launcher-4/org.lunduke.LundukeTerminal.desktop
+	[ -f "$template" ] || return 0
+	# Classify first. A launcher whose Exec is not exactly cool-retro-term
+	# was edited; leave every launcher and the panel XML alone.
+	custom=0
+	count=0
+	for old in "$base"/xfce4/panel/launcher-*/cool-retro-term.desktop; do
+		[ -f "$old" ] && [ ! -L "$old" ] || continue
+		count=$((count + 1))
+		execs=$(grep -c '^Exec=' "$old" 2>/dev/null || true)
+		if [ "$execs" = 1 ] && grep -qx 'Exec=cool-retro-term' "$old"; then
+			:
+		else
+			custom=1
+		fi
+	done
+	[ "$count" -gt 0 ] && [ "$custom" = 0 ] || return 0
+	for old in "$base"/xfce4/panel/launcher-*/cool-retro-term.desktop; do
+		[ -f "$old" ] && [ ! -L "$old" ] || continue
+		dir=$(dirname "$old")
+		new=$dir/org.lunduke.LundukeTerminal.desktop
+		cp "$template" "$new"
+		chown --reference="$old" "$new" 2>/dev/null || chown --reference="$dir" "$new"
+		chmod 0644 "$new"
+		rm -f "$old"
+	done
+	for xml in "$base/xfce4/panel/default.xml" \
+		"$base/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"; do
+		[ -f "$xml" ] && [ ! -L "$xml" ] || continue
+		grep -q 'cool-retro-term\.desktop' "$xml" || continue
+		tmp=$(mktemp "$xml.XXXXXX")
+		sed 's/cool-retro-term\.desktop/org.lunduke.LundukeTerminal.desktop/g' "$xml" > "$tmp"
+		chown --reference="$xml" "$tmp"
+		chmod --reference="$xml" "$tmp"
+		mv "$tmp" "$xml"
+	done
+}
+
+# x-terminal-emulator. The package registers priority 40, the same as
+# xfce4-terminal, so auto mode can pick either. Switch only when the
+# current selection is automatic or still Cool Retro Term. A manual
+# choice of another terminal is left alone. The live hook sets it
+# unconditionally after every terminal package is configured.
+pin_terminal() {
+	[ -x /usr/bin/lunduke-terminal ] || return 0
+	command -v update-alternatives >/dev/null 2>&1 || return 0
+	update-alternatives --remove x-terminal-emulator /usr/bin/cool-retro-term >/dev/null 2>&1 || true
+	query=$(update-alternatives --query x-terminal-emulator 2>/dev/null || true)
+	mode=$(printf '%s\n' "$query" | awk -F': ' '/^Status:/{print $2; exit}')
+	value=$(printf '%s\n' "$query" | awk -F': ' '/^Value:/{print $2; exit}')
+	if [ "$mode" = "auto" ] || [ "$value" = "/usr/bin/cool-retro-term" ] || [ -z "$value" ]; then
+		update-alternatives --set x-terminal-emulator /usr/bin/lunduke-terminal
+	fi
+}
+
+if [ "$1" = configure ]; then
+	install_display_divert
+	# Conffiles under /etc/xdg and /etc/skel are updated by dpkg when the
+	# admin has not edited them. Homes are not conffiles.
+	if [ -z "${DPKG_ROOT:-}" ] && getent passwd >/dev/null 2>&1; then
+		while IFS=: read -r _user _x uid _gid _gecos home _shell; do
+			[ "$uid" -ge 1000 ] 2>/dev/null || continue
+			[ "$uid" -le 59999 ] 2>/dev/null || continue
+			[ -d "$home" ] && [ ! -L "$home" ] || continue
+			switch_helpers "$home/.config/xfce4/helpers.rc"
+			switch_panel "$home/.config"
+		done <<EOF
+$(getent passwd)
+EOF
+	fi
+	if [ -z "${DPKG_ROOT:-}" ]; then
+		pin_terminal || echo "lcos-desktop-config: could not select lunduke-terminal; the live hook sets it when the package is present" >&2
+	fi
+fi
+exit 0

@@ -4,4 +4,4 @@ Type=Application
 Terminal=false
 Categories=Game;AdventureGame;
 Icon=applications-games
-Exec=cool-retro-term -e frotz /usr/share/games/zork/zork1.z3
+Exec=lunduke-terminal -e frotz /usr/share/games/zork/zork1.z3

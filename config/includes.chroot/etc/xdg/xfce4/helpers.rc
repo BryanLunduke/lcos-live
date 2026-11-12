@@ -5,6 +5,6 @@
 #
 
 WebBrowser=brave
-TerminalEmulator=cool-retro-term
+TerminalEmulator=lunduke-terminal
 FileManager=thunar
 TextEditor=lunduke-edit
