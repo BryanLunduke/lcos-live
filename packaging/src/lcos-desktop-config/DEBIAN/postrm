@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+dpkg-maintscript-helper rm_conffile \
+	/etc/xdg/xfce4/panel/launcher-4/cool-retro-term.desktop 1.1.0-1 lcos-desktop-config -- "$@"
+dpkg-maintscript-helper rm_conffile \
+	/etc/skel/.config/xfce4/panel/launcher-4/cool-retro-term.desktop 1.1.0-1 lcos-desktop-config -- "$@"
+
+# Undo the hot-plug divert on remove and on purge. Only a diversion this
+# package added is removed. The symlink has to go first, or --rename cannot
+# move xfce4-display-settings.xfce back.
+if [ "$1" = remove ] || [ "$1" = purge ]; then
+	target=/usr/bin/xfce4-display-settings
+	diverted=/usr/bin/xfce4-display-settings.xfce
+	existing=$(dpkg-divert --list "$target" 2>/dev/null || true)
+	if printf '%s\n' "$existing" | grep -q 'by lcos-desktop-config'; then
+		if [ -L "$target" ]; then
+			dest=$(readlink "$target" || true)
+			if [ "$dest" = /usr/libexec/lcos-xfce4-display-settings ]; then
+				rm -f "$target"
+			fi
+		fi
+		dpkg-divert --package lcos-desktop-config --rename \
+			--divert "$diverted" --remove "$target"
+	fi
+fi
+exit 0

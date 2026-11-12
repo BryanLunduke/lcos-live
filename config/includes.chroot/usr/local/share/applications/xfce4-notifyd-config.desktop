@@ -1,0 +1,13 @@
+# LCOS 1.1.0-2: Command Center covers this dialog. The owning package
+# stays installed (it also ships a daemon or another tool). NoDisplay
+# hides the menu and Settings Manager entry. Launching this id opens
+# the matching Command Center page.
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Notifications
+Comment=Open LCOS Command Center
+Exec=lcos-settings --page=notifications
+Icon=org.lunduke.LcosSettings
+NoDisplay=true
+OnlyShowIn=XFCE;

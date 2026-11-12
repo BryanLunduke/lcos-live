@@ -29,7 +29,7 @@
         </Include>
 
         <Layout>
-            <Filename>xfce-settings-manager.desktop</Filename>
+            <Filename>org.lunduke.LcosSettings.desktop</Filename>
             <Separator/>
             <Merge type="all"/>
         </Layout>

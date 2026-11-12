@@ -1,6 +1,10 @@
 #!/bin/sh
+# Lunduke Terminal registers x-terminal-emulator at priority 40, the same
+# priority xfce4-terminal uses, so automatic mode can select either one.
+# Set it explicitly after every terminal package is configured. Manual
+# mode keeps a later package install from outranking it.
 set -e
-if [ -x /usr/bin/cool-retro-term ]; then
-	update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/cool-retro-term 50
-	update-alternatives --set x-terminal-emulator /usr/bin/cool-retro-term
+if [ -x /usr/bin/lunduke-terminal ]; then
+	update-alternatives --remove x-terminal-emulator /usr/bin/cool-retro-term >/dev/null 2>&1 || true
+	update-alternatives --set x-terminal-emulator /usr/bin/lunduke-terminal
 fi

@@ -23,7 +23,7 @@ XFCE LCOS desktop edition. Depends:
 - `lcos-theme-clearlooks` (if split)
 - Devuan: `xfce4`, `lightdm`, `lightdm-gtk-greeter`, `elementary-xfce-icon-theme`, `gtk2-engines`, …
 - XLibre stack (from LCOS overlay once vendored): `xlibre`, `xserver-xlibre`, input/video `*-all`
-- Apps (optional Recommends): `brave-origin`, `cool-retro-term`, `gnumeric`, `abiword`, `galculator`, `vlc`, `aisleriot`, `maelstrom`, `lunduke-paint`, `lcos-micropolis`, `lcos-zork`
+- Apps (optional Recommends): `brave-origin`, `lunduke-terminal`, `lcos-settings`, `gnumeric`, `abiword`, `galculator`, `vlc`, `aisleriot`, `maelstrom`, `lunduke-paint`, `lcos-micropolis`, `lcos-zork`
 
 Not Depends (seed / installer ISO only):
 - `calamares`, live-config hooks, live sudoers

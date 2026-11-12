@@ -48,7 +48,7 @@
     </property>
     <property name="plugin-4" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="cool-retro-term.desktop"/>
+        <value type="string" value="org.lunduke.LundukeTerminal.desktop"/>
       </property>
     </property>
     <property name="plugin-5" type="string" value="launcher">

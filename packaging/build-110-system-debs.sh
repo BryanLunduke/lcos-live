@@ -1,6 +1,6 @@
 #!/bin/bash
-# Build the LCOS 1.1.0 system overlay debs (unsigned). lcos-base, lcos-branding and lcos-desktop-config 1.1.0-1 (version bump for the 1.1.0 track, 2026-11-12; lcos-base identity 1.1.0; no functional changes; content otherwise as lcos-base 1.0.1-5, lcos-branding 1.0.1-3, lcos-desktop-config 1.0.1-2), others stay 0.9.4-1
-# (lcos-base Depends and pin as 1.0.1-5, incl. less; lcos-desktop-config content as 1.0.1-2):
+# Build the LCOS 1.1.0 system overlay debs (unsigned). lcos-base and lcos-branding 1.1.0-1. lcos-desktop-config 1.1.0-2 (Lunduke Terminal default, Command Center settings menu and hot-plug display divert, 2026-11-12). lcos-zork 1.1.0-1 (launchers use lunduke-terminal). Other metapackages stay 0.9.4-1.
+# (lcos-base Depends and pin as 1.0.1-5, incl. less; lcos-desktop-config 1.1.0-2 is the terminal and Command Center change):
 # lcos-base (identity 1.1.0; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
 # incl. i386 Mesa, #129), lcos-branding, lcos-desktop-config,
@@ -33,7 +33,7 @@ build() {
 	done
 	find "$root" -path "$root/DEBIAN" -prune -o -type d -exec chmod 0755 {} +
 	# executables we ship
-	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer usr/lib/lcos/lcos-reboot-required usr/bin/lcos-cool-retro-term etc/grub.d/05_lcos_quirks usr/libexec/system-sleep/lcos-sleep; do
+	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer usr/lib/lcos/lcos-reboot-required etc/grub.d/05_lcos_quirks usr/libexec/system-sleep/lcos-sleep; do
 		[ -f "$root/$x" ] && chmod 0755 "$root/$x"
 	done
 	local out="$DEBDIR/${name}_${ver}_all.deb"
@@ -44,9 +44,10 @@ build() {
 
 VER=0.9.4-1
 BASEVER=1.1.0-1
-DCVER=1.1.0-1
+DCVER=1.1.0-2
 BRVER=1.1.0-1
-ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; *) echo "$VER";; esac; }
+ZORKVER=1.1.0-1
+ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; lcos-zork) echo "$ZORKVER";; *) echo "$VER";; esac; }
 PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
 SEED=
 while [ $# -gt 0 ]; do
