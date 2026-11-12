@@ -2,9 +2,22 @@ brave-origin
 vlc
 # Lunduke Terminal is the default terminal (hook 5020 pins
 # x-terminal-emulator). Command Center is the settings front end.
-# fonts-terminus is a Recommends of lunduke-terminal; apt recommends
-# are off, so it is not pulled in. CRT profiles fall back to DejaVu.
+# Recommends are off, so list the retro fonts here. These are every
+# font package in cool-retro-term's Depends (checked against the
+# trixie binary: fonts-pc, fonts-pc-extra, fonts-3270, fonts-agave,
+# fonts-inconsolata, fonts-sixtyfour, fonts-amiga, fonts-atarismall),
+# plus fonts-terminus for Lunduke Terminal's CRT profiles. The Qt
+# Quick modules that cool-retro-term also Depends on are not listed.
 lunduke-terminal
+fonts-pc
+fonts-pc-extra
+fonts-3270
+fonts-agave
+fonts-inconsolata
+fonts-sixtyfour
+fonts-amiga
+fonts-atarismall
+fonts-terminus
 lcos-settings
 htop
 curl

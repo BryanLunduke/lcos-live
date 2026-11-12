@@ -25,8 +25,20 @@ lcos-desktop-config 1.1.0-2 all
   and lunduke-terminal.
 
 lcos-zork 1.1.0-1 all
-  Replaces 0.9.4-1 (moved to superseded/). Launchers run lunduke-terminal.
-  Depends on frotz and lunduke-terminal.
+  Replaces 0.9.4-1 (moved to superseded/). 0.9.4-1 Depends on
+  cool-retro-term, and its three desktop files Exec
+  cool-retro-term -e frotz /usr/share/games/zork/zork{1,2,3}.z3.
+  Leaving that Depends in place would pull Cool Retro Term back onto
+  the ISO. 1.1.0-1 Depends on frotz and lunduke-terminal, and the
+  Exec lines are lunduke-terminal -e frotz <story>. -e is last, which
+  is what Lunduke Terminal requires. There is no separate launcher script.
+
+Fonts added to config/package-lists/apps.list.chroot (recommends are
+off, so they have to be named). Every font package in trixie
+cool-retro-term's Depends, plus fonts-terminus. No Qt Quick modules.
+  fonts-pc, fonts-pc-extra, fonts-3270, fonts-agave, fonts-inconsolata,
+  fonts-sixtyfour, fonts-amiga, fonts-atarismall, fonts-terminus
+No deb bytes changed for that list, so SHA256SUMS is unchanged.
 
 6712e48b15ac30c4b3446d28da25bb552aff88191ff5ee467ad9249395e4c386  lcos-settings_1.1.0-1_amd64.deb
 73188b98b49ee637a7c941b61b74ae04d6b3efae624d8c7e887b2a864efdd37b  lunduke-terminal_1.1.0-1_amd64.deb
