@@ -31,6 +31,13 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     libunwind / sha1=libnettle) reversioned to +lcos3 so they sort above +lcos2.
     +lcos1.1 does not. Identity stays 1.1.0. XLibre PR #4080 is not in this build.
     Not baked. No apt publish.
+  2026-11-12: lcos-base 1.1.0-4 (SEED-system-1.1.0-4.txt): Depends libegl1.
+    xserver-xlibre-core 2:25.1.11-1+lcos3 no longer depends on it (+lcos1 did).
+    Glamor dlopens libEGL through libepoxy, so removing Qt or VLC and running
+    autoremove can drop libegl1. xlibre.list.chroot lists it for the ISO.
+    Updates installs with Recommends off, so the Depends reaches upgraders.
+    SingleDriver snippet unchanged. Identity stays 1.1.0.
+    Not baked. No apt publish.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).
 

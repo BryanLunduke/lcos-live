@@ -170,9 +170,15 @@ input 26.0 / video 28.0 / extension 11.0, so the drivers were not rebuilt.
 | `packaging/xlibre/hotfix-202/0002-xfree86-man-add-SingleDriver-server-flag-to-man-page.patch` | `7d7a6c513be268483ecb52ceb341d5600a7878c5` | man page |
 
 The option does nothing unless a config turns it on. That file is
-`/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf` in **lcos-base 1.1.0-3**
-(`ServerFlags` / `Option "SingleDriver" "on"`). It is not in the xserver deb.
-A later ServerFlags section can set it off.
+`/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf` in **lcos-base 1.1.0-4**
+(added in 1.1.0-3; `ServerFlags` / `Option "SingleDriver" "on"`). It is not
+in the xserver deb. A later ServerFlags section can set it off.
+
+`xserver-xlibre-core` 2:25.1.11-1+lcos3 does not depend on `libegl1`
+(`+lcos1` did). Glamor dlopens libEGL through libepoxy. Qt and VLC were
+the other packages that pulled it in, so removing either and running
+autoremove can drop it. **lcos-base 1.1.0-4** depends on `libegl1`, and
+`config/package-lists/xlibre.list.chroot` lists it so the ISO keeps it.
 
 ### Why +lcos3
 
@@ -257,4 +263,4 @@ PR #17 build, and it would change NEEDED and the shlibdeps line. A later
 | xserver-xlibre-input-all | 1:25.1.11-1+lcos3 | 9fee90c3afcbbb06f1d26f48487a291517789e533aaa5e5ac1990ef0453acb1f |
 | xserver-xlibre-video-all | 1:25.1.11-1+lcos3 | 65c8f0db13a899d03cb5b905adf675bb217240bb085c188442ec15671a7eddd5 |
 | xserver-xlibre | 1:25.1.11-1+lcos3 | 347fd4172a690e86fa3e36de550ce8de1c1e40ddc98608c1b24670ceb947d04a |
-| lcos-base | 1.1.0-3 | bdb7696079c8111b5bf62cf294feaa8dcbd52d1858b2b092df23f4b8ea7866e5 |
+| lcos-base | 1.1.0-4 | d7ffe03ebad0eaabc04474edb4536e119252d9c5cff2d83a622ff7f4f0bd70f0 |

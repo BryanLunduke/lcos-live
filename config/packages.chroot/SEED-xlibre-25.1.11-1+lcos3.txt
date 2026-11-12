@@ -19,8 +19,11 @@ Version: +lcos3, not +lcos1.1. dpkg compares 1+lcos3 > 1+lcos2. 1+lcos1.1 is les
   leaves the +lcosN series used since 25.1.9.
 XLibre PR #4080 (merge c66273f7, revert of 2e425acb3, crash #4076 on AMD 9070/9060 XT)
   is not in this build. It drops libxserver_glx from the Xorg link and needs a rebuild.
-ServerFlags snippet is not in these debs. It ships in lcos-base 1.1.0-3
-(/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf). Without that file the backport does nothing.
+ServerFlags snippet is not in these debs. It ships in lcos-base 1.1.0-4
+(/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf; first added in 1.1.0-3).
+Without that file the backport does nothing. This server no longer Depends
+on libegl1 (+lcos1 did). lcos-base 1.1.0-4 depends on it, and
+xlibre.list.chroot lists it.
 Replaces the 25.1.11-1+lcos1 server and metapackages; rollback copies in
 packaging/debs/xlibre-25.1.11-1+lcos1-rollback/.
 
