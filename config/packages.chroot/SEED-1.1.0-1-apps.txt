@@ -1,0 +1,14 @@
+LCOS 1.1.0 app seeds (annotated tags v1.1.0-1), replacing Edit 1.0.1-1, Paint 1.0.1-1, City 1.0.1-1, About 1.0.1-1 and Updates 1.0.1-1. Testing only: no ISO bake, no apt publish.
+Built with each repo's packaging/build-deb.sh from annotated tag v1.1.0-1.
+BryanLunduke/lunduke-edit tag v1.1.0-1 commit 72ea1fa572d679ce6ff5f0ca436f9756b7fd44a5 version 1.1.0-1 deb lunduke-edit_1.1.0-1_amd64.deb
+BryanLunduke/lunduke-paint tag v1.1.0-1 commit 2cac6c653c628d2dace4e560cb8c1db43169a5d1 version 1.1.0-1 deb lunduke-paint_1.1.0-1_amd64.deb
+BryanLunduke/LundukeCity tag v1.1.0-1 commit 0637d19d719b1ecafa7352e01c5477cd0f131569 version 1.1.0-1 deb lunduke-city_1.1.0-1_amd64.deb
+BryanLunduke/LCOS-AboutThisComputer tag v1.1.0-1 commit 811c759977e76188f0eba49edcfe0c20c3b8a85f version 1.1.0-1 deb lunduke-about_1.1.0-1_amd64.deb
+BryanLunduke/lcos-updates tag v1.1.0-1 commit 681a5224dc94745c46903f433a0b6d5581bf4941 version 1.1.0-1 deb lcos-updates_1.1.0-1_amd64.deb
+PRs/merges: lunduke-edit #34 72ea1fa5, lunduke-paint #38 2cac6c65, LundukeCity #40 0637d19d, LCOS-AboutThisComputer #64 811c7599, lcos-updates #36 681a5224.
+Depends match the replaced 1.0.1-1 debs. Edit's test suite was skipped on the editor's word (DEB_BUILD_OPTIONS=nocheck): 1.1.0-1 is a version-only bump over tested 1.0.1 code. Paint, City, About and Updates test suites ran inside packaging/build-deb.sh.
+e43cc7e8520c6a68d0f064d96c66a12ae4ed1f9cac474d10d16094c19397003b  lunduke-edit_1.1.0-1_amd64.deb
+7570caa3c795688889c40da5e8a9ec8b20174bc08f92ec8fa27cf73d367376d4  lunduke-paint_1.1.0-1_amd64.deb
+5628acb64756f6c0a3a6150b37a792a0972d749c1aad3cc50159a57f56cffb6f  lunduke-city_1.1.0-1_amd64.deb
+9653377365a73163e56f078d28f6bbc9a3426578827cf79c9cfb1470901ac9d2  lunduke-about_1.1.0-1_amd64.deb
+e7237e5c21feabe943634f7795220d59a28d3b8a83073b8d97dfca87633651ac  lcos-updates_1.1.0-1_amd64.deb
