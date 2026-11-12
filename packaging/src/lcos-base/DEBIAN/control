@@ -1,9 +1,9 @@
 Package: lcos-base
-Version: 1.1.0-1
+Version: 1.1.0-2
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 224
+Installed-Size: 228
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-archive-keyring (>= 0.7), lcos-branding (>= 0.9-1), eject, cifs-utils, keyutils, gvfs-backends, dialog, xfce4-screensaver, xarchiver, thunar-archive-plugin, exfatprogs, xdg-desktop-portal-gtk, fonts-noto-color-emoji, firmware-iwlwifi, firmware-intel-sound, firmware-intel-graphics, fwupd, thermald, iio-sensor-proxy, switcheroo-control, ipp-usb, sane-airscan, intel-media-va-driver, zstd, console-setup, at-spi2-core, 7zip, x11-utils, libnss-mdns, system-config-printer, cups-pk-helper, fdisk, ntfs-3g, libmtp-runtime, gdebi, usbutils, less
@@ -165,3 +165,11 @@ Description: LCOS 1.1.0 identity, GRUB drop-in, X/boot-order system config
  1.1.0-1: version bump for LCOS 1.1.0; identity 1.1.0 (os-release,
  /usr/lib/os-release, issue, issue.net, lcos-write-os-release). No
  functional changes. Depends unchanged from 1.0.1-5. Editor 2026-11-12.
+ 1.1.0-2: ships /usr/lib/sysctl.d/60-lcos-dirty-writeback.conf
+ (vm.dirty_background_bytes=16777216, vm.dirty_bytes=67108864) so a
+ large copy to a USB drive cannot sit entirely in the page cache
+ (LCOS #201). The *_bytes form does not scale with RAM; writing it
+ zeroes the matching *_ratio. procps is already on the ISO (Depends of
+ lightdm, eudev, cups, ucf, gnumeric) and its sysvinit script runs
+ sysctl --system at boot, which loads /usr/lib/sysctl.d. Postinst
+ applies the file on upgrade outside a chroot. Depends unchanged.

@@ -132,6 +132,15 @@ if [ "$1" = configure ]; then
      [ -w /proc/sys/user/max_user_namespaces ] && command -v sysctl >/dev/null 2>&1; then
     sysctl -q -p /usr/lib/sysctl.d/99-lcos-userns.conf >/dev/null 2>&1 || true
   fi
+  # LCOS 1.1.0-2 (#201): cap dirty pages so a USB copy cannot look finished
+  # while the data is still only in the page cache. Same chroot guard as
+  # above. An admin file of the same name in /etc/sysctl.d wins at boot
+  # and is left alone here. procps also reloads /usr/lib/sysctl.d from
+  # its dpkg trigger; this applies the file even if that trigger is skipped.
+  if [ -z "${DPKG_ROOT:-}" ] && [ "$in_chroot" = no ] && [ ! -e /etc/sysctl.d/60-lcos-dirty-writeback.conf ] && \
+     [ -w /proc/sys/vm/dirty_bytes ] && command -v sysctl >/dev/null 2>&1; then
+    sysctl -q -p /usr/lib/sysctl.d/60-lcos-dirty-writeback.conf >/dev/null 2>&1 || true
+  fi
 fi
 dpkg-maintscript-helper rm_conffile /etc/init.d/lcos-amdgpu-ddx 0.9.2-2~ lcos-base -- "$@"
 exit 0

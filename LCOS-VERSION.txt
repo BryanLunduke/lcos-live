@@ -18,6 +18,11 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
   Apps stay 1.0.1-1 (bumped in their own repos later). Kernel LLK stays 7.2.15-lcos33.
   XLibre stays 25.1.11-1+lcos1. Other system debs stay 0.9.4-1.
   Seeded: lcos-base, lcos-desktop-config, lcos-branding 1.1.0-1 (SEED-system-1.1.0-1.txt).
+  2026-11-12: lcos-base 1.1.0-2 (SEED-system-1.1.0-2.txt): /usr/lib/sysctl.d/60-lcos-dirty-writeback.conf
+    sets vm.dirty_background_bytes=16777216 and vm.dirty_bytes=67108864 (LCOS #201) so a large USB
+    copy cannot sit entirely in the page cache. procps 2:4.0.4-9devuan1 is already on the ISO and
+    its init script runs sysctl --system at boot. ntfs-3g and exfatprogs were already listed.
+    Not baked. No apt publish.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).
 
