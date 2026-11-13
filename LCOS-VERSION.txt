@@ -1,3 +1,27 @@
+LCOS 1.0.2 hotfix recipe (git: BryanLunduke/lcos-live branch lcos-1.0.1)
+Opened 2026-11-12 (America/Chicago) from the frozen 1.0.1 hotfix branch (the branch exists; not from tag lcos-1.0.1-release).
+Working version: 1.0.2 - AMD rootless X hotfix (#202). This branch is not master. master is the 1.1 track.
+1.0.1 base this hotfix starts from:
+  Branch lcos-1.0.1 at b4d7bae (lcos-base 1.0.1-5, lcos-desktop-config 1.0.1-2, lcos-branding 1.0.1-3,
+  XLibre 25.1.11-1+lcos1, LLK 7.2.15-lcos33). The 1.0.1 next-bake name was lcos-live-101-04.iso.
+Identity/overlay track: 1.0.2
+Next bake filename: lcos-live-102-01.iso (test bake; not published until approved)
+1.0.2 (#202, 2026-11-12):
+  xserver-xlibre-core and xserver-xlibre-common 2:25.1.11-1+lcos2, and the 1: metapackages
+  (xserver-xlibre, xlibre, xlibre-x11-common, xserver-xlibre-input-all, xserver-xlibre-video-all)
+  rebuilt from tag xlibre-xserver-25.1.11 (ec1f2d37daa1450d8452abb547de4546321d7bb9) plus the
+  SingleDriver cherry-picks of 54a4b5f67 and 7d7a6c513 (XLibre PR #1749). Meson options pinned,
+  including -Dxcsecurity=true -Dlibunwind=true -Dsha1=libnettle. amdgpu DDX not rebuilt (ABI unchanged).
+  lcos-base 1.0.2-1: identity 1.0.2, /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf,
+    and Depends libegl1 (glamor dlopens libEGL; also in base.list.chroot).
+  lcos-branding 1.0.2-1: description identity strings only; artwork and the plymouth one-shot unchanged.
+  lcos-desktop-config stays 1.0.1-2. Apps stay 1.0.1-1. Other system debs stay 0.9.4-1. Kernel stays LLK 7.2.15-lcos33.
+  Not baked. No apt publish. No GitHub release.
+master (1.1.0, origin/master) still ships xserver-xlibre-core 2:25.1.11-1+lcos1 with no SingleDriver
+  snippet, so the same X change is still needed there. The 1.0.2 identity bump does not apply to master.
+Apt: do NOT publish from this hotfix until approved.
+
+===== 1.0.1 history below =====
 LCOS 1.0.1 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-11-02 (America/Chicago) from official 1.0.0.
 Working version: 1.0.1 - kernel update (LLK 7.2.15-lcos33) and small hardware fixes; 1.1 will move to kernel 7.4 (not started).

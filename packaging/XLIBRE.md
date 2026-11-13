@@ -145,3 +145,112 @@ drivers were **not** rebuilt. Details and SHA256s: `config/packages.chroot/SEED-
 | xserver-xlibre-input-all | 1:25.1.11-1+lcos1 | 8110eaad5fd06698ec1658a0e7b3464edbafe286e94e5132b324e62e10e3947f |
 | xserver-xlibre-video-all | 1:25.1.11-1+lcos1 | e2eb436353f7ea6b75c9f88c94959d5337ee6ee0bf50486cb4f683ceb8c09d6b |
 | xserver-xlibre | 1:25.1.11-1+lcos1 | 4aa7391aa6a88f01d6a16eb2e601af616591c81aaf42593ef5385be26adb1f84 |
+
+## Update: 25.1.11-1+lcos2 (2026-11-12, America/Chicago)
+
+LCOS 1.0.2 hotfix for #202. Same tag as 25.1.11-1+lcos1
+(**xlibre-xserver-25.1.11** = `ec1f2d37daa1450d8452abb547de4546321d7bb9`) plus two
+cherry-picks of XLibre master, applied cleanly with `git apply`:
+
+| Patch | Upstream commit | What |
+|---|---|---|
+| `packaging/xlibre/hotfix-202/0001-xfree86-common-introduce-SingleDriver-server-flag.patch` | `54a4b5f670de257c83cdb8b6a743a1592e2e78d4` | SingleDriver server flag |
+| `packaging/xlibre/hotfix-202/0002-xfree86-man-add-SingleDriver-server-flag-to-man-page.patch` | `7d7a6c513be268483ecb52ceb341d5600a7878c5` | man page |
+
+The third commit on XLibre PR #1749 (`f06db2d6c`) was not included. The amdgpu DDX was
+not rebuilt: ABI is still input 26.0 / video 28.0 / extension 11.0
+(`legacy_nvidia_padding=false` selects `SET_ABI_VERSION(28, 0)`; pkg-config still
+prints the raw `28.128.0` and that value is still ignored). Drivers stay at +lcos1.
+`xserver-xlibre-video-amdgpu` SHA256 is unchanged
+(`3e03da6ec399fadcf588f55f61504b3fc13124cbd770b153811b8afbd2bd5c67`).
+
+The option does nothing unless a config turns it on. That file is
+`/usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf` in **lcos-base 1.0.2-1**,
+not in the xserver deb. `/usr/share/X11/xorg.conf.d` is where lcos-base already
+shipped X server policy. A later ServerFlags section can set SingleDriver off.
+
+### Build environment
+
+Devuan Excalibur amd64 chroot, `debootstrap --variant=minbase` with
+`helpers/debootstrap-excalibur`, mirror `https://ftp.fau.de/devuan/merged`.
+Keyring package on that mirror is **devuan-keyring 2025.08.09** (the 2026.01.13
+keyring named in the 25.1.11 note is not published there now). libc6
+**2.41-12+deb13u4**. Toolchain: gcc **14.2.0** (Debian 14.2.0-19), meson **1.7.0**,
+ninja **1.12.1**. `libunwind-dev` 1.8.1-0.1 and `nettle-dev` 3.10.1-1 were
+installed. The xfont development package on Excalibur is `libxfont-dev`
+(1:2.0.6-1+deb13u1), which provides libxfont2. Unsigned `dpkg-deb`. No ISO bake,
+no apt publish.
+
+### Meson command
+
+Run from the patched tag checkout. This is the command that produced the debs.
+`-Dsha1=libnettle` and `-Dlibunwind=true` are explicit because the defaults do
+not select them: sha1 `auto` prefers libmd when `libmd-dev` is installed, and
+libunwind defaults to false. That is the 25.1.11 drift (SHA1 from libmd, no
+libunwind, no SECURITY extension). `-Dxcsecurity=true` turns the extension back
+on. `-Dglamor=true`, `-Dudev=true` and `-Dudev_kms=true` match what 25.1.9 and
+25.1.11 shipped. Xephyr, Xnest, Xvfb and xfbdev stay off, as in the 25.1.9 recipe.
+GLX stays linked into Xorg; that comes from upstream 25.1.11 (2e425acb3), not
+from a meson drift, and was left as upstream shipped it.
+
+```
+meson setup /tmp/xlibre-build \
+  --prefix=/usr \
+  --libdir=lib \
+  --buildtype=release \
+  -Dxorg=true \
+  -Dxephyr=false \
+  -Dxnest=false \
+  -Dxvfb=false \
+  -Dxfbdev=false \
+  -Dglamor=true \
+  -Dudev=true \
+  -Dudev_kms=true \
+  -Dsystemd_logind=false \
+  -Dseatd_libseat=true \
+  -Dlegacy_nvidia_padding=false \
+  -Dxcsecurity=true \
+  -Dlibunwind=true \
+  -Dsha1=libnettle \
+  -Ddocs=true \
+  -Ddevel-docs=false \
+  -Ddocs-pdf=false
+```
+
+Meson 1.7.0 reported `xcsecurity: true`, `libunwind: true`, `sha1: libnettle`,
+`seatd_libseat: true`, `systemd_logind: false`. Generated `dix-config.h` has
+`#define XCSECURITY 1`, `#define HAVE_LIBUNWIND` and
+`#define HAVE_SHA1_IN_LIBNETTLE 1`. `ninja` then
+`DESTDIR=... ninja install`. Packaged files are the same set as 25.1.11-1+lcos1
+(no headers, no Xephyr/Xvfb). Binaries stripped.
+
+### Checks
+
+`Xorg -version` prints `XLibre X Server 1.25.1.11`. NEEDED on the packaged Xorg:
+libnettle.so.8 and libunwind.so.8 are back (25.1.9 had them; 25.1.11-1+lcos1 had
+libmd.so.0 and no libunwind). libGL.so.1 is still needed, as in 25.1.11-1+lcos1.
+Glamor dlopens libEGL through libepoxy, and this xserver deb does not Depend
+on libegl1. lcos-base 1.0.2-1 does, and `base.list.chroot` lists it, so
+autoremove cannot drop it when Qt or VLC is removed.
+`Xorg -help` lists SECURITY as a runtime extension; the shipped 25.1.11-1+lcos1
+binary does not. `strings` contains `SingleDriver` and
+`Allowing %s one driver to add non-GPU screens`. `xorg.conf(5)` documents
+SingleDriver. An Xvfb built from the same tree with the same options except
+`-Dxvfb=true -Ddocs=false` came up on `:99`; `xdpyinfo` reported vendor XLibre,
+release 12501011, and the extension list included SECURITY.
+`Xorg -showopts` segfaults in this chroot for both this binary and the shipped
+25.1.11-1+lcos1 binary (null deref while scanning modules), so it was not used
+as the SingleDriver check.
+
+25.1.11-1+lcos1 debs of the seven rebuilt packages are in
+`packaging/debs/xlibre-25.1.11-1+lcos1-rollback/`.
+
+| Package | Version | SHA256 |
+|---|---|---|
+| xlibre-x11-common | 1:25.1.11-1+lcos2 | f99127db9fca72c0f6aa0746f922c32410e33d2b6691def3760e17567c906fdf |
+| xlibre | 1:25.1.11-1+lcos2 | e068f7cb6da9e24e813572db25e291b0c5aca58726ffb889e428b2e65f95c0f0 |
+| xserver-xlibre-common | 2:25.1.11-1+lcos2 | 88e3cf2d087e0fd7d5bd39ed9498efdf4d2181e132e2d4398fe886f3875a52a1 |
+| xserver-xlibre-core | 2:25.1.11-1+lcos2 | 5347d94ed6587f9f2e5fb2df193d658d0bd8c99d9647e1e517a4d9f734bc9a2b |
+| xserver-xlibre-input-all | 1:25.1.11-1+lcos2 | 36891a07e013a8a6d8509f558e36f41b474ae125bf401c6c59fa539b9d996289 |
+| xserver-xlibre-video-all | 1:25.1.11-1+lcos2 | 8e086a2ce2560c4e3b5c05b26402089476c8cbbbc36aeeb412d05edec1553d1e |
+| xserver-xlibre | 1:25.1.11-1+lcos2 | 053663afe0080915eb69dc8f6ed35a27c661b533fd9117d38d8d165e1e053120 |
