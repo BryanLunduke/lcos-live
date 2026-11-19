@@ -1,0 +1,409 @@
+#!/bin/sh
+# lcos-bootmenu — install or refresh the UEFI picker.
+#
+# rEFInd is the menu. It chainloads the GRUB that Calamares (or grub-install)
+# already put on the EFI system partition, so cryptodisk, $lcos_quirks and
+# update-grub keep working. rEFInd is not started from a package script:
+# a 1.0.x upgrade that installs this package does not touch the ESP.
+# Calamares calls `lcos-bootmenu install` after GRUB on a new install.
+# BIOS machines return success without writing a boot sector; they use the
+# GRUB theme shipped in this package.
+#
+#   lcos-bootmenu install
+#   lcos-bootmenu refresh     same as install
+#   lcos-bootmenu remove      drop rEFInd and show GRUB's menu again
+#
+# Optional environment (rescue and image tests; a normal install leaves
+# them unset):
+#   LCOS_BOOTMENU_ESP          ESP mount (default /boot/efi)
+#   LCOS_BOOTMENU_BOOT         /boot directory (default /boot)
+#   LCOS_BOOTMENU_GRUB_D       grub.d directory (default /etc/default/grub.d)
+#   LCOS_BOOTMENU_REFIND_DIR   rEFInd data dir (default the Devuan layout)
+#   LCOS_BOOTMENU_FORCE=1      run the UEFI steps even if /sys/firmware/efi
+#                              is absent (image build). Does not touch NVRAM
+#                              unless efibootmgr is actually invoked.
+#   LCOS_BOOTMENU_SKIP_EFIVARS=1
+#                              do not call efibootmgr
+#   LCOS_BOOTMENU_SKIP_GRUB_MKCONFIG=1
+#                              do not run update-grub
+set -eu
+
+SHARE=${LCOS_BOOTMENU_SHARE:-/usr/share/lcos-bootmenu}
+THEME_SRC="$SHARE/refind-theme"
+ESP=${LCOS_BOOTMENU_ESP:-/boot/efi}
+BOOT=${LCOS_BOOTMENU_BOOT:-/boot}
+GRUB_D=${LCOS_BOOTMENU_GRUB_D:-/etc/default/grub.d}
+UEFI_DROPIN="$GRUB_D/zz-lcos-bootmenu-uefi.cfg"
+MARKER_NAME=".lcos-bootmenu"
+
+usage() {
+	echo "usage: lcos-bootmenu install|refresh|remove" >&2
+	exit 2
+}
+
+die() {
+	echo "lcos-bootmenu: $*" >&2
+	exit 1
+}
+
+refind_share() {
+	if [ -n "${LCOS_BOOTMENU_REFIND_DIR:-}" ]; then
+		echo "$LCOS_BOOTMENU_REFIND_DIR"
+		return
+	fi
+	# Devuan/Debian 0.14 puts the EFI tree in /usr/share/refind/refind.
+	if [ -f /usr/share/refind/refind/refind_x64.efi ]; then
+		echo /usr/share/refind/refind
+		return
+	fi
+	if [ -f /usr/share/refind/refind_x64.efi ]; then
+		echo /usr/share/refind
+		return
+	fi
+	die "refind_x64.efi not found (install the refind package)"
+}
+
+esp_source() {
+	findmnt -no SOURCE --target "$ESP" 2>/dev/null || findmnt -no SOURCE "$ESP" 2>/dev/null || true
+}
+
+partuuid_of() {
+	src=$1
+	[ -n "$src" ] || return 0
+	blkid -s PARTUUID -o value "$src" 2>/dev/null || true
+}
+
+# First grubx64.efi that belongs to this install, not to another OS.
+find_grub_efi() {
+	id=$1
+	for name in devuan debian lcos; do
+		f="$ESP/EFI/$name/grub$id.efi"
+		if [ -f "$f" ]; then
+			echo "$f"
+			return 0
+		fi
+	done
+	return 1
+}
+
+write_uefi_dropin() {
+	mkdir -p "$GRUB_D"
+	cat > "$UEFI_DROPIN" << 'EOF'
+# Written by lcos-bootmenu. rEFInd is the picker; this GRUB is hidden
+# unless the rEFInd "Boot options" entry exports lcos_show_menu=1
+# (see /etc/grub.d/06_lcos_bootmenu) or Shift is held.
+# Remove this file and run update-grub to get the 5 second menu back,
+# or run `lcos-bootmenu remove`.
+GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=0
+EOF
+}
+
+run_grub_mkconfig() {
+	if [ "${LCOS_BOOTMENU_SKIP_GRUB_MKCONFIG:-}" = 1 ]; then
+		return 0
+	fi
+	if [ "$BOOT" != /boot ]; then
+		die "update-grub only writes /boot/grub/grub.cfg (BOOT is $BOOT)"
+	fi
+	if command -v update-grub >/dev/null 2>&1; then
+		update-grub
+	else
+		grub-mkconfig -o /boot/grub/grub.cfg
+	fi
+}
+
+# Second GRUB image whose stub exports lcos_show_menu=1 before the
+# grub-install stub (including its cryptomount line) runs. Copying
+# grubx64.efi does not work: the prefix is embedded and still loads
+# EFI/<id>/grub.cfg.
+build_menu_efi() {
+	arch=$1          # x64 or ia32
+	grub_fmt=$2      # x86_64-efi or i386-efi
+	stub=$3          # the grub-install stub we must keep (cryptodisk UUID)
+	out_efi=$4
+	moddir="/usr/lib/grub/$grub_fmt"
+	[ -d "$moddir" ] || die "missing $moddir (install grub-efi-${arch}-bin)"
+	[ -f "$stub" ] || die "GRUB stub not found at $stub"
+
+	menu_dir="$ESP/EFI/lcos"
+	mkdir -p "$menu_dir"
+	{
+		echo "set lcos_show_menu=1"
+		echo "export lcos_show_menu"
+		cat "$stub"
+	} > "$menu_dir/grub.cfg"
+	# ia32 stub name differs; the cfg name grub.cfg is what GRUB loads.
+	# The x64 and ia32 menu images share this cfg. The variable is the
+	# same either way. Rewrite is identical if both exist.
+
+	embed=$(mktemp)
+	cat > "$embed" << 'EOF'
+search --file --no-floppy --set=root /EFI/lcos/grub.cfg
+set prefix=($root)/EFI/lcos
+configfile $prefix/grub.cfg
+EOF
+	# Everything the stub may call before /boot is readable (LUKS) has
+	# to be inside the image. Modules that are not installed are skipped.
+	want="part_gpt part_msdos part_apple fat ext2 btrfs ntfs hfsplus
+		search search_fs_file search_fs_uuid search_label
+		normal configfile linux chain boot
+		gzio all_video efi_gop efi_uga video_fb gfxterm gfxmenu png jpeg
+		echo test sleep reboot halt cat ls minicmd
+		smbios keystatus
+		cryptodisk luks luks2 gcry_rijndael gcry_serpent gcry_twofish
+		gcry_sha1 gcry_sha256 gcry_sha512 gcry_whirlpool
+		pbkdf2 password_pbkdf2 argon2
+		diskfilter lvm mdraid09 mdraid1x
+		gettext terminal loadenv"
+	mods=""
+	for m in $want; do
+		if [ -f "$moddir/$m.mod" ]; then
+			mods="$mods $m"
+		fi
+	done
+	grub-mkimage -O "$grub_fmt" -o "$out_efi" -c "$embed" -p /boot/grub $mods
+	rm -f "$embed"
+}
+
+copy_refind_tree() {
+	src=$1
+	dest="$ESP/EFI/refind"
+	mkdir -p "$dest/themes/lcos" "$dest/icons" "$dest/drivers_x64" "$dest/refind-vars"
+	cp -f "$src/refind_x64.efi" "$dest/refind_x64.efi"
+	if [ -d "$src/icons" ]; then
+		cp -a "$src/icons/." "$dest/icons/"
+	fi
+	# HFS+ so an Intel Mac volume can show macOS. Do not copy ext2/ext4/
+	# btrfs: those would let rEFInd read /boot and offer kernels directly,
+	# skipping GRUB's cryptodisk prompt and $lcos_quirks.
+	if [ -f "$src/drivers_x64/hfs_x64.efi" ]; then
+		cp -f "$src/drivers_x64/hfs_x64.efi" "$dest/drivers_x64/hfs_x64.efi"
+	fi
+	if [ -f "$src/refind_ia32.efi" ]; then
+		cp -f "$src/refind_ia32.efi" "$dest/refind_ia32.efi"
+		mkdir -p "$dest/drivers_ia32"
+		if [ -f "$src/drivers_ia32/hfs_ia32.efi" ]; then
+			cp -f "$src/drivers_ia32/hfs_ia32.efi" "$dest/drivers_ia32/hfs_ia32.efi"
+		fi
+	fi
+	rm -rf "$dest/themes/lcos"
+	mkdir -p "$dest/themes/lcos"
+	cp -a "$THEME_SRC/." "$dest/themes/lcos/"
+	: > "$dest/$MARKER_NAME"
+}
+
+write_refind_conf() {
+	grub_rel=$1     # EFI/devuan/grubx64.efi
+	partuuid=$2
+	conf="$ESP/EFI/refind/refind.conf"
+	# Hide this install's GRUB directories so they are not a second tile
+	# next to the manual LCOS entry. Scope the hide to this ESP when we
+	# know its PARTUUID, so another disk's EFI/debian is still scanned.
+	# EFI/refind is this picker on every disk, so it is never an OS tile.
+	# devuan/debian/lcos are this install's GRUB; scope those to this ESP
+	# when the partition GUID is known.
+	if [ -n "$partuuid" ]; then
+		scan_dirs="EFI/refind $partuuid:EFI/devuan $partuuid:EFI/debian $partuuid:EFI/lcos"
+	else
+		scan_dirs="EFI/refind EFI/devuan EFI/debian EFI/lcos"
+	fi
+	cat > "$conf" << EOF
+# Generated by lcos-bootmenu. Re-run \`lcos-bootmenu refresh\` after editing
+# by hand if you want the stock LCOS behaviour back; refresh rewrites this
+# file.
+timeout 5
+use_nvram false
+enable_mouse
+mouse_size 32
+mouse_speed 4
+scanfor manual,internal,external,optical
+scan_all_linux_kernels false
+# Replace the built-in "boot,@/boot" scan so kernels on the Linux volume
+# are not boot options. GRUB (via the LCOS entry) is what loads them.
+also_scan_dirs lcos-do-not-scan-kernels
+dont_scan_dirs + $scan_dirs
+dont_scan_files + bootx64.efi bootia32.efi refind_x64.efi refind_ia32.efi
+showtools shutdown,reboot,firmware
+hideui hints,badges,singleuser,safemode,hwtest,arrows
+include themes/lcos/theme.conf
+
+menuentry "LCOS" {
+    icon /EFI/refind/themes/lcos/icons/lcos-badge.png
+    loader /$grub_rel
+    submenuentry "Boot options" {
+        loader /EFI/lcos/grubx64.efi
+    }
+}
+EOF
+}
+
+# EFI/BOOT and EFI/boot are the same directory on FAT. Whichever name the
+# mount shows, use that so we do not create a second directory entry.
+fallback_dir() {
+	if [ -d "$ESP/EFI/BOOT" ]; then
+		echo "$ESP/EFI/BOOT"
+	elif [ -d "$ESP/EFI/boot" ]; then
+		echo "$ESP/EFI/boot"
+	else
+		echo "$ESP/EFI/BOOT"
+	fi
+}
+
+# rEFInd reads refind.conf, icons and themes from its own directory. A
+# naked copy of the .efi comes up in text mode and scans every loader.
+# When the removable fallback is our GRUB, replace it with a full tree
+# so a firmware that ignores NVRAM still shows this menu. A bootx64.efi
+# that is not our GRUB is left alone.
+install_fallback_tree() {
+	fb=$1
+	efi_name=$2
+	refind_efi=$3
+	cp -f "$refind_efi" "$fb/$efi_name"
+	cp -f "$ESP/EFI/refind/refind.conf" "$fb/refind.conf"
+	rm -rf "$fb/icons" "$fb/themes" "$fb/drivers_x64" "$fb/drivers_ia32"
+	cp -a "$ESP/EFI/refind/icons" "$fb/icons"
+	cp -a "$ESP/EFI/refind/themes" "$fb/themes"
+	if [ -d "$ESP/EFI/refind/drivers_x64" ]; then
+		cp -a "$ESP/EFI/refind/drivers_x64" "$fb/drivers_x64"
+	fi
+	if [ -d "$ESP/EFI/refind/drivers_ia32" ]; then
+		cp -a "$ESP/EFI/refind/drivers_ia32" "$fb/drivers_ia32"
+	fi
+}
+
+maybe_replace_fallback() {
+	grub_efi=$1
+	refind_efi=$2
+	fallback=$3
+	saved=$4
+	[ -f "$grub_efi" ] || return 0
+	[ -f "$refind_efi" ] || return 0
+	[ -f "$fallback" ] || return 0
+	if cmp -s "$fallback" "$grub_efi"; then
+		cp -f "$fallback" "$saved"
+		install_fallback_tree "$(dirname "$fallback")" "$(basename "$fallback")" "$refind_efi"
+	fi
+}
+
+set_boot_order() {
+	if [ "${LCOS_BOOTMENU_SKIP_EFIVARS:-}" = 1 ]; then
+		echo "lcos-bootmenu: not changing EFI boot variables"
+		return 0
+	fi
+	command -v efibootmgr >/dev/null 2>&1 || {
+		echo "lcos-bootmenu: efibootmgr is not installed; boot order unchanged" >&2
+		return 0
+	}
+	src=$(esp_source)
+	[ -n "$src" ] || {
+		echo "lcos-bootmenu: cannot see the ESP block device; boot order unchanged" >&2
+		return 0
+	}
+	pk=$(lsblk -no PKNAME "$src" 2>/dev/null || true)
+	part=$(lsblk -no PARTN "$src" 2>/dev/null || true)
+	# PARTN is not on older lsblk; the partition number is in sysfs.
+	if [ -z "$part" ]; then
+		base=$(basename "$src")
+		if [ -r "/sys/class/block/$base/partition" ]; then
+			part=$(cat "/sys/class/block/$base/partition")
+		fi
+	fi
+	if [ -z "$pk" ] || [ -z "$part" ]; then
+		echo "lcos-bootmenu: cannot parse $src; boot order unchanged" >&2
+		return 0
+	fi
+	# Drop our previous entries so refresh does not stack them.
+	list=$(efibootmgr 2>/dev/null || true)
+	printf '%s\n' "$list" | awk '/LCOS Boot Menu/ {print substr($1, 5, 4)}' |
+		while read -r hex; do
+			[ -n "$hex" ] || continue
+			efibootmgr -b "$hex" -B >/dev/null 2>&1 || true
+		done
+	if ! efibootmgr -c -d "/dev/$pk" -p "$part" \
+		-L "LCOS Boot Menu" -l '\EFI\refind\refind_x64.efi'; then
+		echo "lcos-bootmenu: efibootmgr could not add the boot entry" >&2
+		echo "lcos-bootmenu: GRUB is still installed; re-run lcos-bootmenu install on the machine" >&2
+		return 0
+	fi
+}
+
+install_menu() {
+	if [ "${LCOS_BOOTMENU_FORCE:-}" != 1 ] && [ ! -d /sys/firmware/efi ]; then
+		echo "lcos-bootmenu: not a UEFI boot. The GRUB theme is already installed; rEFInd was not."
+		exit 0
+	fi
+	[ -d "$THEME_SRC" ] || die "theme missing at $THEME_SRC"
+	if ! findmnt "$ESP" >/dev/null 2>&1 && [ ! -d "$ESP/EFI" ]; then
+		die "ESP is not mounted at $ESP"
+	fi
+	src=$(refind_share)
+	grub_x64=$(find_grub_efi x64) || die "no grubx64.efi under $ESP/EFI (run grub-install first)"
+	grub_dir=$(basename "$(dirname "$grub_x64")")
+	stub="$ESP/EFI/$grub_dir/grub.cfg"
+	[ -f "$stub" ] || die "GRUB stub $stub is missing"
+
+	copy_refind_tree "$src"
+	build_menu_efi x64 x86_64-efi "$stub" "$ESP/EFI/lcos/grubx64.efi"
+	if [ -f "$ESP/EFI/$grub_dir/grubia32.efi" ] && [ -f "$src/refind_ia32.efi" ] \
+		&& [ -d /usr/lib/grub/i386-efi ]; then
+		build_menu_efi ia32 i386-efi "$stub" "$ESP/EFI/lcos/grubia32.efi"
+	fi
+	# LCOS_BOOTMENU_PARTUUID overrides detection (the image test has no
+	# vfat mount). A normal install reads the ESP's GPT PARTUUID.
+	if [ -n "${LCOS_BOOTMENU_PARTUUID:-}" ]; then
+		pu=$LCOS_BOOTMENU_PARTUUID
+	else
+		pu=$(partuuid_of "$(esp_source)")
+	fi
+	write_refind_conf "EFI/$grub_dir/grubx64.efi" "$pu"
+	fb=$(fallback_dir)
+	maybe_replace_fallback "$grub_x64" "$ESP/EFI/refind/refind_x64.efi" \
+		"$fb/bootx64.efi" "$fb/bootx64.efi.lcos-saved"
+	if [ -f "$ESP/EFI/$grub_dir/grubia32.efi" ] && [ -f "$ESP/EFI/refind/refind_ia32.efi" ]; then
+		maybe_replace_fallback "$ESP/EFI/$grub_dir/grubia32.efi" \
+			"$ESP/EFI/refind/refind_ia32.efi" \
+			"$fb/bootia32.efi" "$fb/bootia32.efi.lcos-saved"
+	fi
+	write_uefi_dropin
+	run_grub_mkconfig
+	set_boot_order
+	echo "lcos-bootmenu: rEFInd installed; LCOS chainloads $grub_dir GRUB"
+}
+
+remove_menu() {
+	if [ "${LCOS_BOOTMENU_FORCE:-}" != 1 ] && [ ! -d /sys/firmware/efi ] && [ ! -d "$ESP/EFI/refind" ]; then
+		echo "lcos-bootmenu: nothing to remove"
+		exit 0
+	fi
+	if [ -f "$ESP/EFI/refind/$MARKER_NAME" ]; then
+		rm -rf "$ESP/EFI/refind" "$ESP/EFI/lcos"
+	else
+		echo "lcos-bootmenu: $ESP/EFI/refind was not installed by lcos-bootmenu; left in place" >&2
+	fi
+	fb=$(fallback_dir)
+	if [ -f "$fb/bootx64.efi.lcos-saved" ]; then
+		mv -f "$fb/bootx64.efi.lcos-saved" "$fb/bootx64.efi"
+	fi
+	if [ -f "$fb/bootia32.efi.lcos-saved" ]; then
+		mv -f "$fb/bootia32.efi.lcos-saved" "$fb/bootia32.efi"
+	fi
+	rm -f "$UEFI_DROPIN"
+	run_grub_mkconfig || true
+	if [ "${LCOS_BOOTMENU_SKIP_EFIVARS:-}" != 1 ] && command -v efibootmgr >/dev/null 2>&1; then
+		list=$(efibootmgr 2>/dev/null || true)
+		printf '%s\n' "$list" | awk '/LCOS Boot Menu/ {print substr($1, 5, 4)}' |
+			while read -r hex; do
+				[ -n "$hex" ] || continue
+				efibootmgr -b "$hex" -B >/dev/null 2>&1 || true
+			done
+	fi
+	echo "lcos-bootmenu: rEFInd removed; GRUB timeout restored on the next boot menu rebuild"
+}
+
+[ $# -eq 1 ] || usage
+case "$1" in
+	install|refresh) install_menu ;;
+	remove) remove_menu ;;
+	*) usage ;;
+esac

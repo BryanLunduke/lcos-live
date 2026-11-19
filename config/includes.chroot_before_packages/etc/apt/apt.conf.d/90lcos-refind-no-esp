@@ -1,0 +1,8 @@
+// LCOS 1.1: Debian's refind package defaults refind/install_to_esp to true,
+// and its postinst then runs refind-install (which can also sign with a
+// local MOK). LCOS never writes the EFI system partition from a package
+// script. `lcos-bootmenu install` is the only writer, and it does not
+// set up Secure Boot. Present before packages so the ISO build's install
+// of refind sees the answer, and still present on the installed system
+// so a later apt install of refind does not touch the boot partition.
+DPkg::Pre-Invoke { "echo 'refind refind/install_to_esp boolean false' | debconf-set-selections || true"; };

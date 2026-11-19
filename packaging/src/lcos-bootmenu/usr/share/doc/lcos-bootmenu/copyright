@@ -1,0 +1,21 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: lcos-bootmenu
+Source: LCOS 1.1.0 overlay (https://lunduke.com)
+
+Files: *
+Copyright: 2026 Lunduke / LCOS
+License: LCOS-overlay
+ LCOS overlay packaging. Packages are unsigned until the editor signs
+ the archive. Boot-menu icons and the splash are drawn for LCOS.
+ The badge is a render of LCOS-Branding logo/lcos-logo-black.svg.
+
+Files: usr/share/grub/themes/lcos/dejavu-*.pf2
+       usr/share/lcos-bootmenu/refind-theme/dejavu-mono-16.png
+Copyright: 2003 Bitstream, Inc.
+           2006 Tavmjong Bah (DejaVu changes)
+License: Bitstream-Vera
+ DejaVu fonts are a derivative of Bitstream Vera. The generated GRUB
+ pf2 files and the rEFInd font bitmap are built from DejaVu Sans and
+ DejaVu Sans Mono. The full Bitstream Vera and DejaVu license text is
+ in /usr/share/doc/fonts-dejavu-core/copyright on a Debian or Devuan
+ system that has fonts-dejavu-core installed.

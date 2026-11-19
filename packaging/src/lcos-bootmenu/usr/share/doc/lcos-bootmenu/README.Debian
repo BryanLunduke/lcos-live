@@ -1,0 +1,70 @@
+LCOS 1.1 boot menu
+===================
+
+UEFI
+----
+rEFInd (the Devuan refind package, 0.14.2) is the picker. The LCOS tile
+chainloads the GRUB already installed on the EFI system partition
+(EFI/devuan or EFI/debian). GRUB still asks for the disk passphrase when
+the install is encrypted, still sets $lcos_quirks from SMBIOS (Dell XPS
+13 SKU 0E53), and still picks up kernels from update-grub.
+
+The GRUB menu is hidden (timeout 0) so there are not two menus. To open
+it: highlight LCOS, press Insert, F2 or +, and choose "Boot options".
+Holding Shift as GRUB starts does the same. That menu has older kernels
+and anything os-prober found.
+
+rEFInd scans Windows (EFI/Microsoft/Boot/bootmgfw.efi), Haiku
+(EFI/Haiku/haiku_loader.efi), other Linux GRUB directories, and macOS
+(System/Library/CoreServices/boot.efi on HFS+). It does not scan
+/boot for vmlinuz, and the ext4/btrfs drivers are not installed, so it
+cannot boot a kernel directly and skip GRUB.
+
+Last choice is stored in EFI/refind/refind-vars (use_nvram false), not
+in firmware NVRAM. Timeout is 5 seconds. Mouse is on. The second row is
+shutdown, reboot, and firmware setup.
+
+If EFI/BOOT/bootx64.efi is a byte-for-byte copy of this install's GRUB,
+install replaces it with rEFInd plus the theme, so a firmware that
+ignores NVRAM still opens the picker. Any other bootx64.efi is left
+alone.
+
+Secure Boot is unsupported. Do not enroll a MOK; the kernel is unsigned.
+The refind package's debconf question "install to the ESP" is forced off
+by /etc/apt/apt.conf.d/90lcos-refind-no-esp so installing or upgrading
+refind does not write the boot partition by itself.
+
+BIOS
+----
+There is no rEFInd. GRUB uses /usr/share/grub/themes/lcos (navy field,
+the smooth badge, DejaVu, icons for Linux, Windows, macOS and Haiku).
+Timeout stays at 5 seconds and os-prober still lists other systems.
+
+Upgrades from 1.0.x
+-------------------
+Installing this package does not modify the EFI system partition and
+does not run update-grub. The theme drop-in applies the next time
+grub-mkconfig runs (a later kernel update). To switch a UEFI machine
+that is already installed:
+
+    sudo lcos-bootmenu install
+
+To go back to a visible GRUB menu and remove the rEFInd files this
+package wrote:
+
+    sudo lcos-bootmenu remove
+
+`refresh` is the same as `install`.
+
+What rEFInd cannot do
+---------------------
+Labels under auto-detected loaders are rEFInd's own sentences
+("Boot Microsoft EFI boot from …"), so the theme leaves them visible
+rather than inventing a second menu. 32-bit UEFI (early Intel Macs)
+keeps GRUB: the amd64 refind package has no refind_ia32.efi. APFS
+macOS needs a driver Devuan does not ship; HFS+ Intel Mac volumes are
+scanned. Shutdown uses rEFInd's firmware call, which reboots some
+UEFI machines instead of powering off. A firmware that ignores the
+boot variables and only starts EFI/BOOT/bootx64.efi gets rEFInd only
+when that file was a copy of our GRUB; a Windows-owned fallback is
+not replaced.

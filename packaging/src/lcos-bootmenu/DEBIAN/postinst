@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+# Do not install rEFInd, do not call efibootmgr, and do not run
+# update-grub. A 1.0.x machine that later installs this package must
+# not have its EFI system partition rewritten as a side effect.
+# New UEFI installs are handled by Calamares, which runs
+# `lcos-bootmenu install` after the bootloader module.
+# The GRUB theme drop-in is a conffile. It takes effect the next time
+# grub-mkconfig runs; that rewrites grub.cfg on the root filesystem,
+# not the EFI boot variables.
+case "$1" in
+	configure) ;;
+esac
+exit 0

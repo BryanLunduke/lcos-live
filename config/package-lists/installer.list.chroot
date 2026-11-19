@@ -15,6 +15,13 @@ grub-efi-amd64-bin
 # 32-bit EFI for early Intel Macs (MacBook2,1); GitHub #90
 grub-efi-ia32-bin
 
+# LCOS 1.1 UEFI picker. lcos-bootmenu (seeded) depends on refind and
+# calls efibootmgr. Listed here so the ISO has them even before the
+# seeded deb is unpacked. The apt snippet 90lcos-refind-no-esp keeps
+# refind's postinst from installing itself onto the ESP.
+refind
+efibootmgr
+
 # LUKS encryption support (GitHub #80)
 cryptsetup
 cryptsetup-initramfs

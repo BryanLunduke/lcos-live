@@ -1,76 +1,65 @@
-# Solid background (sampled from the old 1920x1080 splash.png) instead of a
-# stretched splash: with gfxmode=auto (#151) GRUB runs at the firmware's mode
-# (4:3, 16:10, 16:9 ...) and a stretched splash made the round logo an oval.
-#
-# desktop-image must still be set: GRUB 2.12's gfxmenu (view.c
-# init_background) always calls grub_video_bitmap_create_scaled() on the
-# desktop image, and with none it leaves "null src bitmap in
-# grub_video_bitmap_create_scaled" in grub_errno, which is printed with
-# "Press any key to continue..." when a menu entry is booted (UEFI).
-# background.png is a 16x16 solid #0d1b30 tile; stretching a solid colour
-# cannot distort anything. desktop-color stays as the same colour.
+# LCOS 1.1 GRUB theme. Navy field, smooth badge, DejaVu instead of Unifont.
+# desktop-image must be set: GRUB 2.12 gfxmenu (view.c init_background)
+# always calls grub_video_bitmap_create_scaled() on it. With none, that
+# leaves "null src bitmap in grub_video_bitmap_create_scaled" in grub_errno,
+# printed as "Press any key to continue..." when a menu entry boots (UEFI).
+# background.png is a 16x16 solid #0d1b30 tile. Stretching a solid colour
+# cannot distort the logo, which is a separate unscaled image.
 desktop-image: "background.png"
 desktop-image-scale-method: "stretch"
 desktop-color: "#0d1b30"
 title-color: "#ffffff"
-title-font: "Unifont Regular 16"
-title-text: "LCOS"
-message-font: "Unifont Regular 16"
-terminal-font: "Unifont Regular 16"
+title-font: "DejaVu Sans Regular 16"
+title-text: ""
+message-font: "DejaVu Sans Regular 16"
+terminal-font: "DejaVu Sans Regular 16"
 
-#help bar at the bottom
++ image {
+        left = 50%-100
+        top = 2%
+        width = 200
+        height = 200
+        file = "lcos-logo.png"
+}
+
++ boot_menu {
+        left = 18%
+        width = 64%
+        top = 56%
+        height = 34%
+        item_font = "DejaVu Sans Regular 16"
+        item_color = "#c5cdd8"
+        selected_item_font = "DejaVu Sans Regular 16"
+        selected_item_color = "#ffffff"
+        item_height = 32
+        item_padding = 2
+        item_spacing = 4
+        icon_width = 28
+        icon_height = 28
+        item_icon_space = 12
+}
+
 + label {
-        top = 100%-50
+        top = 100%-36
         left = 0
         width = 100%
         height = 20
         text = "@KEYMAP_SHORT@"
         align = "center"
-        color = "#ffffff"
-	font = "Unifont Regular 16"
+        color = "#9aa3b2"
+        font = "DejaVu Sans Regular 16"
 }
 
-#boot menu
-+ boot_menu {
-        left = 10%
-        width = 80%
-        top = 52%
-        height = 48%-80
-        item_color = "#a8a8a8"
-	item_font = "Unifont Regular 16"
-        selected_item_color= "#ffffff"
-	selected_item_font = "Unifont Regular 16"
-        item_height = 16
-        item_padding = 0
-        item_spacing = 4
-	icon_width = 0
-	icon_heigh = 0
-	item_icon_space = 0
-}
-
-#progress bar
 + progress_bar {
         id = "__timeout__"
-        left = 15%
-        top = 100%-80
-        height = 16
-        width = 70%
-        font = "Unifont Regular 16"
-        text_color = "#000000"
+        left = 20%
+        top = 100%-64
+        height = 14
+        width = 60%
+        font = "DejaVu Sans Regular 16"
+        text_color = "#0d1b30"
         fg_color = "#ffffff"
-        bg_color = "#a8a8a8"
-        border_color = "#ffffff"
-        text = "@TIMEOUT_NOTIFICATION_LONG@"
-}
-
-#LCOS logo: unscaled 232x224 image (same art as the old splash, composited
-#on #0d1b30), centered horizontally and vertically centered between the
-#title (~y 40-60) and the boot menu (top = 52%). At 800x600 it spans
-#y 76-300 (menu starts at 312); at 1920x1080 y 200-424 (menu at 561).
-+ image {
-        left = 50%-116
-        top = 26%-80
-        width = 232
-        height = 224
-        file = "lcos-logo.png"
+        bg_color = "#24344c"
+        border_color = "#8ea0b8"
+        text = "@TIMEOUT_NOTIFICATION_SHORT@"
 }

@@ -23,6 +23,15 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     copy cannot sit entirely in the page cache. procps 2:4.0.4-9devuan1 is already on the ISO and
     its init script runs sysctl --system at boot. ntfs-3g and exfatprogs were already listed.
     Not baked. No apt publish.
+  lcos-bootmenu 1.1.0-1 (new package, not a bump of any other package): UEFI
+    installs use rEFInd 0.14.2 as the picker and chainload the existing GRUB
+    (cryptodisk, $lcos_quirks, update-grub, hidden timeout 0, "Boot options"
+    opens the GRUB menu). BIOS and the live ISO use the navy GRUB theme
+    (DejaVu, smooth badge, 16x16 desktop-image kept). Package scripts do not
+    write the ESP; Calamares runs `lcos-bootmenu install` after GRUB on a new
+    UEFI install only. refind/install_to_esp is forced false. Secure Boot is
+    unchanged (unsigned kernel, no shim/MOK). Seeded for the next bake
+    (SEED-lcos-bootmenu-1.1.0-1.txt). Not baked. No apt publish.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).
 
