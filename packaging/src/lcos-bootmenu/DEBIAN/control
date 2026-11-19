@@ -3,7 +3,7 @@ Version: 1.1.0-1
 Section: admin
 Priority: optional
 Architecture: all
-Installed-Size: 908
+Installed-Size: 916
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: grub-common, grub-efi-amd64-bin, refind (>= 0.14.2)

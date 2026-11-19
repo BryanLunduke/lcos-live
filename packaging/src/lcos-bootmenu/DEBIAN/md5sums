@@ -1,10 +1,10 @@
 5164058e237164bdf9b9f048f373d168  etc/default/grub.d/zz-lcos-bootmenu.cfg
 4c7632a49978ecfc949e99790c451c9a  etc/grub.d/06_lcos_bootmenu
 4caa5ffc282295306e181d895ff7ed89  usr/lib/lcos-bootmenu/refind_x64.efi
-b87cc4bc93d1e42e5911c6b9490c0978  usr/sbin/lcos-bootmenu
+b8638f6acb8ac2daa67eadbcfc2d3d25  usr/sbin/lcos-bootmenu
 2a9e2a7146f6b17eec226e0c02c40653  usr/share/doc/lcos-bootmenu/copyright
 0427da92ec0e8ae0a7181885eeeb66e0  usr/share/doc/lcos-bootmenu/lcos-menu.patch
-647246d28f8029d6ee77db77b2786647  usr/share/doc/lcos-bootmenu/README.Debian
+4759a2520a84eb41be708c6da0d5c377  usr/share/doc/lcos-bootmenu/README.Debian
 586062c84cec3e59215d7ebf2e8ef5f4  usr/share/doc/lcos-bootmenu/refind-README
 35ff8894c9be16ffe9a7596d2e135d0a  usr/share/grub/themes/lcos/background.png
 242164135f76e72fcb20ff29ecf510ec  usr/share/grub/themes/lcos/dejavu-16.pf2

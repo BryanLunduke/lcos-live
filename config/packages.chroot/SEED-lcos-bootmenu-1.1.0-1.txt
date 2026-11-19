@@ -23,4 +23,9 @@ The rEFInd binary in the package is rEFInd 0.14.2 plus
 short names under each OS icon, and one tool row (shutdown, reboot,
 firmware). /boot/vmlinuz is not a tile.
 
-5f88a2f5db3c6abcfc2e61738c7d5e19bb1ebe3a347b4816c80546bcd4c61052  lcos-bootmenu_1.1.0-1_all.deb
+Unsigned grub-install --bootloader-id=lcos writes EFI/lcos/grubx64.efi and
+no grub.cfg stub. lcos-bootmenu chainloads that file and puts Boot options
+in EFI/lcos-bootmenu. install exits 0 if it cannot add rEFInd, so Calamares
+keeps the plain GRUB boot.
+
+c3da8c92ec215304889f0f8d4a8e4b46b74ac75882682d1601eb6b22d35756d3  lcos-bootmenu_1.1.0-1_all.deb

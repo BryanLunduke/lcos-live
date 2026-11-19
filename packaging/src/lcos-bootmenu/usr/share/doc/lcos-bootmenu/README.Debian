@@ -4,10 +4,18 @@ LCOS 1.1 boot menu
 UEFI
 ----
 rEFInd (the Devuan refind package, 0.14.2) is the picker. The LCOS tile
-chainloads the GRUB already installed on the EFI system partition
-(EFI/devuan or EFI/debian). GRUB still asks for the disk passphrase when
-the install is encrypted, still sets $lcos_quirks from SMBIOS (Dell XPS
-13 SKU 0E53), and still picks up kernels from update-grub.
+chainloads the GRUB already installed on the EFI system partition.
+Calamares uses bootloader-id lcos, so that file is EFI/lcos/grubx64.efi.
+A 1.0.x disk may instead have EFI/debian or EFI/devuan. Unsigned
+grub-install does not write a grub.cfg next to that binary; the prefix
+is embedded in the EFI image. This package never replaces that image
+and never writes a stub over one that is already there. "Boot options"
+is a second GRUB image in EFI/lcos-bootmenu, which sets lcos_show_menu=1
+and then loads the same /boot/grub/grub.cfg. GRUB still asks for the
+disk passphrase when the install is encrypted, still sets $lcos_quirks
+from SMBIOS (Dell XPS 13 SKU 0E53), and still picks up kernels from
+update-grub. If install cannot do this, it logs a warning and exits 0
+so Calamares leaves the plain GRUB boot working.
 
 The GRUB menu is hidden (timeout 0) so there are not two menus. To open
 it: highlight LCOS, press Insert, F2 or +, and choose "Boot options".
