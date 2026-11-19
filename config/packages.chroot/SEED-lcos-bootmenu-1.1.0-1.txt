@@ -1,0 +1,31 @@
+SEED LCOS lcos-bootmenu 1.1.0-1 (built by packaging/build-110-system-debs.sh --seed --only lcos-bootmenu)
+New package. Not a version bump of lcos-base, lcos-branding, or lcos-desktop-config.
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+
+UEFI installs: Calamares runs `lcos-bootmenu install` after GRUB. rEFInd 0.14.2
+(Devuan excalibur) is the picker and chainloads the install's GRUB, which stays
+hidden (timeout 0) and still does cryptodisk, $lcos_quirks and update-grub.
+"Boot options" on the LCOS tile, or holding Shift, opens the GRUB menu.
+Package scripts do not write the ESP. refind/install_to_esp is forced false
+by config/includes.chroot_before_packages/etc/apt/apt.conf.d/90lcos-refind-no-esp.
+Secure Boot is unchanged (unsigned kernel, no shim/MOK).
+
+BIOS installs and the live ISO use the navy GRUB theme (DejaVu, smooth badge,
+16x16 desktop-image kept so GRUB 2.12 does not print "null src bitmap").
+Live BIOS splash is the same art.
+
+Depends: grub-common, grub-efi-amd64-bin, refind (>= 0.14.2).
+Recommends: efibootmgr, grub-efi-ia32-bin.
+installer.list.chroot lists refind and efibootmgr.
+
+The rEFInd binary in the package is rEFInd 0.14.2 plus
+/usr/share/doc/lcos-bootmenu/lcos-menu.patch:
+short names under each OS icon, and one tool row (shutdown, reboot,
+firmware). /boot/vmlinuz is not a tile.
+
+Unsigned grub-install --bootloader-id=lcos writes EFI/lcos/grubx64.efi and
+no grub.cfg stub. lcos-bootmenu chainloads that file and puts Boot options
+in EFI/lcos-bootmenu. install exits 0 if it cannot add rEFInd, so Calamares
+keeps the plain GRUB boot.
+
+c3da8c92ec215304889f0f8d4a8e4b46b74ac75882682d1601eb6b22d35756d3  lcos-bootmenu_1.1.0-1_all.deb

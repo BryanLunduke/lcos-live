@@ -8,6 +8,8 @@
 # lcos-desktop, lcos-theme-clearlooks, lcos-zork.
 # Copied from build-101-system-debs.sh. Usage:
 #   packaging/build-110-system-debs.sh [--seed] [--only pkg[,pkg...]]
+# lcos-bootmenu 1.1.0-1 is the UEFI rEFInd picker and the GRUB theme.
+# It is not a version bump of any other package.
 # --seed copies the debs into config/packages.chroot, moves older versions
 # of the same packages there to packages.chroot/superseded/ (gitignored), and rewrites SHA256SUMS for every top-level deb.
 # Builds straight from packaging/src/<pkg>. Editor signs later.
@@ -33,7 +35,7 @@ build() {
 	done
 	find "$root" -path "$root/DEBIAN" -prune -o -type d -exec chmod 0755 {} +
 	# executables we ship
-	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer usr/lib/lcos/lcos-reboot-required etc/grub.d/05_lcos_quirks usr/libexec/system-sleep/lcos-sleep; do
+	for x in usr/local/sbin/lcos-write-os-release usr/lib/lcos/lcos-display-fix usr/lib/lcos/plymouth-quit-greeter usr/bin/lcos-appimage-thumbnailer usr/lib/lcos/lcos-reboot-required etc/grub.d/05_lcos_quirks etc/grub.d/06_lcos_bootmenu usr/sbin/lcos-bootmenu usr/libexec/system-sleep/lcos-sleep; do
 		[ -f "$root/$x" ] && chmod 0755 "$root/$x"
 	done
 	local out="$DEBDIR/${name}_${ver}_all.deb"
@@ -47,8 +49,9 @@ BASEVER=1.1.0-2
 DCVER=1.1.0-2
 BRVER=1.1.0-1
 ZORKVER=1.1.0-1
-ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; lcos-zork) echo "$ZORKVER";; *) echo "$VER";; esac; }
-PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork"
+BOOTVER=1.1.0-1
+ver_of() { case "$1" in lcos-base) echo "$BASEVER";; lcos-branding) echo "$BRVER";; lcos-desktop-config) echo "$DCVER";; lcos-zork) echo "$ZORKVER";; lcos-bootmenu) echo "$BOOTVER";; *) echo "$VER";; esac; }
+PKGS="lcos-branding lcos-base lcos-desktop-config lcos-appimage-thumbnailer lcos-archive-keyring lcos-desktop lcos-theme-clearlooks lcos-zork lcos-bootmenu"
 SEED=
 while [ $# -gt 0 ]; do
 	case "$1" in

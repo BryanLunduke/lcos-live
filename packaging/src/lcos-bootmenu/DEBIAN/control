@@ -1,0 +1,26 @@
+Package: lcos-bootmenu
+Version: 1.1.0-1
+Section: admin
+Priority: optional
+Architecture: all
+Installed-Size: 916
+Maintainer: LCOS <lcos@lunduke.com>
+Homepage: https://lunduke.com
+Depends: grub-common, grub-efi-amd64-bin, refind (>= 0.14.2)
+Recommends: efibootmgr, grub-efi-ia32-bin
+Description: LCOS 1.1 boot menu (rEFInd picker, GRUB theme)
+ Mac-style boot menu for LCOS 1.1. On a new UEFI install, Calamares runs
+ lcos-bootmenu after GRUB and rEFInd becomes the picker: big OS icons,
+ mouse, a 5 second timeout, and the last choice remembered on the EFI
+ system partition. The LCOS tile chainloads the install's GRUB, which
+ stays hidden (timeout 0) and still does cryptodisk, $lcos_quirks and
+ kernel updates. "Boot options" on that tile (or holding Shift) opens
+ GRUB's menu, including older kernels.
+ .
+ BIOS installs and the live ISO use the same navy GRUB theme (DejaVu,
+ logo, OS icons). The package does not install rEFInd from its
+ maintainer scripts, so an upgrade from 1.0.x does not change the boot
+ partition until lcos-bootmenu install is run.
+ .
+ Secure Boot is not supported. The Lunduke kernel is unsigned, and this
+ package does not install shim or a Machine Owner Key.

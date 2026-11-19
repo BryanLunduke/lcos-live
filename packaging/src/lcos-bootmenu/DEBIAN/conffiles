@@ -1,0 +1,2 @@
+/etc/default/grub.d/zz-lcos-bootmenu.cfg
+/etc/grub.d/06_lcos_bootmenu
