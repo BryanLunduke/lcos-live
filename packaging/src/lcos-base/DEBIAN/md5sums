@@ -20,6 +20,7 @@ d0716a22a96e37e51c220d0445bbd8a1  etc/issue
 0675b4543be4f461fff53db12727cc45  usr/lib/sysctl.d/99-lcos-userns.conf
 1c677d4fd5e55873f0f475bc511618e1  usr/libexec/system-sleep/lcos-sleep
 89a84bd7223cb0982a84cb3a9d00af20  usr/local/sbin/lcos-write-os-release
-875658411f251afc5cad64f502e86605  usr/share/doc/lcos-base/changelog.gz
+a668784fe64e0b493e5b7d634a16fec3  usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf
+3feef43de04472b17c58951b9f35c8cd  usr/share/doc/lcos-base/changelog.gz
 e082e949338be5244e6b201963071fe8  usr/share/doc/lcos-base/copyright
 776cd7b3d6b91ff04930e6508e22b1fe  usr/share/lcos-base/print-applet-hidden.desktop

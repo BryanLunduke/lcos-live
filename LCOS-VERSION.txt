@@ -23,6 +23,13 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     copy cannot sit entirely in the page cache. procps 2:4.0.4-9devuan1 is already on the ISO and
     its init script runs sysctl --system at boot. ntfs-3g and exfatprogs were already listed.
     Not baked. No apt publish.
+  2026-11-19: port of the 1.0.2 hotfixes from branch lcos-1.0.1 at tag lcos-1.0.2-release
+    (951696e9). XLibre server and metapackages are 25.1.11-1+lcos2, the same debs as 1.0.2
+    (SingleDriver cherry-picks of XLibre PR #1749, #202). Drivers stay +lcos1. lcos-base stays
+    1.1.0-2 (not published, so no bump): Depends libegl1, and ships
+    /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf. libegl1 is also in base.list.chroot.
+    1.0.2 identity strings and lcos-branding 1.0.2-1 were not brought over. Not baked.
+    No apt publish. No tag.
   lcos-bootmenu 1.1.0-1 (new package, not a bump of any other package): UEFI
     installs use rEFInd 0.14.2 as the picker and chainload the existing GRUB
     (cryptodisk, $lcos_quirks, update-grub, hidden timeout 0, "Boot options"

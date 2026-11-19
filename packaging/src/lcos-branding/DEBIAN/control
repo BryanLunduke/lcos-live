@@ -3,7 +3,7 @@ Version: 1.1.0-1
 Section: x11
 Priority: optional
 Architecture: all
-Installed-Size: 12268
+Installed-Size: 13464
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: plymouth-label
