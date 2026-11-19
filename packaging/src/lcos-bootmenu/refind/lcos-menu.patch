@@ -1,0 +1,188 @@
+--- a/refind/scan.c	2024-04-04 15:18:11.000000000 +0000
++++ b/refind/scan.c	2026-11-19 07:03:17.389206418 +0000
+@@ -114,10 +114,10 @@
+ EFI_GUID GlobalGuid = EFI_GLOBAL_VARIABLE;
+ 
+ static REFIT_MENU_ENTRY MenuEntryAbout    = { L"About rEFInd", TAG_ABOUT, 1, 0, 'A', NULL, NULL, NULL };
+-static REFIT_MENU_ENTRY MenuEntryReset    = { L"Reboot Computer", TAG_REBOOT, 1, 0, 'R', NULL, NULL, NULL };
+-static REFIT_MENU_ENTRY MenuEntryShutdown = { L"Shut Down Computer", TAG_SHUTDOWN, 1, 0, 'U', NULL, NULL, NULL };
++static REFIT_MENU_ENTRY MenuEntryReset    = { L"Restart", TAG_REBOOT, 1, 0, 'R', NULL, NULL, NULL };
++static REFIT_MENU_ENTRY MenuEntryShutdown = { L"Shut Down", TAG_SHUTDOWN, 1, 0, 'U', NULL, NULL, NULL };
+ static REFIT_MENU_ENTRY MenuEntryRotateCsr = { L"Change SIP Policy", TAG_CSR_ROTATE, 1, 0, 0, NULL, NULL, NULL };
+-static REFIT_MENU_ENTRY MenuEntryFirmware = { L"Reboot to Computer Setup Utility", TAG_FIRMWARE, 1, 0, 0, NULL, NULL, NULL };
++static REFIT_MENU_ENTRY MenuEntryFirmware = { L"Firmware", TAG_FIRMWARE, 1, 0, 0, NULL, NULL, NULL };
+ static REFIT_MENU_ENTRY MenuEntryManageHidden = { L"Manage Hidden Tags Menu", TAG_HIDDEN, 1, 0, 0, NULL, NULL, NULL };
+ static REFIT_MENU_ENTRY MenuEntryInstall = { L"Install rEFInd to Disk", TAG_INSTALL, 1, 0, 0, NULL, NULL, NULL };
+ static REFIT_MENU_ENTRY MenuEntryBootorder = { L"Manage EFI boot order", TAG_BOOTORDER, 1, 0, 0, NULL, NULL, NULL };
+@@ -635,6 +635,31 @@
+ 
+ // Add a specified EFI boot loader to the list, using automatic settings
+ // for icons, options, etc.
++// LCOS 1.1: the label under an icon is a short OS name (LCOS, Windows,
++// Haiku, Linux, macOS), not "Boot <loader> from <volume>".
++static CHAR16 * LcosShortName(IN CHAR16 *LoaderTitle, IN CHAR16 *LoaderPath) {
++    if ((LoaderPath && StriSubCmp(L"bootmgfw", LoaderPath)) ||
++        (LoaderTitle && (StriSubCmp(L"Microsoft", LoaderTitle) || StriSubCmp(L"Windows", LoaderTitle))))
++        return StrDuplicate(L"Windows");
++    if ((LoaderPath && StriSubCmp(L"haiku", LoaderPath)) ||
++        (LoaderTitle && StriSubCmp(L"Haiku", LoaderTitle)))
++        return StrDuplicate(L"Haiku");
++    if (LoaderPath && (StriSubCmp(L"CoreServices", LoaderPath) || StriSubCmp(L"System\\Library", LoaderPath)))
++        return StrDuplicate(L"macOS");
++    if (LoaderTitle && StriSubCmp(L"macOS", LoaderTitle))
++        return StrDuplicate(L"macOS");
++    if ((LoaderPath && (StriSubCmp(L"grub", LoaderPath) || StriSubCmp(L"vmlinuz", LoaderPath) ||
++                        StriSubCmp(L"bzImage", LoaderPath) || StriSubCmp(L"linux", LoaderPath) ||
++                        StriSubCmp(L"elilo", LoaderPath))) ||
++        (LoaderTitle && (StriSubCmp(L"Linux", LoaderTitle) || StriSubCmp(L"GRUB", LoaderTitle))))
++        return StrDuplicate(L"Linux");
++    if (LoaderTitle && LoaderTitle[0] != L'\0' && !StriSubCmp(L"\\", LoaderTitle) && !StriSubCmp(L"/", LoaderTitle))
++        return StrDuplicate(LoaderTitle);
++    if (LoaderPath)
++        return StrDuplicate(LoaderPath);
++    return StrDuplicate(L"Boot");
++}
++
+ static LOADER_ENTRY * AddLoaderEntry(IN OUT CHAR16 *LoaderPath, IN CHAR16 *LoaderTitle,
+                                      IN REFIT_VOLUME *Volume, IN BOOLEAN SubScreenReturn) {
+     LOADER_ENTRY  *Entry;
+@@ -643,17 +668,10 @@
+     Entry = InitializeLoaderEntry(NULL);
+     if (Entry != NULL) {
+         Entry->DiscoveryType = DISCOVERY_TYPE_AUTO;
+-        Entry->Title = StrDuplicate((LoaderTitle != NULL) ? LoaderTitle : LoaderPath);
++        Entry->Title = LcosShortName(LoaderTitle, LoaderPath);
++        Entry->me.Title = StrDuplicate(Entry->Title);
+         LOG(1, LOG_LINE_NORMAL, L"Adding loader entry for '%s'", Entry->Title);
+         LOG(2, LOG_LINE_NORMAL, L"Loader path is '%s'", LoaderPath);
+-        // Extra space at end of Entry->me.Title enables searching on Volume->VolName even if another volume
+-        // name is identical except for something added to the end (e.g., VolB1 vs. VolB12).
+-        // Note: Volume->VolName will be NULL for network boot programs.
+-        if ((Volume->VolName) && (!MyStriCmp(Volume->VolName, L"Recovery HD")))
+-            Entry->me.Title = PoolPrint(L"Boot %s from %s ",
+-                                        (LoaderTitle != NULL) ? LoaderTitle : LoaderPath, Volume->VolName);
+-        else
+-            Entry->me.Title = PoolPrint(L"Boot %s ", (LoaderTitle != NULL) ? LoaderTitle : LoaderPath);
+         Entry->me.Row = 0;
+         Entry->me.BadgeImage = Volume->VolBadgeImage;
+         if ((LoaderPath != NULL) && (LoaderPath[0] != L'\\')) {
+--- a/refind/config.c	2024-04-04 20:01:00.000000000 +0000
++++ b/refind/config.c	2026-11-19 07:03:17.389206418 +0000
+@@ -667,7 +667,11 @@
+             HandleStrings(TokenList, TokenCount, &(GlobalConfig.DriverDirs));
+ 
+         } else if (MyStriCmp(TokenList[0], L"showtools")) {
+-            SetMem(GlobalConfig.ShowTools, NUM_TOOLS * sizeof(UINTN), 0);
++            // LCOS: assign 0 to every slot. SetMem's length/value order is
++            // not the same in every GNU-EFI, and a partial clear leaves the
++            // stock About tool plus a second shutdown/reboot/firmware.
++            for (i = 0; i < NUM_TOOLS; i++)
++                GlobalConfig.ShowTools[i] = 0;
+             GlobalConfig.HiddenTags = FALSE;
+             for (i = 1; (i < TokenCount) && (i < NUM_TOOLS); i++) {
+                 FlagName = TokenList[i];
+@@ -960,10 +964,9 @@
+         return NULL;
+ 
+     Entry->Title           = StrDuplicate(Title);
+-    Entry->me.Title        = AllocateZeroPool(256 * sizeof(CHAR16));
+-    Entry->me.Title        = PoolPrint(L"Boot %s from %s",
+-                                       (Title != NULL) ? Title : L"Unknown",
+-                                       CurrentVolume->VolName);
++    // LCOS: the icon label is the menuentry name ("LCOS"), not
++    // "Boot LCOS from <volume>".
++    Entry->me.Title        = StrDuplicate((Title != NULL) ? Title : L"Unknown");
+     Entry->me.Row          = 0;
+     Entry->me.BadgeImage   = CurrentVolume->VolBadgeImage;
+     Entry->Volume          = CurrentVolume;
+--- a/refind/menu.c	2024-04-06 18:26:04.000000000 +0000
++++ b/refind/menu.c	2026-11-19 07:07:07.200678409 +0000
+@@ -1074,6 +1074,31 @@
+ // graphical main menu style
+ //
+ 
++// LCOS: room under each OS icon for its name. Stock rEFInd draws one
++// label for the current selection only, centered under the tool row.
++static UINTN LcosLabelSpace(VOID) {
++    if (GlobalConfig.HideUIFlags & HIDEUI_FLAG_LABEL)
++        return 0;
++    return egGetFontHeight() + 6;
++}
++
++static VOID LcosDrawIconLabel(REFIT_MENU_ENTRY *Entry, UINTN XPos, UINTN YPos) {
++    UINTN TextWidth, LabelX, Tile;
++
++    // Names sit under the OS row only. Tool captions are wider than the
++    // small icons and run into each other.
++    if (LcosLabelSpace() == 0 || Entry == NULL || Entry->Row != 0 ||
++        Entry->Title == NULL || Entry->Title[0] == L'\0')
++        return;
++    Tile = TileSizes[Entry->Row];
++    egMeasureText(Entry->Title, &TextWidth, NULL);
++    if (TextWidth >= Tile)
++        LabelX = (XPos + Tile > TextWidth) ? (XPos + Tile - TextWidth) / 2 : XPos;
++    else
++        LabelX = XPos + (Tile - TextWidth) / 2;
++    DrawTextWithTransparency(Entry->Title, LabelX, YPos + Tile + 2);
++}
++
+ static VOID DrawMainMenuEntry(REFIT_MENU_ENTRY *Entry, BOOLEAN selected, UINTN XPos, UINTN YPos)
+ {
+     EG_IMAGE *Background;
+@@ -1091,6 +1116,7 @@
+         egDrawImageWithTransparency(Entry->Image, Entry->BadgeImage, XPos, YPos,
+                                     SelectionImages[Entry->Row]->Width, SelectionImages[Entry->Row]->Height);
+     } // if/else
++    LcosDrawIconLabel(Entry, XPos, YPos);
+ } // VOID DrawMainMenuEntry()
+ 
+ static VOID PaintAll(IN REFIT_MENU_SCREEN *Screen, IN SCROLL_STATE *State, UINTN *itemPosX,
+@@ -1111,15 +1137,6 @@
+                               itemPosX[i], row1PosY);
+         }
+     }
+-    if (!(GlobalConfig.HideUIFlags & HIDEUI_FLAG_LABEL) && (!PointerActive || (PointerActive && DrawSelection))) {
+-        DrawTextWithTransparency(L"", 0, textPosY);
+-        DrawTextWithTransparency(Screen->Entries[State->CurrentSelection]->Title,
+-                                 (UGAWidth - egComputeTextWidth(Screen->Entries[State->CurrentSelection]->Title)) >> 1,
+-                                 textPosY);
+-    } else {
+-          DrawTextWithTransparency(L"", 0, textPosY);
+-    }
+-
+     if (!(GlobalConfig.HideUIFlags & HIDEUI_FLAG_HINTS)) {
+         DrawTextWithTransparency(Screen->Hint1, (UGAWidth - egComputeTextWidth(Screen->Hint1)) / 2,
+                                  UGAHeight - (egGetFontHeight() * 3));
+@@ -1154,14 +1171,6 @@
+                           itemPosX[XSelectPrev], YPosPrev);
+         DrawMainMenuEntry(Screen->Entries[State->CurrentSelection], TRUE,
+                           itemPosX[XSelectCur], YPosCur);
+-        if (!(GlobalConfig.HideUIFlags & HIDEUI_FLAG_LABEL) && (!PointerActive || (PointerActive && DrawSelection))) {
+-            DrawTextWithTransparency(L"", 0, textPosY);
+-            DrawTextWithTransparency(Screen->Entries[State->CurrentSelection]->Title,
+-                                     (UGAWidth - egComputeTextWidth(Screen->Entries[State->CurrentSelection]->Title)) >> 1,
+-                                     textPosY);
+-        } else {
+-             DrawTextWithTransparency(L"", 0, textPosY);
+-        }
+     } else { // Current selection not visible; must redraw the menu....
+         MainMenuStyle(Screen, State, MENU_FUNCTION_PAINT_ALL, NULL);
+     }
+@@ -1246,7 +1255,7 @@
+             row0PosX = (UGAWidth + TILE_XSPACING - (TileSizes[0] + TILE_XSPACING) * row0Count) >> 1;
+             row0PosY = ComputeRow0PosY();
+             row1PosX = (UGAWidth + TILE_XSPACING - (TileSizes[1] + TILE_XSPACING) * row1Count) >> 1;
+-            row1PosY = row0PosY + TileSizes[0] + TILE_YSPACING;
++            row1PosY = row0PosY + TileSizes[0] + TILE_YSPACING + LcosLabelSpace();
+             if (row1Count > 0)
+                 textPosY = row1PosY + TileSizes[1] + TILE_YSPACING;
+             else
+@@ -1317,7 +1326,7 @@
+     row0PosX = (UGAWidth + TILE_XSPACING - (TileSizes[0] + TILE_XSPACING) * row0Count) >> 1;
+     row0PosY = ComputeRow0PosY();
+     row1PosX = (UGAWidth + TILE_XSPACING - (TileSizes[1] + TILE_XSPACING) * row1Count) >> 1;
+-    row1PosY = row0PosY + TileSizes[0] + TILE_YSPACING;
++    row1PosY = row0PosY + TileSizes[0] + TILE_YSPACING + LcosLabelSpace();
+ 
+     if (PosY >= row0PosY && PosY <= row0PosY + TileSizes[0]) {
+         itemRow = 0;

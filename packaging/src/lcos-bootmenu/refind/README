@@ -1,0 +1,22 @@
+# LCOS menu patch for rEFInd 0.14.2.
+# Apply from the unpacked upstream tree:
+#   patch -p1 < lcos-menu.patch
+#
+# Short names under each OS icon (LCOS, Windows, Haiku, Linux, macOS),
+# drawn by menu.c rather than one centered sentence. The tool row is
+# shutdown, reboot, and firmware only: showtools is cleared by
+# assignment, not SetMem, which left the stock About icon in place.
+# Tool captions are not drawn; they overlap at the small icon size.
+# The EFI binary built from this patch is usr/lib/lcos-bootmenu/refind_x64.efi.
+
+Rebuild (gnu-efi, x86_64):
+
+    tar xf refind_0.14.2.orig.tar.gz
+    cd refind-0.14.2
+    patch -p1 < lcos-menu.patch
+    make gnuefi
+    cp refind/refind_x64.efi ../usr/lib/lcos-bootmenu/refind_x64.efi
+
+Upstream: http://deb.debian.org/debian/pool/main/r/refind/refind_0.14.2.orig.tar.gz
+The drivers (hfs) still come from Devuan's refind package. This binary
+replaces only refind_x64.efi.

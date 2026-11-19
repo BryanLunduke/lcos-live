@@ -1,8 +1,11 @@
 5164058e237164bdf9b9f048f373d168  etc/default/grub.d/zz-lcos-bootmenu.cfg
 4c7632a49978ecfc949e99790c451c9a  etc/grub.d/06_lcos_bootmenu
-38d1a5539679d58e2ce76b2d6d91e770  usr/sbin/lcos-bootmenu
+0427da92ec0e8ae0a7181885eeeb66e0  refind/lcos-menu.patch
+31c6dc61f70724a93977ceafa90186ff  refind/README
+4caa5ffc282295306e181d895ff7ed89  usr/lib/lcos-bootmenu/refind_x64.efi
+b87cc4bc93d1e42e5911c6b9490c0978  usr/sbin/lcos-bootmenu
 2a9e2a7146f6b17eec226e0c02c40653  usr/share/doc/lcos-bootmenu/copyright
-bb7153bc38861ade64a803b8517e543c  usr/share/doc/lcos-bootmenu/README.Debian
+d0c9166d5562eb22a0d204e13a81d4c6  usr/share/doc/lcos-bootmenu/README.Debian
 35ff8894c9be16ffe9a7596d2e135d0a  usr/share/grub/themes/lcos/background.png
 242164135f76e72fcb20ff29ecf510ec  usr/share/grub/themes/lcos/dejavu-16.pf2
 7703d7bb9bd933be5b9f2d287f372792  usr/share/grub/themes/lcos/dejavu-20.pf2
@@ -17,7 +20,7 @@ d5ec65e69b63d40954706b896a5d9464  usr/share/grub/themes/lcos/icons/unknown.png
 d4ef8ab711a2e950e5db57eb28c4ca06  usr/share/grub/themes/lcos/lcos-logo.png
 f88d42bfff886377a01182369632f6fb  usr/share/grub/themes/lcos/theme.txt
 23b7ac86ceea33bd1fe3475ef407c525  usr/share/lcos-bootmenu/refind-theme/background.png
-6d905f9f0327832f5887752811d7e054  usr/share/lcos-bootmenu/refind-theme/dejavu-mono-16.png
+6c92ed8956f52d3b6584482bf0ee8da4  usr/share/lcos-bootmenu/refind-theme/dejavu-mono-16.png
 e4b39a5835c4ebf6ae9d032f71b33607  usr/share/lcos-bootmenu/refind-theme/icons/func_firmware.png
 e9726c28b231fc411dc06292840bf231  usr/share/lcos-bootmenu/refind-theme/icons/func_reset.png
 365dba8ab30729da431c54efb1ffeb45  usr/share/lcos-bootmenu/refind-theme/icons/func_shutdown.png

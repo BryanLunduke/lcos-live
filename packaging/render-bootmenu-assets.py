@@ -233,9 +233,12 @@ def refind_font(path):
     cell = max(font.getbbox("M")[2], 1) + 1
     im = Image.new("RGBA", (cell * 96, height), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
+    # rEFInd draws this bitmap as-is on a light field and inverts the RGB
+    # on a dark field (libeg/text.c, BGBrightness < 128). Glyphs must be
+    # black with a real alpha, the same as upstream's fonts. A white glyph
+    # inverts to black and disappears on the navy banner.
     for i, ch in enumerate(chars):
-        d.text((i * cell, 1), ch, font=font, fill=WHITE)
-    # rEFInd wants a straight alpha PNG, not a palette image.
+        d.text((i * cell, 1), ch, font=font, fill=(0, 0, 0, 255))
     save(im, path)
 
 

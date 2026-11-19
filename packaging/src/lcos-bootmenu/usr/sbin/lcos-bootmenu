@@ -170,7 +170,14 @@ copy_refind_tree() {
 	src=$1
 	dest="$ESP/EFI/refind"
 	mkdir -p "$dest/themes/lcos" "$dest/icons" "$dest/drivers_x64" "$dest/refind-vars"
-	cp -f "$src/refind_x64.efi" "$dest/refind_x64.efi"
+	# Prefer the LCOS build (short icon labels, one tool row). The Debian
+	# binary is the fallback if that file is missing.
+	ours="${LCOS_BOOTMENU_REFIND_EFI:-$(dirname "$(dirname "$SHARE")")/lib/lcos-bootmenu/refind_x64.efi}"
+	if [ -f "$ours" ]; then
+		cp -f "$ours" "$dest/refind_x64.efi"
+	else
+		cp -f "$src/refind_x64.efi" "$dest/refind_x64.efi"
+	fi
 	if [ -d "$src/icons" ]; then
 		cp -a "$src/icons/." "$dest/icons/"
 	fi
@@ -279,10 +286,14 @@ maybe_replace_fallback() {
 	saved=$4
 	[ -f "$grub_efi" ] || return 0
 	[ -f "$refind_efi" ] || return 0
-	[ -f "$fallback" ] || return 0
-	if cmp -s "$fallback" "$grub_efi"; then
+	fb=$(dirname "$fallback")
+	name=$(basename "$fallback")
+	if [ -f "$fallback" ] && cmp -s "$fallback" "$grub_efi"; then
 		cp -f "$fallback" "$saved"
-		install_fallback_tree "$(dirname "$fallback")" "$(basename "$fallback")" "$refind_efi"
+		install_fallback_tree "$fb" "$name" "$refind_efi"
+	elif [ -f "$saved" ]; then
+		# Refresh a fallback this script already owns.
+		install_fallback_tree "$fb" "$name" "$refind_efi"
 	fi
 }
 

@@ -16,9 +16,16 @@ and anything os-prober found.
 
 rEFInd scans Windows (EFI/Microsoft/Boot/bootmgfw.efi), Haiku
 (EFI/Haiku/haiku_loader.efi), other Linux GRUB directories, and macOS
-(System/Library/CoreServices/boot.efi on HFS+). It does not scan
-/boot for vmlinuz, and the ext4/btrfs drivers are not installed, so it
-cannot boot a kernel directly and skip GRUB.
+(System/Library/CoreServices/boot.efi on HFS+). Labels under the icons
+are short names (LCOS, Windows, Haiku, Linux, macOS). That text, and a
+tool row that is only shutdown, reboot, and firmware setup, come from
+refind/lcos-menu.patch against rEFInd 0.14.2. The built binary is
+/usr/lib/lcos-bootmenu/refind_x64.efi. Devuan's refind package still
+supplies the HFS driver and the stock icon set.
+
+It does not scan /boot for vmlinuz, and the ext4/btrfs drivers are not
+installed, so a kernel file is not a tile and cannot skip GRUB. Another
+Linux is listed when it has its own EFI loader.
 
 Last choice is stored in EFI/refind/refind-vars (use_nvram false), not
 in firmware NVRAM. Timeout is 5 seconds. Mouse is on. The second row is
@@ -58,13 +65,15 @@ package wrote:
 
 What rEFInd cannot do
 ---------------------
-Labels under auto-detected loaders are rEFInd's own sentences
-("Boot Microsoft EFI boot from …"), so the theme leaves them visible
-rather than inventing a second menu. 32-bit UEFI (early Intel Macs)
+The tool icons have no captions. "Shut Down" and "Firmware" are wider
+than the small icons and run into each other, so the patch draws the
+short name under each OS icon only. 32-bit UEFI (early Intel Macs)
 keeps GRUB: the amd64 refind package has no refind_ia32.efi. APFS
 macOS needs a driver Devuan does not ship; HFS+ Intel Mac volumes are
 scanned. Shutdown uses rEFInd's firmware call, which reboots some
 UEFI machines instead of powering off. A firmware that ignores the
 boot variables and only starts EFI/BOOT/bootx64.efi gets rEFInd only
 when that file was a copy of our GRUB; a Windows-owned fallback is
-not replaced.
+not replaced. The theme font is black with a real alpha: rEFInd
+inverts those pixels on the navy banner, which is what makes the
+labels white. A white glyph inverts to black and cannot be read.
