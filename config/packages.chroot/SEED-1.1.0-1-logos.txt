@@ -1,0 +1,36 @@
+SEED rebuild of the 1.1.0-1 logo debs. 2026-11-19.
+Versions stay 1.1.0-1. No ISO bake, no apt publish, no tag, no GitHub release.
+SHA256SUMS still covers 33 top-level debs. sha256sum -c passes.
+Replaces the seeded bytes only. Older hashes stay in the 2026-11-12 seed notes.
+
+lcos-branding 1.1.0-1 all
+  packaging/build-110-system-debs.sh --seed --only lcos-branding
+  from packaging/src/lcos-branding at lcos-live d899f050 (PR #19).
+  The script rewrote Installed-Size (12268 -> 13464) and md5sums.
+  md5sums already matched the new artwork, so only Installed-Size changed
+  in the source tree. Copy in packaging/debs matches packages.chroot.
+  /usr/share/pixmaps/lcos-logo.png md5 34739c9e739b87c59f3b2a6c11b669c3
+  (was 1303cea7fc8ad03eca71ddd906824bd2).
+  Ships /usr/share/icons/hicolor/*/apps/lcos-logo.png (20 sizes, including @2).
+  /usr/share/pixmaps/lcos32.png is 32x32 RGBA with partial-alpha edge pixels.
+
+lcos-settings 1.1.0-1 amd64
+  packaging/build-deb.sh from BryanLunduke/lcos-settings
+  master 20c15a996c1754db1ce43cbf59df9fc9025aeb33 (PR #12),
+  Debian trixie, g++ 14.2.0-19, DEB_BUILD_OPTIONS=nocheck,
+  same as the 2026-11-12 seed. That master also contains the Command
+  Center fixes from PRs #9, #10 and #11; the changelog was not bumped.
+  libgtk-3-0t64 Depends minimum is 3.9.10 (was 3.0.0).
+
+lunduke-about 1.1.0-1 amd64
+  packaging/build-deb.sh from BryanLunduke/LCOS-AboutThisComputer
+  master 80a691e3784a0fe2d82b96e666abef86abf38999 (PR #65),
+  Debian trixie, g++ 14.2.0-19. meson test passed 4/4.
+  The UI test needs a Helvetica metric font (fonts-urw-base35, Nimbus Sans);
+  DejaVu Sans alone changes the 13px line height and fails the 520x360 check.
+  Depends match the replaced deb. Unpacked diff is the seven logo PNGs.
+  usr/bin/lunduke-about is byte-identical to the replaced deb.
+
+a3402ca3a52af36e354629fb3d4a0d7a97b50387afb93936b3918452fecdac02  lcos-branding_1.1.0-1_all.deb
+9ffc2f59e257ad8564913b73976e2ee2b4151c469bfc330b3abbacf317a45911  lcos-settings_1.1.0-1_amd64.deb
+8af363b18195cf701f5bc5f0ed2ea7f203d71f4ade282ea73d2a4f0896594768  lunduke-about_1.1.0-1_amd64.deb
