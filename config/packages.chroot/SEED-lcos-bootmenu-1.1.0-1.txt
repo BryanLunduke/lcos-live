@@ -18,8 +18,9 @@ Depends: grub-common, grub-efi-amd64-bin, refind (>= 0.14.2).
 Recommends: efibootmgr, grub-efi-ia32-bin.
 installer.list.chroot lists refind and efibootmgr.
 
-The rEFInd binary in the package is rEFInd 0.14.2 plus refind/lcos-menu.patch:
+The rEFInd binary in the package is rEFInd 0.14.2 plus
+/usr/share/doc/lcos-bootmenu/lcos-menu.patch:
 short names under each OS icon, and one tool row (shutdown, reboot,
 firmware). /boot/vmlinuz is not a tile.
 
-e46fd7ae7ffdc2a9a3805d2b10267351c64cb7b3916755d448795aec3ac459c7  lcos-bootmenu_1.1.0-1_all.deb
+5f88a2f5db3c6abcfc2e61738c7d5e19bb1ebe3a347b4816c80546bcd4c61052  lcos-bootmenu_1.1.0-1_all.deb

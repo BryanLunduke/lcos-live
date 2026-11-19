@@ -19,7 +19,7 @@ rEFInd scans Windows (EFI/Microsoft/Boot/bootmgfw.efi), Haiku
 (System/Library/CoreServices/boot.efi on HFS+). Labels under the icons
 are short names (LCOS, Windows, Haiku, Linux, macOS). That text, and a
 tool row that is only shutdown, reboot, and firmware setup, come from
-refind/lcos-menu.patch against rEFInd 0.14.2. The built binary is
+/usr/share/doc/lcos-bootmenu/lcos-menu.patch against rEFInd 0.14.2. The built binary is
 /usr/lib/lcos-bootmenu/refind_x64.efi. Devuan's refind package still
 supplies the HFS driver and the stock icon set.
 
