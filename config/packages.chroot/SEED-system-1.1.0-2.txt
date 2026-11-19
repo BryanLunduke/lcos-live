@@ -7,7 +7,7 @@ lcos-base 1.1.0-2: ships /usr/lib/sysctl.d/60-lcos-dirty-writeback.conf
   vm.dirty_background_bytes=16777216 (16 MiB) and vm.dirty_bytes=67108864 (64 MiB).
   Absolute bytes, so the cap does not grow with RAM. Writing *_bytes zeroes the
   matching *_ratio (confirmed: ratios read back 0). Background is set first.
-  Depends unchanged from 1.1.0-1.
+  Depends were unchanged from 1.1.0-1 in that build.
   Boot: procps 2:4.0.4-9devuan1 is already in the image (hard Depends of lightdm,
   eudev, cups, cups-daemon, ucf, dconf-service and gnumeric; --apt-recommends false
   still installs it). /etc/init.d/procps is Default-Start S and runs
@@ -25,4 +25,15 @@ lcos-base 1.1.0-2: ships /usr/lib/sysctl.d/60-lcos-dirty-writeback.conf
 lcos-desktop-config stays 1.1.0-2. lcos-branding stays 1.1.0-1.
 Other system debs stay 0.9.4-1. Apps stay 1.1.0-1. Kernel stays LLK 7.2.15-lcos33.
 
-5b61d88b2ae18a19ba89f7ddff6deb3cdb246b042e746b08b9372de1678551b2  lcos-base_1.1.0-2_all.deb
+2026-11-19 rebuild of the same version (1.1.0 has not been published, so no bump).
+Port of the 1.0.2 lcos-base hotfix. Depends libegl1 so glamor keeps libEGL
+after Qt or VLC is removed (those packages marked libegl1 auto, and
+autoremove then deleted it). Also listed in base.list.chroot.
+Ships /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf (ServerFlags
+Option SingleDriver on, #202). Implemented by xserver-xlibre-core
+2:25.1.11-1+lcos2; a later ServerFlags section can turn it off.
+The dirty-writeback sysctl above is unchanged. Installed-Size 240.
+Unpacked additions vs the first 1.1.0-2: the ServerFlags file and changelog.gz.
+Control archive also changes: description, md5sums.
+
+49f2ce94ee483385e7eaa983af8d75d2f86ee5653b26a5b09c25f59012fe3e26  lcos-base_1.1.0-2_all.deb
