@@ -1,0 +1,13 @@
+# LCOS 1.1.0-2: hidden from the menu and the Settings Manager. The
+# owning package stays installed. LCOS defaults to one workspace, so
+# this editor is not offered and is not opened in Command Center.
+# NoDisplay hides the entry. Launching this id still runs the tool.
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Workspaces
+Comment=Configure layout, names and margins
+Exec=xfwm4-workspace-settings
+Icon=org.xfce.workspaces
+NoDisplay=true
+OnlyShowIn=XFCE;

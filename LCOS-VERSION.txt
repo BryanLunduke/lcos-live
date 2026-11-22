@@ -39,6 +39,16 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     UEFI install only. refind/install_to_esp is forced false. Secure Boot is
     unchanged (unsigned kernel, no shim/MOK). Seeded for the next bake
     (SEED-lcos-bootmenu-1.1.0-1.txt). Not baked. No apt publish.
+  2026-11-22: lcos-desktop-config stays 1.1.0-2 (not published, so no bump).
+    lcos-settings stays 1.1.0-1. NoDisplay overrides, same mechanism as the
+    twelve already shipped, in packaging/src and the identical
+    includes.chroot copies: Window Manager opens
+    lcos-settings --page=window-manager. Window Manager Tweaks opens
+    --page=window-tweaks. Workspaces and Color Profiles are
+    hidden and are not redirected. Screensaver, Panel Preferences, Settings
+    Editor, pavucontrol, nm-connection-editor, blueman, and
+    system-config-printer stay in the menu. Seeded deb is unchanged.
+    Not baked. No apt publish.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).
 

@@ -1,0 +1,13 @@
+# LCOS 1.1.0-2: hidden from the menu and the Settings Manager. The
+# owning package stays installed. colord is not installed, so Color
+# Profiles is a dead end and is not opened in Command Center.
+# NoDisplay hides the entry. Launching this id still runs the tool.
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Color Profiles
+Comment=Set color profiles
+Exec=xfce4-color-settings
+Icon=org.xfce.settings.color
+NoDisplay=true
+OnlyShowIn=XFCE;

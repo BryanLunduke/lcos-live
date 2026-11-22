@@ -32,6 +32,7 @@ c908d96ee8c438fbc614e28a086d8013  usr/local/bin/lcos-set-wallpaper
 9986e5d607111d5936df3ea6afbf50a3  usr/local/share/applications/thunar-volman-settings.desktop
 2dc078a492f058deb95e36a8c8b3d581  usr/local/share/applications/xfce4-about.desktop
 44357ba75832e5fc01630af132253430  usr/local/share/applications/xfce4-accessibility-settings.desktop
+70e026377fae04d0f79e88f47fc9cec7  usr/local/share/applications/xfce4-color-settings.desktop
 4072624dd374355ab8a719d168e6867f  usr/local/share/applications/xfce4-mime-settings.desktop
 d2fe2b34568e6a08c1032c8efdf8b071  usr/local/share/applications/xfce4-notifyd-config.desktop
 bb7a6466bab95b150035c9339a78a5a4  usr/local/share/applications/xfce4-power-manager-settings.desktop
@@ -42,12 +43,15 @@ f453e436d34514457567faf519797d7f  usr/local/share/applications/xfce-keyboard-set
 14384252f62214576f849ea484d11bf4  usr/local/share/applications/xfce-session-settings.desktop
 11940b44527e638b714acd32c8e1a013  usr/local/share/applications/xfce-settings-manager.desktop
 333c9dc0062b14aa9366abae5555ce26  usr/local/share/applications/xfce-ui-settings.desktop
+1f2b584b01f1159fd5b9570330156c6a  usr/local/share/applications/xfce-wm-settings.desktop
+02b300f14356965d436ec2c594b0125b  usr/local/share/applications/xfce-wmtweaks-settings.desktop
+ca4d9239e9f79b865800855c4b9ec38d  usr/local/share/applications/xfce-workspaces-settings.desktop
 c5a99893a3a6c3ab4a615d0758fc45cd  usr/local/share/xfce4/helpers/brave.desktop
 ab401ce1969242f07f9e693ca34d41bf  usr/share/applications/xfce4-file-manager.desktop
 996974e29ba047ebd39ad00a3bbabb9b  usr/share/applications/xfce4-mail-reader.desktop
 a0ad452e8aa96d87297dfb5da61a9ee8  usr/share/applications/xfce4-terminal-emulator.desktop
 247b13b4685edb31b7af875e20a5c3cc  usr/share/applications/xfce4-web-browser.desktop
 6dfa38f524706408d2164d9c0af9052a  usr/share/desktop-directories/xfce-science.directory
-0aec5dd31b98b62304530f960f820ff9  usr/share/doc/lcos-desktop-config/changelog.gz
+eca3d3587c6ea7dc248abfe80fd907d1  usr/share/doc/lcos-desktop-config/changelog.gz
 4afeb7521ecae88541c7c49db54cee42  usr/share/doc/lcos-desktop-config/copyright
 82193fb792ea743233468877be0d48bc  usr/share/xfce4/helpers/lunduke-edit.desktop

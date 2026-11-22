@@ -3,7 +3,7 @@ Version: 1.1.0-2
 Section: x11
 Priority: optional
 Architecture: all
-Installed-Size: 484
+Installed-Size: 500
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
 Depends: lcos-branding (>= 0.7), lcos-theme-clearlooks (>= 0.7), lcos-settings (>= 1.1.0-1), lunduke-terminal
@@ -80,7 +80,13 @@ Description: LCOS XFCE defaults (xdg, skel, wallpaper, menus)
  lunduke-terminal, so an upgrade configures the terminal alternative
  before this package pins it. The Settings
  menu opens Command Center. Covered XFCE settings dialogs are hidden
- with NoDisplay files in /usr/local/share/applications. postinst diverts
+ with NoDisplay files in /usr/local/share/applications. Window Manager
+ opens Command Center on the Window Manager page. Window Manager
+ Tweaks opens the Window Manager Tweaks page. Workspaces and Color
+ Profiles are hidden the same way and are
+ not redirected. Screensaver, Panel Preferences, Settings Editor,
+ pavucontrol, Network Connections, Bluetooth, and Printers stay in
+ the menu. postinst diverts
  /usr/bin/xfce4-display-settings to the Command Center hot-plug wrapper
  and removes that diversion on purge.
  Editor 2026-11-12.
