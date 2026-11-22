@@ -81,8 +81,9 @@ Description: LCOS XFCE defaults (xdg, skel, wallpaper, menus)
  before this package pins it. The Settings
  menu opens Command Center. Covered XFCE settings dialogs are hidden
  with NoDisplay files in /usr/local/share/applications. Window Manager
- and Window Manager Tweaks open Command Center on the Window Manager
- page. Workspaces and Color Profiles are hidden the same way and are
+ opens Command Center on the Window Manager page. Window Manager
+ Tweaks opens the Window Manager Tweaks page. Workspaces and Color
+ Profiles are hidden the same way and are
  not redirected. Screensaver, Panel Preferences, Settings Editor,
  pavucontrol, Network Connections, Bluetooth, and Printers stay in
  the menu. postinst diverts
