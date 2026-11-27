@@ -8,7 +8,7 @@
 > packages are 25.1.11-1+lcos2 (SingleDriver, #202).
 > Current versions and seeds: `LCOS-VERSION.txt`, `config/packages.chroot/SHA256SUMS`
 > and the `config/packages.chroot/SEED-*.txt` notes (apps 1.1.0-1, system 1.1.0-1,
-> lcos-base 1.1.0-2, XLibre 25.1.11-1+lcos2, LLK 7.2.15-lcos33).
+> lcos-base 1.1.0-2, XLibre 25.1.11-1+lcos2, LLK 7.3.6-lcos34).
 > The 1.0.1, 1.0.0, 0.9.x and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,
@@ -34,9 +34,9 @@ Public apt overlay remains the signed **0.7** tree (`lcosrepo1` master `53439b7`
 - Mirror: set in `auto/config`. Build-time fetches are pinned to FAU over HTTPS;
   the installed system's apt sources use `deb.devuan.org` (#163)
 - Init: sysvinit (`--initsystem sysvinit`, `sysvinit-core`, `live-config-sysvinit`)
-- Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.2.15-lunduke`, 1.1.0);
+- Kernel (default ISO): **Lunduke Linux Kernel** (`linux-image-7.3.6-lunduke`, 1.1.0);
   live-build `--linux-packages none` + `kernel-lunduke.list.chroot`. Seeded
-  7.2.15-lcos33 debs (see `config/packages.chroot/SEED-llk-7.2.15-lcos33.txt`). When the
+  7.3.6-lcos34 debs (Linux 7.3.6; see `config/packages.chroot/SEED-llk-7.3.6-lcos34.txt`). When the
   kernel release changes, keep the package list, `KVER` in
   `config/hooks/live/0095-lunduke-initramfs.hook.chroot` and the seeded debs in step. Bake
   override: `helpers/binary_linux-image` — see `helpers/README-LLK-BAKE.md`.

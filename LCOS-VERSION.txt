@@ -1,6 +1,6 @@
 LCOS 1.1.0 recipe tree (git: BryanLunduke/lcos-live master)
 Opened 2026-11-12 (America/Chicago) from official 1.0.1.
-Working version: 1.1.0 - in development. This open is a version bump only (identity and the three system debs). No functional changes. Kernel 7.4 is not started.
+Working version: 1.1.0 - in development. Opened as a version bump only (identity and the three system debs). Kernel: LLK 7.3.6-lcos34 (Linux 7.3.6) since 2026-11-27.
 1.0.1 freeze point (last release):
   ISO lcos-live-101-07.iso, SHA256 5730641a4ec90ba188df463d0f77261494f333d4005869fc29c97ad33cd53841, 1557233664 bytes.
   The 101-07 bake used a preseeded stock Debian librsvg2-bin_2.60.0+dfsg-1+deb13u1 as a build-env workaround.
@@ -62,6 +62,13 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     panel right-click Preferences action (xfce4-panel --preferences)
     are unchanged. Check for Updates, Settings Editor, Thunar
     Preferences, and Synaptic stay in the menu. Not baked. No apt publish.
+  2026-11-27 (editor): kernel LLK 7.3.6-lcos34 (lunduke-linux-kernel #31, master 7ddc16ae; no tag yet)
+    replaces 7.2.15-lcos33 as the LCOS 1.1 kernel. Linux 7.3.6 (7.3 expected to be the next LTS); lcos33
+    config carried forward with olddefconfig plus 12 new 7.3 drivers (RTL8922DE Wi-Fi 7, AW88399 Legion
+    speakers, SOF AMD ACP7X, AMD SFH tablet mode, Yoga Book 9 dock, AMD PMF util, MSI Claw, HyperX,
+    SteelSeries, LeapRAID, NXP IW61x, Morse Micro HaLow); 1153 modules. New kernel release 7.3.6-lunduke:
+    package list and 0095 hook KVER updated. Image + headers + meta seeded (no linux-libc-dev).
+    lcos33 debs moved to superseded/ (gitignored). See SEED-llk-7.3.6-lcos34.txt. Not baked. No apt publish.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).
 

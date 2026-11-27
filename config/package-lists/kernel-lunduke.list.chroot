@@ -1,10 +1,10 @@
 # Lunduke Linux Kernel: default ISO kernel for 0.9.5.
-# Seeded 7.2.15-lcos33 on 2026-11-06 CT for LCOS 1.0.1 (lunduke-linux-kernel
-# master 7b7536ca, PR #30, tag 7.2.15-lcos33); see
-# config/packages.chroot/SEED-llk-7.2.15-lcos33.txt.
-# Replaced 7.2.15-lcos32 (moved to config/packages.chroot/superseded/).
-# lcos30 is a new kernel release (7.2.15-lunduke), so the image/headers
-# package names changed. Keep this list, the KVER in
+# Seeded 7.3.6-lcos34 on 2026-11-27 CT for LCOS 1.1 (lunduke-linux-kernel
+# master 7ddc16ae, PR #31; no tag yet); see
+# config/packages.chroot/SEED-llk-7.3.6-lcos34.txt.
+# Replaced 7.2.15-lcos33 (moved to config/packages.chroot/superseded/).
+# lcos34 is a new kernel release (7.3.6-lunduke), so the image/headers
+# package names changed again (lcos30-lcos33 used 7.2.15-lunduke). Keep this list, the KVER in
 # config/hooks/live/0095-lunduke-initramfs.hook.chroot and the seeded debs in step.
 # (lcos4-lcos28 all used the single 7.2.6-lunduke release.)
 # lcos18: DM_CRYPT=m + XTS (#123), UHID=m (#120), RMI4_F11=y (#121).
@@ -21,6 +21,7 @@
 # lcos31: HID_RMI (#182), IXGBE (#183), net sched/cls/act (#184), B44 + IWL3945 (#187), INTEL_SKL_INT3472 camera, 7.2 survey easy batch; 1088 modules.
 # lcos32: ACPI_SBS=m (#191, MacBook Air 2014 smart battery); 1090 modules.
 # lcos33: WireGuard, IPv6 policy routing, OVPN, INET ESP/AH, FQ/CAKE, VLAN/macvlan/ipvlan, rt2x00, ATH5K, ATL1C/E, HID gaming, VMware balloon, Galaxy Book/MSI/Uniwill; 1133 modules.
-linux-image-7.2.15-lunduke
-linux-headers-7.2.15-lunduke
+# lcos34: Linux 7.3.6 (lcos33 carried forward) + 7.3 picks: RTL8922DE, AW88399, SOF ACP7X, AMD SFH tablet mode, Yoga Book 9 dock, AMD PMF util, MSI Claw, HyperX, SteelSeries, LeapRAID, NXP IW61x, Morse Micro HaLow; 1153 modules.
+linux-image-7.3.6-lunduke
+linux-headers-7.3.6-lunduke
 lunduke-linux-kernel

@@ -1,4 +1,27 @@
-# Lunduke's Linux Kernel (optional overlay)
+# Lunduke's Linux Kernel
+
+## Current (LCOS 1.1, updated 2026-11-27 America/Chicago)
+
+Lunduke's Linux Kernel (LLK) is the default and only ISO kernel (since LCOS 0.7).
+
+| Item | Value |
+|------|-------|
+| Version | `7.3.6-lcos34` (Linux 7.3.6) |
+| Kernel release | `7.3.6-lunduke` |
+| Source | `BryanLunduke/lunduke-linux-kernel` master `7ddc16ae` (PR #31) |
+| Seeded debs | `linux-image-7.3.6-lunduke`, `linux-headers-7.3.6-lunduke`, `lunduke-linux-kernel` (all `7.3.6-lcos34`) |
+| Seed note | `config/packages.chroot/SEED-llk-7.3.6-lcos34.txt` |
+| Package list | `config/package-lists/kernel-lunduke.list.chroot` |
+| Initramfs hook | `config/hooks/live/0095-lunduke-initramfs.hook.chroot` (`KVER="7.3.6-lunduke"`) |
+| Bake helper | `helpers/binary_linux-image` (see `helpers/README-LLK-BAKE.md`) |
+
+When the kernel release changes, keep the package list, the hook `KVER` and the seeded debs in step.
+LCOS 1.0.x ships `7.2.15-lcos33` (`7.2.15-lunduke`), frozen on branch `lcos-1.0.1`.
+On upgraded systems the 7.3.6-lunduke kernel installs beside the older ones, which stay as GRUB fallbacks.
+
+## History (2026-09-20, LCOS 0.6 era)
+
+The notes below describe LLK as an optional overlay before it became the ISO default. Kept for history.
 
 **Date:** 2026-09-20 (America/Chicago)
 

@@ -1,0 +1,20 @@
+SEED LLK 7.3.6-lcos34 2026-11-27 CT (LCOS 1.1, testing only)
+GitHub BryanLunduke/lunduke-linux-kernel PR #31, merged as 7ddc16ae (same tree as the PR head
+c2b75e3e the debs were built from). Editor ordered 2026-11-27 CT: make 7.3.6-lcos34 the LCOS 1.1
+kernel and build a new ISO. No kernel tag yet.
+Upstream Linux 7.3.6 (latest 7.3.y; 7.3 expected to be the next LTS). No source patches. No Forced Rust.
+Config = lcos33 carried forward with make olddefconfig (every lcos30-lcos33 option kept;
+  DRM_AMD_DC_DCE=y; PROC_SYSCTL folded into SYSCTL upstream) + the editor's 12 new 7.3 drivers:
+  RTW89_8922DE, SND_HDA_SCODEC_AW88399_I2C, SND_SOC_SOF_AMD_ACP7X, INPUT_AMD_SFH_TABLETMODE,
+  LENOVO_YB9_KBDOCK, HID_MSI, HID_HYPERX, HID_STEELSERIES, SCSI_LEAPRAID, NXPWIFI_SDIO, MM81X_USB (=m),
+  AMD_PMF_UTIL_SUPPORT=y. 1153 modules (lcos33 had 1133). QEMU TCG boot OK on SeaBIOS and OVMF;
+  new modules load.
+New kernel release 7.3.6-lunduke (was 7.2.15-lunduke): new package names; kernel-lunduke.list.chroot
+  and KVER in config/hooks/live/0095-lunduke-initramfs.hook.chroot updated to match.
+Seeded image + headers + meta (same set as lcos33); linux-libc-dev intentionally NOT seeded.
+Image/headers debs have no Depends (bindeb-pkg); header tools need only libc6, libelf1, libxxhash0
+  (same as lcos33).
+Replaced LLK 7.2.15-lcos33 (moved to superseded/, gitignored).
+5994ae42de1366c7f05dc7cd534b287651a20cb7b500ab67801a2a1bf95a5cef  linux-image-7.3.6-lunduke_7.3.6-lcos34_amd64.deb
+545b4db63bfdc1af3f8fc02a86d36a98180f842a1e5d86407e98c1b26db2a609  linux-headers-7.3.6-lunduke_7.3.6-lcos34_amd64.deb
+18a982721cafc08c97221e91922767c4cf8113e9a1a3bb61d1bbe43fe6b3fab0  lunduke-linux-kernel_7.3.6-lcos34_all.deb
