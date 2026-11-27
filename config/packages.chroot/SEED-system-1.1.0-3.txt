@@ -1,0 +1,15 @@
+SEED LCOS lcos-base 1.1.0-3 2026-11-27 (built by LC_ALL=C packaging/build-110-system-debs.sh --only lcos-base, copied in by hand; SHA256SUMS line replaced in place to keep its order)
+Editor 2026-11-27: lcos-base's copy of the apt pin matches lcos-live
+config/archives/lcos-amd-backports.pref (lcos-live b09e29b3).
+Unsigned; editor signs the archive. No ISO bake / no apt publish.
+Replaces: lcos-base 1.1.0-2 (moved to superseded/, kept in packaging/debs and git history).
+lcos-base 1.1.0-3: /etc/apt/preferences.d/lcos-amd-backports.pref adds
+  firmware-mediatek to the excalibur-backports 990 pin, so installed systems
+  keep firmware-mediatek 20260916-1~bpo13+1 (MT7927 and MT7902 Wi-Fi for LLK
+  7.3.6 mt7925e/mt7921e, newer MT7925) and get later backports builds.
+  Unpacked diff vs 1.1.0-2: the pref file and changelog.gz.
+  Control archive also changes: version, description, md5sums. Installed-Size 240.
+  Depends unchanged.
+lcos-desktop-config stays 1.1.0-3. lcos-branding stays 1.1.0-1. Other system debs unchanged.
+
+dd3a9ac782d8168c331b2a9ed897c56771a611f4c141e3df76c28bf382e8b3d2  lcos-base_1.1.0-3_all.deb

@@ -1,5 +1,5 @@
 Package: lcos-base
-Version: 1.1.0-2
+Version: 1.1.0-3
 Section: admin
 Priority: optional
 Architecture: all
@@ -185,3 +185,7 @@ Description: LCOS 1.1.0 identity, GRUB drop-in, X/boot-order system config
  Updates installs with Recommends off, so this is a Depends. Also
  listed in base.list.chroot. Version stays 1.1.0-2 (1.1.0 has not
  been published). Editor 2026-11-19.
+ 1.1.0-3: the apt pin also takes firmware-mediatek from
+ excalibur-backports (20260916-1~bpo13+1): MT7927 and MT7902 Wi-Fi
+ firmware for LLK 7.3.6 mt7925e/mt7921e and newer MT7925 firmware.
+ Matches config/archives/lcos-amd-backports.pref. Editor 2026-11-27.

@@ -6,9 +6,11 @@
 > test bake: **`lcos-live-110-01.iso`**. lcos-base 1.1.0-2 caps dirty writeback
 > (LCOS #201; `SEED-system-1.1.0-2.txt`) and depends on libegl1. XLibre server
 > packages are 25.1.11-1+lcos2 (SingleDriver, #202).
+> lcos-base 1.1.0-3 adds firmware-mediatek to its copy of the backports apt pin
+> (`SEED-system-1.1.0-3.txt`).
 > Current versions and seeds: `LCOS-VERSION.txt`, `config/packages.chroot/SHA256SUMS`
 > and the `config/packages.chroot/SEED-*.txt` notes (apps 1.1.0-1, system 1.1.0-1,
-> lcos-base 1.1.0-2, XLibre 25.1.11-1+lcos2, LLK 7.3.6-lcos34).
+> lcos-base 1.1.0-3, XLibre 25.1.11-1+lcos2, LLK 7.3.6-lcos34).
 > The 1.0.1, 1.0.0, 0.9.x and 0.8 notes below are kept for history.
 
 Lunduke Computer Operating System. Devuan Excalibur live ISO with XLibre,

@@ -34,7 +34,12 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     (lcos-amd-backports.pref, same upstream drop as the other pinned firmware) and listed in
     hardware.list.chroot. Adds MT7927 and MT7902 Wi-Fi firmware for LLK 7.3.6 mt7925e/mt7921e
     and newer MT7925 firmware (ISO had excalibur 20250410-2). lcos-base's copy of the pin is
-    not rebuilt. Not baked. No apt publish.
+    not rebuilt in that commit (see next entry). Not baked. No apt publish.
+  2026-11-27 (editor): lcos-base 1.1.0-3 (SEED-system-1.1.0-3.txt): its copy of
+    /etc/apt/preferences.d/lcos-amd-backports.pref adds firmware-mediatek to the 990 pin,
+    identical to config/archives/lcos-amd-backports.pref, so installed systems keep
+    following excalibur-backports for it. Replaces 1.1.0-2 in config/packages.chroot.
+    Depends unchanged. Not baked. No apt publish.
   lcos-bootmenu 1.1.0-1 (new package, not a bump of any other package): UEFI
     installs use rEFInd 0.14.2 as the picker and chainload the existing GRUB
     (cryptodisk, $lcos_quirks, update-grub, hidden timeout 0, "Boot options"

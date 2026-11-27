@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build the LCOS 1.1.0 system overlay debs (unsigned). lcos-base 1.1.0-2 (dirty writeback cap, LCOS #201; SingleDriver snippet and Depends libegl1, #202). lcos-branding 1.1.0-1. lcos-desktop-config 1.1.0-3 (NoDisplay for Print Settings, Advanced Network Configuration, Bluetooth Manager, Bluetooth Adapters, Panel, and Volume Control, 2026-11-27; 1.1.0-2 was Lunduke Terminal, Command Center, and the hot-plug display divert). lcos-zork 1.1.0-1 (launchers use lunduke-terminal). Other metapackages stay 0.9.4-1.
+# Build the LCOS 1.1.0 system overlay debs (unsigned). lcos-base 1.1.0-3 (firmware-mediatek added to the backports pin, 2026-11-27; 1.1.0-2 was the dirty writeback cap, LCOS #201, and the SingleDriver snippet plus Depends libegl1, #202). lcos-branding 1.1.0-1. lcos-desktop-config 1.1.0-3 (NoDisplay for Print Settings, Advanced Network Configuration, Bluetooth Manager, Bluetooth Adapters, Panel, and Volume Control, 2026-11-27; 1.1.0-2 was Lunduke Terminal, Command Center, and the hot-plug display divert). lcos-zork 1.1.0-1 (launchers use lunduke-terminal). Other metapackages stay 0.9.4-1.
 # (lcos-base Depends and pin as 1.0.1-5, incl. less, plus libegl1; lcos-desktop-config 1.1.0-3 hides the settings apps Command Center replaced):
 # lcos-base (identity 1.1.0; Depends eject, cifs-utils, keyutils,
 # gvfs-backends, dialog as 0.9.2-5; ships the lcos-amd-backports.pref apt pin
@@ -45,7 +45,7 @@ build() {
 }
 
 VER=0.9.4-1
-BASEVER=1.1.0-2
+BASEVER=1.1.0-3
 DCVER=1.1.0-3
 BRVER=1.1.0-1
 ZORKVER=1.1.0-1
