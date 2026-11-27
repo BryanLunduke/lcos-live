@@ -74,6 +74,9 @@ firmware-intel-graphics
 # via lcos-amd-backports.pref (Dell XPS 13 DX13260 speaker amps; Intel ISH ish_wcl.bin sensors).
 firmware-cirrus
 firmware-intel-misc
+# 1.1.0 (editor 2026-11-27): MediaTek Wi-Fi/BT firmware from excalibur-backports
+# 20260916 via lcos-amd-backports.pref (MT7927 and MT7902 Wi-Fi for LLK 7.3.6, newer MT7925).
+firmware-mediatek
 
 # Device firmware updates (D-Bus activated; opensysusers provides systemd-sysusers)
 fwupd

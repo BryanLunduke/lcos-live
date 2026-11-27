@@ -14,9 +14,12 @@
 # speaker amps, e.g. Dell XPS 13 DX13260) and firmware-intel-misc (Intel
 # ISH sensor-hub firmware incl. ish_wcl.bin, NPU vpu_50xx) from backports (20260916-1~bpo13+1, the same
 # upstream drop as the other pinned firmware packages; checked 2026-11-02).
+# 1.1.0 (editor 2026-11-27): firmware-mediatek from backports (20260916-1~bpo13+1)
+# for LLK 7.3.6-lcos34 mt7925e/mt7921e: MT7927 Wi-Fi (mt7927/WIFI_*_MT6639_2_1)
+# and MT7902 firmware, plus newer MT7925. excalibur 20250410-2 lacks them.
 # Everything else in backports is blocked (-1).
 
-Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-realtek firmware-iwlwifi firmware-intel-sound firmware-intel-graphics firmware-cirrus firmware-intel-misc
+Package: firmware-amd-graphics firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-realtek firmware-iwlwifi firmware-intel-sound firmware-intel-graphics firmware-cirrus firmware-intel-misc firmware-mediatek
 Pin: release n=excalibur-backports
 Pin-Priority: 990
 

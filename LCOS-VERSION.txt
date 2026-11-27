@@ -30,6 +30,11 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     /usr/share/X11/xorg.conf.d/05-lcos-singledriver.conf. libegl1 is also in base.list.chroot.
     1.0.2 identity strings and lcos-branding 1.0.2-1 were not brought over. Not baked.
     No apt publish. No tag.
+  2026-11-27 (editor): firmware-mediatek pinned to excalibur-backports 20260916-1~bpo13+1
+    (lcos-amd-backports.pref, same upstream drop as the other pinned firmware) and listed in
+    hardware.list.chroot. Adds MT7927 and MT7902 Wi-Fi firmware for LLK 7.3.6 mt7925e/mt7921e
+    and newer MT7925 firmware (ISO had excalibur 20250410-2). lcos-base's copy of the pin is
+    not rebuilt. Not baked. No apt publish.
   lcos-bootmenu 1.1.0-1 (new package, not a bump of any other package): UEFI
     installs use rEFInd 0.14.2 as the picker and chainload the existing GRUB
     (cryptodisk, $lcos_quirks, update-grub, hidden timeout 0, "Boot options"
