@@ -1,0 +1,52 @@
+SEED LCOS lcos-desktop-config 1.1.0-3 2026-11-27
+Built with dpkg-buildpackage -us -uc -b (binary-only, unsigned) from
+packaging/src/lcos-desktop-config. Testing only. No ISO bake, no apt
+publish, no GitHub release.
+Replaces: lcos-desktop-config 1.1.0-2 in config/packages.chroot (moved to
+superseded/, not committed). packaging/debs keeps 1.1.0-2.
+packaging/build-110-system-debs.sh DCVER is 1.1.0-3. That script still
+packs with dpkg-deb; the payload and control of that pack match this
+deb, and the archive hash does not. This file's hash is the
+dpkg-buildpackage deb.
+
+NoDisplay overrides in /usr/local/share/applications, the same mechanism
+as the XFCE dialogs Command Center already replaced. includes.chroot
+copies are identical. The packages are not removed. Each override is the
+desktop id from Debian Trixie, which Devuan excalibur ships at the same
+version. The file in /usr/local/share wins over /usr/share and is left
+alone when the owning package is upgraded.
+
+Hidden:
+  system-config-printer 1.5.18-4     system-config-printer.desktop
+    Name=Print Settings, Exec=system-config-printer
+  nm-connection-editor 1.36.0-3+b1   nm-connection-editor.desktop
+    Name=Advanced Network Configuration, Exec=nm-connection-editor
+  blueman 2.4.4-1                    blueman-manager.desktop
+    Name=Bluetooth Manager, Exec=blueman-manager
+  blueman 2.4.4-1                    blueman-adapters.desktop
+    Name=Bluetooth Adapters, Exec=blueman-adapters
+    (the package file has NoDisplay=false; the override sets true)
+  xfce4-panel 4.20.4-1               panel-preferences.desktop
+    Name=Panel, Exec=xfce4-panel --preferences
+  pavucontrol 6.1-1                  org.pulseaudio.pavucontrol.desktop
+    Name=Volume Control, Exec=pavucontrol
+    The package does not ship pavucontrol.desktop.
+
+Left in place: nm-applet (usr/share/applications and
+/etc/xdg/autostart), the blueman applet autostart
+(/etc/xdg/autostart/blueman.desktop), the panel plugins, and
+panel-desktop-handler.desktop. The panel right-click Preferences item
+runs xfce4-panel --preferences directly, not the desktop file.
+
+Unpacked diff vs the seeded 1.1.0-2 deb: the six desktop files above,
+plus xfce-wm-settings.desktop, xfce-wmtweaks-settings.desktop,
+xfce-workspaces-settings.desktop, and xfce4-color-settings.desktop
+(those four were already in the source tree; 1.1.0-2 was not rebuilt
+after they were added), and changelog.gz. Every other payload file is
+byte-identical, including the screensaver, one-workspace, and panel XML.
+Control archive: version 1.1.0-3, Installed-Size 524, description, md5sums.
+
+lcos-base stays 1.1.0-2. lcos-branding stays 1.1.0-1. Other system debs
+stay 0.9.4-1. Apps stay 1.1.0-1. Kernel stays LLK 7.2.15-lcos33.
+
+ee47cb5b7f2e6191c675179fde500284cbd92d86a5d2a5848bc0d36dc156bfea  lcos-desktop-config_1.1.0-3_all.deb
