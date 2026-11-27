@@ -1,0 +1,17 @@
+# LCOS 1.1.0-3: Command Center covers this. The owning package stays
+# installed (Command Center launches the program directly). NoDisplay
+# hides the entry from Settings and every other menu category. This
+# file is in /usr/local/share/applications so it wins over the package
+# .desktop and survives package upgrades. Launching this id still runs
+# the tool.
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Print Settings
+Comment=Configure printers
+Exec=system-config-printer
+Icon=printer
+Terminal=false
+StartupNotify=true
+NoDisplay=true
+OnlyShowIn=XFCE;

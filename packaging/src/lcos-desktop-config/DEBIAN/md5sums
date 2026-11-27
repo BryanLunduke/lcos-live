@@ -28,7 +28,13 @@ b2e936c69dae51955f79e99a7700718d  etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4
 f4a63fb3d2855a6ce6174b8826110e4b  etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 46c75c236e9405107198acf1bea9b878  etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 c908d96ee8c438fbc614e28a086d8013  usr/local/bin/lcos-set-wallpaper
+b5a2a8e9fe81085fc3bb87862aac98c0  usr/local/share/applications/blueman-adapters.desktop
+fabfd9abc319f6926a57856de89407f0  usr/local/share/applications/blueman-manager.desktop
 5d7db597f1f260403219b7b03fc353b6  usr/local/share/applications/micropolis.desktop
+e5dd3b1c863e04ac9cb696e0ee1006ce  usr/local/share/applications/nm-connection-editor.desktop
+88c6e4d19e6e2fc208403d77d22df874  usr/local/share/applications/org.pulseaudio.pavucontrol.desktop
+0db61894d5ca86f93992be9bc02b7548  usr/local/share/applications/panel-preferences.desktop
+f885414f6305df4694bad6890d0d641d  usr/local/share/applications/system-config-printer.desktop
 9986e5d607111d5936df3ea6afbf50a3  usr/local/share/applications/thunar-volman-settings.desktop
 2dc078a492f058deb95e36a8c8b3d581  usr/local/share/applications/xfce4-about.desktop
 44357ba75832e5fc01630af132253430  usr/local/share/applications/xfce4-accessibility-settings.desktop
@@ -52,6 +58,6 @@ ab401ce1969242f07f9e693ca34d41bf  usr/share/applications/xfce4-file-manager.desk
 a0ad452e8aa96d87297dfb5da61a9ee8  usr/share/applications/xfce4-terminal-emulator.desktop
 247b13b4685edb31b7af875e20a5c3cc  usr/share/applications/xfce4-web-browser.desktop
 6dfa38f524706408d2164d9c0af9052a  usr/share/desktop-directories/xfce-science.directory
-eca3d3587c6ea7dc248abfe80fd907d1  usr/share/doc/lcos-desktop-config/changelog.gz
+3b9d979c9b928a9d9c6351ed9e725a41  usr/share/doc/lcos-desktop-config/changelog.gz
 4afeb7521ecae88541c7c49db54cee42  usr/share/doc/lcos-desktop-config/copyright
 82193fb792ea743233468877be0d48bc  usr/share/xfce4/helpers/lunduke-edit.desktop

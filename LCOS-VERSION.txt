@@ -49,6 +49,19 @@ Next bake filename: lcos-live-110-01.iso (test bake; not published until approve
     Editor, pavucontrol, nm-connection-editor, blueman, and
     system-config-printer stay in the menu. Seeded deb is unchanged.
     Not baked. No apt publish.
+  2026-11-27: lcos-desktop-config 1.1.0-3 (SEED-lcos-desktop-config-1.1.0-3.txt).
+    NoDisplay overrides, same /usr/local/share/applications mechanism and
+    identical includes.chroot copies, hide Print Settings
+    (system-config-printer.desktop), Advanced Network Configuration
+    (nm-connection-editor.desktop), Bluetooth Manager
+    (blueman-manager.desktop), Bluetooth Adapters
+    (blueman-adapters.desktop), Panel (panel-preferences.desktop), and
+    Volume Control. Trixie and Devuan excalibur pavucontrol 6.1-1 ship
+    org.pulseaudio.pavucontrol.desktop, not pavucontrol.desktop. The
+    packages stay installed. nm-applet, the blueman applet, and the
+    panel right-click Preferences action (xfce4-panel --preferences)
+    are unchanged. Check for Updates, Settings Editor, Thunar
+    Preferences, and Synaptic stay in the menu. Not baked. No apt publish.
 Autologin stays ON by default; screensaver and lock stay OFF by default.
 Apt: do NOT publish from this open until approved. Official 1.0.1 overlay is live (lcosrepo1 facb90f5).
 
